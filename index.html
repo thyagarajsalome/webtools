@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tool websites hub</title>
+
+    <link rel="stylesheet" href="./styles.css" />
+    <!-- <link rel="stylesheet" href="./styles2.css" /> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+
+  <!-- Body -->
+
+  <body>
+    <header class="header-bar">
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li class="dropdown">
+            <a href="#estimation">Estimation</a>
+            <ul class="dropdown-content">
+              <li><a href="./paint.html" target="_blank">Paint</a></li>
+            </ul>
+          </li>
+          <li><a href="#contact-page">Contact</a></li>
+          <li><a href="#policy">Policy</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="about">
+        <h3>About</h3>
+        <p>
+          Tool Websites Hub is dedicated to providing accurate and helpful tools
+          for house construction planning and budget estimation in India. Our
+          goal is to empower homeowners and builders with the information they
+          need to make informed decisions about their construction projects.
+        </p>
+      </div>
+      <!-- colorfull large icons -->
+
+      <div class="colorfull-large-icons">
+        <div class="i-container">
+          <div class="category">
+            <a href="#">
+              <i class="fa-solid fa-house icon" style="color: #4caf50"></i>
+              <p>House</p>
+            </a>
+          </div>
+          <div class="category">
+            <a href="#">
+              <i class="fa-solid fa-border-all icon" style="color: #2196f3"></i>
+              <p>Floor & Wall tile</p>
+            </a>
+          </div>
+          <div class="category">
+            <a href="./paint.html" target="_blank">
+              <i
+                class="fa-solid fa-paint-roller icon"
+                style="color: #ffc107"
+              ></i>
+              <p>Paint</p>
+            </a>
+          </div>
+          <div class="category">
+            <a href="#">
+              <i class="fa-solid fa-faucet icon" style="color: #00bcd4"></i>
+              <p>Plumbing</p>
+            </a>
+          </div>
+          <div class="category">
+            <a href="#">
+              <i class="fa-solid fa-bolt icon" style="color: #ff9800"></i>
+              <p>Electrical</p>
+            </a>
+          </div>
+          <div class="category">
+            <a href="#">
+              <i class="fa-solid fa-bath icon" style="color: #9c27b0"></i>
+              <p>Bath fittings</p>
+            </a>
+          </div>
+          <div class="category">
+            <a href="#">
+              <i class="fa-solid fa-door-open icon" style="color: #795548"></i>
+              <p>Doors & Windows</p>
+            </a>
+          </div>
+          <div class="category">
+            <a href="#">
+              <i class="fa-solid fa-couch icon" style="color: #e91e63"></i>
+              <p>Interior design</p>
+            </a>
+          </div>
+        </div>
+        <p class="adding-tool">
+          We're continuously adding new tools to our platform.
+        </p>
+      </div>
+      <section id="estimation">
+        <div class="container">
+          <h3>House Construction Budget Estimation</h3>
+          <p>
+            Use our calculator to get an average estimation of your house
+            construction costs. Please note that this calculator provides an
+            approximate estimation only.
+          </p>
+          <div class="category-estimation">
+            <h3>Categories</h3>
+            <div id="categories" class="category-list">
+              <!-- Categories will be dynamically added here -->
+            </div>
+          </div>
+          
+
+          <!-- Gallery -->
+          
+      </section>
+
+      <!-- House calculator -->
+      <div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
+        <h3 class="text-2xl font-bold mb-4 text-center">
+          House Construction Estimation Calculator
+        </h3>
+        <h3 class="text-xl font-semibold mb-2">Labour and Material Contract</h3>
+        <table class="table-auto w-full mb-4">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="px-4 py-2">Type of Construction</th>
+              <th class="px-4 py-2">Area in sqft</th>
+              <th class="px-4 py-2">Quality</th>
+              <th class="px-4 py-2">Total cost in Rs</th>
+              <th class="px-4 py-2">Floors</th>
+              <th class="px-4 py-2">Total cost with Floors</th>
+            </tr>
+          </thead>
+          <tbody id="material-contract">
+            <tr>
+              <td class="border px-4 py-2">
+                <select id="type-construction-1" class="w-full">
+                  <option value="Independent house">House</option>
+                  <option value="villa">Villa</option>
+                  <option value="apartment">Apartment</option>
+                  <option value="duplex">Duplex</option>
+                </select>
+              </td>
+              <td class="border px-4 py-2">
+                <input
+                  type="number"
+                  id="area-1"
+                  class="w-full"
+                  placeholder="Enter"
+                />
+              </td>
+              <td class="border px-4 py-2">
+                <select id="quality-1" class="w-full">
+                  <option value="1500">Basic avg - 1500/sqft</option>
+                  <option value="1800">Normal avg - 1800/sqft</option>
+                  <option value="2000">Premium avg - 2000/sqft</option>
+                </select>
+              </td>
+              <td class="border px-4 py-2">
+                <input
+                  type="number"
+                  id="total-cost-1"
+                  class="w-full bg-gray-200"
+                  readonly
+                />
+              </td>
+              <td class="border px-4 py-2">
+                <select id="floors-1" class="w-full">
+                  <option value="1">G+0</option>
+                  <option value="2">G+1</option>
+                  <option value="3">G+2</option>
+                  <option value="4">G+3</option>
+                  <option value="5">G+4</option>
+                </select>
+              </td>
+              <td class="border px-4 py-2">
+                <input
+                  type="number"
+                  id="total-cost-floors-1"
+                  class="w-full bg-gray-200"
+                  readonly
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="flex justify-between mb-4">
+          <h3 class="text-lg font-semibold">
+            Total Labour and Material Estimation: Rs
+            <span id="total-estimation">0</span>
+          </h3>
+        </div>
+
+        <h3 class="text-xl font-semibold mb-2">Labour Contract</h3>
+        <table class="table-auto w-full mb-4">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="px-4 py-2">Type of Construction</th>
+              <th class="px-4 py-2">Area in sqft</th>
+              <th class="px-4 py-2">Quality</th>
+              <th class="px-4 py-2">Total cost in Rs</th>
+              <th class="px-4 py-2">Floors</th>
+              <th class="px-4 py-2">Total cost with Floors</th>
+            </tr>
+          </thead>
+          <tbody id="labour-contract">
+            <tr>
+              <td class="border px-4 py-2">
+                <select id="type-construction-2" class="w-full">
+                  <option value="Independent house">House</option>
+                  <option value="villa">Villa</option>
+                  <option value="apartment">Apartment</option>
+                  <option value="duplex">Duplex</option>
+                </select>
+              </td>
+              <td class="border px-4 py-2">
+                <input
+                  type="number"
+                  id="area-2"
+                  class="w-full"
+                  placeholder="Enter"
+                />
+              </td>
+              <td class="border px-4 py-2">
+                <select id="quality-2" class="w-full">
+                  <option value="250">Basic avg - 250/sqft</option>
+                  <option value="300">Normal avg - 300/sqft</option>
+                  <option value="350">Premium avg - 350/sqft</option>
+                </select>
+              </td>
+              <td class="border px-4 py-2">
+                <input
+                  type="number"
+                  id="total-cost-2"
+                  class="w-full bg-gray-200"
+                  readonly
+                />
+              </td>
+              <td class="border px-4 py-2">
+                <select id="floors-2" class="w-full">
+                  <option value="1">G+0</option>
+                  <option value="2">G+1</option>
+                  <option value="3">G+2</option>
+                  <option value="4">G+3</option>
+                  <option value="5">G+4</option>
+                </select>
+              </td>
+              <td class="border px-4 py-2">
+                <input
+                  type="number"
+                  id="total-cost-floors-2"
+                  class="w-full bg-gray-200"
+                  readonly
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="flex justify-between mb-4">
+          <h3 class="text-lg font-semibold">
+            Total Labour Cost Estimation: Rs
+            <span id="total-labour-estimation">0</span>
+          </h3>
+        </div>
+        <button class="clear-btn" id="clear-all">Clear All</button>
+      </div>
+
+      <section id="contact">
+        <div class="container">
+          <!-- End of House calculators -->
+
+          <!-- Floor & Wall calculator -->
+
+          <h3>Floor and Wall Tile Calculator</h3>
+          <div class="container">
+            <div class="grid-container" id="roomSelection">
+              <button class="room-button" data-room="Living Room">
+                Living Room
+              </button>
+              <button class="room-button" data-room="Bedroom">Bedroom</button>
+              <button class="room-button" data-room="Kitchen">Kitchen</button>
+              <button class="room-button" data-room="Bathroom">Bathroom</button>
+              <button class="room-button" data-room="Parking">Parking</button>
+            </div>
+
+            <div
+              id="estimatorForm"
+              class="estimator-form"
+              style="display: none"
+            >
+              <h3 id="roomTitle"></h3>
+              <label for="tileType">Tile Type:</label>
+              <select id="tileType">
+                <option value="floor">Floor Tile</option>
+                <option value="wall">Wall Tile</option>
+              </select>
+
+              <label for="tileSize">Tile Size:</label>
+              <select id="tileSize">
+                <option value="1x1">1' x 1'</option>
+                <option value="1x2">1' x 2'</option>
+                <option value="2x2">2' x 2'</option>
+                <option value="2x4">2' x 4'</option>
+              </select>
+
+              <label for="area">Total Area (in sq ft):</label>
+              <input type="number" id="area" min="1" step="0.01" required />
+
+              <label for="costPerSqFt">Cost per sq ft (in Rs):</label>
+              <input
+                type="number"
+                id="costPerSqFt"
+                min="1"
+                step="0.01"
+                required
+              />
+
+              <button onclick="calculateEstimation()">
+                Calculate Estimation
+              </button>
+            </div>
+
+            <div id="estimationResult"></div>
+            <div id="estimationList"></div>
+            <div id="totalCostDisplay"></div>
+            <button class="dte-btn" onclick="downloadTotalEstimation()">
+              Download Total Estimation
+            </button>
+          </div>
+
+          <!-- Contact section -->
+          <h3 id="contact-page">Contact Us</h3>
+          <p>Have questions or need assistance? Reach out to us!</p>
+          <p>Email: info@toolwebsiteshub.com</p>
+        </div>
+      </section>
+
+      <section id="policy">
+        <div class="container">
+          <h3>Our Policy</h3>
+          <p>
+            At Tool Websites Hub, we are committed to providing accurate and
+            helpful information. Our estimation tool is designed to give you a
+            general idea of costs, but please note that actual costs may vary
+            based on factors such as location, materials, and labor costs.
+          </p>
+          <p>
+            We respect your privacy and do not store any personal information.
+          </p>
+        </div>
+      </section>
+
+      <section id="faq">
+        <div class="container">
+          <h3>Frequently Asked Questions</h3>
+          <p>How accurate is the budget estimation?</p>
+          <p>
+            Our estimation tool provides an average cost based on general data.
+            Actual costs may vary depending on factors such as location,
+            materials, and labor costs.
+          </p>
+          <br />
+          <p>Can I use this tool for commercial construction projects?</p>
+
+          <p>
+            This tool is primarily designed for residential construction in
+            India. For commercial projects, we recommend consulting with a
+            professional estimator.
+          </p>
+          <br />
+          <p>How often is the cost data updated?</p>
+          <p>
+            We strive to update our cost data regularly to reflect current
+            market trends. However, we recommend using the estimates as a
+            starting point and consulting with local contractors for more
+            precise quotes.
+          </p>
+        </div>
+      </section>
+    </main>
+    <div class="footer">
+      <h5>© 2024 Tool websites Hub vesion 1.0</h5>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="./script.js"></script>
+    <script src="./script1.js"></script>
+    <script src="./script2.js"></script>
+    <script src="./script3.js"></script>
+  </body>
+</html>
