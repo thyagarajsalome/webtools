@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plumbing Calculator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      .container {
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      h1,
+      h2 {
+        color: #333;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      select,
+      input {
+        width: 100%;
+        padding: 5px;
+      }
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .remove-btn {
+        background-color: #f44336;
+      }
+      .remove-btn:hover {
+        background-color: #da190b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Plumbing Calculator</h1>
+      <table id="plumbingTable">
+        <thead>
+          <tr>
+            <th>Plumbing Work</th>
+            <th>Avg-Cost per Bathroom</th>
+            <th>No of Bathrooms</th>
+            <th>Amount in Rs</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Pipes (PVC and CPVC)</td>
+            <td>
+              <select class="cost-select">
+                <option value="10000">10,000 Rs</option>
+                <option value="15000">15,000 Rs</option>
+                <option value="20000">20,000 Rs</option>
+              </select>
+            </td>
+            <td><input type="number" class="bathroom-count" min="0" /></td>
+            <td class="amount">0</td>
+          </tr>
+          <!-- Add more rows for other items -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Total</td>
+            <td id="totalAmount">0</td>
+          </tr>
+        </tfoot>
+      </table>
+      <button id="addToListBtn">Add to List</button>
+    </div>
+
+    <div class="container">
+      <h2>Selected Items</h2>
+      <table id="selectedItemsTable">
+        <thead>
+          <tr>
+            <th>Selected Items</th>
+            <th>Amount in Rs</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">Total Amount in Rs</td>
+            <td id="listTotalAmount">0</td>
+          </tr>
+        </tfoot>
+      </table>
+      <button id="downloadPdfBtn">Download PDF</button>
+    </div>
+
+    <script>
+      const plumbingItems = [
+        { name: "Pipes (PVC and CPVC)", options: [10000, 15000, 20000] },
+        { name: "Fittings", options: [10000, 15000, 20000] },
+        { name: "Water closet (WC)", options: [5000, 10000, 20000] },
+        { name: "Wash basin", options: [5000, 10000, 15000] },
+        { name: "Shover tap", options: [3000, 5000, 8000] },
+        { name: "Geyser", options: [10000, 15000, 25000] },
+        { name: "Exhaust fan", options: [500, 1000, 2000] },
+        { name: "Labour for Installation", options: [15000, 20000, 25000] },
+      ];
+
+      function initializePlumbingTable() {
+        const tbody = document.querySelector("#plumbingTable tbody");
+        tbody.innerHTML = "";
+        plumbingItems.forEach((item) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>
+                        <select class="cost-select">
+                            ${item.options
+                              .map(
+                                (opt) =>
+                                  `<option value="${opt}">${opt.toLocaleString()} Rs</option>`
+                              )
+                              .join("")}
+                        </select>
+                    </td>
+                    <td><input type="number" class="bathroom-count" min="0"></td>
+                    <td class="amount">0</td>
+                `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function updateAmounts() {
+        let total = 0;
+        document.querySelectorAll("#plumbingTable tbody tr").forEach((row) => {
+          const cost = parseInt(row.querySelector(".cost-select").value);
+          const count =
+            parseInt(row.querySelector(".bathroom-count").value) || 0;
+          const amount = cost * count;
+          row.querySelector(".amount").textContent = amount.toLocaleString();
+          total += amount;
+        });
+        document.getElementById("totalAmount").textContent =
+          total.toLocaleString();
+      }
+
+      function addToList() {
+        const selectedItemsTable = document.querySelector(
+          "#selectedItemsTable tbody"
+        );
+        document.querySelectorAll("#plumbingTable tbody tr").forEach((row) => {
+          const name = row.cells[0].textContent;
+          const amount = parseInt(
+            row.querySelector(".amount").textContent.replace(/,/g, "")
+          );
+          if (amount > 0) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                        <td>${name}</td>
+                        <td>${amount.toLocaleString()}</td>
+                        <td><button class="remove-btn">Remove</button></td>
+                    `;
+            selectedItemsTable.appendChild(tr);
+          }
+        });
+        updateListTotal();
+      }
+
+      function updateListTotal() {
+        let total = 0;
+        document
+          .querySelectorAll("#selectedItemsTable tbody tr")
+          .forEach((row) => {
+            total += parseInt(row.cells[1].textContent.replace(/,/g, ""));
+          });
+        document.getElementById("listTotalAmount").textContent =
+          total.toLocaleString();
+      }
+
+      function removeFromList(event) {
+        if (event.target.classList.contains("remove-btn")) {
+          event.target.closest("tr").remove();
+          updateListTotal();
+        }
+      }
+
+      function downloadPdf() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.text("Plumbing Estimation", 10, 10);
+        let y = 20;
+
+        document
+          .querySelectorAll("#selectedItemsTable tbody tr")
+          .forEach((row) => {
+            const item = row.cells[0].textContent;
+            const amount = row.cells[1].textContent;
+            doc.text(`${item}: ${amount} Rs`, 10, y);
+            y += 10;
+          });
+
+        const total = document.getElementById("listTotalAmount").textContent;
+        doc.text(`Total Amount: ${total} Rs`, 10, y + 10);
+
+        doc.save("plumbing_estimation.pdf");
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        initializePlumbingTable();
+        document
+          .getElementById("plumbingTable")
+          .addEventListener("input", updateAmounts);
+        document
+          .getElementById("addToListBtn")
+          .addEventListener("click", addToList);
+        document
+          .getElementById("selectedItemsTable")
+          .addEventListener("click", removeFromList);
+        document
+          .getElementById("downloadPdfBtn")
+          .addEventListener("click", downloadPdf);
+      });
+    </script>
+  </body>
+</html>
