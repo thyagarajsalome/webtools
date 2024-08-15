@@ -53,13 +53,13 @@
       <div class="colorfull-large-icons">
         <div class="i-container">
           <div class="category">
-            <a href="#">
+            <a href="#house-page">
               <i class="fa-solid fa-house icon" style="color: #4caf50"></i>
               <p>House</p>
             </a>
           </div>
           <div class="category">
-            <a href="#">
+            <a href="#Tile-page">
               <i class="fa-solid fa-border-all icon" style="color: #2196f3"></i>
               <p>Floor & Wall tile</p>
             </a>
@@ -110,25 +110,28 @@
       </div>
       <section id="estimation">
         <div class="container">
-          <h3>House Construction Budget Estimation</h3>
-          <p>
-            Use our calculator to get an average estimation of your house
-            construction costs. Please note that this calculator provides an
-            approximate estimation only.
-          </p>
+                
           <div class="category-estimation">
             <h3>Categories</h3>
             <div id="categories" class="category-list">
               <!-- Categories will be dynamically added here -->
             </div>
+          </div>          
+                </section>
           </div>
         </section>
                       
+
       <!-- House calculator -->
       <div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
-        <h3 class="text-2xl font-bold mb-4 text-center">
-          House Construction Estimation Calculator
-        </h3>
+        <h3 id="house-page">
+          House Construction Estimation Calculator</h3>
+          <p>
+            Use our calculator to get an average estimation of your house
+            construction costs. Please note that this calculator provides an
+            approximate estimation only.
+          </p>
+       
         <h3 class="text-xl font-semibold mb-2">Labour and Material Contract</h3>
         <table class="table-auto w-full mb-4">
           <thead>
@@ -195,7 +198,8 @@
           </tbody>
         </table>
         <div class="flex justify-between mb-4">
-          <h3 class="text-lg font-semibold">
+
+          <h3 id="Tile-page" class="text-lg font-semibold">
             Total Labour and Material Estimation: Rs
             <span id="total-estimation">0</span>
           </h3>

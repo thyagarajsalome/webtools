@@ -16,7 +16,6 @@
         padding: 0;
         background-color: #f4f4f4;
       }
-
       .container {
         width: 90%;
         max-width: 1200px;
@@ -34,6 +33,11 @@
         width: 100%;
         border-collapse: collapse;
         margin-bottom: 20px;
+      }
+
+      .disclaimer {
+        color: #333;
+        margin: 10px 10px 10px 10px;
       }
 
       th,
@@ -130,12 +134,19 @@
   <body>
     <div class="container">
       <h2>Electrical Work Estimation Calculator</h2>
-
+      <div class="disclaimer">
+        <p>
+          Disclaimer: The cost of electrical work can vary significantly based
+          on several factors including material quality, labor costs, and
+          specific requirements. The following estimate is a rough approximation
+          and should be used as a general guideline.
+        </p>
+      </div>
       <table id="calculatorTable">
         <thead>
           <tr>
             <th>Electrical work</th>
-            <th>Avg-Cost per 1 sqft</th>
+            <th>Avg-Cost/1sqft</th>
             <th>Total sqft</th>
             <th>Floors</th>
             <th>Amount in Rs</th>
