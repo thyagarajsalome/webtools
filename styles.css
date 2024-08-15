@@ -190,7 +190,6 @@ h3 {
   /* transform: scale(1.05); */
  */
 
-
 .gallery-item svg {
   margin-bottom: 10px;
   width: 24px;
@@ -441,7 +440,7 @@ justify-content: center;
 
 .table-auto th,
 .table-auto td {
-  padding: 0. 5rem;
+  padding: 0.5rem;
   font-weight: 200;
 }
 
@@ -451,6 +450,7 @@ justify-content: center;
 
 .table-auto tbody tr {
   border-bottom: 1px solid #e2e8f0;
+  font-weight: 200;
 }
 
 .table-auto tbody tr:last-child {
