@@ -450,7 +450,7 @@ justify-content: center;
 }
 
 .table-auto thead {
-  background-color: #e2e8f0;
+  background-color: var(--card-bg-color);
 }
 
 .table-auto tbody tr {
