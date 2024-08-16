@@ -124,7 +124,7 @@ h1, h2  {
 h3 {
   margin-top: 10px;
   font-size: large;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 18px;
 }
 
@@ -185,6 +185,10 @@ h3 {
   align-items: center;
   justify-content: center;
 }
+
+/* .gallery-item:hover {
+  /* transform: scale(1.05); */
+ */
 
 .gallery-item svg {
   margin-bottom: 10px;
