@@ -1,4 +1,4 @@
-// Floor and wall calculator
+
 
 const roomButtons = document.querySelectorAll(".room-button");
 const estimatorForm = document.getElementById("estimatorForm");
