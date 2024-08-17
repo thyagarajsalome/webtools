@@ -510,14 +510,15 @@ button:hover {
 }
 
 .adding-tool {
- 
- text-align: center;
- 
- margin: 10px 0 10px;
+ margin-left: 60px;
+ margin-top: 10px;
+ margin-bottom: 20px;
+ /* text-align: center; */
+
+ /* margin: 10px 0 10px; */
 }
 
 /* Large colorfull icons */
-
 
 .i-container {
   display: flex;
@@ -562,7 +563,6 @@ a:hover {
       font-size: 36px;
   }
 }
-
 
 /* Testing -Header */
 
