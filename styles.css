@@ -567,7 +567,7 @@ a:hover {
 /* Testing -Header */
 
 .header-bar {
-  background-color: var(--card-bg-color);
+  background-color: var(--primary-color);
   color: #333;
   padding: 1rem;
 }
@@ -580,8 +580,8 @@ nav ul {
 
 nav ul li a {
   
-   color: #333;
-   font-weight: 600;
+   color: #fff;
+   font-weight: 500;
   text-decoration: none;
 }
 
