@@ -4,7 +4,7 @@
 
 :root {
   --primary-color: #3498db;
-  --secondary-color: #2ecc71;
+   --secondary-color: #2ecc71;
   --background-color: #f9f9f9;
   --text-color: black;
   --card-bg-color: #fff;
@@ -47,7 +47,6 @@ body {
   margin: 20px auto;
   padding: 0 20px;
 }
-
 
 h1, h2  {
   margin-bottom: 10px;
