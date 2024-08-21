@@ -531,8 +531,8 @@ button:hover {
 .category {
   text-align: center;
   width: calc(25% - 20px);
-  min-width: 150px;
-  margin-bottom: 20px;
+  min-width: 160px;
+  margin-bottom: 10px;
 }
 .icon {
   font-size: 32px;
