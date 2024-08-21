@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+      <loc>https://toolwebsite.in/</loc>
+      <lastmod>2024-08-21</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>
+     <url>
+      <loc>https://toolwebsite.in/paint.html</loc>
+      <lastmod>2024-08-21</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>
+    <url>
+      <loc>https://toolwebsite.in/plumbing.html</loc>
+      <lastmod>2024-08-21</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>
+    <url>
+      <loc>https://toolwebsite.in/electrical.html</loc>
+      <lastmod>2024-08-21</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>
+   
+   
+   <!-- Add more URLs as needed -->
+</urlset>
