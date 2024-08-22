@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doors and Windows Calculator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f0f0f0;
+      }
+      .calculator {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      select,
+      input[type="number"] {
+        width: 100%;
+        padding: 5px;
+      }
+      button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      .remove-btn {
+        background-color: #f44336;
+      }
+      #selectedItems {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <h2>Doors and Windows Calculator</h2>
+      <table id="calculatorTable">
+        <tr>
+          <th>Type</th>
+          <th>Size (in feet)</th>
+          <th>Price Range (INR)</th>
+          <th>Units</th>
+          <th>Total</th>
+        </tr>
+        <tr>
+          <td>
+            <select id="type">
+              <option value="Wooden Door">Wooden Door</option>
+              <option value="Composite Door">Composite Door</option>
+              <option value="Aluminum Door">Aluminum Door</option>
+              <option value="Steel Door">Steel Door</option>
+              <option value="Glass Door">Glass Door</option>
+              <option value="Wooden Window">Wooden Window</option>
+              <option value="Aluminum Window">Aluminum Window</option>
+              <option value="UPVC Window">UPVC Window</option>
+              <option value="Glass Window">Glass Window</option>
+            </select>
+          </td>
+          <td>
+            <select id="size">
+              <option value="7x3">7x3</option>
+              <option value="8x3">8x3</option>
+              <option value="9x3">9x3</option>
+              <option value="3x3">3x3</option>
+              <option value="4x3">4x3</option>
+              <option value="5x3">5x3</option>
+            </select>
+          </td>
+          <td>
+            <select id="price">
+              <option value="10000">10000 Rs</option>
+              <option value="15000">15000 Rs</option>
+              <option value="20000">20000 Rs</option>
+              <option value="25000">25000 Rs</option>
+              <option value="50000">50000 Rs</option>
+            </select>
+          </td>
+          <td>
+            <input type="number" id="units" min="1" value="1" />
+          </td>
+          <td id="total">0</td>
+        </tr>
+      </table>
+      <button onclick="addToList()">Add to List</button>
+      <button onclick="clearAll()">Clear All</button>
+      <button onclick="downloadPDF()">Download PDF</button>
+
+      <div id="selectedItems">
+        <h3>Selected Items</h3>
+        <table id="selectedItemsTable">
+          <tr>
+            <th>Type</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>Units</th>
+            <th>Total</th>
+            <th>Action</th>
+          </tr>
+        </table>
+        <p>Total Budget: <span id="totalBudget">0</span> Rs</p>
+      </div>
+    </div>
+
+    <script>
+      function updateTotal() {
+        const price = parseInt(document.getElementById("price").value);
+        const units = parseInt(document.getElementById("units").value);
+        const total = price * units;
+        document.getElementById("total").textContent = total;
+      }
+
+      document.getElementById("price").addEventListener("change", updateTotal);
+      document.getElementById("units").addEventListener("input", updateTotal);
+
+      function addToList() {
+        const type = document.getElementById("type").value;
+        const size = document.getElementById("size").value;
+        const price = document.getElementById("price").value;
+        const units = document.getElementById("units").value;
+        const total = document.getElementById("total").textContent;
+
+        const table = document.getElementById("selectedItemsTable");
+        const newRow = table.insertRow(-1);
+        newRow.innerHTML = `
+                <td>${type}</td>
+                <td>${size}</td>
+                <td>${price}</td>
+                <td>${units}</td>
+                <td>${total}</td>
+                <td><button class="remove-btn" onclick="removeItem(this)">Remove</button></td>
+            `;
+
+        updateTotalBudget();
+      }
+
+      function removeItem(btn) {
+        const row = btn.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+        updateTotalBudget();
+      }
+
+      function updateTotalBudget() {
+        const table = document.getElementById("selectedItemsTable");
+        let total = 0;
+        for (let i = 1; i < table.rows.length; i++) {
+          total += parseInt(table.rows[i].cells[4].textContent);
+        }
+        document.getElementById("totalBudget").textContent = total;
+      }
+
+      function clearAll() {
+        document.getElementById("type").selectedIndex = 0;
+        document.getElementById("size").selectedIndex = 0;
+        document.getElementById("price").selectedIndex = 0;
+        document.getElementById("units").value = 1;
+        document.getElementById("total").textContent = "0";
+        document.getElementById("selectedItemsTable").innerHTML = `
+                <tr>
+                    <th>Type</th>
+                    <th>Size</th>
+                    <th>Price</th>
+                    <th>Units</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            `;
+        updateTotalBudget();
+      }
+
+      function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.text("Doors and Windows Calculator - Selected Items", 20, 20);
+
+        const table = document.getElementById("selectedItemsTable");
+        let yPos = 40;
+
+        for (let i = 0; i < table.rows.length; i++) {
+          let row = table.rows[i];
+          let rowData = [];
+          for (let j = 0; j < row.cells.length - 1; j++) {
+            rowData.push(row.cells[j].textContent);
+          }
+          doc.text(rowData.join(" | "), 20, yPos);
+          yPos += 10;
+        }
+
+        doc.text(
+          `Total Budget: ${
+            document.getElementById("totalBudget").textContent
+          } Rs`,
+          20,
+          yPos + 10
+        );
+
+        doc.save("doors_and_windows_calculator.pdf");
+      }
+
+      updateTotal();
+    </script>
+  </body>
+</html>
