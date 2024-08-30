@@ -163,7 +163,7 @@ justify-content: center;
 }
 
 .container {
-  max-width: 1200px;
+  
   margin: 0 auto;
 }
 
@@ -421,11 +421,10 @@ justify-content: center;
 .container {
   max-width: 1200px;
   background-color: var(--background-color);
-  padding: 20px;
+  padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 
 h1,
 h2 {
@@ -511,7 +510,7 @@ button:hover {
 }
 
 .adding-tool {
- margin-left: 60px;
+ /* margin-left: 60px; */
  margin-top: 10px;
  margin-bottom: 20px;
  text-align: center;
@@ -636,9 +635,9 @@ nav ul li a {
 
   nav ul li {
     
-      text-align: center;
-      padding: 10px;
-      width: 90%;
+     text-align: center;
+      padding: 8px;
+      width: 100%;
   }
 
   .dropdown-content {
@@ -649,6 +648,8 @@ nav ul li a {
   .dropdown-content a {
       color: white;
   }
+  
+  
 }
 
 /* Electrical- CSS */
@@ -660,7 +661,7 @@ nav ul li a {
   max-width: 1200px;
   /* margin: auto; */
   overflow: hidden;
-  padding: 20px;
+  padding: 10px;
 }
 
 h1,
