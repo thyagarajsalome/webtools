@@ -54,8 +54,10 @@ h1, h2  {
 }
 
 h3 {
+  text-align: center;
   margin-top: 10px;
-  font-size: large;
+  margin-bottom: 10px;
+  /* font-size: large; */
   font-weight: 600;
   font-size: 18px;
 }
@@ -654,8 +656,9 @@ nav ul li a {
 
 .container {
   width: 90%;
+  margin-bottom: 40px;
   max-width: 1200px;
-  margin: auto;
+  /* margin: auto; */
   overflow: hidden;
   padding: 20px;
 }
@@ -766,4 +769,7 @@ button:hover {
   }
 }
 
-
+.contact-page{
+  margin-bottom: 40px;
+  text-align: center;
+}
