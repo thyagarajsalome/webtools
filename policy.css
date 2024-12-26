@@ -14,22 +14,6 @@
   padding: 2rem 0;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  width: 100%;
-}
-
-/* Section Common Styles */
-section {
-  margin: 2rem 0;
-  background-color: var(--background-color);
-  border-radius: 12px;
-  box-shadow: 0 4px 20px var(--shadow-color);
-  overflow: hidden;
-}
-
 .section-header {
   padding: 2rem 0;
   text-align: center;
@@ -58,9 +42,9 @@ section {
 }
 
 /* Policy Section Styles */
-.policy-section {
+/* .policy-section {
   background: linear-gradient(145deg, #ffffff, #f8f9fa);
-}
+} */
 
 .policy-content {
   padding: 0 2rem 2rem;

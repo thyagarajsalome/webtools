@@ -10,8 +10,9 @@
 
 /* Main heading */
 h3 {
+  margin-top: 20px;
   color: #2c3e50;
-  font-size: 1.75rem; /* Increased font size for better visibility */
+  font-size: 1.5rem; /* Increased font size for better visibility */
   font-weight: bold; /* Made the heading bold for emphasis */
   margin-bottom: 1.5rem;
 }

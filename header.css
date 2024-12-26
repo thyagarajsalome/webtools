@@ -7,7 +7,7 @@
 
 /* Header styles */
 .header-bar {
-  background-color: black;
+  background-color: #283747;
   padding: 1rem;
   position: fixed;
   width: 100%;
@@ -21,7 +21,7 @@ nav {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  justify-content: flex-end; /* Align everything to the right */
+  justify-content: end; /* Align everything to the right */
   align-items: center;
 }
 
@@ -43,7 +43,7 @@ nav {
 }
 
 #navMenu li a:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(128, 128, 128, 0.496);
   transform: translateY(-2px);
 }
 
@@ -70,11 +70,11 @@ nav {
     display: none;
     position: absolute;
     top: 100%;
-    right: 0; /* Align to right instead of left */
-    width: 200px; /* Fixed width for dropdown */
-    background: black;
+
+    width: 100px; /* Fixed width for dropdown */
+    background: #283747;
     flex-direction: column;
-    padding: 1rem;
+    padding: 0.5rem;
     gap: 1rem;
     border-radius: 0 0 4px 4px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -95,25 +95,8 @@ nav {
   }
 
   #navMenu li a:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(128, 128, 128, 0.496);
   }
-}
-
-/* Animation for menu items */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(10px); /* Changed to slide from right */
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-#navMenu li {
-  animation: slideIn 0.3s ease forwards;
-  animation-delay: calc(0.1s * var(--i));
 }
 
 /* Additional improvements for larger screens */
