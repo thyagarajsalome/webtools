@@ -1,0 +1,268 @@
+/* Contact Section Base Styles */
+:root {
+  --primary-color: #2c3e50;
+  --accent-color: #3498db;
+  --text-color: #505050;
+  --light-bg: #f8f9fa;
+  --white: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s ease;
+}
+
+.contact-section {
+  padding: 4rem 0;
+  background-color: var(--white);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.contact-wrapper {
+  background: linear-gradient(145deg, var(--white), var(--light-bg));
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow);
+  padding: 3rem;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Contact Header Styles */
+.contact-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.contact-header h3 {
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.header-underline {
+  width: 80px;
+  height: 4px;
+  background-color: var(--accent-color);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* Contact Content Styles */
+.contact-content {
+  text-align: center;
+}
+
+.contact-intro {
+  margin-bottom: 2rem;
+}
+
+.contact-intro p {
+  font-size: 1.3rem;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 15px var(--shadow);
+  transition: var(--transition);
+}
+
+.contact-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.contact-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  color: var(--accent-color);
+}
+
+.contact-details {
+  text-align: left;
+}
+
+.label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-bottom: 0.2rem;
+}
+
+.contact-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.contact-link:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media screen and (min-width: 1200px) {
+  .contact-wrapper {
+    padding: 4rem;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .contact-header h3 {
+    font-size: 2.2rem;
+  }
+
+  .contact-intro p {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .contact-section {
+    padding: 3rem 0;
+  }
+
+  .contact-wrapper {
+    padding: 2.5rem;
+  }
+
+  .contact-header h3 {
+    font-size: 2rem;
+  }
+
+  .contact-intro p {
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .contact-section {
+    padding: 2rem 0;
+  }
+
+  .contact-wrapper {
+    padding: 2rem;
+  }
+
+  .contact-header h3 {
+    font-size: 1.8rem;
+  }
+
+  .header-underline {
+    width: 60px;
+    height: 3px;
+  }
+
+  .contact-intro p {
+    font-size: 1rem;
+  }
+
+  .contact-item {
+    padding: 0.8rem;
+  }
+
+  .contact-icon {
+    font-size: 1.3rem;
+  }
+
+  .contact-link {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .contact-wrapper {
+    padding: 1.5rem;
+  }
+
+  .contact-header h3 {
+    font-size: 1.5rem;
+  }
+
+  .contact-intro p {
+    font-size: 0.95rem;
+  }
+
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .contact-icon {
+    margin: 0 0 0.5rem 0;
+  }
+
+  .contact-details {
+    text-align: center;
+  }
+
+  .label {
+    font-size: 0.85rem;
+  }
+
+  .contact-link {
+    font-size: 0.95rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .contact-wrapper {
+    box-shadow: none;
+    background: none;
+  }
+
+  .contact-item {
+    box-shadow: none;
+  }
+
+  .contact-item:hover {
+    transform: none;
+  }
+
+  .header-underline {
+    display: none;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-wrapper {
+  animation: fadeIn 0.6s ease-out;
+}

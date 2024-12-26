@@ -1,17 +1,10 @@
+document.getElementById("menuIcon").addEventListener("click", function () {
+  const navMenu = document.getElementById("navMenu");
+  navMenu.classList.toggle("active");
+});
 
-        const menuIcon = document.getElementById('menuIcon');
-        const navMenu = document.getElementById('navMenu');
-
-        menuIcon.addEventListener('click', () => {
-            navMenu.classList.toggle('show');
-            menuIcon.textContent = menuIcon.textContent === '☰' ? '✕' : '☰';
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (event) => {
-            if (!event.target.closest('nav')) {
-                navMenu.classList.remove('show');
-                menuIcon.textContent = '☰';
-            }
-        });
-  
+// Add animation delay to menu items
+const menuItems = document.querySelectorAll("#navMenu li");
+menuItems.forEach((item, index) => {
+  item.style.setProperty("--i", index);
+});
