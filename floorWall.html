@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="google-site-verification" content="aUWkECBSG9IdlrS3CPMfXZGygJ6lx-ClYdHdaJ8nY78" />
+    <meta name="msvalidate.01" content="061B4082725F1B3C4EE90801D169C0C2" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tool website</title>
+   
+   <link rel="stylesheet" href="floorWall.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content=" house construction, floor area, paint, plumbing, electrical, house building">
+    <meta name="keywords" content="paint, house, paint">
+    <meta name="robots" content="Sitemap: https://toolwebsite.in//sitemap.xml
+    ">
+    <link rel="canonical" href="https://toolwebsite.in/">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+<body>
+     <!-- Floor & Wall calculator -->
+
+     <h2>Floor and Wall Tile Calculator</h2>
+         
+     <div class="grid-container" id="roomSelection">
+       <button class="room-button" data-room="Living Room">
+         Living Room
+       </button>
+       <button class="room-button" data-room="Bedroom">Bedroom</button>
+       <button class="room-button" data-room="Kitchen">Kitchen</button>
+       <button class="room-button" data-room="Bathroom">Bathroom</button>
+       <button class="room-button" data-room="Parking">Parking</button>
+     </div>
+
+     <div
+       id="estimatorForm"
+       class="estimator-form"
+       style="display: none"
+     >
+       <h3 id="roomTitle"></h3>
+       <label for="tileType">Tile Type:</label>
+       <select id="tileType">
+         <option value="floor">Floor Tile</option>
+         <option value="wall">Wall Tile</option>
+       </select>
+
+       <label for="tileSize">Tile Size:</label>
+       <select id="tileSize">
+         <option value="1x1">1' x 1'</option>
+         <option value="1x2">1' x 2'</option>
+         <option value="2x2">2' x 2'</option>
+         <option value="2x4">2' x 4'</option>
+       </select>
+
+       <label for="area">Total Area (in sq ft):</label>
+       <input type="number" id="area" min="1" step="0.01" required />
+
+       <label for="costPerSqFt">Cost per sq ft (in Rs):</label>
+       <input
+         type="number"
+         id="costPerSqFt"
+         min="1"
+         step="0.01"
+         required
+       />
+
+       <button onclick="calculateEstimation()">
+         Calculate Estimation
+       </button>
+     </div>
+
+     <div id="estimationResult"></div>
+     <div id="estimationList"></div>
+     <div id="totalCostDisplay"></div>
+     <button class="dte-btn" onclick="downloadTotalEstimation()">
+       Download Total Estimation
+     </button>
+        
+          </div>
+        <script src="Floorscript.js"></script>
+</body>
+</html>

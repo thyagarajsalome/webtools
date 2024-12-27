@@ -1,177 +1,105 @@
-/* Main container */
-.container {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+/* General Styles */
+body {
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
 }
 
-/* Main heading */
+/* Heading Styles */
 h3 {
-  margin-top: 20px;
-  color: #2c3e50;
-  font-size: 1.5rem; /* Increased font size for better visibility */
-  font-weight: bold; /* Made the heading bold for emphasis */
-  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px; /* Add space below the heading */
 }
 
-/* Room selection grid */
+/* Grid Container for Room Selection */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1.5rem; /* Increased gap for better spacing */
-  margin: 1.5rem 0;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px; /* Increased gap for better spacing */
+  margin-bottom: 30px; /* Increased space below the grid */
 }
 
-/* Room selection buttons */
+/* Button Styles */
 .room-button {
-  padding: 1rem;
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
-  color: #495057;
-  font-size: 1rem; /* Slightly larger font size */
+  background-color: lightslategray;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.3s ease;
+  text-align: center; /* Center text inside buttons */
 }
 
 .room-button:hover {
-  background: #e9ecef;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhanced shadow effect */
+  background-color: #0056b3;
 }
 
-.room-button.active {
-  background: #3498db;
-  color: white;
-}
-
-/* Estimator form */
+/* Estimator Form Styles */
 .estimator-form {
-  background: #f8f9fa;
-  padding: 2rem; /* Increased padding for a more spacious feel */
+  background-color: white;
+  padding: 20px;
   border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-#roomTitle {
-  color: #2c3e50;
-  font-size: 1.5rem; /* Increased font size for better visibility */
-}
-
-/* Form elements */
+/* Label Styles */
 label {
   display: block;
-  margin-top: 1.5rem; /* Increased top margin for better spacing */
-  color: #495057;
+  margin-bottom: 5px;
 }
 
-select,
-input {
-  width: calc(100% - 0.5rem); /* Adjusted width to account for padding */
-  padding: 0.75rem;
-  border: solid thin #e9ecef;
-  border-radius: 0.5rem;
+/* Input and Select Styles */
+input[type="number"],
+select {
+  width: calc(100% - 20px); /* Adjust width to allow for padding */
+  padding: 10px;
+  margin-bottom: 15px; /* Space between inputs */
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-select,
-input {
-  font-size: 0.95rem;
-  color: #2c3e50;
-  background-color: #fff;
-  margin-bottom: 0.75rem; /* Reduced margin for compactness */
-}
-
-select:focus,
-input:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: inset -1px -1px rgba(52, 152, 219, 0.2); /* Subtle focus effect */
-}
-
-/* Calculate button */
+/* Button for Calculation */
 button {
-  background-color: #3498db;
+  margin-bottom: 20px;
+  background-color: lightslategray; /* Green */
   color: white;
-  padding: 0.75rem;
+  padding: 10px; /* Uniform padding for consistency */
+  border-radius: 5px;
   border: none;
-  border-radius: 0.5rem;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
-  margin-top: 0.75rem; /* Adjusted margin for consistency */
+  width: 100%; /* Make button full width for better usability */
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: #0056b3; /* Darker green on hover */
 }
 
-/* Results display */
+/* Estimation Result Display Styles */
 #estimationResult,
 #estimationList,
 #totalCostDisplay {
-  margin-top: 0.75rem;
-  padding: 0.75rem;
-  background-color: #f8f9fa;
-  border-radius: 0.5rem;
-}
-
-/* Download button */
-.dte-btn {
-  background-color: #2ecc71;
-  color: white;
-  padding: 0.75rem 0.75rem;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: 0.2s ease-in-out;
-}
-
-.dte-btn:hover {
-  background-color: #27ae60;
+  margin-top: 20px; /* Space above estimation results */
 }
 
 /* Responsive Design */
-@media screen and (max-width: 768px) {
-  .container {
-    padding: 0.5rem; /* Reduced padding for smaller screens */
-    margin: 0.5rem; /* Reduced margin for smaller screens */
+@media (max-width: 600px) {
+  body {
+    padding: 10px; /* Reduce padding on smaller screens */
   }
 
   .grid-container {
     grid-template-columns: repeat(
-      2,
-      1fr
-    ); /* Adjusted columns for smaller screens */
-    gap: 0.75rem; /* Reduced gap for smaller screens */
+      auto-fill,
+      minmax(120px, 1fr)
+    ); /* Adjust button size for small screens */
+    gap: 10px; /* Reduce gap between buttons on small screens */
   }
 
-  .estimator-form {
-    padding: 0.75rem; /* Reduced form padding for smaller screens */
-  }
-
-  button,
-  .dte-btn {
-    width: 100%; /* Full width buttons on smaller screens */
-    margin-top: 0.5rem; /* Consistent margin on buttons */
-  }
-}
-
-/* Print styles */
-@media print {
-  .container {
-    box-shadow: none;
-    margin: 0;
-    padding: 1cm;
-  }
-
-  .room-button,
-  .dte-btn {
-    display: none;
-  }
-
-  .estimator-form {
-    background: none;
-    padding: 0;
+  button {
+    margin-top: 10px; /* Maintain space between buttons on small screens */
+    padding: 12px; /* Slightly larger padding for touch targets */
+    font-size: larger; /* Increase font size for better readability */
   }
 }

@@ -8,6 +8,9 @@
   --shadow-color: rgba(0, 0, 0, 0.05);
   --transition: all 0.3s ease;
 }
+body {
+  background-color: var(--background-color);
+}
 
 .page-wrapper {
   background-color: #f8f9fa;
@@ -27,18 +30,6 @@
   margin-bottom: 1rem;
   position: relative;
   display: inline-block;
-}
-
-.section-header h3::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background-color: var(--secondary-color);
-  border-radius: 2px;
 }
 
 /* Policy Section Styles */
@@ -63,14 +54,6 @@
 /* FAQ Section Styles */
 .faq-list {
   padding: 0 2rem 2rem;
-}
-
-.faq-item {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  border-radius: 8px;
-  background-color: #f8f9fa;
-  transition: var(--transition);
 }
 
 .faq-item:hover {

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="houseConstruction.css" />
+  </head>
+  <body>
+    <div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
+      <h3 id="house-page">House Construction Estimation Calculator</h3>
+      <p>
+        Use our calculator to get an average estimation of your house
+        construction costs. Please note that this calculator provides an
+        approximate estimation only.
+      </p>
+
+      <h3 class="text-xl font-semibold mb-2">Labour and Material Contract</h3>
+      <table class="table-auto w-full mb-4">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="px-4 py-2">Type of Construction</th>
+            <th class="px-4 py-2">Area in sqft</th>
+            <th class="px-4 py-2">Quality</th>
+            <th class="px-4 py-2">Total cost in Rs</th>
+            <th class="px-4 py-2">Floors</th>
+            <th class="px-4 py-2">Total cost with Floors</th>
+          </tr>
+        </thead>
+        <tbody id="material-contract">
+          <tr>
+            <td class="border px-4 py-2">
+              <select id="type-construction-1" class="w-full">
+                <option value="Independent house">House</option>
+                <option value="villa">Villa</option>
+                <option value="apartment">Apartment</option>
+                <option value="duplex">Duplex</option>
+              </select>
+            </td>
+            <td class="border px-4 py-2">
+              <input
+                type="number"
+                id="area-1"
+                class="w-full"
+                placeholder="Enter"
+              />
+            </td>
+            <td class="border px-4 py-2">
+              <select id="quality-1" class="w-full">
+                <option value="1500">Basic avg - 1500/sqft</option>
+                <option value="1800">Normal avg - 1800/sqft</option>
+                <option value="2000">Premium avg - 2000/sqft</option>
+              </select>
+            </td>
+            <td class="border px-4 py-2">
+              <input
+                type="number"
+                id="total-cost-1"
+                class="w-full bg-gray-200"
+                readonly
+              />
+            </td>
+            <td class="border px-4 py-2">
+              <select id="floors-1" class="w-full">
+                <option value="1">G+0</option>
+                <option value="2">G+1</option>
+                <option value="3">G+2</option>
+                <option value="4">G+3</option>
+                <option value="5">G+4</option>
+              </select>
+            </td>
+            <td class="border px-4 py-2">
+              <input
+                type="number"
+                id="total-cost-floors-1"
+                class="w-full bg-gray-200"
+                readonly
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="flex justify-between mb-4">
+        <h3 id="Tile-page" class="text-lg font-semibold">
+          Total Labour and Material Estimation: Rs
+          <span id="total-estimation">0</span>
+        </h3>
+      </div>
+
+      <h3 class="text-xl font-semibold mb-2">Labour Contract</h3>
+      <table class="table-auto w-full mb-4">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="px-4 py-2">Type of Construction</th>
+            <th class="px-4 py-2">Area in sqft</th>
+            <th class="px-4 py-2">Quality</th>
+            <th class="px-4 py-2">Total cost in Rs</th>
+            <th class="px-4 py-2">Floors</th>
+            <th class="px-4 py-2">Total cost with Floors</th>
+          </tr>
+        </thead>
+        <tbody id="labour-contract">
+          <tr>
+            <td class="border px-4 py-2">
+              <select id="type-construction-2" class="w-full">
+                <option value="Independent house">House</option>
+                <option value="villa">Villa</option>
+                <option value="apartment">Apartment</option>
+                <option value="duplex">Duplex</option>
+              </select>
+            </td>
+            <td class="border px-4 py-2">
+              <input
+                type="number"
+                id="area-2"
+                class="w-full"
+                placeholder="Enter"
+              />
+            </td>
+            <td class="border px-4 py-2">
+              <select id="quality-2" class="w-full">
+                <option value="250">Basic avg - 250/sqft</option>
+                <option value="300">Normal avg - 300/sqft</option>
+                <option value="350">Premium avg - 350/sqft</option>
+              </select>
+            </td>
+            <td class="border px-4 py-2">
+              <input
+                type="number"
+                id="total-cost-2"
+                class="w-full bg-gray-200"
+                readonly
+              />
+            </td>
+            <td class="border px-4 py-2">
+              <select id="floors-2" class="w-full">
+                <option value="1">G+0</option>
+                <option value="2">G+1</option>
+                <option value="3">G+2</option>
+                <option value="4">G+3</option>
+                <option value="5">G+4</option>
+              </select>
+            </td>
+            <td class="border px-4 py-2">
+              <input
+                type="number"
+                id="total-cost-floors-2"
+                class="w-full bg-gray-200"
+                readonly
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="flex justify-between mb-4">
+        <h3 class="text-lg font-semibold">
+          Total Labour Cost Estimation: Rs
+          <span id="total-labour-estimation">0</span>
+        </h3>
+      </div>
+      <button class="clear-btn" id="clear-all">Clear All</button>
+    </div>
+
+    <!-- End of House calculators -->
+    <script src="./housescript.js"></script>
+  </body>
+</html>
