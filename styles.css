@@ -351,6 +351,10 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+#navMenu {
+  background-color: var(--bg-primary);
+}
+
 /* Header and Navigation */
 .header-bar {
   background-color: var(--bg-secondary);
@@ -380,6 +384,10 @@ body {
 }
 
 section h2 {
+  color: var(--text-primary);
+}
+
+.menu-icon {
   color: var(--text-primary);
 }
 /* Tool Cards */
