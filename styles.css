@@ -139,7 +139,7 @@ section h2 {
 
 .tool-card .icon {
   font-size: 2.5rem;
-  color: #1a73e8;
+  color: dodgerblue;
   margin-bottom: 1rem;
 }
 
@@ -313,4 +313,143 @@ section h2 {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #1557b0;
+}
+
+/* Dark Mode */
+/* Original Light Theme Variables */
+:root {
+  --bg-primary: #fff;
+  --bg-secondary: #fff;
+  --text-primary: #202124;
+  --text-secondary: #5f6368;
+  --accent-color: #1a73e8;
+  --accent-bg: #e8f0fe;
+  --border-color: #e0e0e0;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --icon-color: dodgerblue;
+}
+
+/* Dark Theme Variables */
+[data-theme="dark"] {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --accent-color: #64b5f6;
+  --accent-bg: #1a2634;
+  --border-color: #2d2d2d;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --icon-color: #64b5f6;
+}
+
+/* Update existing styles to use variables */
+body {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Header and Navigation */
+.header-bar {
+  background-color: var(--bg-secondary);
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+#navMenu a {
+  color: var(--text-secondary);
+}
+
+#navMenu a:hover {
+  background-color: var(--accent-bg);
+  color: var(--accent-color);
+}
+
+/* Hero Section */
+.hero {
+  background-color: var(--accent-bg);
+}
+
+.hero h1 {
+  color: var(--text-primary);
+}
+
+.hero-text {
+  color: var(--text-secondary);
+}
+
+section h2 {
+  color: var(--text-primary);
+}
+/* Tool Cards */
+.tool-card {
+  background-color: var(--bg-secondary);
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.tool-card .icon {
+  color: var(--icon-color);
+}
+
+.tool-card h3 {
+  color: var(--text-primary);
+}
+
+.tool-card p {
+  color: var(--text-secondary);
+}
+
+/* FAQ Section */
+.faq-item {
+  background-color: var(--bg-secondary);
+  box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+.faq-answer {
+  color: var(--text-secondary);
+}
+
+/* Footer */
+.footer {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+}
+
+.footer-nav a {
+  color: var(--text-secondary);
+}
+
+.footer-nav a:hover {
+  color: var(--accent-color);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.theme-toggle:hover {
+  color: var(--accent-color);
+}
+
+/* Custom scrollbar for dark mode */
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
 }
