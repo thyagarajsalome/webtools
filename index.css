@@ -196,10 +196,16 @@ section h2 {
 
 /* Footer */
 .footer {
+  display: flex;
   background-color: #fff;
   border-top: 1px solid #e0e0e0;
-  /* padding: 2rem 0; */
+  padding: 2rem 0;
   margin-top: 4rem;
+}
+
+.footer {
+  display: flex;
+  text-align: center;
 }
 
 .footer-content {
