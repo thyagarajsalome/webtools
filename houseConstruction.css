@@ -154,7 +154,7 @@ input[readonly] {
 
   td {
     position: relative;
-    padding-left: 50%;
+
     border: none;
     border-bottom: 1px solid #e2e8f0;
   }
