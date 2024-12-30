@@ -4,121 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paint Calculator</title>
+    <link rel="stylesheet" href="paint.css" />
+    <link rel="stylesheet" href="./paintVisual.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-      :root {
-        --primary-color: #ffc107;
-        --secondary-color: #2e76db;
-        --background-color: #f9f9f9;
-        --text-color: black;
-        --card-bg-color: #fff;
-      }
-
-      body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        margin: 0;
-        padding: 20px;
-        background-color: #f4f4f4;
-      }
-      .container {
-        max-width: 800px;
-        margin: 0 auto 20px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      h1,
-      h2 {
-        text-align: center;
-        color: #333;
-        font-weight: 500;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 10px;
-        margin-bottom: 20px;
-      }
-      label {
-        display: block;
-
-        margin-bottom: 5px;
-        font-weight: normal;
-      }
-      select,
-      input,
-      button {
-        width: 100%;
-        font-size: 14px;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-      }
-      button {
-        background-color: var(--primary-color);
-        color: #333;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-      button:hover {
-        background-color: var(--secondary-color);
-      }
-      #result,
-      #totalCost {
-        margin-top: 20px;
-        font-weight: bold;
-      }
-      #paintList {
-        list-style-type: none;
-        padding: 0;
-      }
-      #paintList li {
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
-        margin-bottom: 10px;
-        padding: 10px;
-        border-radius: 4px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .delete-btn {
-        background-color: #f44336;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        border-radius: 4px;
-      }
-      .delete-btn:hover {
-        background-color: #d32f2f;
-      }
-      .back-button-container {
-        padding: 1rem;
-      }
-
-      .back-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        background-color: #f3f4f6;
-        border: 1px solid #d1d5db;
-        border-radius: 0.375rem;
-        color: #374151;
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.2s;
-      }
-
-      .back-button:hover {
-        background-color: #e5e7eb;
-      }
-    </style>
   </head>
   <body>
     <div class="back-button-container" style="padding: 1rem">
@@ -143,6 +31,7 @@
         Back to Home
       </a>
     </div>
+
     <div class="container">
       <h1>House Paint Calculator</h1>
       <div class="grid">
@@ -192,6 +81,19 @@
       <button onclick="generatePDF()">Download PDF</button>
     </div>
 
+    <div class="container">
+      <h2>Paint Visualization</h2>
+      <div class="room-preview">
+        <div class="wall" id="previewWall"></div>
+      </div>
+      <div class="color-palette" id="colorPalette"></div>
+    </div>
+
+    <div class="container">
+      <h2>Paint Catalog</h2>
+      <div class="paint-catalog" id="paintCatalog"></div>
+    </div>
+
     <script>
       let paints = [];
 
@@ -209,7 +111,7 @@
           return;
         }
 
-        const paintRequired = area / 100; // 1 ltr for 100 sqft
+        const paintRequired = area / 100;
         const totalCost = paintRequired * paintCost;
         const finalCost = coatType === "second" ? totalCost * 2 : totalCost;
 
@@ -234,15 +136,13 @@
         paints.forEach((paint, index) => {
           const li = document.createElement("li");
           li.innerHTML = `
-                    ${paint.brand} - ${paint.type} (${paint.coat} coat)<br>
-                    Area: ${
-                      paint.area
-                    } sqft, Paint Required: ${paint.paintRequired.toFixed(
-            2
-          )} ltrs<br>
-                    Cost: Rs ${paint.cost.toFixed(2)}
-                    <button class="delete-btn" onclick="deletePaint(${index})">Delete</button>
-                `;
+            ${paint.brand} - ${paint.type} (${paint.coat} coat)<br>
+            Area: ${
+              paint.area
+            } sqft, Paint Required: ${paint.paintRequired.toFixed(2)} ltrs<br>
+            Cost: Rs ${paint.cost.toFixed(2)}
+            <button class="delete-btn" onclick="deletePaint(${index})">Delete</button>
+          `;
           paintList.appendChild(li);
           totalCost += paint.cost;
         });
@@ -297,6 +197,150 @@
 
         doc.save("paint_calculator_summary.pdf");
       }
+
+      // Colos
+      const colors = {
+        "Asian Paint": {
+          Exterior: "#4ECDC4", // Turquoise
+          "Metal Paint": "#96CEB4", // Sage Green
+          "Wood Paint": "#FFEEAD", // Cream
+          "Texture Paint": "#FB9039", // Burnt Orange
+          "Designer Paint": "#264653", // Dark Teal
+        },
+        "Berger Paint": {
+          Exterior: "#00BBF9", // Sky Blue
+          "Metal Paint": "#F15BB5", // Pink
+          "Wood Paint": "#FEE440", // Yellow
+          "Texture Paint": "#2A9D8F", // Sea Green
+          "Designer Paint": "#E76F51", // Terra Cotta
+        },
+        "Nerolac Paint": {
+          Interior: "#2D3047", // Navy Blue
+          Exterior: "#FF9F1C", // Orange
+          "Metal Paint": "#E71D36", // Bright Red
+          "Wood Paint": "#98CE00", // Lime Green
+          "Texture Paint": "#F4A261", // Sandy Orange
+          "Designer Paint": "#6B705C", // Olive Gray
+        },
+        Dulux: {
+          Interior: "#845EC2", // Deep Purple
+          Exterior: "#00C9A7", // Teal
+          "Metal Paint": "#D65DB1", // Magenta
+          "Wood Paint": "#4B4453", // Charcoal
+          "Texture Paint": "#B5838D", // Mauve
+          "Designer Paint": "#457B9D", // Steel Blue
+        },
+      };
+
+      const paintCatalog = [
+        {
+          brand: "Asian Paint",
+          types: {
+            Interior: { name: "Royale Luxury Emulsion", cost: 380 },
+            Exterior: { name: "Apex Ultima", cost: 350 },
+            "Metal Paint": { name: "Apcolite Premium", cost: 320 },
+            "Wood Paint": { name: "WoodTech Emporio", cost: 400 },
+          },
+          website: "https://www.asianpaints.com",
+        },
+        {
+          brand: "Berger Paint",
+          types: {
+            Interior: { name: "Silk Luxury Emulsion", cost: 360 },
+            Exterior: { name: "WeatherCoat", cost: 340 },
+            "Metal Paint": { name: "BP Metal Paint", cost: 300 },
+            "Wood Paint": { name: "Imperia Wood Coating", cost: 380 },
+          },
+          website: "https://www.bergerpaints.com",
+        },
+        {
+          brand: "Nerolac Paint",
+          types: {
+            Interior: { name: "Excel Total", cost: 340 },
+            Exterior: { name: "Excel Top Guard", cost: 320 },
+            "Metal Paint": { name: "Nerolac Metal Paint", cost: 290 },
+            "Wood Paint": { name: "Wonder Wood Coating", cost: 360 },
+          },
+          website: "https://www.nerolac.com",
+        },
+        {
+          brand: "Dulux",
+          types: {
+            Interior: { name: "Velvet Touch", cost: 370 },
+            Exterior: { name: "Weathershield", cost: 345 },
+            "Metal Paint": { name: "Dulux Metal Paint", cost: 310 },
+            "Wood Paint": { name: "Wood Guard", cost: 390 },
+          },
+          website: "https://www.dulux.in",
+        },
+      ];
+
+      function initializeVisualization() {
+        const palette = document.getElementById("colorPalette");
+        const wall = document.getElementById("previewWall");
+
+        const paintBrandSelect = document.getElementById("paintBrand");
+        const paintTypeSelect = document.getElementById("paintType");
+
+        function updatePaintCost() {
+          const brand = paintBrandSelect.value;
+          const type = paintTypeSelect.value;
+          const paintInfo = paintCatalog.find((p) => p.brand === brand)?.types[
+            type
+          ];
+          if (paintInfo) {
+            document.getElementById("paintCost").value = paintInfo.cost;
+          }
+        }
+
+        paintBrandSelect.addEventListener("change", updatePaintCost);
+        paintTypeSelect.addEventListener("change", updatePaintCost);
+
+        Object.entries(colors).forEach(([brand, types]) => {
+          Object.entries(types).forEach(([type, color]) => {
+            const swatch = document.createElement("div");
+            swatch.className = "color-swatch";
+            swatch.style.backgroundColor = color;
+            swatch.onclick = () => {
+              wall.style.backgroundColor = color;
+              paintBrandSelect.value = brand;
+              paintTypeSelect.value = type;
+              updatePaintCost();
+            };
+            palette.appendChild(swatch);
+          });
+        });
+      }
+
+      function initializeCatalog() {
+        const catalog = document.getElementById("paintCatalog");
+
+        paintCatalog.forEach((paint) => {
+          const card = document.createElement("div");
+          card.className = "paint-card";
+
+          const typesList = Object.entries(paint.types)
+            .map(
+              ([type, info]) => `
+              <p>${type}: ${info.name} - ₹${info.cost}/liter</p>
+            `
+            )
+            .join("");
+
+          card.innerHTML = `
+          
+            <h3>${paint.brand}</h3>
+            ${typesList}
+            <a href="${paint.website}" target="_blank">Visit Website</a>
+          `;
+          catalog.appendChild(card);
+        });
+      }
+
+      window.onload = function () {
+        initializeVisualization();
+        initializeCatalog();
+      };
     </script>
   </body>
 </html>
