@@ -2,18 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="google-site-verification" content="aUWkECBSG9IdlrS3CPMfXZGygJ6lx-ClYdHdaJ8nY78" />
+    <meta
+      name="google-site-verification"
+      content="aUWkECBSG9IdlrS3CPMfXZGygJ6lx-ClYdHdaJ8nY78"
+    />
     <meta name="msvalidate.01" content="061B4082725F1B3C4EE90801D169C0C2" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tool website</title>
-   
-   <link rel="stylesheet" href="floorWall.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content=" house construction, floor area, paint, plumbing, electrical, house building">
-    <meta name="keywords" content="paint, house, paint">
-    <meta name="robots" content="Sitemap: https://toolwebsite.in//sitemap.xml
-    ">
-    <link rel="canonical" href="https://toolwebsite.in/">
+
+    <link rel="stylesheet" href="floorWall.css" />
+    <link rel="stylesheet" href="floorCatelog.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content=" house construction, floor area, paint, plumbing, electrical, house building"
+    />
+    <meta name="keywords" content="paint, house, paint" />
+    <meta
+      name="robots"
+      content="Sitemap: https://toolwebsite.in//sitemap.xml"
+    />
+    <link rel="canonical" href="https://toolwebsite.in/" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
@@ -22,71 +31,174 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
   </head>
-<body>
-  <div class="back-button-container" style="padding: 1rem;">
-    <a href="index.html" class="back-button" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background-color: #f3f4f6; border: 1px solid #d1d5db; border-radius: 0.375rem; color: #374151; text-decoration: none; font-weight: 500; transition: all 0.2s;">
-      <span style="font-size: 1.2rem;">←</span>
-      Back to Home
-    </a>
-  </div>
+  <body>
+    <div class="back-button-container" style="padding: 1rem">
+      <a
+        href="index.html"
+        class="back-button"
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.5rem 1rem;
+          background-color: #f3f4f6;
+          border: 1px solid #d1d5db;
+          border-radius: 0.375rem;
+          color: #374151;
+          text-decoration: none;
+          font-weight: 500;
+          transition: all 0.2s;
+        "
+      >
+        <span style="font-size: 1.2rem">←</span>
+        Back to Home
+      </a>
+    </div>
 
-     <h2>Floor and Wall Tile Calculator</h2>
-         
-     <div class="grid-container" id="roomSelection">
-       <button class="room-button" data-room="Living Room">
-         Living Room
-       </button>
-       <button class="room-button" data-room="Bedroom">Bedroom</button>
-       <button class="room-button" data-room="Kitchen">Kitchen</button>
-       <button class="room-button" data-room="Bathroom">Bathroom</button>
-       <button class="room-button" data-room="Parking">Parking</button>
-     </div>
+    <h2>Floor and Wall Tile Calculator</h2>
 
-     <div
-       id="estimatorForm"
-       class="estimator-form"
-       style="display: none"
-     >
-       <h3 id="roomTitle"></h3>
-       <label for="tileType">Tile Type:</label>
-       <select id="tileType">
-         <option value="floor">Floor Tile</option>
-         <option value="wall">Wall Tile</option>
-       </select>
+    <div class="grid-container" id="roomSelection">
+      <button class="room-button" data-room="Living Room">Living Room</button>
+      <button class="room-button" data-room="Bedroom">Bedroom</button>
+      <button class="room-button" data-room="Kitchen">Kitchen</button>
+      <button class="room-button" data-room="Bathroom">Bathroom</button>
+      <button class="room-button" data-room="Parking">Parking</button>
+    </div>
 
-       <label for="tileSize">Tile Size:</label>
-       <select id="tileSize">
-         <option value="1x1">1' x 1'</option>
-         <option value="1x2">1' x 2'</option>
-         <option value="2x2">2' x 2'</option>
-         <option value="2x4">2' x 4'</option>
-       </select>
+    <div id="estimatorForm" class="estimator-form" style="display: none">
+      <h3 id="roomTitle"></h3>
+      <label for="tileType">Tile Type:</label>
+      <select id="tileType">
+        <option value="floor">Floor Tile</option>
+        <option value="wall">Wall Tile</option>
+      </select>
 
-       <label for="area">Total Area (in sq ft):</label>
-       <input type="number" id="area" min="1" step="0.01" required />
+      <label for="tileSize">Tile Size:</label>
+      <select id="tileSize">
+        <option value="1x1">1' x 1'</option>
+        <option value="1x2">1' x 2'</option>
+        <option value="2x2">2' x 2'</option>
+        <option value="2x4">2' x 4'</option>
+      </select>
 
-       <label for="costPerSqFt">Cost per sq ft (in Rs):</label>
-       <input
-         type="number"
-         id="costPerSqFt"
-         min="1"
-         step="0.01"
-         required
-       />
+      <label for="area">Total Area (in sq ft):</label>
+      <input type="number" id="area" min="1" step="0.01" required />
 
-       <button onclick="calculateEstimation()">
-         Calculate Estimation
-       </button>
-     </div>
+      <label for="costPerSqFt">Cost per sq ft (in Rs):</label>
+      <input type="number" id="costPerSqFt" min="1" step="0.01" required />
 
-     <div id="estimationResult"></div>
-     <div id="estimationList"></div>
-     <div id="totalCostDisplay"></div>
-     <button class="dte-btn" onclick="downloadTotalEstimation()">
-       Download Total Estimation
-     </button>
-        
-          </div>
-        <script src="Floorscript.js"></script>
-</body>
+      <button onclick="calculateEstimation()">Calculate Estimation</button>
+    </div>
+
+    <div id="estimationResult"></div>
+    <div id="estimationList"></div>
+    <div id="totalCostDisplay"></div>
+    <button class="dte-btn" onclick="downloadTotalEstimation()">
+      Download Total Estimation
+    </button>
+
+    <!-- New Catalog Section -->
+    <div class="catalog-section">
+      <h2>Popular Tile Brands in India</h2>
+      <div class="catalog-grid">
+        <div class="tile-card">
+          <h4>Kajaria Ceramics</h4>
+          <p class="tile-info">
+            Products: Floor tiles, wall tiles, bathroom tiles
+          </p>
+          <p class="tile-info">
+            Available Sizes: 300x300mm, 600x600mm, 800x800mm
+          </p>
+          <p class="tile-info">Average Cost: ₹35-150 per sq ft</p>
+          <a
+            href="https://www.kajariaceramics.com"
+            target="_blank"
+            class="tile-link"
+            >Visit Website</a
+          >
+        </div>
+
+        <div class="tile-card">
+          <h4>Somany Ceramics</h4>
+          <p class="tile-info">
+            Products: Ceramic tiles, porcelain tiles, vitrified tiles
+          </p>
+          <p class="tile-info">
+            Available Sizes: 300x600mm, 600x1200mm, 800x1600mm
+          </p>
+          <p class="tile-info">Average Cost: ₹40-180 per sq ft</p>
+          <a
+            href="https://www.somanyceramics.com"
+            target="_blank"
+            class="tile-link"
+            >Visit Website</a
+          >
+        </div>
+
+        <div class="tile-card">
+          <h4>RAK Ceramics</h4>
+          <p class="tile-info">
+            Products: Designer tiles, bathroom tiles, kitchen tiles
+          </p>
+          <p class="tile-info">
+            Available Sizes: 200x600mm, 600x600mm, 1200x2400mm
+          </p>
+          <p class="tile-info">Average Cost: ₹45-200 per sq ft</p>
+          <a
+            href="https://www.rakceramics.com/india"
+            target="_blank"
+            class="tile-link"
+            >Visit Website</a
+          >
+        </div>
+
+        <div class="tile-card">
+          <h4>Johnson Tiles</h4>
+          <p class="tile-info">
+            Products: Digital tiles, marble tiles, wooden tiles
+          </p>
+          <p class="tile-info">
+            Available Sizes: 300x450mm, 600x600mm, 800x800mm
+          </p>
+          <p class="tile-info">Average Cost: ₹35-160 per sq ft</p>
+          <a
+            href="https://www.hrjohnsonindia.com/"
+            target="_blank"
+            class="tile-link"
+            >Visit Website</a
+          >
+        </div>
+
+        <div class="tile-card">
+          <h4>Nitco Tiles</h4>
+          <p class="tile-info">
+            Products: Mosaic tiles, parking tiles, outdoor tiles
+          </p>
+          <p class="tile-info">
+            Available Sizes: 300x300mm, 600x600mm, 1200x1200mm
+          </p>
+          <p class="tile-info">Average Cost: ₹40-175 per sq ft</p>
+          <a href="https://www.nitco.in" target="_blank" class="tile-link"
+            >Visit Website</a
+          >
+        </div>
+
+        <div class="tile-card">
+          <h4>Orient Bell</h4>
+          <p class="tile-info">
+            Products: Floor tiles, wall tiles, exterior tiles
+          </p>
+          <p class="tile-info">
+            Available Sizes: 300x600mm, 600x600mm, 600x1200mm
+          </p>
+          <p class="tile-info">Average Cost: ₹35-150 per sq ft</p>
+          <a href="https://www.orientbell.com" target="_blank" class="tile-link"
+            >Visit Website</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script src="Floorscript.js"></script>
+  </body>
 </html>
