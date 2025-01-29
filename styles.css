@@ -476,3 +476,103 @@ section h2 {
 [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
 }
+
+/* explore section start */
+/* Explore Tech Section */
+.explore-tech-section {
+  padding: 4rem 0;
+  background-color: #f9f9f9;
+}
+
+.explore-tech-section h2 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.section-description {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #666;
+}
+
+/* Carousel Styles */
+.carousel {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+  min-width: 100%;
+  position: relative;
+}
+
+.carousel-item img {
+  width: 100%;
+  display: block;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+.carousel-caption h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.carousel-caption p {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+}
+
+.carousel-caption .read-more {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  background: #007bff;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  z-index: 10;
+}
+
+.carousel-control.prev {
+  left: 0;
+}
+
+.carousel-control.next {
+  right: 0;
+}
+
+.carousel-control:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+/* explore section end */
