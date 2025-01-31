@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paint Visualizer</title>
+    <link rel="stylesheet" href="./PaintVisualization.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Visualization Area -->
+      <div class="visualization-area">
+        <img
+          src="./images/base.png"
+          alt="Kitchen Base"
+          class="base-image"
+          id="baseImage"
+        />
+
+        <!-- Color Overlays -->
+        <img
+          src="./images/color-1.png"
+          alt="Color 1 Overlay"
+          class="color-overlay"
+          id="color-1-overlay"
+        />
+        <img
+          src="./images/color-2.png"
+          alt="Color 2 Overlay"
+          class="color-overlay"
+          id="color-2-overlay"
+        />
+        <img
+          src="./images/color-3.png"
+          alt="Color 3 Overlay"
+          class="color-overlay"
+          id="color-3-overlay"
+        />
+        <img
+          src="./images/color-3.png"
+          alt="Color 3 Overlay"
+          class="color-overlay"
+          id="color-3-overlay"
+        />
+        <img
+          src="./images/color-4.png"
+          alt="Color 4 Overlay"
+          class="color-overlay"
+          id="color-4-overlay"
+        />
+        <img
+          src="./images/color-5.png"
+          alt="Color 5 Overlay"
+          class="color-overlay"
+          id="color-5-overlay"
+        />
+        <img
+          src="./images/color-6.png"
+          alt="Color 6 Overlay"
+          class="color-overlay"
+          id="color-6-overlay"
+        />
+        <img
+          src="./images/color-7.png"
+          alt="Color 7 Overlay"
+          class="color-overlay"
+          id="color-7-overlay"
+        />
+        <img
+          src="./images/color-8.png"
+          alt="Color 8 Overlay"
+          class="color-overlay"
+          id="color-8-overlay"
+        />
+        <img
+          src="./images/color-9.png"
+          alt="Color 9 Overlay"
+          class="color-overlay"
+          id="color-9-overlay"
+        />
+        <img
+          src="./images/color-10.png"
+          alt="Color 10 Overlay"
+          class="color-overlay"
+          id="color-10-overlay"
+        />
+      </div>
+
+      <!-- Color Selection Area -->
+      <div class="color-selection">
+        <h4>Choose Your Paint Color</h4>
+
+        <div class="color-options">
+          <div class="color-item">
+            <button
+              class="color-button"
+              data-color="color-1"
+              style="background-color: #d5d265"
+              aria-label="Color 1"
+            ></button>
+            <span class="color-id">#d5d265</span>
+          </div>
+          <div class="color-item">
+            <button
+              class="color-button"
+              data-color="color-2"
+              style="background-color: #b73352"
+              aria-label="Color 2"
+            ></button>
+            <span class="color-id">#b73352</span>
+          </div>
+          <div class="color-item">
+            <button
+              class="color-button"
+              data-color="color-3"
+              style="background-color: #4a59a6"
+              aria-label="Color 3"
+            ></button>
+            <span class="color-id">#4a59a6</span>
+          </div>
+          <div class="color-item">
+            <button
+              class="color-button"
+              data-color="color-4"
+              style="background-color: #178b7e"
+              aria-label="Swiss Coffee"
+            ></button>
+            <span class="color-id">#178b7e</span>
+          </div>
+          <div class="color-item">
+            <button
+              class="color-button"
+              data-color="color-5"
+              style="background-color: #e6ad5d"
+              aria-label="Repose Gray"
+            ></button>
+            <span class="color-id">#e6ad5d</span>
+          </div>
+          <div class="color-item">
+            <button
+              class="color-button"
+              data-color="color-6"
+              style="background-color: #6bbec1"
+              aria-label="Agreeable Gray"
+            ></button>
+            <span class="color-id">#6bbec1</span>
+          </div>
+          <div class="color-item">
+            <button
+              class="color-button"
+              data-color="color-7"
+              style="background-color: #c66363"
+              aria-label="Alabaster"
+            ></button>
+            <span class="color-id">#c66363</span>
+          </div>
+          <div class="color-item">
+            <button
+              class="color-button"
+              data-color="color-8"
+              style="background-color: #b073df"
+              aria-label="Sea Salt"
+            ></button>
+            <span class="color-id">#b073df</span>
+          </div>
+          <div class="color-item">
+            <button
+              class="color-button"
+              data-color="color-9"
+              style="background-color: #88a765"
+              aria-label="Accessible Beige"
+            ></button>
+            <span class="color-id">#88a765</span>
+          </div>
+          <div class="color-item">
+            <button
+              class="color-button"
+              data-color="color-10"
+              style="background-color: #709abf"
+              aria-label="Mindful Gray"
+            ></button>
+            <span class="color-id">#709abf</span>
+          </div>
+        </div>
+
+        <button class="reset-button" id="resetButton">Reset to Default</button>
+
+        <div class="selected-color" id="selectedColorText"></div>
+      </div>
+    </div>
+    <script src="./PaintVis.js"></script>
+  </body>
+</html>
