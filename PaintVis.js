@@ -1,5 +1,6 @@
 // Color configuration
 const colors = {
+  // Existing colors
   "color-1": "#d5d265",
   "color-2": "#b73352",
   "color-3": "#4a59a6",
@@ -8,8 +9,20 @@ const colors = {
   "color-6": "#6bbec1",
   "color-7": "#c66363",
   "color-8": "#b073df",
-  "color-9": "88a765",
+  "color-9": "#88a765",
   "color-10": "#709abf",
+
+  // New colors
+  "color-11": "#FF9933", // Marigold Glory
+  "color-12": "#9B4B4B", // Terracotta Touch
+  "color-13": "#006B3C", // Emerald Vista
+  "color-14": "#D4AF37", // Royal Gold
+  "color-15": "#800080", // Mystic Purple
+  "color-16": "#C5B358", // Desert Sand
+  "color-17": "#2E8B57", // Monsoon Green
+  "color-18": "#CD5C5C", // Brick Red
+  "color-19": "#4B0082", // Royal Indigo
+  "color-20": "#8B4513", // Spice Brown
 };
 
 let currentColor = null;
