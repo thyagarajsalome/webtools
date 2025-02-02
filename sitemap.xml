@@ -94,4 +94,10 @@
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://toolwebsite.in/construction.html</loc>
+    <lastmod>2025-01-31</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>
