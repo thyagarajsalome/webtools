@@ -2,468 +2,391 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Primary Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
-      Electrical Work Cost Calculator for Indian Construction | Tool Website
+      Electrical Budget Estimator for Indian Construction | Free Calculator
     </title>
-    <meta
-      name="title"
-      content="Electrical Work Cost Calculator for Indian Construction | Tool Website"
-    />
+
+    <!-- Meta Description & Keywords for SEO -->
     <meta
       name="description"
-      content="Calculate electrical work costs for your Indian home construction project. Estimate wiring, MCB, switches, power points costs. Get detailed cost breakdown with charts and downloadable PDF reports."
+      content="Calculate the electrical budget for your construction project with our free Electrical Budget Estimator. Estimate costs for sockets, switches, LED lights, ceiling fans, wires, electrical pipes, UPS, and labor breakdown."
     />
-
-    <!-- Canonical -->
+    <meta
+      name="keywords"
+      content="Electrical Budget Estimator, Electrical Cost Calculator, Indian Construction, Electrical Fittings Cost, Budget Estimation, Electrical Labor Cost"
+    />
+    <meta name="robots" content="index, follow" />
     <link
       rel="canonical"
-      href="https://toolwebsite.in/electrical-calculator.html"
+      href="https://yourdomain.com/electrical-budget-estimator"
     />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://toolwebsite.in/electrical-calculator.html"
-    />
+    <!-- Open Graph / Facebook -->
     <meta
       property="og:title"
-      content="Electrical Work Cost Calculator for Indian Construction"
+      content="Electrical Budget Estimator for Indian Construction | Free Calculator"
     />
     <meta
       property="og:description"
-      content="Calculate complete electrical work costs. Plan your budget with our detailed estimation tool."
+      content="Calculate the electrical budget for your construction project with our free Electrical Budget Estimator. Estimate costs for sockets, switches, LED lights, ceiling fans, wires, electrical pipes, UPS, and labor breakdown."
     />
-
-    <!-- Technical -->
-    <meta name="robots" content="index, follow, max-snippet:-1" />
     <meta
-      name="keywords"
-      content="electrical work cost calculator india, wiring cost estimation, electrical points calculator, mcb installation cost, house wiring cost calculator, electrical estimation tool, construction electrical cost"
+      property="og:image"
+      content="https://yourdomain.com/path/to/image.jpg"
+    />
+    <meta
+      property="og:url"
+      content="https://yourdomain.com/electrical-budget-estimator"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Electrical Budget Estimator for Indian Construction | Free Calculator"
+    />
+    <meta
+      name="twitter:description"
+      content="Calculate the electrical budget for your construction project with our free Electrical Budget Estimator. Estimate costs for sockets, switches, LED lights, ceiling fans, wires, electrical pipes, UPS, and labor breakdown."
+    />
+    <meta
+      name="twitter:image"
+      content="https://yourdomain.com/path/to/image.jpg"
     />
 
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="electrical.css" as="style" />
-    <link rel="stylesheet" href="electrical.css" />
-
-    <!-- Scripts with defer -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
-      defer
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"
-      defer
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-
-    <!-- Calculator Schema -->
+    <!-- Structured Data (JSON-LD) for SEO -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Electrical Work Cost Calculator",
-        "applicationCategory": "CalculatorApplication",
-        "operatingSystem": "Web",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "INR"
-        },
-        "featureList": [
-          "Wiring cost calculation",
-          "Electrical points estimation",
-          "MCB installation costs",
-          "Labor cost estimation",
-          "Visual cost breakdown charts",
-          "PDF report generation"
-        ],
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.7",
-          "ratingCount": "156"
-        }
-      }
-    </script>
-
-    <!-- Breadcrumb Schema -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://toolwebsite.in/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Electrical Calculator",
-            "item": "https://toolwebsite.in/electrical-calculator.html"
+        "@type": "WebPage",
+        "name": "Electrical Budget Estimator for Indian Construction",
+        "description": "Calculate the electrical budget for your construction project with our free Electrical Budget Estimator. Estimate costs for sockets, switches, LED lights, ceiling fans, wires, electrical pipes, UPS, and labor breakdown.",
+        "url": "https://yourdomain.com/electrical-budget-estimator",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Your Company Name",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://yourdomain.com/path/to/logo.png"
           }
-        ]
+        }
       }
     </script>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS (if any) -->
+    <link rel="stylesheet" href="styles.css" />
   </head>
+
   <body>
-    <div class="back-button-container" style="padding: 1rem">
-      <a
-        href="index.html"
-        class="back-button"
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          background-color: #f3f4f6;
-          border: 1px solid #d1d5db;
-          border-radius: 0.375rem;
-          color: #374151;
-          text-decoration: none;
-          font-weight: 500;
-          transition: all 0.2s;
-        "
-      >
-        <span style="font-size: 1.2rem">←</span>
-        Back to Home
-      </a>
-    </div>
     <div class="container">
-      <h2>Electrical Work Estimation Calculator</h2>
-      <div class="disclaimer">
+      <!-- Header -->
+      <header>
+        <h1>Indian Electrical Budget Estimator</h1>
         <p>
-          Disclaimer: The cost of electrical work can vary significantly based
-          on several factors including material quality, labor costs, and
-          specific requirements. The following estimate is a rough approximation
-          and should be used as a general guideline.
+          Estimate the cost of electrical fittings for your construction
+          project.
         </p>
-      </div>
-      <table id="calculatorTable">
-        <thead>
-          <tr>
-            <th>Electrical work</th>
-            <th>Avg-Cost/1sqft</th>
-            <th>Total sqft</th>
-            <th>Floors</th>
-            <th>Amount in Rs</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Table rows will be dynamically added here -->
-        </tbody>
-      </table>
+      </header>
 
-      <div class="selected-items">
-        <h3>Selected Items</h3>
-        <ul id="selectedItemsList"></ul>
-        <button id="clearAllBtn">Clear All</button>
-        <button id="downloadPdfBtn">Download PDF</button>
-        <p id="totalAmount">Total Amount: Rs. 0</p>
-      </div>
+      <!-- Input Form -->
+      <form id="electricalForm">
+        <!-- Project Details -->
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label for="houseArea" class="form-label"
+              >House Area (sq.ft.)</label
+            >
+            <input type="number" class="form-control" id="houseArea" required />
+          </div>
+          <div class="col-md-4">
+            <label for="floors" class="form-label">Number of Floors</label>
+            <input type="number" class="form-control" id="floors" required />
+          </div>
+          <div class="col-md-4">
+            <label for="rooms" class="form-label">Total Number of Rooms</label>
+            <input type="number" class="form-control" id="rooms" required />
+          </div>
+        </div>
 
-      <div class="charts">
-        <h3>Cost Breakdown</h3>
-        <div class="chart-container">
-          <canvas id="barChart"></canvas>
+        <hr class="my-4" />
+
+        <!-- Electrical Components -->
+        <div class="row g-3">
+          <!-- Existing Components -->
+          <div class="col-md-4">
+            <label for="sockets" class="form-label">Number of Sockets</label>
+            <input type="number" class="form-control" id="sockets" value="10" />
+          </div>
+          <div class="col-md-4">
+            <label for="switches" class="form-label">Number of Switches</label>
+            <input type="number" class="form-control" id="switches" value="8" />
+          </div>
+          <div class="col-md-4">
+            <label for="lights" class="form-label">Number of LED Lights</label>
+            <input type="number" class="form-control" id="lights" value="20" />
+          </div>
+          <!-- New Component: Ceiling Fans -->
+          <div class="col-md-4">
+            <label for="fans" class="form-label">Number of Ceiling Fans</label>
+            <input type="number" class="form-control" id="fans" value="5" />
+          </div>
+          <!-- New Component: Wires with Length and Thickness -->
+          <div class="col-md-4">
+            <label for="wires" class="form-label"
+              >Length of Wires (meters)</label
+            >
+            <input type="number" class="form-control" id="wires" value="100" />
+          </div>
+          <div class="col-md-4">
+            <label for="wireThickness" class="form-label">Wire Thickness</label>
+            <select class="form-select" id="wireThickness">
+              <option value="1.5">1.5 mm</option>
+              <option value="2.5">2.5 mm</option>
+              <option value="4">4 mm</option>
+            </select>
+          </div>
+          <!-- New Component: Electrical Pipes -->
+          <div class="col-md-4">
+            <label for="pipes" class="form-label"
+              >Number of Electrical Pipes</label
+            >
+            <input type="number" class="form-control" id="pipes" value="10" />
+          </div>
+          <!-- New Component: UPS -->
+          <div class="col-md-4">
+            <label for="ups" class="form-label">Number of UPS</label>
+            <input type="number" class="form-control" id="ups" value="1" />
+          </div>
         </div>
-        <div class="chart-container">
-          <canvas id="pieChart"></canvas>
+
+        <hr class="my-4" />
+
+        <!-- Brand Preference -->
+        <div class="mb-3">
+          <label class="form-label">Preferred Brand Range</label>
+          <select class="form-select" id="brandPreference">
+            <option value="economy">Economy</option>
+            <option value="mid">Mid-Range</option>
+            <option value="premium">Premium</option>
+          </select>
         </div>
-      </div>
+
+        <hr class="my-4" />
+
+        <!-- Electrical Labor Cost Breakdown -->
+        <h4>Electrical Labor Cost Breakdown</h4>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label for="wiringLabor" class="form-label"
+              >Wiring Labor Cost (₹)</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="wiringLabor"
+              value="0"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="fittingLabor" class="form-label"
+              >Fitting Labor Cost (₹)</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="fittingLabor"
+              value="0"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="otherLabor" class="form-label"
+              >Other Labor Cost (₹)</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="otherLabor"
+              value="0"
+            />
+          </div>
+        </div>
+
+        <hr class="my-4" />
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">
+            Calculate Budget
+          </button>
+        </div>
+      </form>
+
+      <!-- Results Section -->
+      <section class="result-section">
+        <h3>Estimation Results</h3>
+        <div id="summary" class="mb-3"></div>
+
+        <!-- Brand Comparison Table (for components with brand data) -->
+        <h4 class="mt-4">Branded Cost Comparison</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Havells (₹)</th>
+              <th>Anchor (₹)</th>
+              <th>Schneider (₹)</th>
+            </tr>
+          </thead>
+          <tbody id="brandComparison">
+            <!-- Rows will be injected by JavaScript -->
+          </tbody>
+        </table>
+      </section>
     </div>
 
-    <script src="script.js"></script>
+    <!-- JavaScript -->
     <script>
-      const electricalItems = [
-        {
-          id: 1,
-          name: "Wiring: Concealed or surface wiring as required.",
-          options: [20, 25, 30, 40, 45],
+      // Sample market cost data (per unit cost in INR)
+      const costData = {
+        sockets: {
+          economy: 50,
+          mid: 80,
+          premium: 120,
+          brands: { Havells: 80, Anchor: 70, Schneider: 90 },
         },
-        {
-          id: 2,
-          name: "Points: Typically 2-3 light points, 2-3 power points, and 1 fan point.",
-          options: [20, 25, 30, 40, 45],
+        switches: {
+          economy: 30,
+          mid: 50,
+          premium: 80,
+          brands: { Havells: 55, Anchor: 45, Schneider: 60 },
         },
-        {
-          id: 3,
-          name: "Switches: Standard switches.",
-          options: [20, 25, 30, 40, 45],
+        lights: {
+          economy: 100,
+          mid: 150,
+          premium: 250,
+          brands: { Havells: 160, Anchor: 140, Schneider: 170 },
         },
-        {
-          id: 4,
-          name: "Sockets: Standard sockets.",
-          options: [20, 25, 30, 40, 45],
+        fans: {
+          economy: 1500,
+          mid: 2500,
+          premium: 4000,
         },
-        {
-          id: 5,
-          name: "MCB: Main circuit breaker.",
-          options: [20, 25, 30, 40, 45],
+        // Wires: cost depends on both brand preference and wire thickness
+        wires: {
+          economy: { 1.5: 20, 2.5: 35, 4: 50 },
+          mid: { 1.5: 30, 2.5: 45, 4: 60 },
+          premium: { 1.5: 40, 2.5: 60, 4: 80 },
         },
-        {
-          id: 6,
-          name: "Labor: Electrician's charges for installation and wiring.",
-          options: [20, 25, 30, 40, 45],
+        electricalPipes: {
+          economy: 100,
+          mid: 150,
+          premium: 200,
         },
-        {
-          id: 7,
-          name: "Additional wiring and Number of points",
-          options: [10, 15, 20],
+        ups: {
+          economy: 3000,
+          mid: 4500,
+          premium: 6000,
         },
-        { id: 8, name: "Installing Ac Points", options: [20, 30] },
-        { id: 9, name: "Installing Fans", options: [5, 10] },
-        { id: 10, name: "Other Decorative lights or Lamps", options: [5, 10] },
-        { id: 11, name: "Ups Connection", options: [10, 20] },
-        {
-          id: 12,
-          name: "Main Power Connection to Building",
-          options: [10, 20, 30],
-        },
-      ];
+      };
 
-      const floorOptions = ["G+0", "G+1", "G+2", "G+3", "G+4", "G+5"];
+      document
+        .getElementById("electricalForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
 
-      let selectedItems = [];
-      let totalAmount = 0;
+          // Retrieve input values for components
+          const sockets = parseInt(
+            document.getElementById("sockets").value,
+            10
+          );
+          const switches = parseInt(
+            document.getElementById("switches").value,
+            10
+          );
+          const lights = parseInt(document.getElementById("lights").value, 10);
+          const fans = parseInt(document.getElementById("fans").value, 10);
+          const wiresLength = parseInt(
+            document.getElementById("wires").value,
+            10
+          );
+          const wireThickness = document.getElementById("wireThickness").value;
+          const pipes = parseInt(document.getElementById("pipes").value, 10);
+          const ups = parseInt(document.getElementById("ups").value, 10);
+          const brandPref = document.getElementById("brandPreference").value;
 
-      const calculatorTable = document.getElementById("calculatorTable");
-      const selectedItemsList = document.getElementById("selectedItemsList");
-      const totalAmountElement = document.getElementById("totalAmount");
-      const clearAllBtn = document.getElementById("clearAllBtn");
-      const downloadPdfBtn = document.getElementById("downloadPdfBtn");
+          // Retrieve labor cost inputs
+          const wiringLabor =
+            parseFloat(document.getElementById("wiringLabor").value) || 0;
+          const fittingLabor =
+            parseFloat(document.getElementById("fittingLabor").value) || 0;
+          const otherLabor =
+            parseFloat(document.getElementById("otherLabor").value) || 0;
+          const laborTotal = wiringLabor + fittingLabor + otherLabor;
 
-      function initializeTable() {
-        const tbody = calculatorTable.querySelector("tbody");
-        electricalItems.forEach((item) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${item.name}</td>
-            <td>
-                <select id="cost-${item.id}">
-                    <option value="">Select</option>
-                    ${item.options
-                      .map(
-                        (option) =>
-                          `<option value="${option}">${option} Rs</option>`
-                      )
-                      .join("")}
-                </select>
-            </td>
-            <td><input type="number" id="sqft-${item.id}"></td>
-            <td>
-                <select id="floors-${item.id}">
-                    ${floorOptions
-                      .map(
-                        (floor, index) =>
-                          `<option value="${index}">${floor}</option>`
-                      )
-                      .join("")}
-                </select>
-            </td>
-            <td id="amount-${item.id}">0</td>
+          // Calculate component costs based on brand preference
+          const costSockets = sockets * costData.sockets[brandPref];
+          const costSwitches = switches * costData.switches[brandPref];
+          const costLights = lights * costData.lights[brandPref];
+          const costFans = fans * costData.fans[brandPref];
+          const costWires =
+            wiresLength * costData.wires[brandPref][wireThickness];
+          const costPipes = pipes * costData.electricalPipes[brandPref];
+          const costUPS = ups * costData.ups[brandPref];
+
+          // Calculate total component cost and grand total (components + labor)
+          const componentsTotal =
+            costSockets +
+            costSwitches +
+            costLights +
+            costFans +
+            costWires +
+            costPipes +
+            costUPS;
+          const grandTotal = componentsTotal + laborTotal;
+
+          // Update summary
+          document.getElementById("summary").innerHTML = `
+          <p><strong>Grand Total Estimated Cost:</strong> ₹${grandTotal.toLocaleString()}</p>
+          <p>
+            <strong>Components:</strong> ₹${componentsTotal.toLocaleString()}<br/>
+            Sockets: ₹${costSockets.toLocaleString()} | Switches: ₹${costSwitches.toLocaleString()} | LED Lights: ₹${costLights.toLocaleString()} | Ceiling Fans: ₹${costFans.toLocaleString()}<br/>
+            Wires: ₹${costWires.toLocaleString()} | Electrical Pipes: ₹${costPipes.toLocaleString()} | UPS: ₹${costUPS.toLocaleString()}<br/>
+            <strong>Labor:</strong> ₹${laborTotal.toLocaleString()} (Wiring: ₹${wiringLabor.toLocaleString()}, Fitting: ₹${fittingLabor.toLocaleString()}, Other: ₹${otherLabor.toLocaleString()})
+          </p>
         `;
-          tbody.appendChild(row);
 
-          // Add event listeners
-          row
-            .querySelector(`#cost-${item.id}`)
-            .addEventListener("change", () => updateAmount(item.id));
-          row
-            .querySelector(`#sqft-${item.id}`)
-            .addEventListener("input", () => updateAmount(item.id));
-          row
-            .querySelector(`#floors-${item.id}`)
-            .addEventListener("change", () => updateAmount(item.id));
-        });
-      }
-
-      function updateAmount(id) {
-        const cost = Number(document.getElementById(`cost-${id}`).value);
-        const sqft = Number(document.getElementById(`sqft-${id}`).value);
-        const floors = Number(document.getElementById(`floors-${id}`).value);
-
-        if (cost && sqft && floors >= 0) {
-          const amount = cost * sqft * (floors + 1);
-          document.getElementById(`amount-${id}`).textContent = amount;
-          updateSelectedItems(id, cost, sqft, floors, amount);
-        } else {
-          document.getElementById(`amount-${id}`).textContent = "0";
-          removeSelectedItem(id);
-        }
-      }
-
-      function updateSelectedItems(id, cost, sqft, floors, amount) {
-        const index = selectedItems.findIndex((item) => item.id === id);
-        if (index !== -1) {
-          selectedItems[index] = { id, cost, sqft, floors, amount };
-        } else {
-          selectedItems.push({ id, cost, sqft, floors, amount });
-        }
-        updateSelectedItemsList();
-        updateTotalAmount();
-        updateCharts();
-      }
-
-      function removeSelectedItem(id) {
-        selectedItems = selectedItems.filter((item) => item.id !== id);
-        updateSelectedItemsList();
-        updateTotalAmount();
-        updateCharts();
-      }
-
-      function updateSelectedItemsList() {
-        selectedItemsList.innerHTML = "";
-        selectedItems.forEach((item) => {
-          const li = document.createElement("li");
-          li.innerHTML = `
-            <span>${electricalItems.find((ei) => ei.id === item.id).name}</span>
-            <span>Rs. ${item.amount}</span>
-            <button onclick="removeSelectedItem(${item.id})">Remove</button>
+          // Update Brand Comparison Table (for components with brand data)
+          document.getElementById("brandComparison").innerHTML = `
+          <tr>
+            <td>Sockets</td>
+            <td>₹${costData.sockets.brands.Havells}</td>
+            <td>₹${costData.sockets.brands.Anchor}</td>
+            <td>₹${costData.sockets.brands.Schneider}</td>
+          </tr>
+          <tr>
+            <td>Switches</td>
+            <td>₹${costData.switches.brands.Havells}</td>
+            <td>₹${costData.switches.brands.Anchor}</td>
+            <td>₹${costData.switches.brands.Schneider}</td>
+          </tr>
+          <tr>
+            <td>LED Lights</td>
+            <td>₹${costData.lights.brands.Havells}</td>
+            <td>₹${costData.lights.brands.Anchor}</td>
+            <td>₹${costData.lights.brands.Schneider}</td>
+          </tr>
         `;
-          selectedItemsList.appendChild(li);
         });
-      }
-
-      function updateTotalAmount() {
-        totalAmount = selectedItems.reduce((sum, item) => sum + item.amount, 0);
-        totalAmountElement.textContent = `Total Amount: Rs. ${totalAmount}`;
-      }
-
-      function clearAll() {
-        selectedItems = [];
-        totalAmount = 0;
-        updateSelectedItemsList();
-        updateTotalAmount();
-        updateCharts();
-        electricalItems.forEach((item) => {
-          document.getElementById(`cost-${item.id}`).value = "";
-          document.getElementById(`sqft-${item.id}`).value = "";
-          document.getElementById(`floors-${item.id}`).value = "0";
-          document.getElementById(`amount-${item.id}`).textContent = "0";
-        });
-      }
-
-      function downloadPDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        doc.text("Electrical Work Estimation", 14, 15);
-
-        const tableColumn = [
-          "Item",
-          "Cost per sqft",
-          "Total sqft",
-          "Floors",
-          "Amount",
-        ];
-        const tableRows = selectedItems.map((item) => [
-          electricalItems.find((ei) => ei.id === item.id).name,
-          item.cost,
-          item.sqft,
-          floorOptions[item.floors],
-          item.amount,
-        ]);
-
-        doc.autoTable({
-          head: [tableColumn],
-          body: tableRows,
-          startY: 20,
-        });
-
-        doc.text(
-          `Total Amount: Rs. ${totalAmount}`,
-          14,
-          doc.lastAutoTable.finalY + 10
-        );
-        doc.save("electrical-estimation.pdf");
-      }
-
-      let barChart, pieChart;
-
-      function initializeCharts() {
-        const barCtx = document.getElementById("barChart").getContext("2d");
-        barChart = new Chart(barCtx, {
-          type: "bar",
-          data: {
-            labels: [],
-            datasets: [
-              {
-                label: "Amount in Rs",
-                data: [],
-                backgroundColor: "rgba(75, 192, 192, 0.6)",
-                borderColor: "rgba(75, 192, 192, 1)",
-                borderWidth: 1,
-              },
-            ],
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true,
-              },
-            },
-          },
-        });
-
-        const pieCtx = document.getElementById("pieChart").getContext("2d");
-        pieChart = new Chart(pieCtx, {
-          type: "pie",
-          data: {
-            labels: [],
-            datasets: [
-              {
-                data: [],
-                backgroundColor: [
-                  "rgba(255, 99, 132, 0.6)",
-                  "rgba(54, 162, 235, 0.6)",
-                  "rgba(255, 206, 86, 0.6)",
-                  "rgba(75, 192, 192, 0.6)",
-                  "rgba(153, 102, 255, 0.6)",
-                  "rgba(255, 159, 64, 0.6)",
-                ],
-                borderColor: [
-                  "rgba(255, 99, 132, 1)",
-                  "rgba(54, 162, 235, 1)",
-                  "rgba(255, 206, 86, 1)",
-                  "rgba(75, 192, 192, 1)",
-                  "rgba(153, 102, 255, 1)",
-                  "rgba(255, 159, 64, 1)",
-                ],
-                borderWidth: 1,
-              },
-            ],
-          },
-        });
-      }
-
-      function updateCharts() {
-        const labels = selectedItems.map(
-          (item) => electricalItems.find((ei) => ei.id === item.id).name
-        );
-        const data = selectedItems.map((item) => item.amount);
-
-        barChart.data.labels = labels;
-        barChart.data.datasets[0].data = data;
-        barChart.update();
-
-        pieChart.data.labels = labels;
-        pieChart.data.datasets[0].data = data;
-        pieChart.update();
-      }
-
-      // Event listeners
-      clearAllBtn.addEventListener("click", clearAll);
-      downloadPdfBtn.addEventListener("click", downloadPDF);
-
-      // Initialize
-      initializeTable();
-      initializeCharts();
     </script>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
