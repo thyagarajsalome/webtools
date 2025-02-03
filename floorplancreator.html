@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Floor Plan Creator</title>
+    <meta
+      name="description"
+      content="Create professional house floor plans with our free floor plan creator. Easy-to-use online tool for designing custom floor plans, home layouts, and architectural drawings."
+    />
+    <meta
+      name="keywords"
+      content="floor plan creator, free floor plan creator, house floor plans, home layout design, architectural drawing tool"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta
+      property="og:title"
+      content="Free Floor Plan Creator | Design House Floor Plans Online"
+    />
+    <meta
+      property="og:description"
+      content="Create professional house floor plans with our free floor plan creator. Easy-to-use online tool for designing custom floor plans."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="[YOUR-WEBSITE-URL]" />
+    <link rel="stylesheet" href="./floorplancreator.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Floor Plan Creator</h1>
+      <div class="controls">
+        <label for="sizeSelect">Select Floor Plan Size:</label>
+        <select id="sizeSelect">
+          <option value="">Choose Size</option>
+          <option value="25x25">25 x 25 ft</option>
+          <option value="25x40">25 x 40 ft</option>
+          <option value="30x40">30 x 40 ft</option>
+          <option value="60x80">60 x 80 ft</option>
+        </select>
+        <button id="optionsBtn" disabled>Option</button>
+        <button id="downloadBtn" disabled>Download PDF</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+      <div id="canvasContainer">
+        <canvas id="planCanvas"></canvas>
+      </div>
+      <div id="planDetails"></div>
+
+      <a class="fpc-btn" href="/webtools/index.html"><button>Home</button></a>
+    </div>
+
+    <!-- jsPDF Library for PDF download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="./floorplancreator.js"></script>
+  </body>
+</html>
