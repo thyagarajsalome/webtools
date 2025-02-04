@@ -11,8 +11,6 @@ const colors = {
   "color-8": "#b073df",
   "color-9": "#88a765",
   "color-10": "#709abf",
-
-  // New colors
   "color-11": "#FF9933", // Marigold Glory
   "color-12": "#9B4B4B", // Terracotta Touch
   "color-13": "#006B3C", // Emerald Vista
