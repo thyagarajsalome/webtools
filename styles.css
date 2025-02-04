@@ -140,7 +140,6 @@ section h2 {
 .tool-card .icon {
   font-size: 1.5rem;
   color: dodgerblue;
-  margin-bottom: 1rem;
 }
 
 .tool-card h3 {
@@ -412,7 +411,7 @@ section h2 {
 }
 
 .tool-card .icon {
-  color: var(--icon-color);
+  color: dodgerblue;
 }
 
 .tool-card h3 {
