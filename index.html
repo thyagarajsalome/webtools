@@ -2,13 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Use a responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Primary Meta Tags -->
     <title>Tool-Website</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
     <meta
       name="title"
       content="Construction Cost Calculator & Planning Tools for Indian Homes | Tool Website"
@@ -18,10 +16,10 @@
       content="Free construction planning tools for Indian homeowners. Calculate accurate costs for house construction, flooring, paint, plumbing, electrical, doors & windows. Get detailed budget estimates for your dream home."
     />
 
-    <!-- Canonical Tag - Make sure this matches your primary domain -->
+    <!-- Canonical URL -->
     <link rel="canonical" href="https://toolwebsite.in/" />
 
-    <!-- Language Alternatives if you have any -->
+    <!-- Language Alternatives -->
     <link rel="alternate" href="https://toolwebsite.in/" hreflang="en-in" />
 
     <!-- Open Graph / Facebook -->
@@ -41,7 +39,7 @@
       content="https://toolwebsite.in/images/tool-website-preview.jpg"
     />
 
-    <!-- Twitter -->
+    <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@toolwebsite" />
     <meta property="twitter:url" content="https://toolwebsite.in/" />
@@ -58,13 +56,13 @@
       content="https://toolwebsite.in/images/tool-website-preview.jpg"
     />
 
-    <!-- Keywords - Extended and properly formatted -->
+    <!-- Keywords -->
     <meta
       name="keywords"
       content="construction cost calculator india, house construction cost calculator, floor tile calculator, wall tile cost estimator, paint calculation tool india, plumbing cost estimation, electrical work calculator, door window cost india, construction budget planner, home construction tools india, building material calculator, construction planning software"
     />
 
-    <!-- Technical -->
+    <!-- Technical Meta Tags -->
     <meta
       name="robots"
       content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
@@ -75,39 +73,27 @@
     />
     <meta name="msvalidate.01" content="061B4082725F1B3C4EE90801D169C0C2" />
 
-    <!-- Favicon -->
+    <!-- Favicon & App Icons -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Preconnect and Resource Hints -->
+    <!-- Preconnect to required origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css" />
+    <!-- Load Google Fonts (consider self-hosting for even faster delivery) -->
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Scripts -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
-      defer
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"
-      defer
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
-      defer
-    ></script>
+    <!-- Minified CSS (consider inlining critical CSS for first paint) -->
+    <link rel="stylesheet" href="styles.css" />
 
-    <!-- Enhanced Schema.org markup -->
+    <!-- JSON-LD Structured Data (no render-blocking impact) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -141,8 +127,6 @@
         }
       }
     </script>
-
-    <!-- Organization Schema -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -158,8 +142,8 @@
       }
     </script>
   </head>
-
   <body>
+    <!-- Header and Navigation -->
     <header class="header-bar" role="banner">
       <nav role="navigation" aria-label="Main navigation">
         <div class="menu-icon" id="menuIcon">
@@ -185,8 +169,9 @@
       </nav>
     </header>
 
+    <!-- Main Content -->
     <main role="main">
-      <!-- Hero Section -->
+      <!-- Hero Section (consider lazy-loading background images) -->
       <section class="hero" id="home" aria-label="Homepage Banner">
         <div class="container">
           <h1>Construction Planning Tools for Indian Homes</h1>
@@ -222,7 +207,7 @@
         <div class="container">
           <h2>Construction Planning Tools</h2>
           <div class="tool-grid">
-            <!-- houseEstimator -->
+            <!-- Each tool-card is an individual lightweight component -->
             <article class="tool-card">
               <a href="./construction.html" target="_blank" class="tool-link">
                 <i class="fa-solid fa-building icon" aria-hidden="true"></i>
@@ -232,27 +217,24 @@
                 </p>
               </a>
             </article>
-            <!-- houseEstimator -->
             <article class="tool-card">
               <a href="./houseConstruction.html" class="tool-link">
                 <i class="fa-solid fa-house icon" aria-hidden="true"></i>
-                <h3>Material & Labour</h3>
+                <h3>Material &amp; Labour</h3>
                 <p>
                   Calculate total construction cost based on your requirements
                 </p>
               </a>
             </article>
-
             <article class="tool-card">
               <a href="./floorWall.html" target="_blank" class="tool-link">
                 <i class="fa-solid fa-border-all icon" aria-hidden="true"></i>
-                <h3>Floor & Wall Tile</h3>
+                <h3>Floor &amp; Wall Tile</h3>
                 <p>
                   Estimate flooring and wall tiling costs with material options
                 </p>
               </a>
             </article>
-
             <article class="tool-card">
               <a href="./paint.html" target="_blank" class="tool-link">
                 <i class="fa-solid fa-paint-roller icon" aria-hidden="true"></i>
@@ -260,7 +242,6 @@
                 <p>Calculate paint quantities and costs for your spaces</p>
               </a>
             </article>
-
             <article class="tool-card">
               <a href="./plumbing.html" target="_blank" class="tool-link">
                 <i class="fa-solid fa-faucet icon" aria-hidden="true"></i>
@@ -268,7 +249,6 @@
                 <p>Estimate plumbing costs for your entire house</p>
               </a>
             </article>
-
             <article class="tool-card">
               <a href="./electrical.html" target="_blank" class="tool-link">
                 <i class="fa-solid fa-bolt icon" aria-hidden="true"></i>
@@ -276,11 +256,10 @@
                 <p>Plan your electrical layout and calculate costs</p>
               </a>
             </article>
-
             <article class="tool-card">
               <a href="./door_window.html" target="_blank" class="tool-link">
                 <i class="fa-solid fa-door-open icon" aria-hidden="true"></i>
-                <h3>Doors & Windows</h3>
+                <h3>Doors &amp; Windows</h3>
                 <p>Calculate costs for doors and windows installation</p>
               </a>
             </article>
@@ -380,7 +359,6 @@
                 </p>
               </div>
             </details>
-
             <details class="faq-item">
               <summary>
                 Can I use this tool for commercial construction projects?
@@ -393,7 +371,6 @@
                 </p>
               </div>
             </details>
-
             <details class="faq-item">
               <summary>How often is the cost data updated?</summary>
               <div class="faq-answer">
@@ -410,6 +387,7 @@
       </section>
     </main>
 
+    <!-- Footer -->
     <footer class="footer" role="contentinfo">
       <div class="container">
         <div class="footer-content">
@@ -417,6 +395,7 @@
             <p class="copyright">© 2025 Tool Website. All rights reserved.</p>
             <p>Version 1.0.1</p>
           </div>
+          <!-- Footer Navigation (if needed) -->
           <!-- <nav class="footer-nav" aria-label="Footer navigation">
             <a href="/privacy-policy">Privacy Policy</a>
             <a href="/terms">Terms of Use</a>
@@ -426,7 +405,7 @@
       </div>
     </footer>
 
-    <!-- Breadcrumbs Schema -->
+    <!-- Additional Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -441,8 +420,6 @@
         ]
       }
     </script>
-
-    <!-- FAQ Schema -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -475,8 +452,9 @@
         ]
       }
     </script>
-    <!-- Scripts -->
+
+    <!-- Defer local scripts for non-blocking execution -->
     <script src="header.js" defer></script>
-    <script src="./darkMode.js"></script>
+    <script src="./darkMode.js" defer></script>
   </body>
 </html>
