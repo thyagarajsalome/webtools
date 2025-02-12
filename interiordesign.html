@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interior Design Budget Estimator</title>
+    <style>
+      /* Basic Reset & Typography */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 960px;
+        margin: auto;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      h1 {
+        margin: 0;
+        color: #333;
+      }
+      h2 {
+        margin-bottom: 10px;
+        color: #555;
+      }
+      section {
+        margin-bottom: 30px;
+      }
+
+      /* Table Styles */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+      }
+      table th,
+      table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      table th {
+        background-color: #f8f8f8;
+      }
+
+      /* Button & Input Styles */
+      button {
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      button.remove {
+        background-color: #dc3545;
+      }
+      input[type="number"],
+      select {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      /* Total Cost Display */
+      #totalCost {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 10px 0;
+        color: #007bff;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 600px) {
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+        }
+        th {
+          display: none;
+        }
+        td {
+          position: relative;
+          padding-left: 50%;
+          text-align: left;
+          border: none;
+          border-bottom: 1px solid #ddd;
+        }
+        td::before {
+          position: absolute;
+          top: 8px;
+          left: 10px;
+          white-space: nowrap;
+          font-weight: bold;
+        }
+        td:nth-of-type(1)::before {
+          content: "Item";
+        }
+        td:nth-of-type(2)::before {
+          content: "Quantity";
+        }
+        td:nth-of-type(3)::before {
+          content: "Cost (₹)";
+        }
+        td:nth-of-type(4)::before {
+          content: "Action";
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Interior Design Budget Estimator</h1>
+        <p>
+          Estimate your project cost by adding interior materials and labor
+          items
+        </p>
+      </header>
+
+      <!-- Materials Section -->
+      <section id="materials-section">
+        <h2>Materials</h2>
+        <table id="materialsTable">
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Area (sq ft)</th>
+              <th>Cost (₹)</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Material rows will be dynamically added here -->
+          </tbody>
+        </table>
+        <button id="addMaterial">Add Material</button>
+      </section>
+
+      <!-- Labor Section -->
+      <section id="labor-section">
+        <h2>Labor</h2>
+        <table id="laborTable">
+          <thead>
+            <tr>
+              <th>Labor Skill</th>
+              <th>Area (sq ft)</th>
+              <th>Cost (₹)</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Labor rows will be dynamically added here -->
+          </tbody>
+        </table>
+        <button id="addLabor">Add Labor</button>
+      </section>
+
+      <!-- Calculation Section -->
+      <section id="result">
+        <h2>Total Estimated Cost</h2>
+        <div id="totalCost">₹ 0</div>
+        <button id="calculate">Calculate Total</button>
+      </section>
+    </div>
+
+    <script>
+      /*******************
+       * Data Definitions
+       *******************/
+      // Predefined rates for interior materials (per sq ft) in INR
+      const materialData = {
+        Tiles: 50,
+        Marble: 120,
+        "Wood Flooring": 80,
+        Laminate: 60,
+        Carpet: 40,
+        Paint: 25,
+      };
+
+      // Predefined rates for labor skills (per sq ft) in INR
+      // Note: The values here are now interpreted as cost per sq ft.
+      const laborData = {
+        Carpenter: 300,
+        Electrician: 350,
+        Plumber: 300,
+        Painter: 250,
+        Mason: 200,
+      };
+
+      /*******************
+       * Material Functions
+       *******************/
+      function addMaterialRow() {
+        const tableBody = document.querySelector("#materialsTable tbody");
+        const row = document.createElement("tr");
+
+        // Material selection cell
+        const materialCell = document.createElement("td");
+        const materialSelect = document.createElement("select");
+        for (let material in materialData) {
+          const option = document.createElement("option");
+          option.value = material;
+          option.textContent =
+            material + " (₹" + materialData[material] + "/sq ft)";
+          materialSelect.appendChild(option);
+        }
+        materialCell.appendChild(materialSelect);
+
+        // Area input cell
+        const areaCell = document.createElement("td");
+        const areaInput = document.createElement("input");
+        areaInput.type = "number";
+        areaInput.min = "0";
+        areaInput.value = "0";
+        areaCell.appendChild(areaInput);
+
+        // Cost display cell
+        const costCell = document.createElement("td");
+        costCell.textContent = "₹ 0";
+
+        // Action cell with Remove button
+        const actionCell = document.createElement("td");
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        removeBtn.className = "remove";
+        removeBtn.addEventListener("click", function () {
+          row.remove();
+        });
+        actionCell.appendChild(removeBtn);
+
+        // Append all cells to the row
+        row.appendChild(materialCell);
+        row.appendChild(areaCell);
+        row.appendChild(costCell);
+        row.appendChild(actionCell);
+
+        // Update cost when material or area changes
+        materialSelect.addEventListener("change", () => updateMaterialRow(row));
+        areaInput.addEventListener("input", () => updateMaterialRow(row));
+
+        tableBody.appendChild(row);
+      }
+
+      function updateMaterialRow(row) {
+        const materialSelect = row.cells[0].querySelector("select");
+        const areaInput = row.cells[1].querySelector("input");
+        const costCell = row.cells[2];
+
+        const selectedMaterial = materialSelect.value;
+        const area = parseFloat(areaInput.value) || 0;
+        const rate = materialData[selectedMaterial];
+        const cost = rate * area;
+
+        costCell.textContent = "₹ " + cost.toFixed(2);
+      }
+
+      /*******************
+       * Labor Functions (Based on Sq Ft)
+       *******************/
+      function addLaborRow() {
+        const tableBody = document.querySelector("#laborTable tbody");
+        const row = document.createElement("tr");
+
+        // Labor selection cell
+        const laborCell = document.createElement("td");
+        const laborSelect = document.createElement("select");
+        for (let labor in laborData) {
+          const option = document.createElement("option");
+          option.value = labor;
+          option.textContent = labor + " (₹" + laborData[labor] + "/sq ft)";
+          laborSelect.appendChild(option);
+        }
+        laborCell.appendChild(laborSelect);
+
+        // Area input cell
+        const areaCell = document.createElement("td");
+        const areaInput = document.createElement("input");
+        areaInput.type = "number";
+        areaInput.min = "0";
+        areaInput.value = "0";
+        areaCell.appendChild(areaInput);
+
+        // Cost display cell
+        const costCell = document.createElement("td");
+        costCell.textContent = "₹ 0";
+
+        // Action cell with Remove button
+        const actionCell = document.createElement("td");
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        removeBtn.className = "remove";
+        removeBtn.addEventListener("click", function () {
+          row.remove();
+        });
+        actionCell.appendChild(removeBtn);
+
+        // Append all cells to the row
+        row.appendChild(laborCell);
+        row.appendChild(areaCell);
+        row.appendChild(costCell);
+        row.appendChild(actionCell);
+
+        // Update cost when labor selection or area changes
+        laborSelect.addEventListener("change", () => updateLaborRow(row));
+        areaInput.addEventListener("input", () => updateLaborRow(row));
+
+        tableBody.appendChild(row);
+      }
+
+      function updateLaborRow(row) {
+        const laborSelect = row.cells[0].querySelector("select");
+        const areaInput = row.cells[1].querySelector("input");
+        const costCell = row.cells[2];
+
+        const selectedLabor = laborSelect.value;
+        const area = parseFloat(areaInput.value) || 0;
+        const rate = laborData[selectedLabor];
+        const cost = rate * area;
+
+        costCell.textContent = "₹ " + cost.toFixed(2);
+      }
+
+      /*******************
+       * Calculation Function
+       *******************/
+      function calculateTotal() {
+        let total = 0;
+
+        // Sum material costs
+        const materialRows = document.querySelectorAll(
+          "#materialsTable tbody tr"
+        );
+        materialRows.forEach((row) => {
+          const costText = row.cells[2].textContent.replace("₹", "").trim();
+          const cost = parseFloat(costText) || 0;
+          total += cost;
+        });
+
+        // Sum labor costs
+        const laborRows = document.querySelectorAll("#laborTable tbody tr");
+        laborRows.forEach((row) => {
+          const costText = row.cells[2].textContent.replace("₹", "").trim();
+          const cost = parseFloat(costText) || 0;
+          total += cost;
+        });
+
+        document.getElementById("totalCost").textContent =
+          "₹ " + total.toFixed(2);
+      }
+
+      /*******************
+       * Event Listeners
+       *******************/
+      document
+        .getElementById("addMaterial")
+        .addEventListener("click", addMaterialRow);
+      document
+        .getElementById("addLabor")
+        .addEventListener("click", addLaborRow);
+      document
+        .getElementById("calculate")
+        .addEventListener("click", calculateTotal);
+
+      // Add one default row for each section on page load
+      window.addEventListener("DOMContentLoaded", function () {
+        addMaterialRow();
+        addLaborRow();
+      });
+    </script>
+  </body>
+</html>
