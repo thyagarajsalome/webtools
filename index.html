@@ -5,8 +5,10 @@
     <!-- Use a responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Primary Meta Tags -->
     <title>Tool-Website</title>
+    <link rel="stylesheet" href="./styles.css" />
+
+    <!-- SEO and Social Meta Tags -->
     <meta
       name="title"
       content="Construction Cost Calculator & Planning Tools for Indian Homes | Tool Website"
@@ -15,11 +17,7 @@
       name="description"
       content="Free construction planning tools for Indian homeowners. Calculate accurate costs for house construction, flooring, paint, plumbing, electrical, doors & windows. Get detailed budget estimates for your dream home."
     />
-
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://toolwebsite.in/" />
-
-    <!-- Language Alternatives -->
     <link rel="alternate" href="https://toolwebsite.in/" hreflang="en-in" />
 
     <!-- Open Graph / Facebook -->
@@ -56,13 +54,11 @@
       content="https://toolwebsite.in/images/tool-website-preview.jpg"
     />
 
-    <!-- Keywords -->
+    <!-- Keywords & Robots -->
     <meta
       name="keywords"
       content="construction cost calculator india, house construction cost calculator, floor tile calculator, wall tile cost estimator, paint calculation tool india, plumbing cost estimation, electrical work calculator, door window cost india, construction budget planner, home construction tools india, building material calculator, construction planning software"
     />
-
-    <!-- Technical Meta Tags -->
     <meta
       name="robots"
       content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
@@ -84,16 +80,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 
-    <!-- Load Google Fonts (consider self-hosting for even faster delivery) -->
+    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Minified CSS (consider inlining critical CSS for first paint) -->
-    <link rel="stylesheet" href="styles.css" />
-
-    <!-- JSON-LD Structured Data (no render-blocking impact) -->
+    <!-- JSON‑LD Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -171,7 +164,7 @@
 
     <!-- Main Content -->
     <main role="main">
-      <!-- Hero Section (consider lazy-loading background images) -->
+      <!-- Hero Section -->
       <section class="hero" id="home" aria-label="Homepage Banner">
         <div class="container">
           <h1>Construction Planning Tools for Indian Homes</h1>
@@ -207,7 +200,6 @@
         <div class="container">
           <h2>Construction Planning Tools</h2>
           <div class="tool-grid">
-            <!-- Each tool-card is an individual lightweight component -->
             <article class="tool-card">
               <a href="./construction.html" target="_blank" class="tool-link">
                 <i class="fa-solid fa-building icon" aria-hidden="true"></i>
@@ -390,17 +382,9 @@
     <!-- Footer -->
     <footer class="footer" role="contentinfo">
       <div class="container">
-        <div class="footer-content">
-          <div class="footer-info">
-            <p class="copyright">© 2025 Tool Website. All rights reserved.</p>
-            <p>Version 1.0.1</p>
-          </div>
-          <!-- Footer Navigation (if needed) -->
-          <!-- <nav class="footer-nav" aria-label="Footer navigation">
-            <a href="/privacy-policy">Privacy Policy</a>
-            <a href="/terms">Terms of Use</a>
-            <a href="/sitemap.xml">Sitemap</a>
-          </nav> -->
+        <div class="footer-info">
+          <p class="copyright">© 2025 Tool Website. All rights reserved.</p>
+          <p>Version 1.0.1</p>
         </div>
       </div>
     </footer>
@@ -453,7 +437,7 @@
       }
     </script>
 
-    <!-- Defer local scripts for non-blocking execution -->
+    <!-- Deferred Scripts -->
     <script src="header.js" defer></script>
     <script src="./darkMode.js" defer></script>
   </body>
