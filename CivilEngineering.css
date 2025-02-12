@@ -50,7 +50,7 @@ header {
   transition: background 0.3s;
 }
 .tabs button.active {
-  background: #007bff;
+  background: gray;
   color: #fff;
 }
 .calculator-section {
