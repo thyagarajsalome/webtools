@@ -120,8 +120,7 @@ section h2 {
 }
 
 .tool-card {
-  border: 1px solid #e0e0e0;
-  background-color: #fff;
+  border: 1px dashed dodgerblue;
   border-radius: 8px;
   transition: transform 0.3s ease;
 }
@@ -143,13 +142,13 @@ section h2 {
 }
 
 .tool-card h3 {
-  font-size: 1.5rem;
-  /* margin: 1rem 0; */
-  color: gray;
+  font-size: 1.2rem;
+
+  color: var(--accent-color);
 }
 
 .tool-card p {
-  color: #5f6368;
+  color: #333;
 }
 
 /* FAQ Section */
@@ -389,9 +388,13 @@ section h2 {
 }
 
 /* Responsive Design */
+
 @media screen and (max-width: 768px) {
   #navMenu {
     background: var(--bg-primary);
+  }
+  .tool-card h3 {
+    color: var(--accent-color);
   }
 }
 
@@ -410,10 +413,6 @@ section h2 {
 
 .tool-card .icon {
   color: dodgerblue;
-}
-
-.tool-card h3 {
-  color: gray;
 }
 
 .tool-card p {
@@ -472,4 +471,8 @@ section h2 {
 
 [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
+}
+
+.contact-info a {
+  color: dodgerblue;
 }
