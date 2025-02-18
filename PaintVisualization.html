@@ -2,372 +2,511 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Paint Visualizer</title>
-    <link rel="stylesheet" href="./PaintVisualization.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Paint Visualizer - Dark Theme</title>
+    <style>
+      /* Reset */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #121212;
+        color: #e0e0e0;
+        line-height: 1.6;
+      }
+      /* Back Button */
+      .back-button-container {
+        padding: 1rem;
+      }
+      .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background-color: #333;
+        border: 1px solid #444;
+        border-radius: 0.375rem;
+        color: #e0e0e0;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.2s;
+      }
+      .back-button:hover {
+        background-color: #444;
+      }
+      /* Layout */
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 1rem;
+        justify-content: center;
+      }
+      .visualization-area {
+        position: relative;
+        max-width: 1200px;
+        width: 100%;
+      }
+      /* Base image always behind overlays */
+      #baseImage {
+        display: block;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+      }
+      /* Overlays placed on top with blending mode */
+      .color-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        mix-blend-mode: multiply;
+      }
+      .color-selection {
+        max-width: 400px;
+        width: 100%;
+        background: #1e1e1e;
+        padding: 1rem;
+        border: 1px solid #333;
+        border-radius: 8px;
+      }
+      .color-selection h4 {
+        margin-bottom: 0.5rem;
+        text-align: center;
+      }
+      .color-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        justify-content: center;
+      }
+      .color-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50px;
+      }
+      .color-button {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        outline: none;
+        transition: transform 0.2s ease;
+      }
+      .color-button.active {
+        transform: scale(1.2);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      }
+      .reset-button {
+        background-color: #333;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        display: block;
+        margin: 0.5rem auto;
+        color: #e0e0e0;
+      }
+      .reset-button:hover {
+        background-color: #444;
+      }
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .color-selection {
+          max-width: 800px;
+          width: 100%;
+          background: #1e1e1e;
+          padding: 1rem;
+          border: 1px solid #333;
+          border-radius: 8px;
+        }
+      }
+      @media (max-width: 1366px) {
+        .color-selection {
+          max-width: 1200px;
+          width: 100%;
+          background: #1e1e1e;
+          padding: 1rem;
+          border: 1px solid #333;
+          border-radius: 8px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div class="back-button-container" style="padding: 1rem">
-      <a
-        href="index.html"
-        class="back-button"
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          background-color: #f3f4f6;
-          border: 1px solid #d1d5db;
-          border-radius: 0.375rem;
-          color: #374151;
-          text-decoration: none;
-          font-weight: 500;
-          transition: all 0.2s;
-        "
-      >
-        <span style="font-size: 1.2rem">←</span>
-        Back to Home
-      </a>
-    </div>
     <div class="container">
       <!-- Visualization Area -->
       <div class="visualization-area">
+        <img src="./images/base.jpg" alt="Base" id="baseImage" />
+        <!-- Overlay Images updated with new file names and IDs -->
         <img
-          src="./images/base.jpg"
-          alt=" Base"
-          class="base-image"
-          id="baseImage"
-        />
-
-        <!-- Color Overlays -->
-        <img
-          src="./images/color-1.jpg"
-          alt="Color 1 Overlay"
+          src="./images/001.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-1-overlay"
+          id="001-overlay"
         />
         <img
-          src="./images/color-2.jpg"
-          alt="Color 2 Overlay"
+          src="./images/002.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-2-overlay"
+          id="002-overlay"
         />
         <img
-          src="./images/color-3.jpg"
-          alt="Color 3 Overlay"
+          src="./images/003.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-3-overlay"
+          id="003-overlay"
         />
         <img
-          src="./images/color-4.jpg"
-          alt="Color 4 Overlay"
+          src="./images/004.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-4-overlay"
+          id="004-overlay"
         />
         <img
-          src="./images/color-5.jpg"
-          alt="Color 5 Overlay"
+          src="./images/005.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-5-overlay"
+          id="005-overlay"
         />
         <img
-          src="./images/color-6.jpg"
-          alt="Color 6 Overlay"
+          src="./images/006.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-6-overlay"
+          id="006-overlay"
         />
         <img
-          src="./images/color-7.jpg"
-          alt="Color 7 Overlay"
+          src="./images/007.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-7-overlay"
+          id="007-overlay"
         />
         <img
-          src="./images/color-8.jpg"
-          alt="Color 8 Overlay"
+          src="./images/008.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-8-overlay"
+          id="008-overlay"
         />
         <img
-          src="./images/color-9.jpg"
-          alt="Color 9 Overlay"
+          src="./images/009.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-9-overlay"
+          id="009-overlay"
         />
         <img
-          src="./images/color-10.jpg"
-          alt="Color 10 Overlay"
+          src="./images/010.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-10-overlay"
+          id="010-overlay"
         />
         <img
-          src="./images/color-12.jpg"
-          alt="Color 12 Overlay"
+          src="./images/011.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-12-overlay"
+          id="011-overlay"
         />
         <img
-          src="./images/color-13.jpg"
-          alt="Color 13 Overlay"
+          src="./images/012.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-13-overlay"
+          id="012-overlay"
         />
         <img
-          src="./images/color-14.jpg"
-          alt="Color 14 Overlay"
+          src="./images/013.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-14-overlay"
+          id="013-overlay"
         />
         <img
-          src="./images/color-15.jpg"
-          alt="Color 15 Overlay"
+          src="./images/014.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-15-overlay"
+          id="014-overlay"
         />
         <img
-          src="./images/color-16.jpg"
-          alt="Color 16 Overlay"
+          src="./images/015.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-16-overlay"
+          id="015-overlay"
         />
         <img
-          src="./images/color-17.jpg"
-          alt="Color 17 Overlay"
+          src="./images/016.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-17-overlay"
+          id="016-overlay"
         />
         <img
-          src="./images/color-18.jpg"
-          alt="Color 18 Overlay"
+          src="./images/017.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-18-overlay"
+          id="017-overlay"
         />
         <img
-          src="./images/color-19.jpg"
-          alt="Color 19 Overlay"
+          src="./images/018.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-19-overlay"
+          id="018-overlay"
         />
         <img
-          src="./images/color-20.jpg"
-          alt="Color 20 Overlay"
+          src="./images/019.jpg"
+          alt="Overlay"
           class="color-overlay"
-          id="color-20-overlay"
+          id="019-overlay"
+        />
+        <img
+          src="./images/020.jpg"
+          alt="Overlay"
+          class="color-overlay"
+          id="020-overlay"
         />
       </div>
 
       <!-- Color Selection Area -->
       <div class="color-selection">
         <h4>Paint Color</h4>
-
         <div class="color-options">
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-1"
-              style="background-color: #d5d265"
-              aria-label="Color 1"
+              data-color="001"
+              style="background-color: rgb(213, 210, 101)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#d5d265</span>
           </div>
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-2"
-              style="background-color: #b73352"
-              aria-label="Color 2"
+              data-color="002"
+              style="background-color: rgb(183, 51, 82)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#b73352</span>
           </div>
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-3"
-              style="background-color: #4a59a6"
-              aria-label="Color 3"
+              data-color="003"
+              style="background-color: rgb(74, 89, 166)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#4a59a6</span>
           </div>
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-4"
-              style="background-color: #178b7e"
-              aria-label="Swiss Coffee"
+              data-color="004"
+              style="background-color: rgb(23, 139, 126)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#178b7e</span>
           </div>
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-5"
-              style="background-color: #e6ad5d"
-              aria-label="Repose Gray"
+              data-color="005"
+              style="background-color: rgb(230, 173, 93)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#e6ad5d</span>
           </div>
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-6"
-              style="background-color: #6bbec1"
-              aria-label="Agreeable Gray"
+              data-color="006"
+              style="background-color: rgb(107, 190, 193)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#6bbec1</span>
           </div>
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-7"
-              style="background-color: #c66363"
-              aria-label="Alabaster"
+              data-color="007"
+              style="background-color: rgb(198, 99, 99)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#c66363</span>
           </div>
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-8"
-              style="background-color: #b073df"
-              aria-label="Sea Salt"
+              data-color="008"
+              style="background-color: rgb(176, 115, 223)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#b073df</span>
           </div>
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-9"
-              style="background-color: #88a765"
-              aria-label="Accessible Beige"
+              data-color="009"
+              style="background-color: rgb(136, 167, 101)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#88a765</span>
           </div>
-
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-10"
-              style="background-color: #709abf"
-              aria-label="Mindful Gray"
+              data-color="010"
+              style="background-color: rgb(112, 154, 191)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#709abf</span>
           </div>
-          <!-- 11 -->
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-11"
-              style="background-color: #ff9933"
-              aria-label="Marigold Glory"
+              data-color="011"
+              style="background-color: rgb(255, 153, 51)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#FF9933</span>
           </div>
-          <!-- 11 -->
-          <!-- 12 -->
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-12"
-              style="background-color: #9b4b4b"
-              aria-label="Terracotta Touch"
+              data-color="012"
+              style="background-color: rgb(155, 75, 75)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#9B4B4B</span>
           </div>
-          <!-- 12 -->
-          <!-- 13 -->
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-13"
-              style="background-color: #006b3c"
-              aria-label="Emerald Vista"
+              data-color="013"
+              style="background-color: rgb(0, 107, 60)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#006B3C</span>
           </div>
-          <!-- 13 -->
-          <!-- 14 -->
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-14"
-              style="background-color: #d4af37"
-              aria-label="Royal Gold"
+              data-color="014"
+              style="background-color: rgb(212, 175, 55)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#D4AF37</span>
           </div>
-          <!-- 14 -->
-          <!-- 15 -->
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-15"
-              style="background-color: #800080"
-              aria-label="Mystic Purple"
+              data-color="015"
+              style="background-color: rgb(128, 0, 128)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#800080</span>
           </div>
-          <!-- 15 -->
-          <!-- 16 -->
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-16"
-              style="background-color: #c5b358"
-              aria-label="Desert Sand"
+              data-color="016"
+              style="background-color: rgb(197, 179, 88)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#C5B358</span>
           </div>
-          <!-- 16 -->
-          <!-- 17 -->
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-17"
-              style="background-color: #2e8b57"
-              aria-label="Monsoon Green"
+              data-color="017"
+              style="background-color: rgb(46, 139, 87)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#2E8B57</span>
           </div>
-          <!-- 17 -->
-          <!-- 18 -->
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-18"
-              style="background-color: #cd5c5c"
-              aria-label="Brick Red"
+              data-color="018"
+              style="background-color: rgb(205, 92, 92)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#CD5C5C</span>
           </div>
-          <!-- 18 -->
-          <!-- 19 -->
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-19"
-              style="background-color: #4b0082"
-              aria-label="Royal Indigo"
+              data-color="019"
+              style="background-color: rgb(75, 0, 130)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#4B0082</span>
           </div>
-          <!-- 19 -->
-          <!-- 20 -->
           <div class="color-item">
             <button
               class="color-button"
-              data-color="color-20"
-              style="background-color: #8b4513"
-              aria-label="Spice Brown"
+              data-color="020"
+              style="background-color: rgb(139, 69, 19)"
+              aria-label="Color"
             ></button>
-            <span class="color-id">#8B4513</span>
           </div>
-          <!-- 20 -->
         </div>
-
         <button class="reset-button" id="resetButton">Reset</button>
-        <div class="selected-color" id="selectedColorText"></div>
       </div>
     </div>
-    <script src="./PaintVis.js"></script>
+
+    <script>
+      // RGB color definitions updated with new keys
+      const colors = {
+        "001": "rgb(213,210,101)",
+        "002": "rgb(183,51,82)",
+        "003": "rgb(74,89,166)",
+        "004": "rgb(23,139,126)",
+        "005": "rgb(230,173,93)",
+        "006": "rgb(107,190,193)",
+        "007": "rgb(198,99,99)",
+        "008": "rgb(176,115,223)",
+        "009": "rgb(136,167,101)",
+        "010": "rgb(112,154,191)",
+        "011": "rgb(255,153,51)",
+        "012": "rgb(155,75,75)",
+        "013": "rgb(0,107,60)",
+        "014": "rgb(212,175,55)",
+        "015": "rgb(128,0,128)",
+        "016": "rgb(197,179,88)",
+        "017": "rgb(46,139,87)",
+        "018": "rgb(205,92,92)",
+        "019": "rgb(75,0,130)",
+        "020": "rgb(139,69,19)",
+      };
+
+      let currentColor = null;
+      const colorButtons = document.querySelectorAll(".color-button");
+      const colorOverlays = document.querySelectorAll(".color-overlay");
+      const resetButton = document.getElementById("resetButton");
+
+      function selectColor(colorId) {
+        // Hide all overlays and remove active class from buttons
+        colorOverlays.forEach((overlay) => (overlay.style.opacity = "0"));
+        colorButtons.forEach((button) => button.classList.remove("active"));
+
+        if (colorId && colorId !== currentColor) {
+          const overlay = document.getElementById(`${colorId}-overlay`);
+          const button = document.querySelector(`[data-color="${colorId}"]`);
+          if (overlay) overlay.style.opacity = "1";
+          if (button) button.classList.add("active");
+          currentColor = colorId;
+        } else {
+          currentColor = null;
+        }
+      }
+
+      colorButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const colorId = button.dataset.color;
+          if (currentColor === colorId) {
+            selectColor(null);
+          } else {
+            selectColor(colorId);
+          }
+        });
+      });
+
+      resetButton.addEventListener("click", () => {
+        selectColor(null);
+      });
+    </script>
   </body>
 </html>
