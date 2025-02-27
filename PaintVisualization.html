@@ -22,45 +22,48 @@
         padding: 1rem;
       }
 
-      /* Room Selection */
-      .room-selection {
-        margin-bottom: 1.5rem;
-        text-align: center;
-      }
-      .room-selection select {
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        border: 1px solid #333;
-        background-color: #262626;
-        color: #e0e0e0;
-        font-size: 1rem;
-      }
-
-      /* Container Layout */
-      .container {
+      /****************************************
+       * Layout Sections
+       ****************************************/
+      .top-section {
         display: grid;
-        grid-template-columns: 1fr 300px;
-        gap: 1.5rem;
-        justify-content: center;
-        align-items: start;
+        grid-template-columns: 1fr 220px;
+        gap: 1rem;
+        margin-bottom: 1rem;
       }
       .visualization-area {
         position: relative;
-        max-width: 800px;
-        width: 100%;
         border: 2px solid #333;
         border-radius: 8px;
         overflow: hidden;
+        min-height: 400px;
       }
       #baseImage {
         display: block;
         width: 100%;
         height: auto;
-        position: relative;
-        z-index: 1;
+      }
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        border: 2px solid #333;
+        border-radius: 8px;
+        padding: 1rem;
+        background: #262626;
+        justify-content: flex-start;
+        align-items: stretch;
       }
 
-      /* Overlay (created on demand) */
+      .bottom-section {
+        border: 2px solid #333;
+        border-radius: 8px;
+        padding: 1rem;
+        background: #262626;
+      }
+
+      /****************************************
+       * Visualization Overlays
+       ****************************************/
       .color-overlay {
         position: absolute;
         top: 0;
@@ -73,38 +76,13 @@
         mix-blend-mode: multiply;
       }
 
-      /* Color Selection Panel */
-      .color-selection {
-        background: #262626;
-        padding: 1rem;
-        border: 1px solid #333;
-        border-radius: 8px;
-        position: relative;
-      }
-      .color-selection h4 {
-        margin-bottom: 1rem;
-        text-align: center;
-        font-size: 1.25rem;
-        color: #ff7043; /* coral accent */
-      }
-
-      /* Mobile Menu Icon */
-      .mobile-menu-icon {
-        display: none;
-        cursor: pointer;
-        background: #333;
-        padding: 0.5rem;
-        text-align: center;
-        border-radius: 4px;
-        margin-bottom: 1rem;
-      }
-
-      /* Category Navigation */
+      /****************************************
+       * Category Buttons (Sidebar)
+       ****************************************/
       .color-categories {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 0.5rem;
-        justify-content: center;
         margin-bottom: 1rem;
       }
       .category-button {
@@ -114,6 +92,7 @@
         padding: 0.5rem 1rem;
         border-radius: 4px;
         cursor: pointer;
+        text-align: center;
         transition: background-color 0.2s ease;
       }
       .category-button.active,
@@ -121,30 +100,68 @@
         background-color: #ff7043;
       }
 
-      /* Mobile Close Icon for Categories */
-      .mobile-close-icon {
+      /****************************************
+       * Mobile Menu Icon for Categories
+       ****************************************/
+      .mobile-menu-icon {
         display: none;
-        cursor: pointer;
         background: #333;
         padding: 0.5rem;
-        text-align: right;
-        width: 100%;
-        margin-bottom: 0.5rem;
+        text-align: center;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        cursor: pointer;
+      }
+      #colorCategoriesContainer {
+        position: static;
+      }
+      .mobile-close-icon {
+        display: none;
       }
 
-      /* Color Options */
+      /****************************************
+       * Reset Button & Room Select (Sidebar)
+       ****************************************/
+      .reset-button {
+        color: #fff;
+        background-color: #333;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        margin-bottom: 1rem;
+      }
+      .reset-button:hover {
+        background-color: #63c8ed;
+      }
+      .room-selection {
+        text-align: center;
+      }
+      .room-selection select {
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        border: 1px solid #333;
+        background-color: #262626;
+        color: #e0e0e0;
+        font-size: 1rem;
+      }
+
+      /****************************************
+       * Color Options (Squares in Bottom Section)
+       ****************************************/
       .color-options {
         display: flex;
         flex-wrap: wrap;
+        flex-wrap: no;
         gap: 0.5rem;
-        margin-bottom: 1rem;
         justify-content: center;
       }
       .color-item {
+        width: 48px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 48px;
       }
       .color-button {
         width: 48px;
@@ -160,49 +177,23 @@
         box-shadow: 0 0 8px rgba(38, 166, 154, 0.8);
       }
 
-      /* Reset Button */
-      .reset-button {
-        background-color: #333;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        display: block;
-        margin: 0.5rem auto;
-        color: #e0e0e0;
-        font-size: 1rem;
-      }
-      .reset-button:hover {
-        background-color: #444;
-      }
-
-      /* Color Details */
+      /****************************************
+       * (Optional) Hide Color Details & Finish
+       ****************************************/
       .color-details {
-        margin-top: 1rem;
-        background: #333;
-        padding: 0.5rem;
-        border-radius: 4px;
-      }
-      .color-details p {
-        margin: 0.3rem 0;
-      }
-      .finish-selection {
-        margin-top: 0.5rem;
+        display: none;
       }
 
-      /* Responsive Breakpoints */
-      @media (max-width: 576px) {
-        html {
-          font-size: 14px;
-        }
-        .container {
+      /****************************************
+       * Responsive Breakpoints
+       ****************************************/
+      @media (max-width: 768px) {
+        .top-section {
           display: block;
         }
-        .visualization-area,
-        .color-selection {
-          width: 100%;
-          max-width: 100%;
+        .visualization-area {
+          margin-bottom: 1rem;
+          min-height: 300px;
         }
         .mobile-menu-icon {
           display: block;
@@ -215,8 +206,7 @@
           width: 100%;
           background: #262626;
           padding: 1rem;
-          z-index: 100;
-          flex-wrap: wrap;
+          z-index: 999;
         }
         #colorCategoriesContainer.active {
           display: flex;
@@ -224,122 +214,79 @@
         }
         .mobile-close-icon {
           display: block;
-        }
-      }
-      @media (min-width: 577px) and (max-width: 768px) {
-        html {
-          font-size: 15px;
-        }
-        .visualization-area {
-          max-width: 600px;
-        }
-        .color-selection {
-          max-width: 280px;
-        }
-      }
-      @media (min-width: 769px) {
-        html {
-          font-size: 16px;
-        }
-      }
-      @media (max-width: 1024px) {
-        .visualization-area {
-          max-width: 1200px;
-        }
-        .color-selection {
-          max-width: 1024px;
-        }
-      }
-      @media (max-width: 1440px) {
-        .visualization-area,
-        .color-selection {
-          max-width: 1200px;
+          margin-bottom: 1rem;
+          text-align: right;
+          cursor: pointer;
         }
       }
     </style>
   </head>
   <body>
-    <!-- Room selection -->
-    <div class="room-selection">
-      <select id="roomSelect"></select>
-    </div>
-
-    <div class="container">
+    <!-- TOP SECTION: Visualization (left) + Sidebar (right) -->
+    <div class="top-section">
       <!-- Visualization Area -->
       <div class="visualization-area">
         <img src="" alt="Base" id="baseImage" />
       </div>
 
-      <!-- Color Selection Panel -->
-      <div class="color-selection">
-        <h4>Paint Color</h4>
-        <!-- Mobile Menu Icon for Categories (visible only on mobile) -->
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Mobile toggle for categories -->
         <div class="mobile-menu-icon" id="mobileMenuIcon">
           &#9776; Categories
         </div>
-        <!-- Category Navigation (in mobile, toggled as an overlay) -->
+
+        <!-- Category Buttons (vertical list) -->
         <div class="color-categories" id="colorCategoriesContainer">
           <span class="mobile-close-icon" id="mobileCloseIcon"
             >&times; Close</span
           >
-          <!-- Category buttons will be injected by JS -->
+          <!-- Category buttons injected by JS -->
         </div>
-        <!-- Color Options (buttons for individual colors) -->
-        <div class="color-options"></div>
+
+        <!-- Reset Button -->
         <button class="reset-button" id="resetButton">Reset</button>
-        <!-- Color Details Panel -->
-        <div class="color-details" id="colorDetails">
-          <p id="colorRGB"></p>
-          <p id="colorHex"></p>
-          <p id="colorCategory"></p>
-          <p id="colorRoom"></p>
-          <div class="finish-selection">
-            <label for="finishSelect">Finish:</label>
-            <select id="finishSelect">
-              <option value="both">Both</option>
-              <option value="matt">Matt</option>
-              <option value="glossy">Glossy</option>
-            </select>
-          </div>
-          <p id="colorFinishDisplay"></p>
+
+        <!-- Room Selection -->
+        <div class="room-selection">
+          <select id="roomSelect"></select>
         </div>
       </div>
     </div>
 
-    <!-- Colors data and application logic -->
+    <!-- BOTTOM SECTION: Color Squares -->
+    <div class="bottom-section">
+      <div class="color-options"></div>
+    </div>
+
+    <!-- (Hidden) Color Details Panel -->
+    <div class="color-details" id="colorDetails">
+      <p id="colorRGB"></p>
+      <p id="colorHex"></p>
+      <p id="colorCategory"></p>
+      <p id="colorRoom"></p>
+      <div class="finish-selection">
+        <label for="finishSelect">Finish:</label>
+        <select id="finishSelect">
+          <option value="both">Both</option>
+          <option value="matt">Matt</option>
+          <option value="glossy">Glossy</option>
+        </select>
+      </div>
+      <p id="colorFinishDisplay"></p>
+    </div>
+
+    <!-- Colors data is now loaded from a separate file -->
     <script src="./colors.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         // Configuration for each room/visualizer category
         const visualizerConfigs = {
-          // kitchen: {
-          //   baseImage: "./images-kitchen/base.jpg",
-          //   overlayPath: "./images-kitchen/",
-          // },
           livingroom: {
             baseImage: "./images-livingroom/base.jpg",
             overlayPath: "./images-livingroom/",
           },
-          // bedroom: {
-          //   baseImage: "./images-bedroom/base.jpg",
-          //   overlayPath: "./images-bedroom/",
-          // },
-          // bathroom: {
-          //   baseImage: "./images-bathroom/base.jpg",
-          //   overlayPath: "./images-bathroom/",
-          // },
-          // furniture: {
-          //   baseImage: "./images-furniture/base.jpg",
-          //   overlayPath: "./images-furniture/",
-          // },
-          // exterior: {
-          //   baseImage: "./images-exterior/base.jpg",
-          //   overlayPath: "./images-exterior/",
-          // },
-          // patio: {
-          //   baseImage: "./images-patio/base.jpg",
-          //   overlayPath: "./images-patio/",
-          // },
+          // Add more rooms as needed...
         };
 
         // DOM elements
@@ -354,24 +301,36 @@
         const colorCategoriesContainer = document.getElementById(
           "colorCategoriesContainer"
         );
+        const mobileCloseIcon = document.getElementById("mobileCloseIcon");
+
+        // Color details (currently hidden)
+        const colorRGBEl = document.getElementById("colorRGB");
+        const colorHexEl = document.getElementById("colorHex");
+        const colorCategoryEl = document.getElementById("colorCategory");
+        const colorRoomEl = document.getElementById("colorRoom");
+        const colorFinishDisplayEl =
+          document.getElementById("colorFinishDisplay");
+        const finishSelect = document.getElementById("finishSelect");
 
         // Global variables
         let currentColor = null;
         let currentConfig = null;
-        let overlays = {}; // to hold overlay image elements
+        let overlays = {}; // holds overlay image elements
 
-        /* Helper: Convert "rgb(r, g, b)" string to an HSL object */
+        /****************************************
+         * Helper Functions
+         ****************************************/
         function rgbToHsl(r, g, b) {
           r /= 255;
           g /= 255;
           b /= 255;
-          const max = Math.max(r, g, b),
-            min = Math.min(r, g, b);
-          let h,
-            s,
-            l = (max + min) / 2;
+          const max = Math.max(r, g, b);
+          const min = Math.min(r, g, b);
+          let h, s;
+          const l = (max + min) / 2;
+
           if (max === min) {
-            h = s = 0; // achromatic
+            h = s = 0;
           } else {
             const d = max - min;
             s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
@@ -391,7 +350,6 @@
           return { h, s, l };
         }
 
-        /* Helper: Convert "rgb(r, g, b)" to Hex string */
         function rgbStringToHex(rgbStr) {
           const regex = /rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)/;
           const result = regex.exec(rgbStr);
@@ -402,16 +360,15 @@
           return `#${r}${g}${b}`;
         }
 
-        /* Determine a category for a given RGB string.
-     Categories: "Red", "Brown", "Orange", "Yellow", "Green", "Blue", "Purple", "Neutral" */
         function getColorCategory(rgbStr) {
           const regex = /rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)/;
           const result = regex.exec(rgbStr);
           if (!result) return "Neutral";
-          const r = parseInt(result[1]),
-            g = parseInt(result[2]),
-            b = parseInt(result[3]);
+          const r = parseInt(result[1]);
+          const g = parseInt(result[2]);
+          const b = parseInt(result[3]);
           const { h, s, l } = rgbToHsl(r, g, b);
+
           if (s < 0.25 || l < 0.2 || l > 0.8) {
             return "Neutral";
           }
@@ -436,7 +393,6 @@
           return "Neutral";
         }
 
-        /* Build an object grouping color keys into 8 categories */
         function buildColorCategories() {
           const categories = {
             Red: [],
@@ -457,11 +413,13 @@
           return categories;
         }
 
+        /****************************************
+         * Main Logic
+         ****************************************/
         const colorCategories = buildColorCategories();
 
-        /* Render category buttons (one for each of the eight groups) */
-        function renderCategoryButtons(colorCategories) {
-          // Clear the container and add a mobile close icon (for mobile view)
+        function renderCategoryButtons() {
+          // Reset container content and add mobile close icon
           colorCategoriesContainer.innerHTML =
             '<span class="mobile-close-icon" id="mobileCloseIcon">&times; Close</span>';
           Object.keys(colorCategories).forEach((category) => {
@@ -471,18 +429,18 @@
             btn.textContent = category;
             colorCategoriesContainer.appendChild(btn);
           });
-          // Reattach mobile close event (in case of mobile overlay)
-          const mobileCloseIconNew = document.getElementById("mobileCloseIcon");
-          mobileCloseIconNew.addEventListener("click", () => {
+          // Reattach mobile close event
+          const newMobileCloseIcon = document.getElementById("mobileCloseIcon");
+          newMobileCloseIcon.addEventListener("click", () => {
             colorCategoriesContainer.classList.remove("active");
           });
         }
 
-        /* Render the color buttons for the currently selected category */
-        function renderColorButtons(category, colorCategories) {
+        function renderColorButtons(category) {
           colorOptionsContainer.innerHTML = "";
           const colorKeys = colorCategories[category];
           if (!colorKeys) return;
+          // Sort numerically if keys are numeric strings
           colorKeys.sort((a, b) => Number(a) - Number(b));
           colorKeys.forEach((key) => {
             const colorItem = document.createElement("div");
@@ -495,7 +453,6 @@
             colorItem.appendChild(button);
             colorOptionsContainer.appendChild(colorItem);
 
-            // Always select the color on click; do not toggle it off
             button.addEventListener("click", () => {
               if (currentColor !== key) {
                 selectColor(key);
@@ -504,19 +461,20 @@
           });
         }
 
-        /* Setup event listeners on the category buttons */
-        function setupCategoryButtonListeners(colorCategories) {
+        function setupCategoryButtonListeners() {
           const buttons = document.querySelectorAll(".category-button");
           buttons.forEach((btn) => {
             btn.addEventListener("click", () => {
-              // Set active state
+              // Set active state for category buttons
               buttons.forEach((b) => b.classList.remove("active"));
               btn.classList.add("active");
+
+              // Render corresponding color squares and reset selection
               const category = btn.dataset.category;
-              renderColorButtons(category, colorCategories);
-              // Reset any overlay
+              renderColorButtons(category);
               selectColor(null);
-              // Close mobile menu if active
+
+              // Close mobile menu if open
               if (colorCategoriesContainer.classList.contains("active")) {
                 colorCategoriesContainer.classList.remove("active");
               }
@@ -524,30 +482,24 @@
           });
         }
 
-        /* Update color details in the preview panel */
         function updateColorDetails(colorId) {
-          const colorRGBEl = document.getElementById("colorRGB");
-          const colorHexEl = document.getElementById("colorHex");
-          const colorCategoryEl = document.getElementById("colorCategory");
-          const colorRoomEl = document.getElementById("colorRoom");
-          const colorFinishDisplayEl =
-            document.getElementById("colorFinishDisplay");
-
           if (colorId) {
             const rgbValue = colors[colorId];
             const hexValue = rgbStringToHex(rgbValue);
             const category = getColorCategory(rgbValue);
-            const room =
-              roomSelect.value.charAt(0).toUpperCase() +
-              roomSelect.value.slice(1);
-            const finish = document.getElementById("finishSelect").value;
+            const roomName = roomSelect.value
+              ? roomSelect.value.charAt(0).toUpperCase() +
+                roomSelect.value.slice(1)
+              : "";
+            const finish = finishSelect.value;
 
             colorRGBEl.textContent = `RGB: ${rgbValue}`;
             colorHexEl.textContent = `Hex: ${hexValue}`;
-            colorCategoryEl.textContent = `Color Category: ${category}`;
-            colorRoomEl.textContent = `Room: ${room}`;
+            colorCategoryEl.textContent = `Category: ${category}`;
+            colorRoomEl.textContent = `Room: ${roomName}`;
             colorFinishDisplayEl.textContent = `Finish: ${finish}`;
           } else {
+            // Clear details if no color selected
             colorRGBEl.textContent = "";
             colorHexEl.textContent = "";
             colorCategoryEl.textContent = "";
@@ -556,11 +508,8 @@
           }
         }
 
-        /* When a color button is clicked, load (or show) its overlay image and update details.
-     If the clicked color is already selected, do nothing. */
         function selectColor(colorId) {
           if (colorId === currentColor) {
-            // Already selected; do nothing.
             return;
           }
           // Hide all overlays and remove active class from all color buttons
@@ -569,7 +518,7 @@
           );
           document
             .querySelectorAll(".color-button")
-            .forEach((button) => button.classList.remove("active"));
+            .forEach((b) => b.classList.remove("active"));
 
           if (colorId) {
             let overlay;
@@ -585,43 +534,42 @@
               overlays[colorId] = overlay;
             }
             overlay.style.opacity = "1";
+
             const button = document.querySelector(`[data-color="${colorId}"]`);
             if (button) button.classList.add("active");
+
             currentColor = colorId;
             updateColorDetails(colorId);
           } else {
-            // Reset selection if null is passed
             currentColor = null;
             updateColorDetails(null);
           }
         }
 
-        // Reset button clears the current selection.
+        // Reset button: clear any active selection
         resetButton.addEventListener("click", () => {
           selectColor(null);
         });
 
-        // When the room is changed, reinitialize the visualizer.
+        // Room selection: change visualizer configuration
         roomSelect.addEventListener("change", () => {
           currentConfig = visualizerConfigs[roomSelect.value];
-          initializeVisualizer(currentConfig);
+          initializeVisualizer();
         });
 
-        // Mobile menu icon event listener for toggling the categories overlay
+        // Mobile menu toggle for categories
         mobileMenuIcon.addEventListener("click", () => {
           colorCategoriesContainer.classList.add("active");
         });
 
-        // When the finish select changes, update the finish detail (if a color is selected)
-        document
-          .getElementById("finishSelect")
-          .addEventListener("change", () => {
-            if (currentColor) {
-              updateColorDetails(currentColor);
-            }
-          });
+        // Finish selection change updates details
+        finishSelect.addEventListener("change", () => {
+          if (currentColor) {
+            updateColorDetails(currentColor);
+          }
+        });
 
-        // Initial setup: populate room select and set the default visualizer.
+        // Populate room selection dropdown
         function populateRoomSelect() {
           roomSelect.innerHTML = "";
           Object.keys(visualizerConfigs).forEach((key) => {
@@ -633,14 +581,19 @@
           });
         }
 
-        function initializeVisualizer(config) {
-          // Remove existing overlays
+        // Initialize the visualizer for the selected room
+        function initializeVisualizer() {
+          // Remove any existing overlays and reset selection
           Object.values(overlays).forEach((overlay) => overlay.remove());
           overlays = {};
           currentColor = null;
-          baseImage.src = config.baseImage;
 
-          // Set default category button active (e.g., "Red")
+          // Load the new base image
+          if (currentConfig && currentConfig.baseImage) {
+            baseImage.src = currentConfig.baseImage;
+          }
+
+          // Set default category to "Red" and render its colors
           const defaultCategory = "Red";
           const catButtons = document.querySelectorAll(".category-button");
           catButtons.forEach((btn) => {
@@ -649,15 +602,16 @@
               btn.dataset.category === defaultCategory
             );
           });
-          renderColorButtons(defaultCategory, colorCategories);
+          renderColorButtons(defaultCategory);
           updateColorDetails(null);
         }
 
+        // On DOM load, populate room select, build categories, attach listeners, and initialize visualizer
         populateRoomSelect();
-        currentConfig = visualizerConfigs[roomSelect.value];
-        initializeVisualizer(currentConfig);
-        renderCategoryButtons(colorCategories);
-        setupCategoryButtonListeners(colorCategories);
+        currentConfig = visualizerConfigs[roomSelect.value]; // default selected room
+        renderCategoryButtons();
+        setupCategoryButtonListeners();
+        initializeVisualizer();
       });
     </script>
   </body>
