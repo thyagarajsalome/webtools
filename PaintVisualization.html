@@ -4,6 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Paint Visualization</title>
+    <!-- Meta Description for SEO -->
+    <meta
+      name="description"
+      content="Experience innovative paint visualization with a wide range of paint colors, texture paint, paintshop options, paint online features, and tools like paint 3D. Discover living room colors, grey paint, and Asian paints colour for your next project."
+    />
+    <!-- Meta Keywords for SEO -->
+    <meta
+      name="keywords"
+      content="texture paint, paint, paintshop, paint online, paint colors, paint 3d, living room colors, grey paint, asian paints colour"
+    />
+    <!-- Optional: Robots meta tag to ensure indexing -->
+    <meta name="robots" content="index, follow" />
+
     <style>
       /* Reset & Base Styles */
       * {
@@ -320,26 +333,6 @@
             baseImage: "./images-kitchen/base.jpg",
             overlayPath: "./images-kitchen/",
           },
-          // bedroom: {
-          //   baseImage: "./images-bedroom/base.jpg",
-          //   overlayPath: "./images-bedroom/",
-          // },
-          // bathroom: {
-          //   baseImage: "./images-bathroom/base.jpg",
-          //   overlayPath: "./images-bathroom/",
-          // },
-          // furniture: {
-          //   baseImage: "./images-furniture/base.jpg",
-          //   overlayPath: "./images-furniture/",
-          // },
-          // exterior: {
-          //   baseImage: "./images-exterior/base.jpg",
-          //   overlayPath: "./images-exterior/",
-          // },
-          // patio: {
-          //   baseImage: "./images-patio/base.jpg",
-          //   overlayPath: "./images-patio/",
-          // },
         };
 
         // DOM elements
@@ -403,7 +396,7 @@
         }
 
         /* Determine a category for a given RGB string.
-     Categories: "Red", "Brown", "Orange", "Yellow", "Green", "Blue", "Purple", "Neutral" */
+           Categories: "Red", "Brown", "Orange", "Yellow", "Green", "Blue", "Purple", "Neutral" */
         function getColorCategory(rgbStr) {
           const regex = /rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)/;
           const result = regex.exec(rgbStr);
@@ -557,10 +550,9 @@
         }
 
         /* When a color button is clicked, load (or show) its overlay image and update details.
-     If the clicked color is already selected, do nothing. */
+           If the clicked color is already selected, do nothing. */
         function selectColor(colorId) {
           if (colorId === currentColor) {
-            // Already selected; do nothing.
             return;
           }
           // Hide all overlays and remove active class from all color buttons
@@ -590,7 +582,6 @@
             currentColor = colorId;
             updateColorDetails(colorId);
           } else {
-            // Reset selection if null is passed
             currentColor = null;
             updateColorDetails(null);
           }
