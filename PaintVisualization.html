@@ -34,6 +34,37 @@
         line-height: 1.6;
         padding: 1rem;
       }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* ========= Hero Section ========= */
+      .hero {
+        background: url("hero-bg.jpg") no-repeat center center/cover;
+        padding: 4rem 1rem;
+        text-align: center;
+        color: #fff;
+      }
+      .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      .hero p {
+        font-size: 1.25rem;
+      }
+      @media (max-width: 576px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+        .hero p {
+          font-size: 1rem;
+        }
+      }
 
       /* Room Selection */
       .room-selection {
@@ -272,7 +303,17 @@
     </style>
   </head>
   <body>
-    <!-- Room selection -->
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Visualize Your Dream Paint Colors</h1>
+        <p>
+          Experience innovative paint visualization to transform your space.
+        </p>
+      </div>
+    </section>
+
+    <!-- Room Selection -->
     <div class="room-selection">
       <select id="roomSelect"></select>
     </div>
@@ -295,7 +336,6 @@
           <span class="mobile-close-icon" id="mobileCloseIcon"
             >&times; Close</span
           >
-          <!-- Category buttons will be injected by JS -->
         </div>
         <!-- Color Options (buttons for individual colors) -->
         <div class="color-options"></div>
@@ -587,7 +627,7 @@
           }
         }
 
-        // Reset button clears the current selection.
+        // Reset button event clears the current selection.
         resetButton.addEventListener("click", () => {
           selectColor(null);
         });
@@ -598,12 +638,12 @@
           initializeVisualizer(currentConfig);
         });
 
-        // Mobile menu icon event listener for toggling the categories overlay
+        // Mobile menu icon event listener for toggling the categories overlay.
         mobileMenuIcon.addEventListener("click", () => {
           colorCategoriesContainer.classList.add("active");
         });
 
-        // When the finish select changes, update the finish detail (if a color is selected)
+        // When the finish select changes, update the finish detail (if a color is selected).
         document
           .getElementById("finishSelect")
           .addEventListener("change", () => {
@@ -645,7 +685,8 @@
         }
 
         populateRoomSelect();
-        currentConfig = visualizerConfigs[roomSelect.value];
+        currentConfig =
+          visualizerConfigs[roomSelect.value] || visualizerConfigs.livingroom;
         initializeVisualizer(currentConfig);
         renderCategoryButtons(colorCategories);
         setupCategoryButtonListeners(colorCategories);
