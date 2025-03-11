@@ -445,29 +445,29 @@
           const regex = /rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)/;
           const result = regex.exec(rgbStr);
           if (!result) return "Neutral";
-          const r = parseInt(result[1]),
-            g = parseInt(result[2]),
-            b = parseInt(result[3]);
+          const r = parseInt(result[1]);
+          const g = parseInt(result[2]);
+          const b = parseInt(result[3]);
           const { h, s, l } = rgbToHsl(r, g, b);
-          if (s < 0.25 || l < 0.2 || l > 0.8) {
+
+          // Only consider colors as Neutral if they are very desaturated or very light/dark.
+          if (s < 0.1 || l < 0.15 || l > 0.85) {
             return "Neutral";
           }
-          if (h >= 345 || h < 15) {
+
+          // Use hue-based categorization:
+          if (h < 15 || h >= 345) {
             return "Red";
-          }
-          if (h >= 15 && h < 45) {
+          } else if (h < 45) {
+            // Differentiate between Brown and Orange using lightness
             return l < 0.5 ? "Brown" : "Orange";
-          }
-          if (h >= 45 && h < 75) {
+          } else if (h < 75) {
             return "Yellow";
-          }
-          if (h >= 75 && h < 150) {
+          } else if (h < 165) {
             return "Green";
-          }
-          if (h >= 150 && h < 225) {
+          } else if (h < 255) {
             return "Blue";
-          }
-          if (h >= 225 && h < 345) {
+          } else if (h < 345) {
             return "Purple";
           }
           return "Neutral";
