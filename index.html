@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Use a responsive viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Tool-Website</title>
 
-    <!-- Critical CSS inlined for above-the-fold content -->
+    <!-- Inline critical CSS for immediate rendering -->
     <style>
-      /* Critical CSS (example) */
+      /* Critical CSS */
       body {
         font-family: "Roboto", sans-serif;
         margin: 0;
@@ -32,10 +32,10 @@
         max-width: 1200px;
         margin: 0 auto;
       }
-      /* Add more critical rules needed for immediate rendering */
+      /* Add additional critical styles for above-the-fold content as needed */
     </style>
 
-    <!-- Load full styles asynchronously -->
+    <!-- Preload full CSS and load asynchronously -->
     <link
       rel="preload"
       href="./styles.css"
@@ -115,7 +115,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts loaded asynchronously -->
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
@@ -174,26 +174,10 @@
     <!-- Header and Navigation -->
     <header class="header-bar" role="banner">
       <nav role="navigation" aria-label="Main navigation">
-        <!-- Logo with lazy loading and explicit dimensions -->
-        <div class="logo-container">
-          <a href="index.html" class="logo">
-            <img
-              src="./logo.png"
-              alt="Tool Website"
-              loading="lazy"
-              width="150"
-              height="50"
-            />
-          </a>
-        </div>
-
-        <!-- Menu Icon with explicit size if it includes an image/icon (if using an image, add width/height) -->
         <div class="menu-icon" id="menuIcon">
           <span class="bars">☰</span>
           <span class="close">✕</span>
         </div>
-
-        <!-- Navigation Links -->
         <ul id="navMenu">
           <li><a href="#home" aria-current="page">Home</a></li>
           <li><a href="#about-page">About</a></li>
@@ -202,8 +186,6 @@
           <li><a href="#policy">Policy</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
-
-        <!-- Theme Toggle -->
         <button
           class="theme-toggle"
           id="themeToggle"
@@ -427,7 +409,7 @@
                   construction and material &amp; labour estimators, floor &amp;
                   wall tile calculators, paint calculators and visualization,
                   plumbing and electrical cost estimators, doors &amp; windows
-                  calculators, floor plan creator, and civil engineering
+                  calculators, a floor plan creator, and civil engineering
                   estimators.
                 </p>
               </div>
@@ -437,8 +419,8 @@
               <div class="faq-answer">
                 <p>
                   We continuously update our data to ensure our estimates
-                  reflect current market trends. Still, we advise verifying with
-                  local contractors for the most accurate pricing.
+                  reflect current market trends. However, we advise verifying
+                  with local contractors for the most accurate pricing.
                 </p>
               </div>
             </details>
@@ -446,9 +428,9 @@
               <summary>Are the planning tools free to use?</summary>
               <div class="faq-answer">
                 <p>
-                  Yes, all of our planning tools are free to use. We are
-                  dedicated to providing accessible resources to help you plan
-                  your construction project effectively.
+                  Yes, all our planning tools are free to use. We are dedicated
+                  to providing accessible resources to help you plan your
+                  construction project effectively.
                 </p>
               </div>
             </details>
@@ -515,7 +497,7 @@
       }
     </script>
 
-    <!-- Deferred Scripts -->
+    <!-- Defer non-critical JavaScript -->
     <script src="header.js" defer></script>
     <script src="./darkMode.js" defer></script>
   </body>
