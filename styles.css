@@ -87,6 +87,19 @@ nav {
   color: var(--accent-color);
 }
 
+/* logo */
+
+.logo-container {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 20px; /* Adjust as needed */
+}
+
+.logo img {
+  height: 80px; /* Adjust the size as needed */
+  width: auto;
+}
+
 /* Hero Section */
 .hero {
   padding: 8rem 0 4rem;
