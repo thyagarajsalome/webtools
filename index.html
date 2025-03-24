@@ -2,56 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Responsive viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Use a responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Tool-Website</title>
-
-    <!-- Inline critical CSS for immediate rendering -->
-    <style>
-      /* Critical CSS */
-      body {
-        font-family: "Roboto", sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      .header-bar {
-        background: #fff;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .hero {
-        background: #f5f5f5;
-        padding: 40px 20px;
-        text-align: center;
-      }
-      .container {
-        width: 90%;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      /* Add additional critical styles for above-the-fold content as needed */
-    </style>
-
-    <!-- Preload full CSS and load asynchronously -->
-    <link
-      rel="preload"
-      href="./styles.css"
-      as="style"
-      onload="this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="./styles.css" /></noscript>
+    <link rel="stylesheet" href="./styles.css" />
 
     <!-- SEO and Social Meta Tags -->
     <meta
       name="title"
-      content="Construction Cost Calculator &amp; Planning Tools for Indian Homes | Tool Website"
+      content="Construction Cost Calculator & Planning Tools for Indian Homes | Tool Website"
     />
     <meta
       name="description"
-      content="Free construction planning tools for Indian homeowners. Calculate accurate costs for house construction, flooring, paint, plumbing, electrical, doors &amp; windows. Get detailed budget estimates for your dream home."
+      content="Free construction planning tools for Indian homeowners. Calculate accurate costs for house construction, flooring, paint, plumbing, electrical, doors & windows. Get detailed budget estimates for your dream home."
     />
     <link rel="canonical" href="https://toolwebsite.in/" />
 
@@ -61,14 +25,31 @@
     <meta property="og:url" content="https://toolwebsite.in/" />
     <meta
       property="og:title"
-      content="Construction Cost Calculator &amp; Planning Tools for Indian Homes | Tool Website"
+      content="Construction Cost Calculator & Planning Tools for Indian Homes | Tool Website"
     />
     <meta
       property="og:description"
-      content="Free construction planning tools for Indian homeowners. Calculate costs for house construction, flooring, paint, plumbing, electrical, doors &amp; windows. Get detailed budget estimates."
+      content="Free construction planning tools for Indian homeowners. Calculate costs for house construction, flooring, paint, plumbing, electrical, doors & windows. Get detailed budget estimates."
     />
     <meta
       property="og:image"
+      content="https://toolwebsite.in/images/tool-website-preview.jpg"
+    />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@toolwebsite" />
+    <meta property="twitter:url" content="https://toolwebsite.in/" />
+    <meta
+      property="twitter:title"
+      content="Construction Cost Calculator & Planning Tools for Indian Homes | Tool Website"
+    />
+    <meta
+      property="twitter:description"
+      content="Free construction planning tools for Indian homeowners. Calculate costs for house construction, flooring, paint, plumbing, electrical, doors & windows."
+    />
+    <meta
+      property="twitter:image"
       content="https://toolwebsite.in/images/tool-website-preview.jpg"
     />
 
@@ -88,8 +69,21 @@
     <meta name="msvalidate.01" content="061B4082725F1B3C4EE90801D169C0C2" />
 
     <!-- Favicon & App Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
+    <!-- Preconnect to required origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- JSON‑LD Structured Data -->
     <script type="application/ld+json">
@@ -171,13 +165,17 @@
     <main role="main">
       <!-- Hero Section -->
       <section class="hero" id="home" aria-label="Homepage Banner">
-        <h1>Plan, Design, Visualize &amp; Estimate</h1>
-        <p class="hero-text">
-          Calculate construction costs, plan your budget, and make informed
-          decisions for your dream home.
-        </p>
+        <div class="container">
+          <h1>Plan, Design, Visualize & Estimate</h1>
+
+          <p class="hero-text">
+            Calculate construction costs, plan your budget, and make informed
+            decisions for your dream home.
+          </p>
+        </div>
       </section>
 
+      <!-- About Section -->
       <!-- About Section -->
       <section class="about" id="about-page" aria-label="About Us">
         <div class="container">
@@ -187,9 +185,9 @@
             planning in India. We offer a full suite of planning tools designed
             for homeowners, builders, and professionals alike. Our calculators
             and estimators cover everything from house construction costs,
-            material and labour budgeting, floor &amp; wall tiling, paint
+            material and labour budgeting, floor & wall tiling, paint
             calculation and visualization, to plumbing, electrical planning,
-            doors &amp; windows cost, floor plan creation, and even civil
+            doors & windows cost, floor plan creation, and even civil
             engineering estimation.
           </p>
           <ul class="benefits">
@@ -222,7 +220,9 @@
               <a href="./houseConstruction.html" class="tool-link">
                 <i class="fa-solid fa-house icon" aria-hidden="true"></i>
                 <h3>Material &amp; Labour</h3>
-                <p>Calculate costs based on material and labour estimates</p>
+                <p>
+                  Calculate total construction cost based on your requirements
+                </p>
               </a>
             </article>
             <article class="tool-card">
@@ -270,7 +270,7 @@
               >
                 <i class="fa-solid fa-paint-brush icon" aria-hidden="true"></i>
                 <h3>Paint Visualization</h3>
-                <p>Choose your paint color and visualize results</p>
+                <p>Choose Your Paint Color</p>
               </a>
             </article>
             <article class="tool-card">
@@ -281,7 +281,7 @@
               >
                 <i class="fa-solid fa-house icon" aria-hidden="true"></i>
                 <h3>Floor Plan Creator</h3>
-                <p>Free floor plan creator</p>
+                <p>Free Floor Plan creator</p>
               </a>
             </article>
             <article class="tool-card">
@@ -324,6 +324,7 @@
       </section>
 
       <!-- Policy Section -->
+      <!-- Policy Section -->
       <section id="policy" class="policy-section" aria-label="Our Policy">
         <div class="container">
           <h2>Our Policy</h2>
@@ -332,11 +333,11 @@
               At Tool Website Hub, we are committed to delivering accurate and
               reliable construction planning information. Our suite of tools is
               developed using current market data and is regularly updated to
-              reflect evolving trends in construction costs across India. While
-              our calculators provide detailed estimates for various aspects of
-              your project—such as house construction, material and labour
-              costs, tiling, paint, plumbing, electrical work, and more—please
-              note that actual expenses may vary due to factors including
+              reflect the evolving trends in construction costs across India.
+              While our calculators provide detailed estimates for various
+              aspects of your project—such as house construction, material and
+              labour costs, tiling, paint, plumbing, electrical work, and more—
+              please note that actual expenses may vary due to factors including
               location, specific material choices, and local labour rates. We
               recommend using our tools as a starting point and consulting with
               local professionals for final budgeting and planning.
@@ -345,6 +346,7 @@
         </div>
       </section>
 
+      <!-- FAQ Section -->
       <!-- FAQ Section -->
       <section
         id="faq"
@@ -374,21 +376,21 @@
               <div class="faq-answer">
                 <p>
                   We offer a comprehensive range of tools including house
-                  construction and material &amp; labour estimators, floor &amp;
-                  wall tile calculators, paint calculators and visualization,
-                  plumbing and electrical cost estimators, doors &amp; windows
-                  calculators, a floor plan creator, and civil engineering
+                  construction and material & labour estimators, floor & wall
+                  tile calculators, paint calculators and visualization,
+                  plumbing and electrical cost estimators, doors & windows
+                  calculators, floor plan creator, and civil engineering
                   estimators.
                 </p>
               </div>
             </details>
             <details class="faq-item">
-              <summary>How often is your cost data updated?</summary>
+              <summary>How frequently is your cost data updated?</summary>
               <div class="faq-answer">
                 <p>
                   We continuously update our data to ensure our estimates
-                  reflect current market trends. However, we advise verifying
-                  with local contractors for the most accurate pricing.
+                  reflect current market trends. Still, we advise verifying with
+                  local contractors for the most accurate pricing.
                 </p>
               </div>
             </details>
@@ -396,9 +398,9 @@
               <summary>Are the planning tools free to use?</summary>
               <div class="faq-answer">
                 <p>
-                  Yes, all our planning tools are free to use. We are dedicated
-                  to providing accessible resources to help you plan your
-                  construction project effectively.
+                  Yes, all of our planning tools are free to use. We are
+                  dedicated to providing accessible resources to help you plan
+                  your construction project effectively.
                 </p>
               </div>
             </details>
@@ -465,7 +467,7 @@
       }
     </script>
 
-    <!-- Defer non-critical JavaScript -->
+    <!-- Deferred Scripts -->
     <script src="header.js" defer></script>
     <script src="./darkMode.js" defer></script>
   </body>
