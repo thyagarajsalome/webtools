@@ -102,6 +102,7 @@ nav {
 
 /* Hero Section */
 .hero {
+  margin-top: 30px;
   padding: 8rem 0 4rem;
   background-color: var(--accent-bg);
   text-align: center;
