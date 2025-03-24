@@ -2,359 +2,694 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Paint Visualizer</title>
-    <link rel="stylesheet" href="./PaintVisualization.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Paint Visualization</title>
+    <!-- Meta Description for SEO -->
+    <meta
+      name="description"
+      content="Experience innovative paint visualization with a wide range of paint colors, texture paint, paintshop options, paint online features, and tools like paint 3D. Discover living room colors, grey paint, and Asian paints colour for your next project."
+    />
+    <!-- Meta Keywords for SEO -->
+    <meta
+      name="keywords"
+      content="texture paint, paint, paintshop, paint online, paint colors, paint 3d, living room colors, grey paint, asian paints colour"
+    />
+    <!-- Optional: Robots meta tag to ensure indexing -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Preload critical image (hero background) -->
+    <link rel="preload" as="image" href="hero-bg.jpg" />
+
+    <style>
+      /* Reset & Base Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        font-size: 16px;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #1a1a1a;
+        color: #e0e0e0;
+        line-height: 1.6;
+        padding: 1rem;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      /* ========= Hero Section ========= */
+      .hero {
+        background: url("hero-bg.jpg") no-repeat center center/cover;
+        padding: 4rem 1rem;
+        text-align: center;
+        color: #fff;
+      }
+      .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      .hero p {
+        font-size: 1.25rem;
+      }
+      @media (max-width: 576px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+        .hero p {
+          font-size: 1rem;
+        }
+      }
+      /* Room Selection */
+      .room-selection {
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+      .room-selection select {
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        border: 1px solid #333;
+        background-color: #262626;
+        color: #e0e0e0;
+        font-size: 1rem;
+      }
+      /* Container Layout */
+      .container {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: start;
+      }
+      .visualization-area {
+        position: relative;
+        max-width: 800px;
+        width: 100%;
+        border: 2px solid #333;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      #baseImage {
+        display: block;
+        width: 100%;
+        height: auto;
+        position: relative;
+        z-index: 1;
+      }
+      /* Overlay (created on demand) */
+      .color-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        mix-blend-mode: multiply;
+      }
+      /* Color Selection Panel */
+      .color-selection {
+        background: #262626;
+        padding: 0.5rem;
+        border: 1px solid #333;
+        border-radius: 8px;
+        position: relative;
+      }
+      .color-selection h4 {
+        margin-bottom: 1rem;
+        text-align: center;
+        font-size: 1.25rem;
+        color: #ff7043;
+      }
+      /* Mobile Menu Icon */
+      .mobile-menu-icon {
+        display: none;
+        cursor: pointer;
+        background: #333;
+        padding: 0.5rem;
+        text-align: center;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+      }
+      /* Category Navigation */
+      .color-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+      .category-button {
+        background: #333;
+        color: #e0e0e0;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+      .category-button.active,
+      .category-button:hover {
+        background-color: #ff7043;
+      }
+      /* Mobile Close Icon for Categories */
+      .mobile-close-icon {
+        display: none;
+        cursor: pointer;
+        background: #333;
+        padding: 0.5rem;
+        text-align: right;
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+      /* Color Options */
+      .color-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        margin-bottom: 1rem;
+        justify-content: center;
+      }
+      .color-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 28px;
+      }
+      .color-button {
+        width: 28px;
+        height: 28px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        outline: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .color-button.active {
+        transform: scale(1.15);
+        box-shadow: 0 0 8px rgba(38, 166, 154, 0.8);
+      }
+      /* Reset Button */
+      .reset-button {
+        background-color: #333;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        display: block;
+        margin: 0.5rem auto;
+        color: #e0e0e0;
+        font-size: 1rem;
+      }
+      .reset-button:hover {
+        background-color: #444;
+      }
+      /* Color Details */
+      .color-details {
+        margin-top: 1rem;
+        background: #333;
+        padding: 0.5rem;
+        border-radius: 4px;
+      }
+      .color-details p {
+        margin: 0.3rem 0;
+      }
+      .finish-selection {
+        margin-top: 0.5rem;
+      }
+      /* Responsive Breakpoints */
+      @media (max-width: 576px) {
+        html {
+          font-size: 14px;
+        }
+        .container {
+          display: block;
+        }
+        .visualization-area,
+        .color-selection {
+          width: 100%;
+          max-width: 100%;
+        }
+        .mobile-menu-icon {
+          display: block;
+        }
+        #colorCategoriesContainer {
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          background: #262626;
+          padding: 1rem;
+          z-index: 100;
+          flex-wrap: wrap;
+        }
+        #colorCategoriesContainer.active {
+          display: flex;
+          flex-direction: column;
+        }
+        .mobile-close-icon {
+          display: block;
+        }
+      }
+      @media (min-width: 577px) and (max-width: 768px) {
+        html {
+          font-size: 15px;
+        }
+        .visualization-area {
+          max-width: 600px;
+        }
+        .color-selection {
+          max-width: 280px;
+        }
+      }
+      @media (min-width: 769px) {
+        html {
+          font-size: 16px;
+        }
+      }
+      @media (max-width: 1024px) {
+        .visualization-area {
+          max-width: 1200px;
+        }
+        .color-selection {
+          max-width: 1024px;
+        }
+      }
+      @media (max-width: 1440px) {
+        .visualization-area,
+        .color-selection {
+          max-width: 1200px;
+        }
+      }
+    </style>
   </head>
   <body>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Visualize Your Dream Paint Colors</h1>
+        <p>
+          Experience innovative paint visualization to transform your space.
+        </p>
+      </div>
+    </section>
+
+    <!-- Room Selection -->
+    <div class="room-selection">
+      <select id="roomSelect"></select>
+    </div>
+
     <div class="container">
       <!-- Visualization Area -->
       <div class="visualization-area">
-        <img
-          src="./images/base.jpg"
-          alt="Kitchen Base"
-          class="base-image"
-          id="baseImage"
-        />
-
-        <!-- Color Overlays -->
-        <!-- Base Image -->
-        <img
-          src="./images/base.jpg"
-          alt="Kitchen Base"
-          class="base-image"
-          id="baseImage"
-        />
-
-        <!-- Color Overlays -->
-        <img
-          src="./images/color-1.jpg"
-          alt="Color 1 Overlay"
-          class="color-overlay"
-          id="color-1-overlay"
-        />
-        <img
-          src="./images/color-2.jpg"
-          alt="Color 2 Overlay"
-          class="color-overlay"
-          id="color-2-overlay"
-        />
-        <img
-          src="./images/color-3.jpg"
-          alt="Color 3 Overlay"
-          class="color-overlay"
-          id="color-3-overlay"
-        />
-        <img
-          src="./images/color-4.jpg"
-          alt="Color 4 Overlay"
-          class="color-overlay"
-          id="color-4-overlay"
-        />
-        <img
-          src="./images/color-5.jpg"
-          alt="Color 5 Overlay"
-          class="color-overlay"
-          id="color-5-overlay"
-        />
-        <img
-          src="./images/color-6.jpg"
-          alt="Color 6 Overlay"
-          class="color-overlay"
-          id="color-6-overlay"
-        />
-        <img
-          src="./images/color-7.jpg"
-          alt="Color 7 Overlay"
-          class="color-overlay"
-          id="color-7-overlay"
-        />
-        <img
-          src="./images/color-8.jpg"
-          alt="Color 8 Overlay"
-          class="color-overlay"
-          id="color-8-overlay"
-        />
-        <img
-          src="./images/color-9.jpg"
-          alt="Color 9 Overlay"
-          class="color-overlay"
-          id="color-9-overlay"
-        />
-        <img
-          src="./images/color-10.jpg"
-          alt="Color 10 Overlay"
-          class="color-overlay"
-          id="color-10-overlay"
-        />
-        <img
-          src="./images/color-12.jpg"
-          alt="Color 12 Overlay"
-          class="color-overlay"
-          id="color-12-overlay"
-        />
-        <img
-          src="./images/color-13.jpg"
-          alt="Color 13 Overlay"
-          class="color-overlay"
-          id="color-13-overlay"
-        />
-        <img
-          src="./images/color-14.jpg"
-          alt="Color 14 Overlay"
-          class="color-overlay"
-          id="color-14-overlay"
-        />
-        <img
-          src="./images/color-15.jpg"
-          alt="Color 15 Overlay"
-          class="color-overlay"
-          id="color-15-overlay"
-        />
-        <img
-          src="./images/color-16.jpg"
-          alt="Color 16 Overlay"
-          class="color-overlay"
-          id="color-16-overlay"
-        />
-        <img
-          src="./images/color-17.jpg"
-          alt="Color 17 Overlay"
-          class="color-overlay"
-          id="color-17-overlay"
-        />
-        <img
-          src="./images/color-18.jpg"
-          alt="Color 18 Overlay"
-          class="color-overlay"
-          id="color-18-overlay"
-        />
-        <img
-          src="./images/color-19.jpg"
-          alt="Color 19 Overlay"
-          class="color-overlay"
-          id="color-19-overlay"
-        />
-        <img
-          src="./images/color-20.jpg"
-          alt="Color 20 Overlay"
-          class="color-overlay"
-          id="color-20-overlay"
-        />
+        <img src="" alt="Base" id="baseImage" loading="lazy" />
       </div>
 
-      <!-- Color Selection Area -->
+      <!-- Color Selection Panel -->
       <div class="color-selection">
         <h4>Paint Color</h4>
-
-        <div class="color-options">
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-1"
-              style="background-color: #d5d265"
-              aria-label="Color 1"
-            ></button>
-            <span class="color-id">#d5d265</span>
-          </div>
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-2"
-              style="background-color: #b73352"
-              aria-label="Color 2"
-            ></button>
-            <span class="color-id">#b73352</span>
-          </div>
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-3"
-              style="background-color: #4a59a6"
-              aria-label="Color 3"
-            ></button>
-            <span class="color-id">#4a59a6</span>
-          </div>
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-4"
-              style="background-color: #178b7e"
-              aria-label="Swiss Coffee"
-            ></button>
-            <span class="color-id">#178b7e</span>
-          </div>
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-5"
-              style="background-color: #e6ad5d"
-              aria-label="Repose Gray"
-            ></button>
-            <span class="color-id">#e6ad5d</span>
-          </div>
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-6"
-              style="background-color: #6bbec1"
-              aria-label="Agreeable Gray"
-            ></button>
-            <span class="color-id">#6bbec1</span>
-          </div>
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-7"
-              style="background-color: #c66363"
-              aria-label="Alabaster"
-            ></button>
-            <span class="color-id">#c66363</span>
-          </div>
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-8"
-              style="background-color: #b073df"
-              aria-label="Sea Salt"
-            ></button>
-            <span class="color-id">#b073df</span>
-          </div>
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-9"
-              style="background-color: #88a765"
-              aria-label="Accessible Beige"
-            ></button>
-            <span class="color-id">#88a765</span>
-          </div>
-
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-10"
-              style="background-color: #709abf"
-              aria-label="Mindful Gray"
-            ></button>
-            <span class="color-id">#709abf</span>
-          </div>
-          <!-- 11 -->
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-11"
-              style="background-color: #ff9933"
-              aria-label="Marigold Glory"
-            ></button>
-            <span class="color-id">#FF9933</span>
-          </div>
-          <!-- 11 -->
-          <!-- 12 -->
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-12"
-              style="background-color: #9b4b4b"
-              aria-label="Terracotta Touch"
-            ></button>
-            <span class="color-id">#9B4B4B</span>
-          </div>
-          <!-- 12 -->
-          <!-- 13 -->
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-13"
-              style="background-color: #006b3c"
-              aria-label="Emerald Vista"
-            ></button>
-            <span class="color-id">#006B3C</span>
-          </div>
-          <!-- 13 -->
-          <!-- 14 -->
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-14"
-              style="background-color: #d4af37"
-              aria-label="Royal Gold"
-            ></button>
-            <span class="color-id">#D4AF37</span>
-          </div>
-          <!-- 14 -->
-          <!-- 15 -->
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-15"
-              style="background-color: #800080"
-              aria-label="Mystic Purple"
-            ></button>
-            <span class="color-id">#800080</span>
-          </div>
-          <!-- 15 -->
-          <!-- 16 -->
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-16"
-              style="background-color: #c5b358"
-              aria-label="Desert Sand"
-            ></button>
-            <span class="color-id">#C5B358</span>
-          </div>
-          <!-- 16 -->
-          <!-- 17 -->
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-17"
-              style="background-color: #2e8b57"
-              aria-label="Monsoon Green"
-            ></button>
-            <span class="color-id">#2E8B57</span>
-          </div>
-          <!-- 17 -->
-          <!-- 18 -->
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-18"
-              style="background-color: #cd5c5c"
-              aria-label="Brick Red"
-            ></button>
-            <span class="color-id">#CD5C5C</span>
-          </div>
-          <!-- 18 -->
-          <!-- 19 -->
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-19"
-              style="background-color: #4b0082"
-              aria-label="Royal Indigo"
-            ></button>
-            <span class="color-id">#4B0082</span>
-          </div>
-          <!-- 19 -->
-          <!-- 20 -->
-          <div class="color-item">
-            <button
-              class="color-button"
-              data-color="color-20"
-              style="background-color: #8b4513"
-              aria-label="Spice Brown"
-            ></button>
-            <span class="color-id">#8B4513</span>
-          </div>
-          <!-- 20 -->
+        <!-- Mobile Menu Icon for Categories (visible only on mobile) -->
+        <div class="mobile-menu-icon" id="mobileMenuIcon">
+          &#9776; Categories
         </div>
-
-        <button class="reset-button" id="resetButton">Reset to Default</button>
-        <div class="selected-color" id="selectedColorText"></div>
+        <!-- Category Navigation (in mobile, toggled as an overlay) -->
+        <div class="color-categories" id="colorCategoriesContainer">
+          <span class="mobile-close-icon" id="mobileCloseIcon"
+            >&times; Close</span
+          >
+        </div>
+        <!-- Color Options (buttons for individual colors) -->
+        <div class="color-options"></div>
+        <button class="reset-button" id="resetButton">Reset</button>
+        <!-- Color Details Panel -->
+        <div class="color-details" id="colorDetails">
+          <p id="colorRGB"></p>
+          <p id="colorHex"></p>
+          <p id="colorCategory"></p>
+          <p id="colorRoom"></p>
+          <div class="finish-selection">
+            <label for="finishSelect">Finish:</label>
+            <select id="finishSelect">
+              <option value="both">Both</option>
+              <option value="matt">Matt</option>
+              <option value="glossy">Glossy</option>
+            </select>
+          </div>
+          <p id="colorFinishDisplay"></p>
+        </div>
       </div>
     </div>
-    <script src="./PaintVis.js"></script>
+
+    <!-- Colors data and application logic -->
+    <script src="./colors.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Configuration for each room/visualizer category
+        const visualizerConfigs = {
+          livingroom: {
+            baseImage: "./images-livingroom/base.jpg",
+            overlayPath: "./images-livingroom/",
+          },
+          kitchen: {
+            baseImage: "./images-kitchen/base.jpg",
+            overlayPath: "./images-kitchen/",
+          },
+          Bedroom: {
+            baseImage: "./images-bedroom/base.jpg",
+            overlayPath: "./images-bedroom/",
+          },
+          Exterior: {
+            baseImage: "./images-exterior/base.jpg",
+            overlayPath: "./images-exterior/",
+          },
+        };
+
+        // DOM elements
+        const roomSelect = document.getElementById("roomSelect");
+        const baseImage = document.getElementById("baseImage");
+        const visualizationArea = document.querySelector(".visualization-area");
+        const colorOptionsContainer = document.querySelector(".color-options");
+        const resetButton = document.getElementById("resetButton");
+
+        // Mobile navigation elements
+        const mobileMenuIcon = document.getElementById("mobileMenuIcon");
+        const colorCategoriesContainer = document.getElementById(
+          "colorCategoriesContainer"
+        );
+
+        // Global variables
+        let currentColor = null;
+        let currentConfig = null;
+        let overlays = {}; // to hold overlay image elements
+
+        /* Helper: Convert "rgb(r, g, b)" string to an HSL object */
+        function rgbToHsl(r, g, b) {
+          r /= 255;
+          g /= 255;
+          b /= 255;
+          const max = Math.max(r, g, b),
+            min = Math.min(r, g, b);
+          let h,
+            s,
+            l = (max + min) / 2;
+          if (max === min) {
+            h = s = 0; // achromatic
+          } else {
+            const d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+              case r:
+                h = (g - b) / d + (g < b ? 6 : 0);
+                break;
+              case g:
+                h = (b - r) / d + 2;
+                break;
+              case b:
+                h = (r - g) / d + 4;
+                break;
+            }
+            h *= 60;
+          }
+          return { h, s, l };
+        }
+
+        /* Helper: Convert "rgb(r, g, b)" to Hex string */
+        function rgbStringToHex(rgbStr) {
+          const regex = /rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)/;
+          const result = regex.exec(rgbStr);
+          if (!result) return "#000000";
+          const r = parseInt(result[1]).toString(16).padStart(2, "0");
+          const g = parseInt(result[2]).toString(16).padStart(2, "0");
+          const b = parseInt(result[3]).toString(16).padStart(2, "0");
+          return `#${r}${g}${b}`;
+        }
+
+        /* Determine a category for a given RGB string.
+           Categories: "Red", "Brown", "Orange", "Yellow", "Green", "Blue", "Purple", "Neutral" */
+        function getColorCategory(rgbStr) {
+          const regex = /rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)/;
+          const result = regex.exec(rgbStr);
+          if (!result) return "Neutral";
+          const r = parseInt(result[1]);
+          const g = parseInt(result[2]);
+          const b = parseInt(result[3]);
+          const { h, s, l } = rgbToHsl(r, g, b);
+
+          // Only consider colors as Neutral if they are very desaturated or very light/dark.
+          if (s < 0.1 || l < 0.15 || l > 0.85) {
+            return "Neutral";
+          }
+
+          // Use hue-based categorization:
+          if (h < 15 || h >= 345) {
+            return "Red";
+          } else if (h < 45) {
+            // Differentiate between Brown and Orange using lightness
+            return l < 0.5 ? "Brown" : "Orange";
+          } else if (h < 75) {
+            return "Yellow";
+          } else if (h < 165) {
+            return "Green";
+          } else if (h < 255) {
+            return "Blue";
+          } else if (h < 345) {
+            return "Purple";
+          }
+          return "Neutral";
+        }
+
+        /* Build an object grouping color keys into 8 categories */
+        function buildColorCategories() {
+          const categories = {
+            Red: [],
+            Brown: [],
+            Orange: [],
+            Yellow: [],
+            Green: [],
+            Blue: [],
+            Purple: [],
+            Neutral: [],
+          };
+          for (let key in colors) {
+            const cat = getColorCategory(colors[key]);
+            if (categories[cat]) {
+              categories[cat].push(key);
+            }
+          }
+          return categories;
+        }
+
+        const colorCategories = buildColorCategories();
+
+        /* Render category buttons (one for each of the eight groups) */
+        function renderCategoryButtons(colorCategories) {
+          // Clear the container and add a mobile close icon (for mobile view)
+          colorCategoriesContainer.innerHTML =
+            '<span class="mobile-close-icon" id="mobileCloseIcon">&times; Close</span>';
+          Object.keys(colorCategories).forEach((category) => {
+            const btn = document.createElement("button");
+            btn.className = "category-button";
+            btn.dataset.category = category;
+            btn.textContent = category;
+            colorCategoriesContainer.appendChild(btn);
+          });
+          // Reattach mobile close event (in case of mobile overlay)
+          const mobileCloseIconNew = document.getElementById("mobileCloseIcon");
+          mobileCloseIconNew.addEventListener("click", () => {
+            colorCategoriesContainer.classList.remove("active");
+          });
+        }
+
+        /* Render the color buttons for the currently selected category */
+        function renderColorButtons(category, colorCategories) {
+          colorOptionsContainer.innerHTML = "";
+          const colorKeys = colorCategories[category];
+          if (!colorKeys) return;
+          colorKeys.sort((a, b) => Number(a) - Number(b));
+          colorKeys.forEach((key) => {
+            const colorItem = document.createElement("div");
+            colorItem.className = "color-item";
+            const button = document.createElement("button");
+            button.className = "color-button";
+            button.dataset.color = key;
+            button.style.backgroundColor = colors[key];
+            button.setAttribute("aria-label", "Color");
+            colorItem.appendChild(button);
+            colorOptionsContainer.appendChild(colorItem);
+
+            // Always select the color on click; do not toggle it off
+            button.addEventListener("click", () => {
+              if (currentColor !== key) {
+                selectColor(key);
+              }
+            });
+          });
+        }
+
+        /* Setup event listeners on the category buttons */
+        function setupCategoryButtonListeners(colorCategories) {
+          const buttons = document.querySelectorAll(".category-button");
+          buttons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              // Set active state
+              buttons.forEach((b) => b.classList.remove("active"));
+              btn.classList.add("active");
+              const category = btn.dataset.category;
+              renderColorButtons(category, colorCategories);
+              // Reset any overlay
+              selectColor(null);
+              // Close mobile menu if active
+              if (colorCategoriesContainer.classList.contains("active")) {
+                colorCategoriesContainer.classList.remove("active");
+              }
+            });
+          });
+        }
+
+        /* Update color details in the preview panel */
+        function updateColorDetails(colorId) {
+          const colorRGBEl = document.getElementById("colorRGB");
+          const colorHexEl = document.getElementById("colorHex");
+          const colorCategoryEl = document.getElementById("colorCategory");
+          const colorRoomEl = document.getElementById("colorRoom");
+          const colorFinishDisplayEl =
+            document.getElementById("colorFinishDisplay");
+
+          if (colorId) {
+            const rgbValue = colors[colorId];
+            const hexValue = rgbStringToHex(rgbValue);
+            const category = getColorCategory(rgbValue);
+            const room =
+              roomSelect.value.charAt(0).toUpperCase() +
+              roomSelect.value.slice(1);
+            const finish = document.getElementById("finishSelect").value;
+
+            colorRGBEl.textContent = `RGB: ${rgbValue}`;
+            colorHexEl.textContent = `Hex: ${hexValue}`;
+            colorCategoryEl.textContent = `Color Category: ${category}`;
+            colorRoomEl.textContent = `Room: ${room}`;
+            colorFinishDisplayEl.textContent = `Finish: ${finish}`;
+          } else {
+            colorRGBEl.textContent = "";
+            colorHexEl.textContent = "";
+            colorCategoryEl.textContent = "";
+            colorRoomEl.textContent = "";
+            colorFinishDisplayEl.textContent = "";
+          }
+        }
+
+        /* When a color button is clicked, load (or show) its overlay image and update details.
+           If the clicked color is already selected, do nothing. */
+        function selectColor(colorId) {
+          if (colorId === currentColor) {
+            return;
+          }
+          // Hide all overlays and remove active class from all color buttons
+          Object.values(overlays).forEach(
+            (overlay) => (overlay.style.opacity = "0")
+          );
+          document
+            .querySelectorAll(".color-button")
+            .forEach((button) => button.classList.remove("active"));
+
+          if (colorId) {
+            let overlay;
+            if (overlays[colorId]) {
+              overlay = overlays[colorId];
+            } else {
+              overlay = document.createElement("img");
+              overlay.src = `${currentConfig.overlayPath}${colorId}.jpg`;
+              overlay.alt = "Overlay";
+              overlay.className = "color-overlay";
+              overlay.style.opacity = "0";
+              visualizationArea.appendChild(overlay);
+              overlays[colorId] = overlay;
+            }
+            overlay.style.opacity = "1";
+            const button = document.querySelector(`[data-color="${colorId}"]`);
+            if (button) button.classList.add("active");
+            currentColor = colorId;
+            updateColorDetails(colorId);
+          } else {
+            currentColor = null;
+            updateColorDetails(null);
+          }
+        }
+
+        // Reset button event clears the current selection.
+        resetButton.addEventListener("click", () => {
+          selectColor(null);
+        });
+
+        // When the room is changed, reinitialize the visualizer.
+        roomSelect.addEventListener("change", () => {
+          currentConfig = visualizerConfigs[roomSelect.value];
+          initializeVisualizer(currentConfig);
+        });
+
+        // Mobile menu icon event listener for toggling the categories overlay.
+        mobileMenuIcon.addEventListener("click", () => {
+          colorCategoriesContainer.classList.add("active");
+        });
+
+        // When the finish select changes, update the finish detail (if a color is selected).
+        document
+          .getElementById("finishSelect")
+          .addEventListener("change", () => {
+            if (currentColor) {
+              updateColorDetails(currentColor);
+            }
+          });
+
+        // Initial setup: populate room select and set the default visualizer.
+        function populateRoomSelect() {
+          roomSelect.innerHTML = "";
+          Object.keys(visualizerConfigs).forEach((key) => {
+            const option = document.createElement("option");
+            option.value = key;
+            option.textContent =
+              key.charAt(0).toUpperCase() + key.slice(1).toLowerCase();
+            roomSelect.appendChild(option);
+          });
+        }
+
+        function initializeVisualizer(config) {
+          // Remove existing overlays
+          Object.values(overlays).forEach((overlay) => overlay.remove());
+          overlays = {};
+          currentColor = null;
+          baseImage.src = config.baseImage;
+
+          // Set default category button active (e.g., "Red")
+          const defaultCategory = "Red";
+          const catButtons = document.querySelectorAll(".category-button");
+          catButtons.forEach((btn) => {
+            btn.classList.toggle(
+              "active",
+              btn.dataset.category === defaultCategory
+            );
+          });
+          renderColorButtons(defaultCategory, colorCategories);
+          updateColorDetails(null);
+        }
+
+        populateRoomSelect();
+        currentConfig =
+          visualizerConfigs[roomSelect.value] || visualizerConfigs.livingroom;
+        initializeVisualizer(currentConfig);
+        renderCategoryButtons(colorCategories);
+        setupCategoryButtonListeners(colorCategories);
+      });
+    </script>
   </body>
 </html>
