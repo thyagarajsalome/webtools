@@ -33,9 +33,6 @@
       href="https://toolwebsite.in/sitemap.xml"
     />
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="floorWall.css" />
-    <link rel="stylesheet" href="floorCatelog.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -45,6 +42,135 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
   </head>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    /* Heading Styles */
+    h3 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px; /* Add space below the heading */
+    }
+
+    /* Grid Container for Room Selection */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px; /* Increased gap for better spacing */
+      margin-bottom: 30px; /* Increased space below the grid */
+    }
+
+    /* Button Styles */
+    .room-button {
+      background-color: lightslategray;
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center; /* Center text inside buttons */
+    }
+
+    .room-button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Estimator Form Styles */
+    .estimator-form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Label Styles */
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    /* Input and Select Styles */
+    input[type="number"],
+    select {
+      width: calc(100% - 20px); /* Adjust width to allow for padding */
+      padding: 10px;
+      margin-bottom: 15px; /* Space between inputs */
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    /* Button for Calculation */
+    button {
+      margin-bottom: 20px;
+      background-color: lightslategray; /* Green */
+      color: white;
+      padding: 10px; /* Uniform padding for consistency */
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      width: 100%; /* Make button full width for better usability */
+    }
+
+    button:hover {
+      background-color: #0056b3; /* Darker green on hover */
+    }
+
+    /* Estimation Result Display Styles */
+    #estimationResult,
+    #estimationList,
+    #totalCostDisplay {
+      margin-top: 20px; /* Space above estimation results */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px; /* Reduce padding on smaller screens */
+      }
+
+      .grid-container {
+        grid-template-columns: repeat(
+          auto-fill,
+          minmax(120px, 1fr)
+        ); /* Adjust button size for small screens */
+        gap: 10px; /* Reduce gap between buttons on small screens */
+      }
+
+      button {
+        margin-top: 10px; /* Maintain space between buttons on small screens */
+        padding: 12px; /* Slightly larger padding for touch targets */
+        font-size: larger; /* Increase font size for better readability */
+      }
+    }
+
+    .back-button-container {
+      padding: 1rem;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-radius: 0.375rem;
+      color: #374151;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .back-button:hover {
+      background-color: #e5e7eb;
+    }
+  </style>
   <body>
     <div class="back-button-container" style="padding: 1rem">
       <a
@@ -111,108 +237,357 @@
       Download Total Estimation
     </button>
 
-    <!-- New Catalog Section -->
-    <div class="catalog-section">
-      <h2>Popular Tile Brands in India</h2>
-      <div class="catalog-grid">
-        <div class="tile-card">
-          <h4>Kajaria Ceramics</h4>
-          <p class="tile-info">
-            Products: Floor tiles, wall tiles, bathroom tiles
-          </p>
-          <p class="tile-info">
-            Available Sizes: 300x300mm, 600x600mm, 800x800mm
-          </p>
-          <p class="tile-info">Average Cost: ₹35-150 per sq ft</p>
-          <a
-            href="https://www.kajariaceramics.com"
-            target="_blank"
-            class="tile-link"
-            >Visit Website</a
-          >
-        </div>
+    <script>
+      const roomButtons = document.querySelectorAll(".room-button");
+      const estimatorForm = document.getElementById("estimatorForm");
+      const roomTitle = document.getElementById("roomTitle");
+      const estimationResult = document.getElementById("estimationResult");
+      const estimationList = document.getElementById("estimationList");
+      const totalCostDisplay = document.getElementById("totalCostDisplay");
+      let estimations = [];
 
-        <div class="tile-card">
-          <h4>Somany Ceramics</h4>
-          <p class="tile-info">
-            Products: Ceramic tiles, porcelain tiles, vitrified tiles
-          </p>
-          <p class="tile-info">
-            Available Sizes: 300x600mm, 600x1200mm, 800x1600mm
-          </p>
-          <p class="tile-info">Average Cost: ₹40-180 per sq ft</p>
-          <a
-            href="https://www.somanyceramics.com"
-            target="_blank"
-            class="tile-link"
-            >Visit Website</a
-          >
-        </div>
+      roomButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const room = button.dataset.room;
+          roomTitle.textContent = room;
+          estimatorForm.style.display = "block";
+          estimationResult.innerHTML = "";
+        });
+      });
 
-        <div class="tile-card">
-          <h4>RAK Ceramics</h4>
-          <p class="tile-info">
-            Products: Designer tiles, bathroom tiles, kitchen tiles
-          </p>
-          <p class="tile-info">
-            Available Sizes: 200x600mm, 600x600mm, 1200x2400mm
-          </p>
-          <p class="tile-info">Average Cost: ₹45-200 per sq ft</p>
-          <a
-            href="https://www.rakceramics.com/india"
-            target="_blank"
-            class="tile-link"
-            >Visit Website</a
-          >
-        </div>
+      function calculateEstimation() {
+        const room = roomTitle.textContent;
+        const tileType = document.getElementById("tileType").value;
+        const tileSize = document.getElementById("tileSize").value;
+        const area = parseFloat(document.getElementById("area").value);
+        const costPerSqFt = parseFloat(
+          document.getElementById("costPerSqFt").value
+        );
 
-        <div class="tile-card">
-          <h4>Johnson Tiles</h4>
-          <p class="tile-info">
-            Products: Digital tiles, marble tiles, wooden tiles
-          </p>
-          <p class="tile-info">
-            Available Sizes: 300x450mm, 600x600mm, 800x800mm
-          </p>
-          <p class="tile-info">Average Cost: ₹35-160 per sq ft</p>
-          <a
-            href="https://www.hrjohnsonindia.com/"
-            target="_blank"
-            class="tile-link"
-            >Visit Website</a
-          >
-        </div>
+        if (
+          isNaN(area) ||
+          isNaN(costPerSqFt) ||
+          area <= 0 ||
+          costPerSqFt <= 0
+        ) {
+          alert("Please enter valid positive numbers for area and cost.");
+          return;
+        }
 
-        <div class="tile-card">
-          <h4>Nitco Tiles</h4>
-          <p class="tile-info">
-            Products: Mosaic tiles, parking tiles, outdoor tiles
-          </p>
-          <p class="tile-info">
-            Available Sizes: 300x300mm, 600x600mm, 1200x1200mm
-          </p>
-          <p class="tile-info">Average Cost: ₹40-175 per sq ft</p>
-          <a href="https://www.nitco.in" target="_blank" class="tile-link"
-            >Visit Website</a
-          >
-        </div>
+        const totalCost = area * costPerSqFt;
 
-        <div class="tile-card">
-          <h4>Orient Bell</h4>
-          <p class="tile-info">
-            Products: Floor tiles, wall tiles, exterior tiles
-          </p>
-          <p class="tile-info">
-            Available Sizes: 300x600mm, 600x600mm, 600x1200mm
-          </p>
-          <p class="tile-info">Average Cost: ₹35-150 per sq ft</p>
-          <a href="https://www.orientbell.com" target="_blank" class="tile-link"
-            >Visit Website</a
-          >
+        const result = `
+    <div class="estimation-card">
+      <div class="estimation-details">
+        <h3>Estimation for ${room}</h3>
+        <p>Tile Type: ${tileType === "floor" ? "Floor Tile" : "Wall Tile"}</p>
+        <p>Tile Size: ${tileSize}'</p>
+        <p>Total Area: ${area.toFixed(2)} sq ft</p>
+        <p>Cost per sq ft: Rs. ${costPerSqFt.toFixed(2)}</p>
+        <p>Total Cost: Rs. ${totalCost.toFixed(2)}</p>
+        <div class="estimation-actions">
+          <button onclick="addToList('${room}', '${tileType}', '${tileSize}', ${area}, ${costPerSqFt}, ${totalCost})">Add to List</button>
+          <button onclick="downloadEstimation('${room}', '${tileType}', '${tileSize}', ${area}, ${costPerSqFt}, ${totalCost})">Download PDF</button>
         </div>
       </div>
     </div>
+  `;
 
-    <script src="Floorscript.js"></script>
+        estimationResult.innerHTML = result;
+      }
+
+      function addToList(
+        room,
+        tileType,
+        tileSize,
+        area,
+        costPerSqFt,
+        totalCost
+      ) {
+        const estimation = {
+          room,
+          tileType,
+          tileSize,
+          area,
+          costPerSqFt,
+          totalCost,
+        };
+        estimations.push(estimation);
+        updateEstimationList();
+        calculateTotalEstimation();
+        saveEstimationsToLocalStorage();
+      }
+
+      function updateEstimationList() {
+        estimationList.innerHTML = estimations
+          .map(
+            (est, index) => `
+        <div class="estimation-item">
+          <span>${est.room} - ${est.tileType} (${
+              est.tileSize
+            }): Rs. ${est.totalCost.toFixed(2)}</span>
+         
+          <button onclick="removeEstimation(${index})">Remove</button>
+        </div>
+      `
+          )
+          .join("");
+      }
+
+      function removeEstimation(index) {
+        estimations.splice(index, 1);
+        updateEstimationList();
+        calculateTotalEstimation();
+        saveEstimationsToLocalStorage();
+      }
+
+      function editEstimation(index) {
+        const est = estimations[index];
+        document.getElementById("tileType").value = est.tileType;
+        document.getElementById("tileSize").value = est.tileSize;
+        document.getElementById("area").value = est.area.toFixed(2);
+        document.getElementById("costPerSqFt").value =
+          est.costPerSqFt.toFixed(2);
+        roomTitle.textContent = est.room;
+        removeEstimation(index);
+        estimatorForm.scrollIntoView({ behavior: "smooth" });
+      }
+
+      function calculateTotalEstimation() {
+        const total = estimations.reduce((sum, est) => sum + est.totalCost, 0);
+        totalCostDisplay.innerHTML = `<h3>Total Estimation: Rs. ${total.toFixed(
+          2
+        )}</h3>`;
+      }
+
+      function getCurrentDate() {
+        return new Date().toLocaleDateString("en-GB");
+      }
+
+      function saveEstimationsToLocalStorage() {
+        localStorage.setItem("tileEstimations", JSON.stringify(estimations));
+      }
+
+      function loadEstimationsFromLocalStorage() {
+        const savedEstimations = localStorage.getItem("tileEstimations");
+        if (savedEstimations) {
+          estimations = JSON.parse(savedEstimations);
+          updateEstimationList();
+          calculateTotalEstimation();
+        }
+      }
+
+      function clearAllEstimations() {
+        estimations = [];
+        updateEstimationList();
+        calculateTotalEstimation();
+        saveEstimationsToLocalStorage();
+      }
+
+      function downloadEstimation(
+        room,
+        tileType,
+        tileSize,
+        area,
+        costPerSqFt,
+        totalCost
+      ) {
+        try {
+          if (typeof jspdf === "undefined") {
+            throw new Error(
+              "jsPDF is not defined. Make sure the library is properly loaded."
+            );
+          }
+
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF();
+
+          // Set colors
+          const primaryColor = "#4285F4";
+          const secondaryColor = "#34A853";
+
+          // Add header
+          doc.setFillColor(primaryColor);
+          doc.rect(0, 0, 210, 30, "F");
+          doc.setTextColor(255, 255, 255);
+          doc.setFontSize(22);
+          doc.text("Tile Estimation", 105, 20, null, null, "center");
+
+          // Reset text color and font size
+          doc.setTextColor(0, 0, 0);
+          doc.setFontSize(12);
+
+          // Add estimation details
+          let yPos = 50;
+          const leftMargin = 20;
+          const lineHeight = 10;
+
+          doc.setFontSize(16);
+          doc.setTextColor(secondaryColor);
+          doc.text(`Estimation for ${room}`, leftMargin, yPos);
+          yPos += lineHeight * 2;
+
+          doc.setFontSize(12);
+          doc.setTextColor(0, 0, 0);
+          doc.text(`Date: ${getCurrentDate()}`, leftMargin, yPos);
+          yPos += lineHeight * 1.5;
+
+          const details = [
+            [
+              `Tile Type:`,
+              `${tileType === "floor" ? "Floor Tile" : "Wall Tile"}`,
+            ],
+            [`Tile Size:`, `${tileSize}`],
+            [`Total Area:`, `${area.toFixed(2)} sq ft`],
+            [`Cost per sq ft:`, `Rs. ${costPerSqFt.toFixed(2)}`],
+            [`Total Cost:`, `Rs. ${totalCost.toFixed(2)}`],
+          ];
+
+          details.forEach(([label, value]) => {
+            doc.setFont(undefined, "bold");
+            doc.text(label, leftMargin, yPos);
+            doc.setFont(undefined, "normal");
+            doc.text(value, leftMargin + 50, yPos);
+            yPos += lineHeight;
+          });
+
+          // Add footer
+          doc.setFontSize(10);
+          doc.setTextColor(100, 100, 100);
+          doc.text(
+            "Thank you for choosing our services!",
+            105,
+            280,
+            null,
+            null,
+            "center"
+          );
+
+          doc.save(`${room}_estimation.pdf`);
+          console.log("PDF generated successfully");
+        } catch (error) {
+          console.error("Error generating PDF:", error);
+          alert(
+            "There was an error generating the PDF. Please check the console for details."
+          );
+        }
+      }
+
+      function downloadTotalEstimation() {
+        try {
+          if (typeof jspdf === "undefined") {
+            throw new Error(
+              "jsPDF is not defined. Make sure the library is properly loaded."
+            );
+          }
+
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF();
+
+          // Set colors
+          const headerColor = "#4285F4";
+          const alternateRowColor = "#f3f3f3";
+
+          // Add header
+          doc.setFillColor(headerColor);
+          doc.rect(0, 0, 210, 20, "F");
+          doc.setTextColor(255, 255, 255);
+          doc.setFontSize(16);
+          doc.text("Total Tile Estimation", 105, 15, null, null, "center");
+
+          // Reset text color and font size
+          doc.setTextColor(0, 0, 0);
+          doc.setFontSize(10);
+
+          // Set up table
+          const startY = 30;
+          const margin = 10;
+          const headers = [
+            "No.",
+            "Room",
+            "Tile Type",
+            "Size",
+            "Area (sq ft)",
+            "Cost/sq ft (Rs.)",
+            "Total (Rs.)",
+          ];
+          const columnWidths = [15, 30, 30, 20, 25, 30, 30];
+
+          // Draw table header
+          doc.setFillColor(headerColor);
+          doc.rect(margin, startY, 190, 10, "F");
+          doc.setTextColor(255, 255, 255);
+          doc.setFont(undefined, "bold");
+
+          let xOffset = margin;
+          headers.forEach((header, index) => {
+            doc.text(header, xOffset + 2, startY + 7);
+            xOffset += columnWidths[index];
+          });
+
+          // Draw table rows
+          doc.setTextColor(0, 0, 0);
+          doc.setFont(undefined, "normal");
+          let yOffset = startY + 10;
+
+          estimations.forEach((est, index) => {
+            // Alternate row background
+            if (index % 2 === 1) {
+              doc.setFillColor(alternateRowColor);
+              doc.rect(margin, yOffset, 190, 10, "F");
+            }
+
+            const row = [
+              (index + 1).toString(),
+              est.room,
+              est.tileType,
+              est.tileSize,
+              est.area.toFixed(2),
+              est.costPerSqFt.toFixed(2),
+              est.totalCost.toFixed(2),
+            ];
+
+            xOffset = margin;
+            row.forEach((cell, cellIndex) => {
+              doc.text(cell.toString(), xOffset + 2, yOffset + 7);
+              xOffset += columnWidths[cellIndex];
+            });
+
+            yOffset += 10;
+          });
+
+          // Add total
+          const total = estimations.reduce(
+            (sum, est) => sum + est.totalCost,
+            0
+          );
+          doc.setFont(undefined, "bold");
+          doc.text(`Total: Rs. ${total.toFixed(2)}`, 170, yOffset + 10);
+
+          // Add footer
+          doc.setFontSize(8);
+          doc.setTextColor(100, 100, 100);
+          doc.text(
+            "Generated on " + getCurrentDate(),
+            105,
+            285,
+            null,
+            null,
+            "center"
+          );
+
+          doc.save("total_estimation.pdf");
+          console.log("Total estimation PDF generated successfully");
+        } catch (error) {
+          console.error("Error generating total estimation PDF:", error);
+          alert(
+            "There was an error generating the total estimation PDF. Please check the console for details."
+          );
+        }
+      }
+
+      // Load saved estimations when the page loads
+      window.addEventListener("load", loadEstimationsFromLocalStorage);
+    </script>
   </body>
 </html>
