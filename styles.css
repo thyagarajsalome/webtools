@@ -310,3 +310,41 @@ section h2 {
 .contact-info a {
   color: dodgerblue;
 }
+
+/* Logo */
+/* Logo Styles */
+.logo-link {
+  display: inline-block;
+  margin-right: auto;
+  padding: 0.5rem 0;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+/* Update navigation layout */
+.header-bar nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .logo {
+    height: 50px;
+  }
+
+  .header-bar nav {
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+}

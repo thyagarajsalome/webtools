@@ -19,40 +19,6 @@
     />
     <link rel="canonical" href="https://toolwebsite.in/" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Tool Website" />
-    <meta property="og:url" content="https://toolwebsite.in/" />
-    <meta
-      property="og:title"
-      content="Construction Cost Calculator & Planning Tools for Indian Homes | Tool Website"
-    />
-    <meta
-      property="og:description"
-      content="Free construction planning tools for Indian homeowners. Calculate costs for house construction, flooring, paint, plumbing, electrical, doors & windows. Get detailed budget estimates."
-    />
-    <meta
-      property="og:image"
-      content="https://toolwebsite.in/images/tool-website-preview.jpg"
-    />
-
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@toolwebsite" />
-    <meta property="twitter:url" content="https://toolwebsite.in/" />
-    <meta
-      property="twitter:title"
-      content="Construction Cost Calculator & Planning Tools for Indian Homes | Tool Website"
-    />
-    <meta
-      property="twitter:description"
-      content="Free construction planning tools for Indian homeowners. Calculate costs for house construction, flooring, paint, plumbing, electrical, doors & windows."
-    />
-    <meta
-      property="twitter:image"
-      content="https://toolwebsite.in/images/tool-website-preview.jpg"
-    />
-
     <!-- Keywords & Robots -->
     <meta
       name="keywords"
@@ -67,12 +33,6 @@
       content="aUWkECBSG9IdlrS3CPMfXZGygJ6lx-ClYdHdaJ8nY78"
     />
     <meta name="msvalidate.01" content="061B4082725F1B3C4EE90801D169C0C2" />
-
-    <!-- Favicon & App Icons -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Preconnect to required origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -138,6 +98,16 @@
     <!-- Header and Navigation -->
     <header class="header-bar" role="banner">
       <nav role="navigation" aria-label="Main navigation">
+        <a href="#home" class="logo-link">
+          <img
+            src="./logo.png"
+            alt="Tool Website Logo"
+            class="logo"
+            width="160"
+            height="40"
+          />
+        </a>
+
         <div class="menu-icon" id="menuIcon">
           <span class="bars">☰</span>
           <span class="close">✕</span>
@@ -150,14 +120,6 @@
           <li><a href="#policy">Policy</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
-        <button
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle dark mode"
-        >
-          <i class="fa-solid fa-moon"></i>
-          <span class="theme-text">Mode</span>
-        </button>
       </nav>
     </header>
 
@@ -166,7 +128,7 @@
       <!-- Hero Section -->
       <section class="hero" id="home" aria-label="Homepage Banner">
         <div class="container">
-          <h1>Plan, Design, Visualize & Estimate</h1>
+          <h1>Design and Estimate</h1>
 
           <p class="hero-text">
             Calculate construction costs, plan your budget, and make informed
@@ -468,7 +430,31 @@
     </script>
 
     <!-- Deferred Scripts -->
-    <script src="header.js" defer></script>
-    <script src="./darkMode.js" defer></script>
+    <script>
+      // Add this to header.js
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuIcon = document.getElementById("menuIcon");
+        const navMenu = document.getElementById("navMenu");
+
+        menuIcon.addEventListener("click", function () {
+          navMenu.classList.toggle("active");
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest("nav")) {
+            navMenu.classList.remove("active");
+          }
+        });
+
+        // Close menu when clicking a link
+        const navLinks = navMenu.getElementsByTagName("a");
+        for (let link of navLinks) {
+          link.addEventListener("click", function () {
+            navMenu.classList.remove("active");
+          });
+        }
+      });
+    </script>
   </body>
 </html>
