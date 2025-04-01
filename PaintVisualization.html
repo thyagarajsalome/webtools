@@ -3,23 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Paint Visualization</title>
-    <!-- Meta Description for SEO -->
-    <meta
-      name="description"
-      content="Experience innovative paint visualization with a wide range of paint colors, texture paint, paintshop options, paint online features, and tools like paint 3D. Discover living room colors, grey paint, and Asian paints colour for your next project."
-    />
-    <!-- Meta Keywords for SEO -->
-    <meta
-      name="keywords"
-      content="texture paint, paint, paintshop, paint online, paint colors, paint 3d, living room colors, grey paint, asian paints colour"
-    />
-    <!-- Optional: Robots meta tag to ensure indexing -->
-    <meta name="robots" content="index, follow" />
-
-    <!-- Preload critical image (hero background) -->
-    <link rel="preload" as="image" href="hero-bg.jpg" />
-
+    <title>Paint Visualizer</title>
     <style>
       /* Reset & Base Styles */
       * {
@@ -67,18 +51,25 @@
           font-size: 1rem;
         }
       }
-      /* Room Selection */
-      .room-selection {
+      /* Room Navbar */
+      .room-navbar {
+        text-align: start;
         margin-bottom: 1.5rem;
-        text-align: center;
       }
-      .room-selection select {
+      .room-button {
         padding: 0.5rem 1rem;
-        border-radius: 4px;
-        border: 1px solid #333;
+        margin: 0 0.5rem;
+        border: 1px solid gray;
         background-color: #262626;
         color: #e0e0e0;
         font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+      .room-button.active,
+      .room-button:hover {
+        background-color: gray;
       }
       /* Container Layout */
       .container {
@@ -90,7 +81,7 @@
       }
       .visualization-area {
         position: relative;
-        max-width: 800px;
+        max-width: 1200px;
         width: 100%;
         border: 2px solid #333;
         border-radius: 8px;
@@ -294,25 +285,18 @@
     </style>
   </head>
   <body>
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Visualize Your Dream Paint Colors</h1>
-        <p>
-          Experience innovative paint visualization to transform your space.
-        </p>
-      </div>
-    </section>
-
-    <!-- Room Selection -->
-    <div class="room-selection">
-      <select id="roomSelect"></select>
-    </div>
+    <!-- Room Navbar -->
+    <nav class="room-navbar">
+      <button class="room-button" data-room="livingroom">Livingroom</button>
+      <button class="room-button" data-room="kitchen">Kitchen</button>
+      <button class="room-button" data-room="Bedroom">Bedroom</button>
+      <button class="room-button" data-room="Exterior">Exterior</button>
+    </nav>
 
     <div class="container">
       <!-- Visualization Area -->
       <div class="visualization-area">
-        <img src="" alt="Base" id="baseImage" loading="lazy" />
+        <img src="" alt="Base" id="baseImage" />
       </div>
 
       <!-- Color Selection Panel -->
@@ -327,6 +311,7 @@
           <span class="mobile-close-icon" id="mobileCloseIcon"
             >&times; Close</span
           >
+          <!-- Category buttons will be injected by JS -->
         </div>
         <!-- Color Options (buttons for individual colors) -->
         <div class="color-options"></div>
@@ -337,21 +322,14 @@
           <p id="colorHex"></p>
           <p id="colorCategory"></p>
           <p id="colorRoom"></p>
-          <div class="finish-selection">
-            <label for="finishSelect">Finish:</label>
-            <select id="finishSelect">
-              <option value="both">Both</option>
-              <option value="matt">Matt</option>
-              <option value="glossy">Glossy</option>
-            </select>
-          </div>
+          <div class="finish-selection"></div>
           <p id="colorFinishDisplay"></p>
         </div>
       </div>
+      <div></div>
     </div>
 
-    <!-- Colors data and application logic -->
-    <script src="./colors.js" defer></script>
+    <!-- Application Logic -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         // Configuration for each room/visualizer category
@@ -375,21 +353,20 @@
         };
 
         // DOM elements
-        const roomSelect = document.getElementById("roomSelect");
         const baseImage = document.getElementById("baseImage");
         const visualizationArea = document.querySelector(".visualization-area");
         const colorOptionsContainer = document.querySelector(".color-options");
         const resetButton = document.getElementById("resetButton");
-
-        // Mobile navigation elements
         const mobileMenuIcon = document.getElementById("mobileMenuIcon");
         const colorCategoriesContainer = document.getElementById(
           "colorCategoriesContainer"
         );
+        const roomButtons = document.querySelectorAll(".room-button");
 
         // Global variables
         let currentColor = null;
         let currentConfig = null;
+        let currentRoom = null;
         let overlays = {}; // to hold overlay image elements
 
         /* Helper: Convert "rgb(r, g, b)" string to an HSL object */
@@ -444,17 +421,12 @@
           const g = parseInt(result[2]);
           const b = parseInt(result[3]);
           const { h, s, l } = rgbToHsl(r, g, b);
-
-          // Only consider colors as Neutral if they are very desaturated or very light/dark.
           if (s < 0.1 || l < 0.15 || l > 0.85) {
             return "Neutral";
           }
-
-          // Use hue-based categorization:
           if (h < 15 || h >= 345) {
             return "Red";
           } else if (h < 45) {
-            // Differentiate between Brown and Orange using lightness
             return l < 0.5 ? "Brown" : "Orange";
           } else if (h < 75) {
             return "Yellow";
@@ -493,7 +465,6 @@
 
         /* Render category buttons (one for each of the eight groups) */
         function renderCategoryButtons(colorCategories) {
-          // Clear the container and add a mobile close icon (for mobile view)
           colorCategoriesContainer.innerHTML =
             '<span class="mobile-close-icon" id="mobileCloseIcon">&times; Close</span>';
           Object.keys(colorCategories).forEach((category) => {
@@ -503,7 +474,6 @@
             btn.textContent = category;
             colorCategoriesContainer.appendChild(btn);
           });
-          // Reattach mobile close event (in case of mobile overlay)
           const mobileCloseIconNew = document.getElementById("mobileCloseIcon");
           mobileCloseIconNew.addEventListener("click", () => {
             colorCategoriesContainer.classList.remove("active");
@@ -526,8 +496,6 @@
             button.setAttribute("aria-label", "Color");
             colorItem.appendChild(button);
             colorOptionsContainer.appendChild(colorItem);
-
-            // Always select the color on click; do not toggle it off
             button.addEventListener("click", () => {
               if (currentColor !== key) {
                 selectColor(key);
@@ -541,14 +509,11 @@
           const buttons = document.querySelectorAll(".category-button");
           buttons.forEach((btn) => {
             btn.addEventListener("click", () => {
-              // Set active state
               buttons.forEach((b) => b.classList.remove("active"));
               btn.classList.add("active");
               const category = btn.dataset.category;
               renderColorButtons(category, colorCategories);
-              // Reset any overlay
               selectColor(null);
-              // Close mobile menu if active
               if (colorCategoriesContainer.classList.contains("active")) {
                 colorCategoriesContainer.classList.remove("active");
               }
@@ -570,9 +535,7 @@
             const hexValue = rgbStringToHex(rgbValue);
             const category = getColorCategory(rgbValue);
             const room =
-              roomSelect.value.charAt(0).toUpperCase() +
-              roomSelect.value.slice(1);
-            const finish = document.getElementById("finishSelect").value;
+              currentRoom.charAt(0).toUpperCase() + currentRoom.slice(1);
 
             colorRGBEl.textContent = `RGB: ${rgbValue}`;
             colorHexEl.textContent = `Hex: ${hexValue}`;
@@ -588,13 +551,11 @@
           }
         }
 
-        /* When a color button is clicked, load (or show) its overlay image and update details.
-           If the clicked color is already selected, do nothing. */
+        /* When a color button is clicked, load (or show) its overlay image and update details. */
         function selectColor(colorId) {
           if (colorId === currentColor) {
             return;
           }
-          // Hide all overlays and remove active class from all color buttons
           Object.values(overlays).forEach(
             (overlay) => (overlay.style.opacity = "0")
           );
@@ -626,51 +587,25 @@
           }
         }
 
-        // Reset button event clears the current selection.
         resetButton.addEventListener("click", () => {
           selectColor(null);
         });
 
-        // When the room is changed, reinitialize the visualizer.
-        roomSelect.addEventListener("change", () => {
-          currentConfig = visualizerConfigs[roomSelect.value];
-          initializeVisualizer(currentConfig);
-        });
-
-        // Mobile menu icon event listener for toggling the categories overlay.
         mobileMenuIcon.addEventListener("click", () => {
           colorCategoriesContainer.classList.add("active");
         });
 
-        // When the finish select changes, update the finish detail (if a color is selected).
-        document
-          .getElementById("finishSelect")
-          .addEventListener("change", () => {
-            if (currentColor) {
-              updateColorDetails(currentColor);
-            }
-          });
-
-        // Initial setup: populate room select and set the default visualizer.
-        function populateRoomSelect() {
-          roomSelect.innerHTML = "";
-          Object.keys(visualizerConfigs).forEach((key) => {
-            const option = document.createElement("option");
-            option.value = key;
-            option.textContent =
-              key.charAt(0).toUpperCase() + key.slice(1).toLowerCase();
-            roomSelect.appendChild(option);
-          });
-        }
+        document.addEventListener("change", () => {
+          if (currentColor) {
+            updateColorDetails(currentColor);
+          }
+        });
 
         function initializeVisualizer(config) {
-          // Remove existing overlays
           Object.values(overlays).forEach((overlay) => overlay.remove());
           overlays = {};
           currentColor = null;
           baseImage.src = config.baseImage;
-
-          // Set default category button active (e.g., "Red")
           const defaultCategory = "Red";
           const catButtons = document.querySelectorAll(".category-button");
           catButtons.forEach((btn) => {
@@ -683,13 +618,32 @@
           updateColorDetails(null);
         }
 
-        populateRoomSelect();
-        currentConfig =
-          visualizerConfigs[roomSelect.value] || visualizerConfigs.livingroom;
+        // Setup room navbar event listeners
+        roomButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            roomButtons.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentRoom = btn.dataset.room;
+            currentConfig = visualizerConfigs[currentRoom];
+            initializeVisualizer(currentConfig);
+          });
+        });
+
+        // Set default room as Livingroom
+        const defaultRoomButton = document.querySelector(
+          '.room-button[data-room="livingroom"]'
+        );
+        if (defaultRoomButton) {
+          defaultRoomButton.classList.add("active");
+          currentRoom = defaultRoomButton.dataset.room;
+          currentConfig = visualizerConfigs[currentRoom];
+        }
         initializeVisualizer(currentConfig);
         renderCategoryButtons(colorCategories);
         setupCategoryButtonListeners(colorCategories);
       });
     </script>
+    <!-- Colors data file remains the same -->
+    <script src="./colors.js"></script>
   </body>
 </html>
