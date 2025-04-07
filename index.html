@@ -7,9 +7,7 @@
       crossorigin="anonymous"
     ></script>
     <meta charset="UTF-8" />
-    <!-- Use a responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Tool-Website</title>
     <link rel="stylesheet" href="./styles.css" />
 
@@ -102,22 +100,20 @@
   <body>
     <!-- Header and Navigation -->
     <header class="header-bar" role="banner">
-      <nav role="navigation" aria-label="Main navigation">
+      <nav role="navigation" aria-label="Main navigation" class="nav-container">
         <a href="#home" class="logo-link">
           <img
             src="./logo.png"
             alt="Tool Website Logo"
             class="logo"
-            width="160"
-            height="40"
+            width="50"
           />
         </a>
 
         <div class="menu-icon" id="menuIcon">
           <span class="bars">☰</span>
-          <span class="close">✕</span>
         </div>
-        <ul id="navMenu">
+        <ul id="navMenu" class="nav-menu">
           <li><a href="#home" aria-current="page">Home</a></li>
           <li><a href="#about-page">About</a></li>
           <li><a href="#tools">Tools</a></li>
@@ -134,7 +130,6 @@
       <section class="hero" id="home" aria-label="Homepage Banner">
         <div class="container">
           <h1>Design and Estimate</h1>
-
           <p class="hero-text">
             Calculate construction costs, plan your budget, and make informed
             decisions for your dream home.
@@ -142,7 +137,6 @@
         </div>
       </section>
 
-      <!-- About Section -->
       <!-- About Section -->
       <section class="about" id="about-page" aria-label="About Us">
         <div class="container">
@@ -176,7 +170,10 @@
           <div class="tool-grid">
             <article class="tool-card">
               <a href="./construction.html" target="_blank" class="tool-link">
-                <i class="fa-solid fa-building icon" aria-hidden="true"></i>
+                <!-- Image Provision -->
+                <div class="card-image">
+                  <img src="./cards-images/01.jpeg" alt="House Construction" />
+                </div>
                 <h3>House Construction</h3>
                 <p>
                   Calculate total construction cost based on your requirements
@@ -185,7 +182,9 @@
             </article>
             <article class="tool-card">
               <a href="./houseConstruction.html" class="tool-link">
-                <i class="fa-solid fa-house icon" aria-hidden="true"></i>
+                <div class="card-image">
+                  <img src="./cards-images/02.jpeg" alt="Material & Labour" />
+                </div>
                 <h3>Material &amp; Labour</h3>
                 <p>
                   Calculate total construction cost based on your requirements
@@ -194,7 +193,12 @@
             </article>
             <article class="tool-card">
               <a href="./floorWall.html" target="_blank" class="tool-link">
-                <i class="fa-solid fa-border-all icon" aria-hidden="true"></i>
+                <div class="card-image">
+                  <img
+                    src="./cards-images/03.jpeg"
+                    alt="Floor &amp; Wall Tile"
+                  />
+                </div>
                 <h3>Floor &amp; Wall Tile</h3>
                 <p>
                   Estimate flooring and wall tiling costs with material options
@@ -203,28 +207,39 @@
             </article>
             <article class="tool-card">
               <a href="./paint.html" target="_blank" class="tool-link">
-                <i class="fa-solid fa-paint-roller icon" aria-hidden="true"></i>
+                <div class="card-image">
+                  <img src="./cards-images/04.jpeg" alt="Paint Calculator" />
+                </div>
                 <h3>Paint Calculator</h3>
                 <p>Calculate paint quantities and costs for your spaces</p>
               </a>
             </article>
             <article class="tool-card">
               <a href="./plumbing.html" target="_blank" class="tool-link">
-                <i class="fa-solid fa-faucet icon" aria-hidden="true"></i>
+                <div class="card-image">
+                  <img src="./cards-images/05.jpeg" alt="Plumbing Estimator" />
+                </div>
                 <h3>Plumbing Estimator</h3>
                 <p>Estimate plumbing costs for your entire house</p>
               </a>
             </article>
             <article class="tool-card">
               <a href="./electrical.html" target="_blank" class="tool-link">
-                <i class="fa-solid fa-bolt icon" aria-hidden="true"></i>
+                <div class="card-image">
+                  <img
+                    src="./cards-images/06.jpeg"
+                    alt="Electrical Estimator"
+                  />
+                </div>
                 <h3>Electrical Estimator</h3>
                 <p>Plan your electrical layout and calculate costs</p>
               </a>
             </article>
             <article class="tool-card">
               <a href="./door_window.html" target="_blank" class="tool-link">
-                <i class="fa-solid fa-door-open icon" aria-hidden="true"></i>
+                <div class="card-image">
+                  <img src="./cards-images/07.jpeg" alt="Doors &amp; Windows" />
+                </div>
                 <h3>Doors &amp; Windows</h3>
                 <p>Calculate costs for doors and windows installation</p>
               </a>
@@ -235,7 +250,9 @@
                 target="_blank"
                 class="tool-link"
               >
-                <i class="fa-solid fa-paint-brush icon" aria-hidden="true"></i>
+                <div class="card-image">
+                  <img src="./cards-images/08.jpeg" alt="Paint Visualization" />
+                </div>
                 <h3>Paint Visualization</h3>
                 <p>Choose Your Paint Color</p>
               </a>
@@ -246,7 +263,9 @@
                 target="_blank"
                 class="tool-link"
               >
-                <i class="fa-solid fa-house icon" aria-hidden="true"></i>
+                <div class="card-image">
+                  <img src="./cards-images/09.jpeg" alt="Floor Plan Creator" />
+                </div>
                 <h3>Floor Plan Creator</h3>
                 <p>Free Floor Plan creator</p>
               </a>
@@ -257,10 +276,9 @@
                 target="_blank"
                 class="tool-link"
               >
-                <i
-                  class="fa-solid fa-trowel-bricks icon"
-                  aria-hidden="true"
-                ></i>
+                <div class="card-image">
+                  <img src="./cards-images/10.jpeg" alt="Civil Engineering" />
+                </div>
                 <h3>Civil Engineering</h3>
                 <p>Civil Engineering Estimator</p>
               </a>
@@ -291,7 +309,6 @@
       </section>
 
       <!-- Policy Section -->
-      <!-- Policy Section -->
       <section id="policy" class="policy-section" aria-label="Our Policy">
         <div class="container">
           <h2>Our Policy</h2>
@@ -303,17 +320,17 @@
               reflect the evolving trends in construction costs across India.
               While our calculators provide detailed estimates for various
               aspects of your project—such as house construction, material and
-              labour costs, tiling, paint, plumbing, electrical work, and more—
-              please note that actual expenses may vary due to factors including
-              location, specific material choices, and local labour rates. We
-              recommend using our tools as a starting point and consulting with
-              local professionals for final budgeting and planning.
+              labour costs, tiling, paint, plumbing, electrical work, and
+              more—please note that actual expenses may vary due to factors
+              including location, specific material choices, and local labour
+              rates. We recommend using our tools as a starting point and
+              consulting with local professionals for final budgeting and
+              planning.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- FAQ Section -->
       <!-- FAQ Section -->
       <section
         id="faq"
@@ -343,9 +360,9 @@
               <div class="faq-answer">
                 <p>
                   We offer a comprehensive range of tools including house
-                  construction and material & labour estimators, floor & wall
-                  tile calculators, paint calculators and visualization,
-                  plumbing and electrical cost estimators, doors & windows
+                  construction and material &amp; labour estimators, floor &amp;
+                  wall tile calculators, paint calculators and visualization,
+                  plumbing and electrical cost estimators, doors &amp; windows
                   calculators, floor plan creator, and civil engineering
                   estimators.
                 </p>
@@ -386,57 +403,8 @@
       </div>
     </footer>
 
-    <!-- Additional Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://toolwebsite.in"
-          }
-        ]
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "How accurate is the budget estimation?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Our estimation tools provide average costs based on general market data. Actual costs may vary depending on factors such as location, materials, and labor costs."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I use this tool for commercial construction projects?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Our tools are primarily designed for residential construction in India. For commercial projects, we recommend consulting with a professional estimator."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How often is the cost data updated?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "We strive to update our cost data regularly to reflect current market trends. However, we recommend using the estimates as a starting point and consulting with local contractors for more precise quotes."
-            }
-          }
-        ]
-      }
-    </script>
-
     <!-- Deferred Scripts -->
     <script>
-      // Add this to header.js
       document.addEventListener("DOMContentLoaded", function () {
         const menuIcon = document.getElementById("menuIcon");
         const navMenu = document.getElementById("navMenu");
@@ -445,14 +413,12 @@
           navMenu.classList.toggle("active");
         });
 
-        // Close menu when clicking outside
         document.addEventListener("click", function (event) {
           if (!event.target.closest("nav")) {
             navMenu.classList.remove("active");
           }
         });
 
-        // Close menu when clicking a link
         const navLinks = navMenu.getElementsByTagName("a");
         for (let link of navLinks) {
           link.addEventListener("click", function () {
