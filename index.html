@@ -95,7 +95,7 @@
       <nav role="navigation" aria-label="Main navigation" class="nav-container">
         <a href="#home" class="logo-link">
           <img
-            src="./logo.png"
+            src="./logo.svg"
             alt="Tool Website Logo"
             class="logo"
             width="50"
@@ -159,156 +159,8 @@
       <section class="tools-section" id="tools" aria-label="Construction Tools">
         <div class="container">
           <h2>Tools</h2>
-          <div class="tool-grid">
-            <article class="tool-card">
-              <a href="./construction.html" target="_blank" class="tool-link">
-                <div class="card-image">
-                  <img
-                    src="./cards-images/01.jpg"
-                    alt="House Construction"
-                    loading="lazy"
-                  />
-                </div>
-                <h3>House Construction</h3>
-                <p>
-                  Calculate total construction cost based on your requirements
-                </p>
-              </a>
-            </article>
-            <article class="tool-card">
-              <a href="./houseConstruction.html" class="tool-link">
-                <div class="card-image">
-                  <img
-                    src="./cards-images/02.jpg"
-                    alt="Material & Labour"
-                    loading="lazy"
-                  />
-                </div>
-                <h3>Material &amp; Labour</h3>
-                <p>
-                  Calculate total construction cost based on your requirements
-                </p>
-              </a>
-            </article>
-            <article class="tool-card">
-              <a href="./floorWall.html" target="_blank" class="tool-link">
-                <div class="card-image">
-                  <img
-                    src="./cards-images/03.jpg"
-                    alt="Floor &amp; Wall Tile"
-                    loading="lazy"
-                  />
-                </div>
-                <h3>Floor &amp; Wall Tile</h3>
-                <p>
-                  Estimate flooring and wall tiling costs with material options
-                </p>
-              </a>
-            </article>
-            <article class="tool-card">
-              <a href="./paint.html" target="_blank" class="tool-link">
-                <div class="card-image">
-                  <img
-                    src="./cards-images/04.jpg"
-                    alt="Paint Calculator"
-                    loading="lazy"
-                  />
-                </div>
-                <h3>Paint Calculator</h3>
-                <p>Calculate paint quantities and costs for your spaces</p>
-              </a>
-            </article>
-            <article class="tool-card">
-              <a href="./plumbing.html" target="_blank" class="tool-link">
-                <div class="card-image">
-                  <img
-                    src="./cards-images/05.jpg"
-                    alt="Plumbing Estimator"
-                    loading="lazy"
-                  />
-                </div>
-                <h3>Plumbing Estimator</h3>
-                <p>Estimate plumbing costs for your entire house</p>
-              </a>
-            </article>
-            <article class="tool-card">
-              <a href="./electrical.html" target="_blank" class="tool-link">
-                <div class="card-image">
-                  <img
-                    src="./cards-images/06.jpg"
-                    alt="Electrical Estimator"
-                    loading="lazy"
-                  />
-                </div>
-                <h3>Electrical Estimator</h3>
-                <p>Plan your electrical layout and calculate costs</p>
-              </a>
-            </article>
-            <article class="tool-card">
-              <a href="./door_window.html" target="_blank" class="tool-link">
-                <div class="card-image">
-                  <img
-                    src="./cards-images/07.jpg"
-                    alt="Doors &amp; Windows"
-                    loading="lazy"
-                  />
-                </div>
-                <h3>Doors &amp; Windows</h3>
-                <p>Calculate costs for doors and windows installation</p>
-              </a>
-            </article>
-            <article class="tool-card">
-              <a
-                href="./PaintVisualization.html"
-                target="_blank"
-                class="tool-link"
-              >
-                <div class="card-image">
-                  <img
-                    src="./cards-images/08.jpg"
-                    alt="Paint Visualization"
-                    loading="lazy"
-                  />
-                </div>
-                <h3>Paint Visualization</h3>
-                <p>Choose Your Paint Color</p>
-              </a>
-            </article>
-            <article class="tool-card">
-              <a
-                href="./floorplancreator.html"
-                target="_blank"
-                class="tool-link"
-              >
-                <div class="card-image">
-                  <img
-                    src="./cards-images/09.jpg"
-                    alt="Floor Plan Creator"
-                    loading="lazy"
-                  />
-                </div>
-                <h3>Floor Plan Creator</h3>
-                <p>Free Floor Plan creator</p>
-              </a>
-            </article>
-            <article class="tool-card">
-              <a
-                href="./CivilEngineering.html"
-                target="_blank"
-                class="tool-link"
-              >
-                <div class="card-image">
-                  <img
-                    src="./cards-images/10.jpg"
-                    alt="Civil Engineering"
-                    loading="lazy"
-                  />
-                </div>
-                <h3>Civil Engineering</h3>
-                <p>Civil Engineering Estimator</p>
-              </a>
-            </article>
-          </div>
+          <!-- The card container is left empty and will be populated dynamically -->
+          <div class="tool-grid"></div>
         </div>
       </section>
 
@@ -343,17 +195,6 @@
               reliable construction planning information. Our suite of tools is
               developed using current market data and is regularly updated to
               reflect the evolving trends in construction costs across India.
-            </p>
-            <br />
-            <p>
-              While our calculators provide detailed estimates for various
-              aspects of your project—such as house construction, material and
-              labour costs, tiling, paint, plumbing, electrical work, and
-              more—please note that actual expenses may vary due to factors
-              including location, specific material choices, and local labour
-              rates. We recommend using our tools as a starting point and
-              consulting with local professionals for final budgeting and
-              planning.
             </p>
           </div>
         </div>
@@ -431,26 +272,140 @@
       </div>
     </footer>
 
-    <!-- Deferred Scripts -->
+    <!-- Consolidated Deferred Script -->
     <script defer>
       document.addEventListener("DOMContentLoaded", function () {
+        // Define card data for the Tools section
+        const cardsData = [
+          {
+            href: "./construction.html",
+            target: "_blank",
+            imgSrc: "./cards-images/01.jpg",
+            imgAlt: "House Construction",
+            title: "House Construction",
+            description:
+              "Calculate total construction cost based on your requirements",
+          },
+          {
+            href: "./houseConstruction.html",
+            target: "",
+            imgSrc: "./cards-images/02.jpg",
+            imgAlt: "Material & Labour",
+            title: "Material & Labour",
+            description:
+              "Calculate total construction cost based on your requirements",
+          },
+          {
+            href: "./floorWall.html",
+            target: "_blank",
+            imgSrc: "./cards-images/03.jpg",
+            imgAlt: "Floor & Wall Tile",
+            title: "Floor & Wall Tile",
+            description:
+              "Estimate flooring and wall tiling costs with material options",
+          },
+          {
+            href: "./paint.html",
+            target: "_blank",
+            imgSrc: "./cards-images/04.jpg",
+            imgAlt: "Paint Calculator",
+            title: "Paint Calculator",
+            description: "Calculate paint quantities and costs for your spaces",
+          },
+          {
+            href: "./plumbing.html",
+            target: "_blank",
+            imgSrc: "./cards-images/05.jpg",
+            imgAlt: "Plumbing Estimator",
+            title: "Plumbing Estimator",
+            description: "Estimate plumbing costs for your entire house",
+          },
+          {
+            href: "./electrical.html",
+            target: "_blank",
+            imgSrc: "./cards-images/06.jpg",
+            imgAlt: "Electrical Estimator",
+            title: "Electrical Estimator",
+            description: "Plan your electrical layout and calculate costs",
+          },
+          {
+            href: "./door_window.html",
+            target: "_blank",
+            imgSrc: "./cards-images/07.jpg",
+            imgAlt: "Doors & Windows",
+            title: "Doors & Windows",
+            description: "Calculate costs for doors and windows installation",
+          },
+          {
+            href: "./PaintVisualization.html",
+            target: "_blank",
+            imgSrc: "./cards-images/08.jpg",
+            imgAlt: "Paint Visualization",
+            title: "Paint Visualization",
+            description: "Choose Your Paint Color",
+          },
+          {
+            href: "./floorplancreator.html",
+            target: "_blank",
+            imgSrc: "./cards-images/09.jpg",
+            imgAlt: "Floor Plan Creator",
+            title: "Floor Plan Creator",
+            description: "Free Floor Plan creator",
+          },
+          {
+            href: "./CivilEngineering.html",
+            target: "_blank",
+            imgSrc: "./cards-images/10.jpg",
+            imgAlt: "Civil Engineering",
+            title: "Civil Engineering",
+            description: "Civil Engineering Estimator",
+          },
+        ];
+
+        // Populate the Tools section with cards from the array
+        const toolGrid = document.querySelector(".tool-grid");
+        if (toolGrid) {
+          toolGrid.innerHTML = cardsData
+            .map((card) => {
+              return `
+              <article class="tool-card">
+                <a href="${card.href}" ${
+                card.target ? `target="${card.target}"` : ""
+              } class="tool-link">
+                  <div class="card-image">
+                    <img src="${card.imgSrc}" alt="${
+                card.imgAlt
+              }" loading="lazy"/>
+                  </div>
+                  <h3>${card.title}</h3>
+                  <p>${card.description}</p>
+                </a>
+              </article>
+            `;
+            })
+            .join("");
+        }
+
+        // Navigation toggle behavior
         const menuIcon = document.getElementById("menuIcon");
         const navMenu = document.getElementById("navMenu");
 
-        menuIcon.addEventListener("click", function () {
-          navMenu.classList.toggle("active");
-        });
+        if (menuIcon && navMenu) {
+          menuIcon.addEventListener("click", function () {
+            navMenu.classList.toggle("active");
+          });
 
-        document.addEventListener("click", function (event) {
-          if (!event.target.closest("nav")) {
-            navMenu.classList.remove("active");
-          }
-        });
+          document.addEventListener("click", function (event) {
+            if (!event.target.closest("nav")) {
+              navMenu.classList.remove("active");
+            }
+          });
 
-        const navLinks = navMenu.getElementsByTagName("a");
-        for (let link of navLinks) {
-          link.addEventListener("click", function () {
-            navMenu.classList.remove("active");
+          const navLinks = navMenu.querySelectorAll("a");
+          navLinks.forEach((link) => {
+            link.addEventListener("click", function () {
+              navMenu.classList.remove("active");
+            });
           });
         }
       });
