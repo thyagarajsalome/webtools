@@ -62,7 +62,6 @@ a:hover {
 
 .logo {
   margin-top: 10px;
-
   margin-left: 20px;
   max-width: 100%;
 }
@@ -81,6 +80,7 @@ a:hover {
 }
 
 .nav-menu li a {
+  margin-right: 20px;
   padding: 0.5rem;
   font-weight: 500;
 }
@@ -159,7 +159,7 @@ section h2 {
 /* Card Image Styles */
 .card-image {
   width: 100%;
-  height: 150px; /* Fixed height for uniformity */
+  height: 150px;
   overflow: hidden;
 }
 
@@ -170,53 +170,50 @@ section h2 {
   object-fit: cover;
 }
 
-/* Tool Icon override (if needed) */
-.tool-link .icon {
-  font-size: 2rem;
-  margin-bottom: 0.8rem;
-  color: var(--secondary-color);
-}
-
-/* Contact, Policy, FAQ Sections */
-.contact-section,
-.policy-section,
-.faq-section {
-  background-color: #fff;
-  margin: 2rem 0;
-  padding: 2rem 1rem;
-  border-radius: 8px;
-}
-
-.contact-info a {
-  font-weight: 500;
-}
-
-.faq-list {
-  margin-top: 1rem;
-}
-
-.faq-item {
-  border-bottom: 1px solid #ddd;
-  padding: 1rem 0;
-}
-
-.faq-item summary {
-  font-weight: 500;
-  cursor: pointer;
-  list-style: none;
-}
-
 /* Footer */
 .footer {
   background-color: var(--primary-color);
   color: #fff;
   padding: 1rem 0;
-  text-align: center;
 }
 
-.footer-info p {
-  margin: 0.3rem 0;
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-links {
+  flex: 1 1 100%;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.footer-nav {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0;
+}
+
+.footer-nav li a {
+  color: #fff;
   font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-nav li a:hover {
+  color: var(--accent-color);
+}
+
+.footer-info {
+  flex: 1 1 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
 }
 
 /* Responsive Navigation for Mobile */
@@ -247,6 +244,7 @@ section h2 {
 .nav-menu li:hover {
   color: var(--accent-color);
 }
+
 /* Utility Classes */
 .text-center {
   text-align: center;
