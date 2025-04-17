@@ -277,13 +277,17 @@
                 card.target ? `target="${card.target}"` : ""
               } class="tool-link">
                     <div class="card-image">
-                      <img 
-                        src="${card.imgSrc}" 
-                        srcset="${card.imgSrcSmall} 767w, ${card.imgSrc} 1200w"
-                        sizes="(max-width: 767px) 100vw, 1200px"
-                        alt="${card.imgAlt}" 
-                        loading="lazy"
-                      />
+                      <picture>
+                        <!-- For small mobile devices -->
+                        <source media="(max-width: 767px)" srcset="${
+                          card.imgSrcSmall
+                        }">
+                        <!-- For larger screens -->
+                        <img 
+                          src="${card.imgSrc}" 
+                          alt="${card.imgAlt}" 
+                          loading="lazy">
+                      </picture>
                     </div>
                     <h3>${card.title}</h3>
                     <p>${card.description}</p>
