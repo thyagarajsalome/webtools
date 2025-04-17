@@ -116,6 +116,7 @@ section h2 {
 
 /* About Section */
 .about p {
+  padding: 20px;
   margin-bottom: 1rem;
   text-align: justify;
 }
