@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9453124327765434"
-      crossorigin="anonymous"
-    ></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tool-Website</title>
     <link rel="stylesheet" href="./styles.css" />
+
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 
     <!-- SEO and Social Meta Tags -->
     <meta
@@ -39,6 +40,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- JSON‑LD Structured Data -->
     <script type="application/ld+json">
@@ -101,18 +108,44 @@
             width="50"
             loading="lazy"
           />
+          <span class="brand-name">Toolify</span>
         </a>
+
         <div class="menu-icon" id="menuIcon">
-          <span class="bars">☰</span>
+          <span class="bars"><i class="fas fa-bars"></i></span>
         </div>
         <ul id="navMenu" class="nav-menu">
-          <li><a href="#home" aria-current="page">Home</a></li>
-          <li><a href="#about-page">About</a></li>
-          <li><a href="#tools">Tools</a></li>
-          <li><a href="./contact.html" target="_blank">Contact</a></li>
-          <li><a href="./policy.html" target="_blank">Policy</a></li>
-          <li><a href="./disclaimer.html" target="_blank">Disclaimer</a></li>
-          <li><a href="./faq.html" target="_blank">FAQ</a></li>
+          <li>
+            <a href="#home" aria-current="page"
+              ><i class="fas fa-home"></i> Home</a
+            >
+          </li>
+          <li>
+            <a href="#about-page"><i class="fas fa-info-circle"></i> About</a>
+          </li>
+          <li>
+            <a href="#tools"><i class="fas fa-tools"></i> Tools</a>
+          </li>
+          <li>
+            <a href="./contact.html" target="_blank"
+              ><i class="fas fa-envelope"></i> Contact</a
+            >
+          </li>
+          <li>
+            <a href="./policy.html" target="_blank"
+              ><i class="fas fa-shield-alt"></i> Policy</a
+            >
+          </li>
+          <li>
+            <a href="./disclaimer.html" target="_blank"
+              ><i class="fas fa-exclamation-circle"></i> Disclaimer</a
+            >
+          </li>
+          <li>
+            <a href="./faq.html" target="_blank"
+              ><i class="fas fa-question-circle"></i> FAQ</a
+            >
+          </li>
         </ul>
       </nav>
     </header>
@@ -122,41 +155,62 @@
       <!-- Hero Section -->
       <section class="hero" id="home" aria-label="Homepage Banner">
         <div class="container">
-          <h1>Design and Estimate</h1>
+          <h1><i class=""></i> Design and Estimate</h1>
           <p class="hero-text">
             Calculate construction costs, plan your budget, and make informed
             decisions for your dream home.
           </p>
+          <a href="#tools" class="cta-button"
+            >Explore Tools <i class="fas fa-arrow-right"></i
+          ></a>
         </div>
       </section>
 
       <!-- About Section -->
       <section class="about" id="about-page" aria-label="About Us">
-        <h2>About</h2>
-        <p>
-          Tool Website Hub is your comprehensive resource for construction
-          planning in India. We offer a full suite of planning tools designed
-          for homeowners, builders, and professionals alike. Our calculators and
-          estimators cover everything from house construction costs, material
-          and labour budgeting, floor & wall tiling, paint calculation and
-          visualization, to plumbing, electrical planning, doors & windows cost,
-          floor plan creation, and even civil engineering estimation.
-        </p>
-        <ul class="benefits">
-          <li>Accurate cost estimation based on the latest market trends</li>
-          <li>Location-specific pricing and material suggestions</li>
-          <li>User-friendly calculators and visualization tools</li>
-          <li>
-            Completely free and continuously updated construction planning tools
-          </li>
-        </ul>
+        <div class="container">
+          <h2><i class="fas fa-info-circle"></i> About</h2>
+          <div class="about-content">
+            <p>
+              Tool Website Hub is your comprehensive resource for construction
+              planning in India. We offer a full suite of planning tools
+              designed for homeowners, builders, and professionals alike. Our
+              calculators and estimators cover everything from house
+              construction costs, material and labour budgeting, floor & wall
+              tiling, paint calculation and visualization, to plumbing,
+              electrical planning, doors & windows cost, floor plan creation,
+              and even civil engineering estimation.
+            </p>
+            <div class="benefits-container">
+              <h3>Benefits</h3>
+              <ul class="benefits">
+                <li>
+                  <i class="fas fa-check-circle"></i> Accurate cost estimation
+                  based on the latest market trends
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i> Location-specific pricing
+                  and material suggestions
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i> User-friendly calculators
+                  and visualization tools
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i> Completely free and
+                  continuously updated construction planning tools
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- Tools Section -->
       <section class="tools-section" id="tools" aria-label="Construction Tools">
         <div class="container">
-          <h2>Tools</h2>
-          <!-- The card container is left empty and will be populated dynamically -->
+          <h2><i class="fas fa-tools"></i> Tools</h2>
+          <!-- The card container will be populated dynamically -->
           <div class="tool-grid"></div>
         </div>
       </section>
@@ -168,17 +222,48 @@
         <!-- Footer Navigation Links -->
         <div class="footer-links">
           <ul class="footer-nav">
-            <li><a href="#tools">Tools</a></li>
-            <li><a href="#about-page">About</a></li>
-            <li><a href="./contact.html" target="_blank">Contact</a></li>
-            <li><a href="./policy.html" target="_blank">Policy</a></li>
-            <li><a href="./disclaimer.html" target="_blank">Disclaimer</a></li>
-            <li><a href="./faq.html" target="_blank">FAQ</a></li>
+            <li>
+              <a href="#tools"><i class="fas fa-tools"></i> Tools</a>
+            </li>
+            <li>
+              <a href="#about-page"><i class="fas fa-info-circle"></i> About</a>
+            </li>
+            <li>
+              <a href="./contact.html" target="_blank"
+                ><i class="fas fa-envelope"></i> Contact</a
+              >
+            </li>
+            <li>
+              <a href="./policy.html" target="_blank"
+                ><i class="fas fa-shield-alt"></i> Policy</a
+              >
+            </li>
+            <li>
+              <a href="./disclaimer.html" target="_blank"
+                ><i class="fas fa-exclamation-circle"></i> Disclaimer</a
+              >
+            </li>
+            <li>
+              <a href="./faq.html" target="_blank"
+                ><i class="fas fa-question-circle"></i> FAQ</a
+              >
+            </li>
           </ul>
         </div>
+        <!-- Footer Social Links -->
+        <!-- <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" aria-label="Instagram"
+            ><i class="fab fa-instagram"></i
+          ></a>
+        </div> -->
         <!-- Footer Site Information -->
         <div class="footer-info">
-          <p class="copyright">© 2025 Tool Website. All rights reserved.</p>
+          <p class="copyright">
+            &copy; 2025 Tool Website. All rights reserved.
+          </p>
           <p>Version 1.1.0</p>
         </div>
       </div>
@@ -187,14 +272,12 @@
     <!-- Consolidated Deferred Script -->
     <script defer>
       document.addEventListener("DOMContentLoaded", function () {
-        // Define card data for the Tools section with both high- and low-resolution images
+        // Define card data for the Tools section with icons instead of images
         const cardsData = [
           {
             href: "./construction.html",
             target: "_blank",
-            imgSrc: "./cards-images/01.jpg",
-            imgSrcSmall: "./cards-images2/01.jpg",
-            imgAlt: "House Construction",
+            iconClass: "fas fa-home",
             title: "House Construction",
             description:
               "Calculate total construction cost based on your requirements",
@@ -202,9 +285,7 @@
           {
             href: "./houseConstruction.html",
             target: "",
-            imgSrc: "./cards-images/02.jpg",
-            imgSrcSmall: "./cards-images2/02.jpg",
-            imgAlt: "Material & Labour",
+            iconClass: "fas fa-hammer",
             title: "Material & Labour",
             description:
               "Calculate total construction cost based on your requirements",
@@ -212,9 +293,7 @@
           {
             href: "./floorWall.html",
             target: "_blank",
-            imgSrc: "./cards-images/03.jpg",
-            imgSrcSmall: "./cards-images2/03.jpg",
-            imgAlt: "Floor & Wall Tile",
+            iconClass: "fas fa-th",
             title: "Floor & Wall Tile",
             description:
               "Estimate flooring and wall tiling costs with material options",
@@ -222,51 +301,41 @@
           {
             href: "./paint.html",
             target: "_blank",
-            imgSrc: "./cards-images/04.jpg",
-            imgSrcSmall: "./cards-images2/04.jpg",
-            imgAlt: "Paint Calculator",
+            iconClass: "fas fa-paint-roller",
             title: "Paint Calculator",
             description: "Calculate paint quantities and costs for your spaces",
           },
           {
             href: "./plumbing.html",
             target: "_blank",
-            imgSrc: "./cards-images/05.jpg",
-            imgSrcSmall: "./cards-images2/05.jpg",
-            imgAlt: "Plumbing Estimator",
+            iconClass: "fas fa-faucet",
             title: "Plumbing Estimator",
             description: "Estimate plumbing costs for your entire house",
           },
           {
             href: "./electrical.html",
             target: "_blank",
-            imgSrc: "./cards-images/06.jpg",
-            imgSrcSmall: "./cards-images2/06.jpg",
-            imgAlt: "Electrical Estimator",
+            iconClass: "fas fa-bolt",
             title: "Electrical Estimator",
             description: "Plan your electrical layout and calculate costs",
           },
           {
             href: "./door_window.html",
             target: "_blank",
-            imgSrc: "./cards-images/07.jpg",
-            imgSrcSmall: "./cards-images2/07.jpg",
-            imgAlt: "Doors & Windows",
+            iconClass: "fas fa-door-open",
             title: "Doors & Windows",
             description: "Calculate costs for doors and windows installation",
           },
           {
             href: "./PaintVisualization.html",
             target: "_blank",
-            imgSrc: "./cards-images/08.jpg",
-            imgSrcSmall: "./cards-images2/08.jpg",
-            imgAlt: "Paint Visualization",
+            iconClass: "fas fa-palette",
             title: "Paint Visualization",
             description: "Choose Your Paint Color",
           },
         ];
 
-        // Populate the Tools section with cards from the array using responsive images
+        // Populate the Tools section with cards from the array using icons
         const toolGrid = document.querySelector(".tool-grid");
         if (toolGrid) {
           toolGrid.innerHTML = cardsData
@@ -276,21 +345,12 @@
                   <a href="${card.href}" ${
                 card.target ? `target="${card.target}"` : ""
               } class="tool-link">
-                    <div class="card-image">
-                      <picture>
-                        <!-- For small mobile devices -->
-                        <source media="(max-width: 767px)" srcset="${
-                          card.imgSrcSmall
-                        }">
-                        <!-- For larger screens -->
-                        <img 
-                          src="${card.imgSrc}" 
-                          alt="${card.imgAlt}" 
-                          loading="lazy">
-                      </picture>
+                    <div class="card-icon">
+                      <i class="${card.iconClass}"></i>
                     </div>
                     <h3>${card.title}</h3>
                     <p>${card.description}</p>
+                    <span class="card-button">Use Tool <i class="fas fa-arrow-right"></i></span>
                   </a>
                 </article>
               `;
