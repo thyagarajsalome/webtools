@@ -59,6 +59,7 @@ a:hover {
 .nav-container {
   display: flex;
   justify-content: space-around;
+
   align-items: center;
   padding: 0.5rem 0;
 }
@@ -69,10 +70,15 @@ a:hover {
   gap: 10px;
 }
 
+
+
 .logo {
-  margin-left: 10px;
-  max-width: 40px;
+ border-radius: 5px;
+
+  max-width: 100px;
 }
+
+
 
 .brand-name {
   font-size: 1.4rem;
@@ -155,6 +161,7 @@ a:hover {
 }
 
 .cta-button {
+
   display: inline-block;
   background-color: #fff;
   color: var(--secondary-color);
@@ -410,7 +417,7 @@ section h2::after {
     top: 100%;
     right: 0;
     background-color: #fff;
-    width: 200px;
+    width: 150px;
     flex-direction: column;
     display: none;
     box-shadow: var(--box-shadow);
