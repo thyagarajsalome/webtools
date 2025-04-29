@@ -54,27 +54,32 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 1000;
+  height: 70px; /* Set a fixed height for the header bar */
+  display: flex;
+  align-items: center;
 }
 
 .nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1rem; /* a bit more breathing room */
+  height: 100%;
 }
 
 .logo-link {
   display: flex;
   align-items: center;
-  gap: 8px; /* tightened from 10px */
-  flex-shrink: 0; /* prevent logo from shrinking */
+  gap: 8px;
+  flex-shrink: 0;
+  height: 100%;
+  padding: 5px 0;
 }
 
 .logo {
-  max-height: 50px; /* instead of max-width */
+  max-height: 100px; /* Keep the original logo size */
+  height: auto;
   width: auto;
 }
-
 .brand-name {
   font-size: 1.4rem;
   font-weight: 600;
@@ -92,17 +97,25 @@ a:hover {
 .nav-menu {
   list-style: none;
   display: flex;
-  gap: 1rem;
-}
 
+  gap: 1rem;
+  height: 100%;
+  align-items: center;
+}
+.nav-menu li {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
 .nav-menu li a {
+  justify-content: end;
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 0.5rem;
+  padding: 0.25rem 0.5rem; /* Reduced padding */
   font-weight: 400;
-
   position: relative;
+  height: 100%;
 }
 
 .nav-menu li a::after {
@@ -422,64 +435,52 @@ section h2::after {
 }
 
 /* Responsive Navigation for Mobile */
-/* On mobile, dropdown aligns under toggle */
+
+/* Responsive Navigation for Mobile */
 @media (max-width: 768px) {
-  .menu-icon {
-    display: block;
+  .header-bar {
+    height: 60px; /* Slightly smaller on mobile */
   }
+
+  .menu-icon {
+    display: flex;
+
+    display: block;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
   .nav-menu {
     position: absolute;
     top: 100%;
-    right: 1rem; /* match toggle padding */
+    right: 1rem;
     background-color: #fff;
-    width: 180px; /* slightly wider */
+    width: 180px;
     flex-direction: column;
     display: none;
     box-shadow: var(--box-shadow);
     border-radius: 0 0 10px 10px;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     gap: 0;
+    height: auto;
   }
+
+  .nav-menu.active {
+    display: flex;
+  }
+
+  .nav-menu li {
+    width: 100%;
+    height: auto;
+  }
+
   .nav-menu li a {
-    padding: 0.75rem 1.5rem;
+    padding: 0.6rem 1.5rem;
+    justify-content: flex-start;
+    height: auto;
   }
-
-  .hero {
-    padding: 6rem 0 4rem; /* taller top padding */
-  }
-}
-.nav-menu.active {
-  display: flex;
-}
-
-.nav-menu li {
-  width: 100%;
-}
-
-.nav-menu li a {
-  padding: 0.8rem 1.5rem;
-  justify-content: flex-start;
-}
-
-.nav-menu li a::after {
-  display: none;
-}
-
-.hero h1 {
-  font-size: 2.2rem;
-}
-
-.hero-text {
-  font-size: 1.1rem;
-}
-
-.about-content {
-  flex-direction: column;
-}
-
-.tool-grid {
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
 }
 
 /* Tablet Responsive */
