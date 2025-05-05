@@ -25,6 +25,10 @@
         text-decoration: none;
         color: inherit;
       }
+
+      .blog-section {
+        margin-bottom: 20px;
+      }
       /* ========= Hero Section ========= */
       .hero {
         background: url("hero-bg.jpg") no-repeat center center/cover;
@@ -53,12 +57,11 @@
       }
       /* Room Navbar */
       .room-navbar {
-        text-align: start;
+        text-align: center;
         margin-bottom: 1.5rem;
       }
       .room-button {
         padding: 0.5rem 1rem;
-
         border: 1px solid gray;
         background-color: #262626;
         color: #e0e0e0;
@@ -66,23 +69,32 @@
         border-radius: 4px;
         cursor: pointer;
         transition: background-color 0.2s ease;
+        margin: 0.25rem;
       }
       .room-button.active,
       .room-button:hover {
         background-color: gray;
       }
-      /* Container Layout */
+      /* Main Container */
       .container {
-        display: grid;
-        grid-template-columns: 1fr 300px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+      /* Revised Layout: Stack the visualization area and the color selection */
+      .visualizer-layout {
+        display: flex;
+        flex-wrap: wrap;
         gap: 1.5rem;
         justify-content: center;
-        align-items: start;
+        align-items: flex-start;
       }
+      /* Visualization Area - enlarged and centered */
       .visualization-area {
         position: relative;
-        max-width: 1200px;
         width: 100%;
+        max-width: 100%; /* Allow full width of container */
+        margin: 0 auto; /* Center the visualizer area */
         border: 2px solid #333;
         border-radius: 8px;
         overflow: hidden;
@@ -112,7 +124,9 @@
         padding: 0.5rem;
         border: 1px solid #333;
         border-radius: 8px;
-        position: relative;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
       }
       .color-selection h4 {
         margin-bottom: 1rem;
@@ -210,6 +224,7 @@
         background: #333;
         padding: 0.5rem;
         border-radius: 4px;
+        text-align: center;
       }
       .color-details p {
         margin: 0.3rem 0;
@@ -222,18 +237,16 @@
         html {
           font-size: 14px;
         }
-        .container {
-          display: block;
+        .visualizer-layout {
+          flex-direction: column;
+          align-items: center;
         }
-
-        .room-button {
-          padding: 8px;
-          margin: 8px;
-        }
-        .visualization-area,
-        .color-selection {
+        .visualization-area {
+          /* Increase size by ensuring full width */
           width: 100%;
-          max-width: 100%;
+        }
+        .room-navbar {
+          text-align: center;
         }
         .mobile-menu-icon {
           display: block;
@@ -262,23 +275,16 @@
           font-size: 15px;
         }
         .visualization-area {
-          max-width: 600px;
+          max-width: 100%;
+          width: 100%;
         }
         .color-selection {
-          max-width: 280px;
+          max-width: 350px;
         }
       }
       @media (min-width: 769px) {
         html {
           font-size: 16px;
-        }
-      }
-      @media (max-width: 1024px) {
-        .visualization-area {
-          max-width: 1200px;
-        }
-        .color-selection {
-          max-width: 1024px;
         }
       }
       @media (max-width: 1440px) {
@@ -299,39 +305,63 @@
     </nav>
 
     <div class="container">
-      <!-- Visualization Area -->
-      <div class="visualization-area">
-        <img src="" alt="Base" id="baseImage" />
+      <!-- Blog Section: How to Use & Benefits -->
+      <div class="blog-section">
+        <h4>How to Use & Benefits</h4>
+        <p>
+          Welcome to our Paint Visualizer—an innovative tool that allows you to
+          experiment with a variety of paint colors and preview how they will
+          transform your space in real time. Simply select a room from the
+          navbar, choose a color from the palette below, and watch the overlay
+          blend with the base image to give you a realistic view.
+        </p>
+        <p>
+          Benefits include an intuitive interface, responsive adjustments for
+          different devices, and the ability to explore and compare color
+          schemes effortlessly. Whether you’re redesigning your living room,
+          bedroom, or exterior, our tool helps you make informed design
+          decisions.
+        </p>
+        <p>
+          Start by selecting a room and then choose your paint color to see your
+          vision come to life.
+        </p>
       </div>
 
-      <!-- Color Selection Panel -->
-      <div class="color-selection">
-        <h4>Paint Color</h4>
-        <!-- Mobile Menu Icon for Categories (visible only on mobile) -->
-        <div class="mobile-menu-icon" id="mobileMenuIcon">
-          &#9776; Categories
+      <!-- Main Layout for Visualizer -->
+      <div class="visualizer-layout">
+        <!-- Visualization Area (Enlarged and centered) -->
+        <div class="visualization-area">
+          <img src="" alt="Base" id="baseImage" />
         </div>
-        <!-- Category Navigation (in mobile, toggled as an overlay) -->
-        <div class="color-categories" id="colorCategoriesContainer">
-          <span class="mobile-close-icon" id="mobileCloseIcon"
-            >&times; Close</span
-          >
-          <!-- Category buttons will be injected by JS -->
-        </div>
-        <!-- Color Options (buttons for individual colors) -->
-        <div class="color-options"></div>
-        <button class="reset-button" id="resetButton">Reset</button>
-        <!-- Color Details Panel -->
-        <div class="color-details" id="colorDetails">
-          <p id="colorRGB"></p>
-          <p id="colorHex"></p>
-          <p id="colorCategory"></p>
-          <p id="colorRoom"></p>
-          <div class="finish-selection"></div>
-          <p id="colorFinishDisplay"></p>
+        <!-- Color Selection Panel -->
+        <div class="color-selection">
+          <h4>Paint Color</h4>
+          <!-- Mobile Menu Icon for Categories (visible only on mobile) -->
+          <div class="mobile-menu-icon" id="mobileMenuIcon">
+            &#9776; Categories
+          </div>
+          <!-- Category Navigation (in mobile, toggled as an overlay) -->
+          <div class="color-categories" id="colorCategoriesContainer">
+            <span class="mobile-close-icon" id="mobileCloseIcon"
+              >&times; Close</span
+            >
+            <!-- Category buttons will be injected by JS -->
+          </div>
+          <!-- Color Options (buttons for individual colors) -->
+          <div class="color-options"></div>
+          <button class="reset-button" id="resetButton">Reset</button>
+          <!-- Color Details Panel -->
+          <div class="color-details" id="colorDetails">
+            <p id="colorRGB"></p>
+            <p id="colorHex"></p>
+            <p id="colorCategory"></p>
+            <p id="colorRoom"></p>
+            <div class="finish-selection"></div>
+            <p id="colorFinishDisplay"></p>
+          </div>
         </div>
       </div>
-      <div></div>
     </div>
 
     <!-- Application Logic -->
@@ -385,7 +415,7 @@
             s,
             l = (max + min) / 2;
           if (max === min) {
-            h = s = 0; // achromatic
+            h = s = 0;
           } else {
             const d = max - min;
             s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
@@ -416,8 +446,7 @@
           return `#${r}${g}${b}`;
         }
 
-        /* Determine a category for a given RGB string.
-           Categories: "Red", "Brown", "Orange", "Yellow", "Green", "Blue", "Purple", "Neutral" */
+        /* Determine a category for a given RGB string */
         function getColorCategory(rgbStr) {
           const regex = /rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)/;
           const result = regex.exec(rgbStr);
@@ -445,7 +474,7 @@
           return "Neutral";
         }
 
-        /* Build an object grouping color keys into 8 categories */
+        /* Group color keys into 8 categories */
         function buildColorCategories() {
           const categories = {
             Red: [],
@@ -468,7 +497,7 @@
 
         const colorCategories = buildColorCategories();
 
-        /* Render category buttons (one for each of the eight groups) */
+        /* Render category buttons */
         function renderCategoryButtons(colorCategories) {
           colorCategoriesContainer.innerHTML =
             '<span class="mobile-close-icon" id="mobileCloseIcon">&times; Close</span>';
@@ -485,7 +514,7 @@
           });
         }
 
-        /* Render the color buttons for the currently selected category */
+        /* Render color buttons for the selected category */
         function renderColorButtons(category, colorCategories) {
           colorOptionsContainer.innerHTML = "";
           const colorKeys = colorCategories[category];
@@ -509,7 +538,7 @@
           });
         }
 
-        /* Setup event listeners on the category buttons */
+        /* Setup event listeners on category buttons */
         function setupCategoryButtonListeners(colorCategories) {
           const buttons = document.querySelectorAll(".category-button");
           buttons.forEach((btn) => {
@@ -546,7 +575,8 @@
             colorHexEl.textContent = `Hex: ${hexValue}`;
             colorCategoryEl.textContent = `Color Category: ${category}`;
             colorRoomEl.textContent = `Room: ${room}`;
-            colorFinishDisplayEl.textContent = `Finish: ${finish}`;
+            // Assume 'finish' is defined elsewhere or set default here
+            colorFinishDisplayEl.textContent = `Finish: Matte`;
           } else {
             colorRGBEl.textContent = "";
             colorHexEl.textContent = "";
@@ -556,7 +586,7 @@
           }
         }
 
-        /* When a color button is clicked, load (or show) its overlay image and update details. */
+        /* When a color button is clicked, show its overlay and update details */
         function selectColor(colorId) {
           if (colorId === currentColor) {
             return;

@@ -77,7 +77,6 @@
     }
     label {
       display: block;
-
       margin-bottom: 5px;
       font-weight: normal;
     }
@@ -86,12 +85,13 @@
     button {
       width: 100%;
       font-size: 14px;
-      padding: 8px;
+      padding: 5px;
       margin-bottom: 10px;
       border: 1px solid #ddd;
       border-radius: 4px;
     }
     button {
+      display: inline-block;
       background-color: var(--primary-color);
       color: #333;
       border: none;
@@ -134,7 +134,6 @@
     .back-button-container {
       padding: 1rem;
     }
-
     .back-button {
       display: inline-flex;
       align-items: center;
@@ -148,9 +147,26 @@
       font-weight: 500;
       transition: all 0.2s;
     }
-
     .back-button:hover {
       background-color: #e5e7eb;
+    }
+    /* Blog Section Styling */
+    .blog-section {
+      background-color: #e9ecef;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .blog-section h2,
+    .blog-section h3 {
+      text-align: center;
+      color: var(--text-color);
+      margin-bottom: 10px;
+    }
+    .blog-section p {
+      margin-bottom: 12px;
+      line-height: 1.6;
+      text-align: justify;
     }
   </style>
   <body>
@@ -178,6 +194,32 @@
     </div>
     <div class="container">
       <h1>House Paint Calculator</h1>
+
+      <!-- Blog Section: How to Use & Benefits -->
+      <div class="blog-section">
+        <h3>How to Use & Benefits</h3>
+        <p>
+          Welcome to our House Paint Calculator! This interactive tool is
+          designed to help you quickly determine the amount of paint you will
+          need as well as the total cost for your painting project. Simply
+          choose your preferred paint brand and type, input the area to be
+          painted, and specify the cost per liter.
+        </p>
+        <p>
+          With an easy-to-use interface, our calculator not only estimates the
+          paint quantity required but also factors in the number of coats you
+          need, giving you a precise cost evaluation. This assists in planning
+          your budget effectively and ensures you never run short on supplies
+          during your project.
+        </p>
+        <p>
+          Additional benefits include the option to generate and download a
+          detailed PDF summary of your estimation, as well as visualizing color
+          swatches for a better preview of your chosen palette. Get started now
+          and make your next painting project hassle-free!
+        </p>
+      </div>
+
       <div class="grid">
         <div>
           <label for="paintBrand">Paint Brand:</label>
@@ -329,7 +371,7 @@
         doc.save("paint_calculator_summary.pdf");
       }
 
-      // Colos
+      // Colors and Catalog Visualization (if applicable)
       const colors = {
         "Asian Paint": {
           Exterior: "#4ECDC4", // Turquoise
@@ -459,7 +501,6 @@
             .join("");
 
           card.innerHTML = `
-          
             <h3>${paint.brand}</h3>
             ${typesList}
             <a href="${paint.website}" target="_blank">Visit Website</a>

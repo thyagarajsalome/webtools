@@ -114,6 +114,15 @@
       .action-buttons button {
         margin: 5px;
       }
+      /* Blog Section styling using existing style conventions */
+      .blog-section {
+        margin-bottom: 30px;
+      }
+      .blog-section p {
+        margin-bottom: 15px;
+        line-height: 1.6;
+        text-align: justify;
+      }
       @media (max-width: 768px) {
         .form-group {
           flex: 1 1 100%;
@@ -153,9 +162,38 @@
       <h1>House Construction Budget Calculator</h1>
       <p style="text-align: center; margin-bottom: 20px">
         Estimate your construction cost, view detailed breakdown, share your
-        budget &amp; reset for a new calculation
+        budget &amp; reset for a new calculation.
       </p>
 
+      <!-- Blog Section: How to Use & Benefits -->
+      <div class="blog-section">
+        <h2>How to Use & Benefits</h2>
+        <p>
+          Welcome to our House Construction Budget Calculator! This tool is
+          designed to offer you a clear estimation of your construction cost in
+          India by breaking down the total budget into key components such as
+          Foundation, Structure, Roofing, Finishing, and Interiors.
+        </p>
+        <p>
+          Simply input the total built-up area (in sq.ft) and the cost per
+          square foot in INR, and the calculator will do the rest. It provides
+          both a summarized cost breakdown and a detailed component analysis,
+          ensuring you understand where each rupee is allocated.
+        </p>
+        <p>
+          The benefits of using this tool include streamlined budgeting,
+          enhanced transparency in cost distribution, and the ability to share
+          or reset the budget easily. Whether you're planning a new home or
+          managing an existing project, this calculator is here to help you make
+          informed financial decisions.
+        </p>
+        <p>
+          Scroll down, enter your details, and let our calculator guide you
+          through the planning process!
+        </p>
+      </div>
+
+      <!-- Budget Calculator Form -->
       <form id="budgetForm">
         <div class="form-group">
           <label for="area">Total Built-up Area (in sq.ft)</label>

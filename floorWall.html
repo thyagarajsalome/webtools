@@ -67,10 +67,11 @@
 
     /* Button Styles */
     .room-button {
+      font-size: medium;
       background-color: lightslategray;
       color: white;
       border: none;
-      padding: 15px;
+      padding: 10px;
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
@@ -126,6 +127,19 @@
     #estimationList,
     #totalCostDisplay {
       margin-top: 20px; /* Space above estimation results */
+    }
+
+    /* Blog Section Styling */
+    .blog-section {
+      background-color: #e9ecef;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 30px;
+    }
+    .blog-section p {
+      margin-bottom: 12px;
+      line-height: 1.6;
+      text-align: justify;
     }
 
     /* Responsive Design */
@@ -196,6 +210,34 @@
     </div>
 
     <h2>Floor and Wall Tile Calculator</h2>
+
+    <!-- Blog Section: How to Use & Benefits -->
+    <div class="blog-section">
+      <h3>How to Use & Benefits</h3>
+      <p>
+        Welcome to our Floor and Wall Tile Calculator! This tool is designed to
+        help you quickly estimate the cost of tiling projects for both floors
+        and walls in your home. Whether you're planning a renovation or a new
+        build, this calculator provides a clear and easy-to-understand cost
+        breakdown.
+      </p>
+      <p>
+        Simply select the room by clicking one of the room buttons, choose the
+        desired tile type and size, and enter the total area along with the cost
+        per square foot. The tool then calculates the total cost for that
+        specific space.
+      </p>
+      <p>
+        Benefits of using this tool include quick cost estimation, efficient
+        planning for renovations or new constructions, and the ability to
+        generate and download detailed PDF reports. This way, you can compare
+        costs across different rooms and materials to make informed decisions.
+      </p>
+      <p>
+        Start by selecting a room below and follow the on-screen instructions to
+        get your tile cost estimation.
+      </p>
+    </div>
 
     <div class="grid-container" id="roomSelection">
       <button class="room-button" data-room="Living Room">Living Room</button>
@@ -292,7 +334,6 @@
       </div>
     </div>
   `;
-
         estimationResult.innerHTML = result;
       }
 
@@ -326,7 +367,6 @@
           <span>${est.room} - ${est.tileType} (${
               est.tileSize
             }): Rs. ${est.totalCost.toFixed(2)}</span>
-         
           <button onclick="removeEstimation(${index})">Remove</button>
         </div>
       `
@@ -398,7 +438,6 @@
               "jsPDF is not defined. Make sure the library is properly loaded."
             );
           }
-
           const { jsPDF } = window.jspdf;
           const doc = new jsPDF();
 
@@ -480,7 +519,6 @@
               "jsPDF is not defined. Make sure the library is properly loaded."
             );
           }
-
           const { jsPDF } = window.jspdf;
           const doc = new jsPDF();
 
@@ -531,12 +569,10 @@
           let yOffset = startY + 10;
 
           estimations.forEach((est, index) => {
-            // Alternate row background
             if (index % 2 === 1) {
               doc.setFillColor(alternateRowColor);
               doc.rect(margin, yOffset, 190, 10, "F");
             }
-
             const row = [
               (index + 1).toString(),
               est.room,
@@ -546,17 +582,14 @@
               est.costPerSqFt.toFixed(2),
               est.totalCost.toFixed(2),
             ];
-
             xOffset = margin;
             row.forEach((cell, cellIndex) => {
               doc.text(cell.toString(), xOffset + 2, yOffset + 7);
               xOffset += columnWidths[cellIndex];
             });
-
             yOffset += 10;
           });
 
-          // Add total
           const total = estimations.reduce(
             (sum, est) => sum + est.totalCost,
             0
