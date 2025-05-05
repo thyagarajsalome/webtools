@@ -58,12 +58,12 @@ a:hover {
   display: flex;
   align-items: center;
 }
-
 .nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  width: 100%;
 }
 
 .logo-link {
@@ -92,6 +92,8 @@ a:hover {
   font-size: 1.5rem;
   color: var(--primary-color);
   padding: 0.5rem;
+  margin-left: auto; /* This helps push it to the right */
+  order: 3; /* Ensure it appears after other elements */
 }
 
 .nav-menu {
@@ -435,27 +437,28 @@ section h2::after {
 }
 
 /* Responsive Navigation for Mobile */
-
 /* Responsive Navigation for Mobile */
 @media (max-width: 768px) {
   .header-bar {
     height: 60px; /* Slightly smaller on mobile */
   }
 
-  .menu-icon {
+  .nav-container {
+    position: relative;
     display: flex;
-
-    display: block;
-    height: 100%;
-    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 1rem;
+  }
+
+  .menu-icon {
+    display: block;
+    order: 3; /* This ensures it's on the right side */
   }
 
   .nav-menu {
     position: absolute;
     top: 100%;
-    right: 1rem;
+    right: 0;
     background-color: #fff;
     width: 180px;
     flex-direction: column;
@@ -465,6 +468,7 @@ section h2::after {
     padding: 0.5rem 0;
     gap: 0;
     height: auto;
+    z-index: 1000;
   }
 
   .nav-menu.active {
@@ -482,7 +486,6 @@ section h2::after {
     height: auto;
   }
 }
-
 /* Tablet Responsive */
 @media (min-width: 769px) and (max-width: 1024px) {
   .tool-grid {

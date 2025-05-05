@@ -98,8 +98,8 @@
   </head>
   <body>
     <!-- Header and Navigation -->
-    <header class="header-bar" role="banner">
-      <nav role="navigation" aria-label="Main navigation" class="nav-container">
+    <header class="header-bar">
+      <div class="container nav-container">
         <a href="#home" class="logo-link">
           <img
             src="./logo.png"
@@ -114,6 +114,7 @@
         <div class="menu-icon" id="menuIcon">
           <span class="bars"><i class="fas fa-bars"></i></span>
         </div>
+
         <ul id="navMenu" class="nav-menu">
           <li>
             <a href="#home" aria-current="page"
@@ -147,11 +148,10 @@
             >
           </li>
         </ul>
-      </nav>
+      </div>
     </header>
-
     <!-- Main Content -->
-    <main role="main">
+    <main>
       <!-- Hero Section -->
       <section class="hero" id="home" aria-label="Homepage Banner">
         <div class="container">
@@ -217,7 +217,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
+    <footer class="footer">
       <div class="container footer-container">
         <!-- Footer Navigation Links -->
         <nav class="footer-nav-container" aria-label="Footer Navigation">
@@ -260,7 +260,7 @@
       </div>
     </footer>
 
-    <script defer>
+    <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Define card data for the Tools section with icons instead of images
         const cardsData = [
@@ -331,34 +331,39 @@
           toolGrid.innerHTML = cardsData
             .map((card) => {
               return `
-                <article class="tool-card">
-                  <a href="${card.href}" ${
+          <article class="tool-card">
+            <a href="${card.href}" ${
                 card.target ? `target="${card.target}"` : ""
               } class="tool-link">
-                    <div class="card-icon">
-                      <i class="${card.iconClass}"></i>
-                    </div>
-                    <h3>${card.title}</h3>
-                    <p>${card.description}</p>
-                    <span class="card-button">Use Tool <i class="fas fa-arrow-right"></i></span>
-                  </a>
-                </article>
-              `;
+              <div class="card-icon">
+                <i class="${card.iconClass}"></i>
+              </div>
+              <h3>${card.title}</h3>
+              <p>${card.description}</p>
+              <span class="card-button">Use Tool <i class="fas fa-arrow-right"></i></span>
+            </a>
+          </article>
+        `;
             })
             .join("");
         }
 
-        // Navigation toggle behavior
-        const menuIcon = document.getElementById("menuIcon");
+        // Navigation toggle behavior - FIXED VERSION
+        const menuIcon = document.getElementById("menuIcon"); // Define variables first
         const navMenu = document.getElementById("navMenu");
 
         if (menuIcon && navMenu) {
-          menuIcon.addEventListener("click", function () {
+          menuIcon.addEventListener("click", function (event) {
+            event.stopPropagation(); // Prevent the click from immediately being caught by document
             navMenu.classList.toggle("active");
           });
 
           document.addEventListener("click", function (event) {
-            if (!event.target.closest("nav")) {
+            // Check if click is outside both the menu icon and the nav menu
+            if (
+              !menuIcon.contains(event.target) &&
+              !navMenu.contains(event.target)
+            ) {
               navMenu.classList.remove("active");
             }
           });
