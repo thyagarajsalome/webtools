@@ -3,533 +3,929 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Plumbing Cost Calculator | Bathroom Plumbing Estimation Tool</title>
-    <link rel="stylesheet" href="./normalize.css" />
+    <title>
+      Plumbing Cost Calculator | Professional Bathroom Estimation Tool
+    </title>
     <meta
       name="description"
       content="Calculate plumbing costs for bathrooms including pipes, fittings, WC, basin, and labor. Get instant estimates and download detailed PDF reports."
     />
     <meta
       name="keywords"
-      content="plumbing calculator, bathroom plumbing cost, plumbing estimation, pipe fitting cost calculator, plumbers near me, electrician near me, electrician"
+      content="plumbing calculator, bathroom plumbing cost, plumbing estimation, pipe fitting cost calculator"
     />
-    <link rel="canonical" href="https://toolwebsite.in/plumbing.html" />
-
-    <meta name="robots" content="index, follow" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  </head>
-  <style>
-    /* Root Variables */
-    :root {
-      --primary-color: #4caf50;
-      --primary-hover: #45a049;
-      --danger-color: #f44336;
-      --danger-hover: #da190b;
-      --background: #f4f4f4;
-      --white: #ffffff;
-      --border: #ddd;
-      --text: #333;
-      --shadow: rgba(0, 0, 0, 0.1);
-      --table-header: #f2f2f2;
-    }
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    /* Base Styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      :root {
+        --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --primary-dark: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        --secondary: #f8fafc;
+        --accent: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --text-muted: #94a3b8;
+        --border: #e2e8f0;
+        --surface: #ffffff;
+        --surface-2: #f1f5f9;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --radius: 0.75rem;
+        --radius-sm: 0.5rem;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      background-color: var(--background);
-      padding: 1rem;
-    }
+      body {
+        font-family: "Roboto";
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        color: var(--text-primary);
+        line-height: 1.6;
+      }
 
-    /* Container */
-    .container {
-      background-color: var(--white);
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 8px var(--shadow);
-      overflow-x: auto;
-    }
-
-    /* Typography */
-    h1,
-    h2 {
-      color: var(--text);
-      margin-bottom: 1.5rem;
-      font-size: 1.8rem;
-    }
-
-    /* Blog Section Styling */
-    .blog-section {
-      background-color: #e9ecef;
-      padding: 15px;
-      border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .blog-section p {
-      margin-bottom: 12px;
-      line-height: 1.6;
-      text-align: justify;
-    }
-
-    /* Table Styles */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 1.5rem;
-      background-color: var(--white);
-    }
-
-    th,
-    td {
-      padding: 0.8rem;
-      border: 1px solid var(--border);
-      text-align: left;
-    }
-
-    th {
-      background-color: var(--table-header);
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    /* Form Elements */
-    select,
-    input {
-      width: 100%;
-      padding: 0.6rem;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      font-size: 0.9rem;
-    }
-
-    input:focus,
-    select:focus {
-      outline: 2px solid var(--primary-color);
-      border-color: var(--primary-color);
-    }
-
-    /* Buttons */
-    button {
-      background-color: var(--primary-color);
-      color: var(--white);
-      padding: 0.8rem 1.2rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: var(--primary-hover);
-    }
-
-    .remove-btn {
-      background-color: var(--danger-color);
-      padding: 0.6rem 1rem;
-      font-size: 0.85rem;
-    }
-
-    .remove-btn:hover {
-      background-color: var(--danger-hover);
-    }
-
-    /* Amount Cells */
-    .amount {
-      font-weight: 600;
-    }
-
-    #totalAmount,
-    #listTotalAmount {
-      font-weight: bold;
-      color: var(--primary-color);
-    }
-
-    /* Responsive Design */
-    @media screen and (min-width: 1200px) {
       .container {
-        padding: 2rem;
-        margin: 2rem auto;
         max-width: 1200px;
-      }
-    }
-
-    @media screen and (max-width: 991px) {
-      body {
-        padding: 0.8rem;
+        margin: 0 auto;
+        padding: 2rem 1rem;
       }
 
-      .container {
-        padding: 1.2rem;
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+        color: white;
       }
 
-      h1,
-      h2 {
-        font-size: 1.6rem;
+      .header h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       }
 
-      th,
-      td {
-        padding: 0.7rem;
-      }
-    }
-
-    @media screen and (max-width: 767px) {
-      body {
-        padding: 0.5rem;
+      .header p {
+        font-size: 1.25rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
       }
 
-      .container {
-        padding: 1rem;
+      .card {
+        background: var(--surface);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-xl);
+        overflow: hidden;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .card-header {
+        background: var(--surface-2);
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .card-content {
+        padding: 2rem;
+      }
+
+      .intro-section {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        padding: 2rem;
+        border-radius: var(--radius);
+        margin-bottom: 2rem;
+        border: 1px solid var(--border);
+      }
+
+      .intro-section h3 {
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .intro-section p {
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+        text-align: justify;
+      }
+
+      .calculator-grid {
+        display: grid;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .item-row {
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 1.5rem;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .item-row::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--primary);
+        transform: scaleX(0);
+        transition: var(--transition);
+      }
+
+      .item-row:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .item-row:hover::before {
+        transform: scaleX(1);
+      }
+
+      .item-header {
+        display: flex;
+        align-items: center;
+        justify-content: between;
         margin-bottom: 1rem;
       }
 
-      h1,
-      h2 {
-        font-size: 1.4rem;
+      .item-name {
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 1.1rem;
       }
 
-      table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
+      .item-amount {
+        font-weight: 700;
+        color: var(--accent);
+        font-size: 1.25rem;
+        margin-left: auto;
       }
 
-      th,
-      td {
-        padding: 0.6rem;
-        font-size: 0.9rem;
+      .item-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
       }
 
-      select,
-      input {
-        padding: 0.5rem;
-        font-size: 0.85rem;
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
       }
 
-      button {
-        padding: 0.7rem 1rem;
-        font-size: 0.85rem;
-        width: 100%;
+      .form-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+
+      .form-input,
+      .form-select {
+        padding: 0.75rem;
+        border: 2px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-size: 1rem;
+        transition: var(--transition);
+        background: var(--surface);
+      }
+
+      .form-input:focus,
+      .form-select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .btn {
+        padding: 0.875rem 2rem;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        text-decoration: none;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+        box-shadow: var(--shadow);
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .btn-danger {
+        background: var(--danger);
+        color: white;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+      }
+
+      .btn-danger:hover {
+        background: #dc2626;
+        transform: scale(1.05);
+      }
+
+      .total-section {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: var(--radius);
+        text-align: center;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .total-section::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%) translateY(-100%) rotate(30deg);
+        }
+        100% {
+          transform: translateX(100%) translateY(100%) rotate(30deg);
+        }
+      }
+
+      .total-amount {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .total-label {
+        font-size: 1.125rem;
+        opacity: 0.9;
+        position: relative;
+        z-index: 1;
+      }
+
+      .selected-items {
+        margin-top: 3rem;
+      }
+
+      .selected-item {
+        display: flex;
+        align-items: center;
+        justify-content: between;
+        padding: 1rem 1.5rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        margin-bottom: 0.5rem;
+        transition: var(--transition);
+      }
+
+      .selected-item:hover {
+        box-shadow: var(--shadow);
+        transform: translateX(4px);
+      }
+
+      .selected-item-name {
+        font-weight: 500;
+        color: var(--text-primary);
+        flex: 1;
+      }
+
+      .selected-item-amount {
+        font-weight: 600;
+        color: var(--accent);
+        margin-right: 1rem;
+      }
+
+      .actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .stat-card {
+        background: var(--surface);
+        padding: 1.5rem;
+        border-radius: var(--radius-sm);
+        text-align: center;
+        border: 1px solid var(--border);
+        transition: var(--transition);
+      }
+
+      .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--accent);
         margin-bottom: 0.5rem;
       }
-    }
 
-    @media screen and (max-width: 480px) {
-      .container {
-        padding: 0.8rem;
-        border-radius: 6px;
+      .stat-label {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
       }
 
-      h1,
-      h2 {
-        font-size: 1.2rem;
+      .empty-state {
+        text-align: center;
+        padding: 3rem 2rem;
+        color: var(--text-muted);
+      }
+
+      .empty-state svg {
+        width: 4rem;
+        height: 4rem;
         margin-bottom: 1rem;
+        opacity: 0.5;
       }
 
-      th,
-      td {
-        padding: 0.5rem;
-        font-size: 0.85rem;
-      }
-
-      select,
-      input {
-        padding: 0.4rem;
-        font-size: 0.8rem;
-      }
-
-      .remove-btn {
-        padding: 0.5rem 0.8rem;
-        font-size: 0.8rem;
-      }
-
-      #totalAmount,
-      #listTotalAmount {
-        font-size: 0.9rem;
-      }
-    }
-
-    /* Print Styles */
-    @media print {
-      body {
-        padding: 0;
-        background: var(--white);
-      }
-
-      .container {
-        box-shadow: none;
-        padding: 0;
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: var(--border);
+        border-radius: 4px;
+        overflow: hidden;
         margin: 1rem 0;
       }
 
-      button {
-        display: none;
+      .progress-fill {
+        height: 100%;
+        background: var(--primary);
+        transition: width 0.3s ease;
+        border-radius: 4px;
       }
 
-      table {
-        page-break-inside: avoid;
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .item-controls {
+          grid-template-columns: 1fr;
+        }
+
+        .actions {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .total-amount {
+          font-size: 2rem;
+        }
       }
-    }
 
-    .back-button-container {
-      padding: 1rem;
-    }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-    .back-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background-color: #f3f4f6;
-      border: 1px solid #d1d5db;
-      border-radius: 0.375rem;
-      color: #374151;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
+      .card {
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
 
-    .back-button:hover {
-      background-color: #e5e7eb;
-    }
-  </style>
+      .card:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .card:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+
+      .notification {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1rem 1.5rem;
+        box-shadow: var(--shadow-xl);
+        z-index: 1000;
+        transform: translateX(400px);
+        transition: var(--transition);
+      }
+
+      .notification.show {
+        transform: translateX(0);
+      }
+
+      .notification.success {
+        border-left: 4px solid var(--accent);
+      }
+    </style>
+  </head>
   <body>
-    <div class="back-button-container" style="padding: 1rem">
-      <a
-        href="index.html"
-        class="back-button"
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          background-color: #f3f4f6;
-          border: 1px solid #d1d5db;
-          border-radius: 0.375rem;
-          color: #374151;
-          text-decoration: none;
-          font-weight: 500;
-          transition: all 0.2s;
-        "
-      >
-        <span style="font-size: 1.2rem">←</span>
-        Back to Home
-      </a>
-    </div>
     <div class="container">
-      <h1>Plumbing Calculator</h1>
-
-      <!-- Blog Section: How to Use & Benefits -->
-      <div class="blog-section">
-        <h3>How to Use & Benefits</h3>
+      <div class="header">
+        <h1>🔧 Plumbing Calculator</h1>
         <p>
-          Welcome to our Plumbing Calculator! This tool is designed to help you
-          estimate the overall plumbing cost for your bathroom projects. It
-          calculates expenses for pipes, fittings, water closets, basins, and
-          even installation labor.
-        </p>
-        <p>
-          To use the calculator, simply select the cost range for each plumbing
-          item and enter the number of bathrooms. The tool will calculate the
-          cost for each line item and provide you with a detailed breakdown of
-          the total cost.
-        </p>
-        <p>
-          Benefits of using this tool include precise budgeting for your
-          plumbing needs, easy cost comparison across different items, and the
-          option to generate a comprehensive PDF report for future reference.
+          Professional bathroom estimation tool with instant cost calculations
         </p>
       </div>
 
-      <table id="plumbingTable">
-        <thead>
-          <tr>
-            <th>Plumbing Work</th>
-            <th>Avg-Cost per Bathroom</th>
-            <th>No of Bathrooms</th>
-            <th>Amount in Rs</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Pipes (PVC and CPVC)</td>
-            <td>
-              <select class="cost-select">
-                <option value="10000">10,000 Rs</option>
-                <option value="15000">15,000 Rs</option>
-                <option value="20000">20,000 Rs</option>
-              </select>
-            </td>
-            <td><input type="number" class="bathroom-count" min="0" /></td>
-            <td class="amount">0</td>
-          </tr>
-          <!-- Add more rows for other items -->
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="3">Total</td>
-            <td id="totalAmount">0</td>
-          </tr>
-        </tfoot>
-      </table>
-      <button id="addToListBtn">Add to List</button>
-    </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="intro-section">
+            <h3>🚀 How to Use & Benefits</h3>
+            <p>
+              Welcome to our advanced Plumbing Calculator! This professional
+              tool helps you estimate comprehensive plumbing costs for bathroom
+              projects, including pipes, fittings, fixtures, and installation
+              labor.
+            </p>
+            <p>
+              Simply select cost ranges for each item and specify the number of
+              bathrooms. Our calculator provides real-time cost updates,
+              detailed breakdowns, and generates professional PDF reports for
+              your records.
+            </p>
+            <p>
+              <strong>Benefits:</strong> Precise budget planning • Easy cost
+              comparisons • Professional reporting • Mobile-friendly interface •
+              Instant calculations
+            </p>
+          </div>
 
-    <div class="container">
-      <h2>Selected Items</h2>
-      <table id="selectedItemsTable">
-        <thead>
-          <tr>
-            <th>Selected Items</th>
-            <th>Amount in Rs</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot>
-          <tr>
-            <td colspan="2">Total Amount in Rs</td>
-            <td id="listTotalAmount">0</td>
-          </tr>
-        </tfoot>
-      </table>
-      <button id="downloadPdfBtn">Download PDF</button>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="itemCount">8</div>
+              <div class="stat-label">Available Items</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="selectedCount">0</div>
+              <div class="stat-label">Selected Items</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="totalBathrooms">0</div>
+              <div class="stat-label">Total Bathrooms</div>
+            </div>
+          </div>
+
+          <div class="calculator-grid" id="calculatorGrid">
+            <!-- Items will be populated here -->
+          </div>
+
+          <div class="total-section">
+            <div class="total-label">Current Estimation</div>
+            <div class="total-amount" id="totalAmount">₹0</div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-primary" id="addToListBtn">
+              ➕ Add Selected Items
+            </button>
+            <button
+              class="btn btn-primary"
+              id="clearAllBtn"
+              style="background: var(--warning)"
+            >
+              🗑️ Clear All
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📋 Selected Items Summary</div>
+        </div>
+        <div class="card-content">
+          <div id="selectedItemsList">
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+                />
+              </svg>
+              <p>No items selected yet. Add items from the calculator above.</p>
+            </div>
+          </div>
+
+          <div
+            class="total-section"
+            id="finalTotalSection"
+            style="display: none"
+          >
+            <div class="total-label">Final Project Cost</div>
+            <div class="total-amount" id="finalTotalAmount">₹0</div>
+          </div>
+
+          <div class="actions" id="finalActions" style="display: none">
+            <button class="btn btn-primary" id="downloadPdfBtn">
+              📄 Download PDF Report
+            </button>
+            <button
+              class="btn btn-primary"
+              id="shareBtn"
+              style="background: #3b82f6"
+            >
+              📱 Share Estimate
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
       const plumbingItems = [
-        { name: "Pipes (PVC and CPVC)", options: [10000, 15000, 20000] },
-        { name: "Fittings", options: [10000, 15000, 20000] },
-        { name: "Water closet (WC)", options: [5000, 10000, 20000] },
-        { name: "Wash basin", options: [5000, 10000, 15000] },
-        { name: "Shover tap", options: [3000, 5000, 8000] },
-        { name: "Geyser", options: [10000, 15000, 25000] },
-        { name: "Exhaust fan", options: [500, 1000, 2000] },
-        { name: "Labour for Installation", options: [15000, 20000, 25000] },
+        {
+          name: "Pipes (PVC and CPVC)",
+          icon: "🔧",
+          options: [10000, 15000, 20000],
+        },
+        { name: "Pipe Fittings", icon: "⚙️", options: [10000, 15000, 20000] },
+        {
+          name: "Water Closet (WC)",
+          icon: "🚽",
+          options: [5000, 10000, 20000],
+        },
+        { name: "Wash Basin", icon: "🚿", options: [5000, 10000, 15000] },
+        {
+          name: "Shower Tap & Fixtures",
+          icon: "💧",
+          options: [3000, 5000, 8000],
+        },
+        { name: "Water Geyser", icon: "🔥", options: [10000, 15000, 25000] },
+        { name: "Exhaust Fan", icon: "💨", options: [500, 1000, 2000] },
+        {
+          name: "Installation Labor",
+          icon: "👷",
+          options: [15000, 20000, 25000],
+        },
       ];
 
-      function initializePlumbingTable() {
-        const tbody = document.querySelector("#plumbingTable tbody");
-        tbody.innerHTML = "";
-        plumbingItems.forEach((item) => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-                    <td>${item.name}</td>
-                    <td>
-                        <select class="cost-select">
-                            ${item.options
-                              .map(
-                                (opt) =>
-                                  `<option value="${opt}">${opt.toLocaleString()} Rs</option>`
-                              )
-                              .join("")}
-                        </select>
-                    </td>
-                    <td><input type="number" class="bathroom-count" min="0"></td>
-                    <td class="amount">0</td>
-                `;
-          tbody.appendChild(tr);
-        });
+      let selectedItems = [];
+      let currentCalculation = {};
+
+      function formatCurrency(amount) {
+        return new Intl.NumberFormat("en-IN", {
+          style: "currency",
+          currency: "INR",
+          minimumFractionDigits: 0,
+        }).format(amount);
       }
 
-      function updateAmounts() {
+      function initializeCalculator() {
+        const grid = document.getElementById("calculatorGrid");
+        grid.innerHTML = "";
+
+        plumbingItems.forEach((item, index) => {
+          const itemRow = document.createElement("div");
+          itemRow.className = "item-row";
+          itemRow.innerHTML = `
+                    <div class="item-header">
+                        <div class="item-name">${item.icon} ${item.name}</div>
+                        <div class="item-amount" id="amount-${index}">₹0</div>
+                    </div>
+                    <div class="item-controls">
+                        <div class="form-group">
+                            <label class="form-label">Cost per Bathroom</label>
+                            <select class="form-select cost-select" data-index="${index}">
+                                ${item.options
+                                  .map(
+                                    (opt) =>
+                                      `<option value="${opt}">${formatCurrency(
+                                        opt
+                                      )}</option>`
+                                  )
+                                  .join("")}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Number of Bathrooms</label>
+                            <input type="number" class="form-input bathroom-count" data-index="${index}" min="0" max="20" placeholder="0">
+                        </div>
+                    </div>
+                `;
+          grid.appendChild(itemRow);
+        });
+
+        attachEventListeners();
+      }
+
+      function attachEventListeners() {
+        document.addEventListener("input", (e) => {
+          if (e.target.matches(".cost-select, .bathroom-count")) {
+            updateCalculations();
+          }
+        });
+
+        document
+          .getElementById("addToListBtn")
+          .addEventListener("click", addToList);
+        document
+          .getElementById("clearAllBtn")
+          .addEventListener("click", clearAll);
+        document
+          .getElementById("downloadPdfBtn")
+          .addEventListener("click", downloadPdf);
+        document
+          .getElementById("shareBtn")
+          .addEventListener("click", shareEstimate);
+      }
+
+      function updateCalculations() {
         let total = 0;
-        document.querySelectorAll("#plumbingTable tbody tr").forEach((row) => {
+        let totalBathrooms = 0;
+        currentCalculation = {};
+
+        document.querySelectorAll(".item-row").forEach((row, index) => {
           const cost = parseInt(row.querySelector(".cost-select").value);
           const count =
             parseInt(row.querySelector(".bathroom-count").value) || 0;
           const amount = cost * count;
-          row.querySelector(".amount").textContent = amount.toLocaleString();
+
+          if (count > 0) {
+            currentCalculation[plumbingItems[index].name] = {
+              cost,
+              count,
+              amount,
+              icon: plumbingItems[index].icon,
+            };
+          }
+
+          row.querySelector(`#amount-${index}`).textContent =
+            formatCurrency(amount);
           total += amount;
+          totalBathrooms += count;
         });
+
         document.getElementById("totalAmount").textContent =
-          total.toLocaleString();
+          formatCurrency(total);
+        document.getElementById("totalBathrooms").textContent = totalBathrooms;
+
+        // Update progress bar
+        const maxBudget = 500000; // ₹5 lakh max budget assumption
+        const progressPercent = Math.min((total / maxBudget) * 100, 100);
+        document.getElementById("progressFill").style.width =
+          progressPercent + "%";
       }
 
       function addToList() {
-        const selectedItemsTable = document.querySelector(
-          "#selectedItemsTable tbody"
-        );
-        document.querySelectorAll("#plumbingTable tbody tr").forEach((row) => {
-          const name = row.cells[0].textContent;
-          const amount = parseInt(
-            row.querySelector(".amount").textContent.replace(/,/g, "")
-          );
-          if (amount > 0) {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-                        <td>${name}</td>
-                        <td>${amount.toLocaleString()}</td>
-                        <td><button class="remove-btn">Remove</button></td>
-                    `;
-            selectedItemsTable.appendChild(tr);
+        Object.keys(currentCalculation).forEach((itemName) => {
+          const existing = selectedItems.find((item) => item.name === itemName);
+          if (existing) {
+            existing.amount = currentCalculation[itemName].amount;
+            existing.count = currentCalculation[itemName].count;
+          } else {
+            selectedItems.push({
+              name: itemName,
+              icon: currentCalculation[itemName].icon,
+              amount: currentCalculation[itemName].amount,
+              count: currentCalculation[itemName].count,
+            });
           }
         });
-        updateListTotal();
+
+        updateSelectedItemsDisplay();
+        showNotification("Items added to list successfully!", "success");
       }
 
-      function updateListTotal() {
-        let total = 0;
-        document
-          .querySelectorAll("#selectedItemsTable tbody tr")
-          .forEach((row) => {
-            total += parseInt(row.cells[1].textContent.replace(/,/g, ""));
-          });
-        document.getElementById("listTotalAmount").textContent =
-          total.toLocaleString();
-      }
+      function updateSelectedItemsDisplay() {
+        const container = document.getElementById("selectedItemsList");
+        const selectedCount = document.getElementById("selectedCount");
+        const finalTotal = document.getElementById("finalTotalAmount");
+        const finalSection = document.getElementById("finalTotalSection");
+        const finalActions = document.getElementById("finalActions");
 
-      function removeFromList(event) {
-        if (event.target.classList.contains("remove-btn")) {
-          event.target.closest("tr").remove();
-          updateListTotal();
+        if (selectedItems.length === 0) {
+          container.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                        <p>No items selected yet. Add items from the calculator above.</p>
+                    </div>
+                `;
+          finalSection.style.display = "none";
+          finalActions.style.display = "none";
+          return;
         }
+
+        let total = 0;
+        let html = "";
+
+        selectedItems.forEach((item, index) => {
+          html += `
+                    <div class="selected-item">
+                        <div class="selected-item-name">${item.icon} ${
+            item.name
+          } (${item.count} bathroom${item.count > 1 ? "s" : ""})</div>
+                        <div class="selected-item-amount">${formatCurrency(
+                          item.amount
+                        )}</div>
+                        <button class="btn btn-danger" onclick="removeItem(${index})">Remove</button>
+                    </div>
+                `;
+          total += item.amount;
+        });
+
+        container.innerHTML = html;
+        selectedCount.textContent = selectedItems.length;
+        finalTotal.textContent = formatCurrency(total);
+        finalSection.style.display = "block";
+        finalActions.style.display = "flex";
+      }
+
+      function removeItem(index) {
+        selectedItems.splice(index, 1);
+        updateSelectedItemsDisplay();
+        showNotification("Item removed successfully!", "success");
+      }
+
+      function clearAll() {
+        selectedItems = [];
+        currentCalculation = {};
+
+        // Reset all inputs
+        document
+          .querySelectorAll(".bathroom-count")
+          .forEach((input) => (input.value = ""));
+        document
+          .querySelectorAll(".cost-select")
+          .forEach((select) => (select.selectedIndex = 0));
+
+        updateCalculations();
+        updateSelectedItemsDisplay();
+        showNotification("All items cleared!", "success");
       }
 
       function downloadPdf() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        doc.text("Plumbing Estimation", 10, 10);
-        let y = 20;
+        // Header
+        doc.setFontSize(20);
+        doc.setFont(undefined, "bold");
+        doc.text("🔧 Plumbing Cost Estimation", 20, 30);
 
-        document
-          .querySelectorAll("#selectedItemsTable tbody tr")
-          .forEach((row) => {
-            const item = row.cells[0].textContent;
-            const amount = row.cells[1].textContent;
-            doc.text(`${item}: ${amount} Rs`, 10, y);
-            y += 10;
-          });
+        doc.setFontSize(12);
+        doc.setFont(undefined, "normal");
+        doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 20, 40);
 
-        const total = document.getElementById("listTotalAmount").textContent;
-        doc.text(`Total Amount: ${total} Rs`, 10, y + 10);
+        let y = 60;
+
+        // Items
+        doc.setFontSize(14);
+        doc.setFont(undefined, "bold");
+        doc.text("Cost Breakdown:", 20, y);
+        y += 20;
+
+        doc.setFontSize(12);
+        doc.setFont(undefined, "normal");
+
+        let total = 0;
+        selectedItems.forEach((item) => {
+          doc.text(`${item.name}`, 20, y);
+          doc.text(`${item.count} bathroom(s)`, 100, y);
+          doc.text(`${formatCurrency(item.amount)}`, 160, y);
+          y += 10;
+          total += item.amount;
+        });
+
+        // Total
+        y += 10;
+        doc.setFont(undefined, "bold");
+        doc.text("Total Amount: " + formatCurrency(total), 20, y);
+
+        // Footer
+        y += 30;
+        doc.setFontSize(10);
+        doc.setFont(undefined, "italic");
+        doc.text(
+          "Note: This is an estimation. Actual costs may vary based on location and specific requirements.",
+          20,
+          y
+        );
 
         doc.save("plumbing_estimation.pdf");
+        showNotification("PDF downloaded successfully!", "success");
       }
 
+      function shareEstimate() {
+        if (navigator.share && selectedItems.length > 0) {
+          const total = selectedItems.reduce(
+            (sum, item) => sum + item.amount,
+            0
+          );
+          navigator.share({
+            title: "Plumbing Cost Estimate",
+            text: `My plumbing project estimate: ${formatCurrency(total)} for ${
+              selectedItems.length
+            } items`,
+            url: window.location.href,
+          });
+        } else {
+          // Fallback - copy to clipboard
+          const total = selectedItems.reduce(
+            (sum, item) => sum + item.amount,
+            0
+          );
+          const text = `Plumbing Estimate: ${formatCurrency(total)} for ${
+            selectedItems.length
+          } items`;
+          navigator.clipboard.writeText(text);
+          showNotification("Estimate copied to clipboard!", "success");
+        }
+      }
+
+      function showNotification(message, type = "success") {
+        const notification = document.createElement("div");
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => notification.classList.add("show"), 100);
+        setTimeout(() => {
+          notification.classList.remove("show");
+          setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }
+
+      // Initialize the calculator when the page loads
       document.addEventListener("DOMContentLoaded", () => {
-        initializePlumbingTable();
-        document
-          .getElementById("plumbingTable")
-          .addEventListener("input", updateAmounts);
-        document
-          .getElementById("addToListBtn")
-          .addEventListener("click", addToList);
-        document
-          .getElementById("selectedItemsTable")
-          .addEventListener("click", removeFromList);
-        document
-          .getElementById("downloadPdfBtn")
-          .addEventListener("click", downloadPdf);
+        initializeCalculator();
+        updateCalculations();
       });
     </script>
   </body>
