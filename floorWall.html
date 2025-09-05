@@ -45,241 +45,440 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
   </head>
   <style>
-    /* General Styles */
-    body {
+    /* (Your CSS from previous code stays the same) */
+    /* General Reset */
+    * {
       margin: 0;
-      padding: 20px;
-      background-color: #f4f4f4;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    /* Heading Styles */
-    h3 {
-      text-align: center;
+    body {
+      background: #f9fafb;
       color: #333;
-      margin-bottom: 20px; /* Add space below the heading */
-    }
-
-    /* Grid Container for Room Selection */
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 15px; /* Increased gap for better spacing */
-      margin-bottom: 30px; /* Increased space below the grid */
-    }
-
-    /* Button Styles */
-    .room-button {
-      font-size: medium;
-      background-color: lightslategray;
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      text-align: center; /* Center text inside buttons */
-    }
-
-    .room-button:hover {
-      background-color: #0056b3;
-    }
-
-    /* Estimator Form Styles */
-    .estimator-form {
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Label Styles */
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    /* Input and Select Styles */
-    input[type="number"],
-    select {
-      width: calc(100% - 20px); /* Adjust width to allow for padding */
-      padding: 10px;
-      margin-bottom: 15px; /* Space between inputs */
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    /* Button for Calculation */
-    button {
-      margin-bottom: 20px;
-      background-color: lightslategray; /* Green */
-      color: white;
-      padding: 10px; /* Uniform padding for consistency */
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
-      width: 100%; /* Make button full width for better usability */
-    }
-
-    button:hover {
-      background-color: #0056b3; /* Darker green on hover */
-    }
-
-    /* Estimation Result Display Styles */
-    #estimationResult,
-    #estimationList,
-    #totalCostDisplay {
-      margin-top: 20px; /* Space above estimation results */
-    }
-
-    /* Blog Section Styling */
-    .blog-section {
-      background-color: #e9ecef;
-      padding: 15px;
-      border-radius: 5px;
-      margin-bottom: 30px;
-    }
-    .blog-section p {
-      margin-bottom: 12px;
       line-height: 1.6;
-      text-align: justify;
+      padding: 20px;
     }
 
-    /* Responsive Design */
-    @media (max-width: 600px) {
-      body {
-        padding: 10px; /* Reduce padding on smaller screens */
-      }
-
-      .grid-container {
-        grid-template-columns: repeat(
-          auto-fill,
-          minmax(120px, 1fr)
-        ); /* Adjust button size for small screens */
-        gap: 10px; /* Reduce gap between buttons on small screens */
-      }
-
-      button {
-        margin-top: 10px; /* Maintain space between buttons on small screens */
-        padding: 12px; /* Slightly larger padding for touch targets */
-        font-size: larger; /* Increase font size for better readability */
-      }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
 
+    /* Back Button */
     .back-button-container {
-      padding: 1rem;
+      margin-bottom: 1rem;
     }
-
     .back-button {
+      text-decoration: none;
+      background: #64748b;
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background-color: #f3f4f6;
-      border: 1px solid #d1d5db;
-      border-radius: 0.375rem;
-      color: #374151;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.2s;
+      gap: 8px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .back-button:hover {
+      background: #475569;
     }
 
-    .back-button:hover {
-      background-color: #e5e7eb;
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .header h1 {
+      font-size: 2rem;
+      color: #1e293b;
+    }
+    .header p {
+      color: #475569;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* Info Section */
+    .info-section {
+      background: #f1f5f9;
+      padding: 1.5rem;
+      border-left: 4px solid #6366f1;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+    .info-section h3 {
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+    }
+    .info-section p {
+      margin-bottom: 0.8rem;
+      font-size: 0.95rem;
+      color: #475569;
+    }
+
+    /* Cards */
+    .section-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+    }
+    .section-title {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Room Selection */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1rem;
+    }
+    .room-button {
+      padding: 1rem;
+      background: #e2e8f0;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .room-button i {
+      font-size: 1.5rem;
+      color: #6366f1;
+    }
+    .room-button:hover {
+      background: #6366f1;
+      color: #fff;
+    }
+    .room-button:hover i {
+      color: #fff;
+    }
+
+    /* Form */
+    .estimator-form {
+      display: grid;
+      gap: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .form-label {
+      font-weight: 600;
+      color: #475569;
+    }
+    .form-select,
+    .form-input {
+      padding: 0.6rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .calculate-btn {
+      background: #2563eb;
+      color: #fff;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .calculate-btn:hover {
+      background: #1d4ed8;
+    }
+
+    /* Estimation Card */
+    .estimation-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      padding: 1.2rem;
+      margin-top: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+    .estimation-details h3 {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: #1e293b;
+    }
+    .estimation-details p {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      font-size: 14px;
+    }
+    .estimation-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+    .action-btn {
+      flex: 1;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .btn-primary {
+      background: #16a34a;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #15803d;
+    }
+    .btn-secondary {
+      background: #f97316;
+      color: #fff;
+    }
+    .btn-secondary:hover {
+      background: #ea580c;
+    }
+
+    /* Estimation List */
+    .estimation-list {
+      margin-top: 1.5rem;
+    }
+    .estimation-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+      border: 1px solid #e2e8f0;
+    }
+    .remove-btn {
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .remove-btn:hover {
+      background: #dc2626;
+    }
+
+    /* Total Display */
+    .total-display {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #ecfdf5;
+      border-left: 4px solid #10b981;
+      border-radius: 8px;
+    }
+    .total-display h3 {
+      color: #065f46;
+    }
+
+    /* Download Button */
+    .download-btn {
+      display: block;
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.8rem;
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .download-btn:hover {
+      background: #6d28d9;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .estimation-details p {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      .estimation-actions {
+        flex-direction: column;
+      }
     }
   </style>
   <body>
-    <div class="back-button-container" style="padding: 1rem">
-      <a
-        href="index.html"
-        class="back-button"
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          background-color: #f3f4f6;
-          border: 1px solid #d1d5db;
-          border-radius: 0.375rem;
-          color: #374151;
-          text-decoration: none;
-          font-weight: 500;
-          transition: all 0.2s;
-        "
+    <div class="container">
+      <header class="header">
+        <h1>Floor & Wall Tile Calculator</h1>
+        <p>
+          Professional tile estimation tool for your construction and renovation
+          projects
+        </p>
+      </header>
+
+      <!-- Info Section -->
+      <div class="info-section">
+        <h3><i class="fas fa-info-circle"></i> How to Use & Benefits</h3>
+        <p>
+          Welcome to our advanced Floor and Wall Tile Calculator! This
+          professional tool helps you accurately estimate costs for tiling
+          projects in any room of your home or office.
+        </p>
+        <p>
+          Simply select a room, choose your tile specifications, enter the area
+          and cost details, and get instant calculations. The tool supports both
+          floor and wall tiles with various sizes and provides detailed cost
+          breakdowns.
+        </p>
+        <p>
+          Key benefits include precise cost estimation, project planning
+          assistance, comparison capabilities across different rooms and
+          materials, and comprehensive PDF reporting for your records.
+        </p>
+      </div>
+
+      <!-- Room Selection -->
+      <div class="section-card">
+        <h3 class="section-title"><i class="fas fa-home"></i> Select a Room</h3>
+        <div class="grid-container" id="roomSelection">
+          <button class="room-button" data-room="Living Room">
+            <i class="fas fa-couch"></i>
+            Living Room
+          </button>
+          <button class="room-button" data-room="Bedroom">
+            <i class="fas fa-bed"></i>
+            Bedroom
+          </button>
+          <button class="room-button" data-room="Kitchen">
+            <i class="fas fa-utensils"></i>
+            Kitchen
+          </button>
+          <button class="room-button" data-room="Bathroom">
+            <i class="fas fa-bath"></i>
+            Bathroom
+          </button>
+          <button class="room-button" data-room="Parking">
+            <i class="fas fa-car"></i>
+            Parking
+          </button>
+        </div>
+      </div>
+
+      <!-- Estimator Form -->
+      <div id="estimatorForm" class="section-card" style="display: none">
+        <div class="estimator-form">
+          <h3 id="roomTitle" class="section-title">
+            <i class="fas fa-calculator"></i>
+          </h3>
+
+          <div class="form-group">
+            <label for="tileType" class="form-label">Tile Type:</label>
+            <select id="tileType" class="form-select">
+              <option value="floor">Floor Tile</option>
+              <option value="wall">Wall Tile</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tileSize" class="form-label">Tile Size:</label>
+            <select id="tileSize" class="form-select">
+              <option value="1x1">1' x 1'</option>
+              <option value="1x2">1' x 2'</option>
+              <option value="2x2">2' x 2'</option>
+              <option value="2x4">2' x 4'</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="area" class="form-label">Total Area (in sq ft):</label>
+            <input
+              type="number"
+              id="area"
+              class="form-input"
+              min="1"
+              step="0.01"
+              placeholder="Enter area in square feet"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="costPerSqFt" class="form-label"
+              >Cost per sq ft (in Rs):</label
+            >
+            <input
+              type="number"
+              id="costPerSqFt"
+              class="form-input"
+              min="1"
+              step="0.01"
+              placeholder="Enter cost per square foot"
+              required
+            />
+          </div>
+
+          <button onclick="calculateEstimation()" class="calculate-btn">
+            <i class="fas fa-calculator"></i> Calculate Estimation
+          </button>
+        </div>
+      </div>
+
+      <div id="estimationResult"></div>
+      <div
+        id="estimationList"
+        class="estimation-list"
+        style="display: none"
+      ></div>
+      <div id="totalCostDisplay"></div>
+
+      <button
+        class="download-btn"
+        onclick="downloadTotalEstimation()"
+        style="display: none"
+        id="downloadBtn"
       >
-        <span style="font-size: 1.2rem">←</span>
-        Back to Home
-      </a>
+        <i class="fas fa-download"></i> Download Complete Estimation Report
+      </button>
+      <div class="back-button-container">
+        <a href="index.html" class="back-button">
+          <i class="fas fa-arrow-left"></i>
+          Back to Home
+        </a>
+      </div>
     </div>
-
-    <h2>Floor and Wall Tile Calculator</h2>
-
-    <!-- Blog Section: How to Use & Benefits -->
-    <div class="blog-section">
-      <h3>How to Use & Benefits</h3>
-      <p>
-        Welcome to our Floor and Wall Tile Calculator! This tool is designed to
-        help you quickly estimate the cost of tiling projects for both floors
-        and walls in your home. Whether you're planning a renovation or a new
-        build, this calculator provides a clear and easy-to-understand cost
-        breakdown.
-      </p>
-      <p>
-        Simply select the room by clicking one of the room buttons, choose the
-        desired tile type and size, and enter the total area along with the cost
-        per square foot. The tool then calculates the total cost for that
-        specific space.
-      </p>
-      <p>
-        Benefits of using this tool include quick cost estimation, efficient
-        planning for renovations or new constructions, and the ability to
-        generate and download detailed PDF reports. This way, you can compare
-        costs across different rooms and materials to make informed decisions.
-      </p>
-      <p>
-        Start by selecting a room below and follow the on-screen instructions to
-        get your tile cost estimation.
-      </p>
-    </div>
-
-    <div class="grid-container" id="roomSelection">
-      <button class="room-button" data-room="Living Room">Living Room</button>
-      <button class="room-button" data-room="Bedroom">Bedroom</button>
-      <button class="room-button" data-room="Kitchen">Kitchen</button>
-      <button class="room-button" data-room="Bathroom">Bathroom</button>
-      <button class="room-button" data-room="Parking">Parking</button>
-    </div>
-
-    <div id="estimatorForm" class="estimator-form" style="display: none">
-      <h3 id="roomTitle"></h3>
-      <label for="tileType">Tile Type:</label>
-      <select id="tileType">
-        <option value="floor">Floor Tile</option>
-        <option value="wall">Wall Tile</option>
-      </select>
-
-      <label for="tileSize">Tile Size:</label>
-      <select id="tileSize">
-        <option value="1x1">1' x 1'</option>
-        <option value="1x2">1' x 2'</option>
-        <option value="2x2">2' x 2'</option>
-        <option value="2x4">2' x 4'</option>
-      </select>
-
-      <label for="area">Total Area (in sq ft):</label>
-      <input type="number" id="area" min="1" step="0.01" required />
-
-      <label for="costPerSqFt">Cost per sq ft (in Rs):</label>
-      <input type="number" id="costPerSqFt" min="1" step="0.01" required />
-
-      <button onclick="calculateEstimation()">Calculate Estimation</button>
-    </div>
-
-    <div id="estimationResult"></div>
-    <div id="estimationList"></div>
-    <div id="totalCostDisplay"></div>
-    <button class="dte-btn" onclick="downloadTotalEstimation()">
-      Download Total Estimation
-    </button>
 
     <script>
       const roomButtons = document.querySelectorAll(".room-button");
@@ -288,19 +487,31 @@
       const estimationResult = document.getElementById("estimationResult");
       const estimationList = document.getElementById("estimationList");
       const totalCostDisplay = document.getElementById("totalCostDisplay");
+      const downloadBtn = document.getElementById("downloadBtn");
       let estimations = [];
+
+      // Room icons mapping
+      const roomIcons = {
+        "Living Room": "fas fa-couch",
+        Bedroom: "fas fa-bed",
+        Kitchen: "fas fa-utensils",
+        Bathroom: "fas fa-bath",
+        Parking: "fas fa-car",
+      };
 
       roomButtons.forEach((button) => {
         button.addEventListener("click", () => {
           const room = button.dataset.room;
-          roomTitle.textContent = room;
+          const icon = roomIcons[room] || "fas fa-home";
+          roomTitle.innerHTML = `<i class="${icon}"></i> ${room} Estimation`;
           estimatorForm.style.display = "block";
           estimationResult.innerHTML = "";
+          estimatorForm.scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
 
       function calculateEstimation() {
-        const room = roomTitle.textContent;
+        const room = roomTitle.textContent.replace(" Estimation", "");
         const tileType = document.getElementById("tileType").value;
         const tileSize = document.getElementById("tileSize").value;
         const area = parseFloat(document.getElementById("area").value);
@@ -308,35 +519,47 @@
           document.getElementById("costPerSqFt").value
         );
 
-        if (
-          isNaN(area) ||
-          isNaN(costPerSqFt) ||
-          area <= 0 ||
-          costPerSqFt <= 0
-        ) {
-          alert("Please enter valid positive numbers for area and cost.");
+        if (!area || !costPerSqFt || area <= 0 || costPerSqFt <= 0) {
+          showAlert(
+            "Please enter valid positive numbers for area and cost.",
+            "error"
+          );
           return;
         }
 
         const totalCost = area * costPerSqFt;
+        const tileTypeDisplay =
+          tileType === "floor" ? "Floor Tile" : "Wall Tile";
 
         const result = `
-    <div class="estimation-card">
-      <div class="estimation-details">
-        <h3>Estimation for ${room}</h3>
-        <p>Tile Type: ${tileType === "floor" ? "Floor Tile" : "Wall Tile"}</p>
-        <p>Tile Size: ${tileSize}'</p>
-        <p>Total Area: ${area.toFixed(2)} sq ft</p>
-        <p>Cost per sq ft: Rs. ${costPerSqFt.toFixed(2)}</p>
-        <p>Total Cost: Rs. ${totalCost.toFixed(2)}</p>
-        <div class="estimation-actions">
-          <button onclick="addToList('${room}', '${tileType}', '${tileSize}', ${area}, ${costPerSqFt}, ${totalCost})">Add to List</button>
-          <button onclick="downloadEstimation('${room}', '${tileType}', '${tileSize}', ${area}, ${costPerSqFt}, ${totalCost})">Download PDF</button>
-        </div>
-      </div>
-    </div>
-  `;
+          <div class="estimation-card">
+            <div class="estimation-details">
+              <h3><i class="fas fa-receipt"></i> Estimation Results</h3>
+              <p><span><strong>Room:</strong></span> <span>${room}</span></p>
+              <p><span><strong>Tile Type:</strong></span> <span>${tileTypeDisplay}</span></p>
+              <p><span><strong>Tile Size:</strong></span> <span>${tileSize}'</span></p>
+              <p><span><strong>Total Area:</strong></span> <span>${area.toFixed(
+                2
+              )} sq ft</span></p>
+              <p><span><strong>Cost per sq ft:</strong></span> <span>Rs. ${costPerSqFt.toFixed(
+                2
+              )}</span></p>
+              <p><span><strong>Total Cost:</strong></span> <span>Rs. ${totalCost.toFixed(
+                2
+              )}</span></p>
+              <div class="estimation-actions">
+                <button class="action-btn btn-primary" onclick="addToList('${room}', '${tileType}', '${tileSize}', ${area}, ${costPerSqFt}, ${totalCost})">
+                  <i class="fas fa-plus"></i> Add to List
+                </button>
+                <button class="action-btn btn-secondary" onclick="downloadEstimation('${room}', '${tileType}', '${tileSize}', ${area}, ${costPerSqFt}, ${totalCost})">
+                  <i class="fas fa-download"></i> Download PDF
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
         estimationResult.innerHTML = result;
+        estimationResult.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
       function addToList(
@@ -347,83 +570,99 @@
         costPerSqFt,
         totalCost
       ) {
-        const estimation = {
+        estimations.push({
           room,
           tileType,
           tileSize,
           area,
           costPerSqFt,
           totalCost,
-        };
-        estimations.push(estimation);
+        });
         updateEstimationList();
         calculateTotalEstimation();
-        saveEstimationsToLocalStorage();
+        showAlert("Estimation added to list successfully!", "success");
       }
 
       function updateEstimationList() {
-        estimationList.innerHTML = estimations
-          .map(
-            (est, index) => `
-        <div class="estimation-item">
-          <span>${est.room} - ${est.tileType} (${
-              est.tileSize
-            }): Rs. ${est.totalCost.toFixed(2)}</span>
-          <button onclick="removeEstimation(${index})">Remove</button>
-        </div>
-      `
-          )
-          .join("");
+        if (estimations.length === 0) {
+          estimationList.style.display = "none";
+          return;
+        }
+        estimationList.style.display = "block";
+        estimationList.innerHTML = `
+          <h3 class="section-title"><i class="fas fa-list"></i> Estimation List</h3>
+          ${estimations
+            .map(
+              (est, i) => `
+            <div class="estimation-item">
+              <div>
+                <strong>${est.room}</strong> - ${
+                est.tileType === "floor" ? "Floor" : "Wall"
+              } Tile (${est.tileSize}')
+                <br><small>${est.area.toFixed(
+                  2
+                )} sq ft × Rs. ${est.costPerSqFt.toFixed(
+                2
+              )} = <strong>Rs. ${est.totalCost.toFixed(2)}</strong></small>
+              </div>
+              <button class="remove-btn" onclick="removeEstimation(${i})">
+                <i class="fas fa-trash"></i> Remove
+              </button>
+            </div>
+          `
+            )
+            .join("")}
+        `;
       }
 
-      function removeEstimation(index) {
-        estimations.splice(index, 1);
+      function removeEstimation(i) {
+        estimations.splice(i, 1);
         updateEstimationList();
         calculateTotalEstimation();
-        saveEstimationsToLocalStorage();
-      }
-
-      function editEstimation(index) {
-        const est = estimations[index];
-        document.getElementById("tileType").value = est.tileType;
-        document.getElementById("tileSize").value = est.tileSize;
-        document.getElementById("area").value = est.area.toFixed(2);
-        document.getElementById("costPerSqFt").value =
-          est.costPerSqFt.toFixed(2);
-        roomTitle.textContent = est.room;
-        removeEstimation(index);
-        estimatorForm.scrollIntoView({ behavior: "smooth" });
+        showAlert("Estimation removed successfully!", "warning");
       }
 
       function calculateTotalEstimation() {
-        const total = estimations.reduce((sum, est) => sum + est.totalCost, 0);
-        totalCostDisplay.innerHTML = `<h3>Total Estimation: Rs. ${total.toFixed(
-          2
-        )}</h3>`;
+        const total = estimations.reduce((s, e) => s + e.totalCost, 0);
+        if (estimations.length > 0) {
+          totalCostDisplay.innerHTML = `
+            <div class="total-display">
+              <h3><i class="fas fa-calculator"></i> Total Estimation: Rs. ${total.toFixed(
+                2
+              )}</h3>
+              <p style="margin: 0; opacity: 0.9;">${
+                estimations.length
+              } item(s) in your estimation</p>
+            </div>
+          `;
+          downloadBtn.style.display = "block";
+        } else {
+          totalCostDisplay.innerHTML = "";
+          downloadBtn.style.display = "none";
+        }
+      }
+
+      function showAlert(msg, type) {
+        const alert = document.createElement("div");
+        alert.style.cssText = `
+          position: fixed; top:20px; right:20px;
+          padding:1rem 1.5rem; border-radius:8px;
+          color:#fff; font-weight:600; z-index:1000;
+          max-width:300px; animation:fadeIn 0.3s ease;
+        `;
+        const colors = {
+          success: "#10b981",
+          error: "#ef4444",
+          warning: "#f59e0b",
+        };
+        alert.style.background = colors[type] || colors.success;
+        alert.textContent = msg;
+        document.body.appendChild(alert);
+        setTimeout(() => alert.remove(), 3000);
       }
 
       function getCurrentDate() {
         return new Date().toLocaleDateString("en-GB");
-      }
-
-      function saveEstimationsToLocalStorage() {
-        localStorage.setItem("tileEstimations", JSON.stringify(estimations));
-      }
-
-      function loadEstimationsFromLocalStorage() {
-        const savedEstimations = localStorage.getItem("tileEstimations");
-        if (savedEstimations) {
-          estimations = JSON.parse(savedEstimations);
-          updateEstimationList();
-          calculateTotalEstimation();
-        }
-      }
-
-      function clearAllEstimations() {
-        estimations = [];
-        updateEstimationList();
-        calculateTotalEstimation();
-        saveEstimationsToLocalStorage();
       }
 
       function downloadEstimation(
@@ -434,195 +673,75 @@
         costPerSqFt,
         totalCost
       ) {
-        try {
-          if (typeof jspdf === "undefined") {
-            throw new Error(
-              "jsPDF is not defined. Make sure the library is properly loaded."
-            );
-          }
-          const { jsPDF } = window.jspdf;
-          const doc = new jsPDF();
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-          // Set colors
-          const primaryColor = "#4285F4";
-          const secondaryColor = "#34A853";
+        doc.setFillColor(102, 126, 234);
+        doc.rect(0, 0, 210, 30, "F");
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(20);
+        doc.text("Tile Estimation Report", 105, 20, null, null, "center");
 
-          // Add header
-          doc.setFillColor(primaryColor);
-          doc.rect(0, 0, 210, 30, "F");
-          doc.setTextColor(255, 255, 255);
-          doc.setFontSize(22);
-          doc.text("Tile Estimation", 105, 20, null, null, "center");
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(12);
+        let y = 50;
+        doc.text(`Room: ${room}`, 20, y);
+        y += 10;
+        doc.text(`Tile Type: ${tileType}`, 20, y);
+        y += 10;
+        doc.text(`Tile Size: ${tileSize}`, 20, y);
+        y += 10;
+        doc.text(`Total Area: ${area.toFixed(2)} sq ft`, 20, y);
+        y += 10;
+        doc.text(`Cost per sq ft: Rs. ${costPerSqFt.toFixed(2)}`, 20, y);
+        y += 10;
+        doc.text(`Total Cost: Rs. ${totalCost.toFixed(2)}`, 20, y);
 
-          // Reset text color and font size
-          doc.setTextColor(0, 0, 0);
-          doc.setFontSize(12);
-
-          // Add estimation details
-          let yPos = 50;
-          const leftMargin = 20;
-          const lineHeight = 10;
-
-          doc.setFontSize(16);
-          doc.setTextColor(secondaryColor);
-          doc.text(`Estimation for ${room}`, leftMargin, yPos);
-          yPos += lineHeight * 2;
-
-          doc.setFontSize(12);
-          doc.setTextColor(0, 0, 0);
-          doc.text(`Date: ${getCurrentDate()}`, leftMargin, yPos);
-          yPos += lineHeight * 1.5;
-
-          const details = [
-            [
-              `Tile Type:`,
-              `${tileType === "floor" ? "Floor Tile" : "Wall Tile"}`,
-            ],
-            [`Tile Size:`, `${tileSize}`],
-            [`Total Area:`, `${area.toFixed(2)} sq ft`],
-            [`Cost per sq ft:`, `Rs. ${costPerSqFt.toFixed(2)}`],
-            [`Total Cost:`, `Rs. ${totalCost.toFixed(2)}`],
-          ];
-
-          details.forEach(([label, value]) => {
-            doc.setFont(undefined, "bold");
-            doc.text(label, leftMargin, yPos);
-            doc.setFont(undefined, "normal");
-            doc.text(value, leftMargin + 50, yPos);
-            yPos += lineHeight;
-          });
-
-          // Add footer
-          doc.setFontSize(10);
-          doc.setTextColor(100, 100, 100);
-          doc.text(
-            "Thank you for choosing our services!",
-            105,
-            280,
-            null,
-            null,
-            "center"
-          );
-
-          doc.save(`${room}_estimation.pdf`);
-          console.log("PDF generated successfully");
-        } catch (error) {
-          console.error("Error generating PDF:", error);
-          alert(
-            "There was an error generating the PDF. Please check the console for details."
-          );
-        }
+        doc.save(`${room}_Estimation.pdf`);
       }
 
       function downloadTotalEstimation() {
-        try {
-          if (typeof jspdf === "undefined") {
-            throw new Error(
-              "jsPDF is not defined. Make sure the library is properly loaded."
-            );
-          }
-          const { jsPDF } = window.jspdf;
-          const doc = new jsPDF();
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-          // Set colors
-          const headerColor = "#4285F4";
-          const alternateRowColor = "#f3f3f3";
+        doc.setFillColor(118, 75, 162);
+        doc.rect(0, 0, 210, 30, "F");
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(20);
+        doc.text("Complete Estimation Report", 105, 20, null, null, "center");
 
-          // Add header
-          doc.setFillColor(headerColor);
-          doc.rect(0, 0, 210, 20, "F");
-          doc.setTextColor(255, 255, 255);
-          doc.setFontSize(16);
-          doc.text("Total Tile Estimation", 105, 15, null, null, "center");
-
-          // Reset text color and font size
-          doc.setTextColor(0, 0, 0);
-          doc.setFontSize(10);
-
-          // Set up table
-          const startY = 30;
-          const margin = 10;
-          const headers = [
-            "No.",
-            "Room",
-            "Tile Type",
-            "Size",
-            "Area (sq ft)",
-            "Cost/sq ft (Rs.)",
-            "Total (Rs.)",
-          ];
-          const columnWidths = [15, 30, 30, 20, 25, 30, 30];
-
-          // Draw table header
-          doc.setFillColor(headerColor);
-          doc.rect(margin, startY, 190, 10, "F");
-          doc.setTextColor(255, 255, 255);
-          doc.setFont(undefined, "bold");
-
-          let xOffset = margin;
-          headers.forEach((header, index) => {
-            doc.text(header, xOffset + 2, startY + 7);
-            xOffset += columnWidths[index];
-          });
-
-          // Draw table rows
-          doc.setTextColor(0, 0, 0);
-          doc.setFont(undefined, "normal");
-          let yOffset = startY + 10;
-
-          estimations.forEach((est, index) => {
-            if (index % 2 === 1) {
-              doc.setFillColor(alternateRowColor);
-              doc.rect(margin, yOffset, 190, 10, "F");
-            }
-            const row = [
-              (index + 1).toString(),
-              est.room,
-              est.tileType,
-              est.tileSize,
-              est.area.toFixed(2),
-              est.costPerSqFt.toFixed(2),
-              est.totalCost.toFixed(2),
-            ];
-            xOffset = margin;
-            row.forEach((cell, cellIndex) => {
-              doc.text(cell.toString(), xOffset + 2, yOffset + 7);
-              xOffset += columnWidths[cellIndex];
-            });
-            yOffset += 10;
-          });
-
-          const total = estimations.reduce(
-            (sum, est) => sum + est.totalCost,
-            0
-          );
-          doc.setFont(undefined, "bold");
-          doc.text(`Total: Rs. ${total.toFixed(2)}`, 170, yOffset + 10);
-
-          // Add footer
-          doc.setFontSize(8);
-          doc.setTextColor(100, 100, 100);
+        doc.setTextColor(0, 0, 0);
+        let y = 50;
+        estimations.forEach((est, i) => {
           doc.text(
-            "Generated on " + getCurrentDate(),
-            105,
-            285,
-            null,
-            null,
-            "center"
+            `${i + 1}. ${est.room} - ${est.tileType} Tile (${est.tileSize}')`,
+            20,
+            y
           );
+          y += 10;
+          doc.text(
+            `   Area: ${est.area.toFixed(
+              2
+            )} sq ft | Rate: Rs. ${est.costPerSqFt.toFixed(
+              2
+            )} | Cost: Rs. ${est.totalCost.toFixed(2)}`,
+            20,
+            y
+          );
+          y += 15;
+          if (y > 270) {
+            doc.addPage();
+            y = 20;
+          }
+        });
 
-          doc.save("total_estimation.pdf");
-          console.log("Total estimation PDF generated successfully");
-        } catch (error) {
-          console.error("Error generating total estimation PDF:", error);
-          alert(
-            "There was an error generating the total estimation PDF. Please check the console for details."
-          );
-        }
+        const total = estimations.reduce((s, e) => s + e.totalCost, 0);
+        doc.setFontSize(14);
+        doc.setTextColor(16, 185, 129);
+        doc.text(`Grand Total: Rs. ${total.toFixed(2)}`, 20, y + 10);
+
+        doc.save("Total_Estimation_Report.pdf");
       }
-
-      // Load saved estimations when the page loads
-      window.addEventListener("load", loadEstimationsFromLocalStorage);
     </script>
   </body>
 </html>
