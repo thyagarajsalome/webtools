@@ -408,5 +408,53 @@
         }
       });
     </script>
+    <script>
+      // IndexNow integration
+      async function submitIndexNow(urls) {
+        try {
+          const response = await fetch("https://api.indexnow.org/IndexNow", {
+            method: "POST",
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            body: JSON.stringify({
+              host: "toolwebsite.in",
+              key: "90078fc84dad4358b98cbaa14fa4d4ea",
+              keyLocation:
+                "https://toolwebsite.in/90078fc84dad4358b98cbaa14fa4d4ea.txt",
+              urlList: urls,
+            }),
+          });
+
+          if (response.ok) {
+            console.log(
+              "IndexNow submission successful:",
+              await response.text()
+            );
+          } else {
+            console.error(
+              "IndexNow submission failed:",
+              response.status,
+              await response.text()
+            );
+          }
+        } catch (error) {
+          console.error("IndexNow error:", error);
+        }
+      }
+
+      // Example: Submit homepage + important pages
+      document.addEventListener("DOMContentLoaded", () => {
+        submitIndexNow([
+          "https://toolwebsite.in/",
+          "https://toolwebsite.in/construction.html",
+          "https://toolwebsite.in/houseConstruction.html",
+          "https://toolwebsite.in/floorWall.html",
+          "https://toolwebsite.in/paint.html",
+          "https://toolwebsite.in/plumbing.html",
+          "https://toolwebsite.in/electrical.html",
+          "https://toolwebsite.in/door_window.html",
+          "https://toolwebsite.in/PaintVisualization.html",
+        ]);
+      });
+    </script>
   </body>
 </html>
