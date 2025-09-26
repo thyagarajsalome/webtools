@@ -3,405 +3,414 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Free online house paint calculator for Asian Paint, Berger Paint, Nerolac Paint, and Dulux. Calculate paint quantity, cost, and visualize colors for your home."
-    />
-    <meta
-      name="keywords"
-      content="paint calculator, house paint, paint cost calculator, Asian Paint, Berger Paint, Nerolac Paint, Dulux, interior paint, exterior paint"
-    />
-    <meta name="author" content="Tool website" />
-    <meta name="robots" content="index, follow" />
-
-    <!-- Open Graph Meta Tags -->
-    <meta
-      property="og:title"
-      content="House Paint Calculator - Calculate Paint Quantity and Cost"
-    />
-    <meta
-      property="og:description"
-      content="Calculate paint requirements and costs for your home. Features paint visualization and detailed cost breakdown."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https:toolwebsite.in/paint-calculator" />
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="House Paint Calculator" />
-    <meta
-      name="twitter:description"
-      content="Calculate paint requirements and costs for your home. Features paint visualization and detailed cost breakdown."
-    />
     <title>House Paint Calculator</title>
     <link rel="canonical" href="https://toolwebsite.in/paint.html" />
-    <link rel="stylesheet" href="./normalize.css" />
-    <link rel="stylesheet" href="./paintVisual.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+      :root {
+        --primary-color: #007bff;
+        --secondary-color: #0056b3;
+        --background-color: #f8f9fa;
+        --card-bg-color: #ffffff;
+        --text-color: #343a40;
+        --light-text-color: #6c757d;
+        --border-color: #dee2e6;
+        --error-color: #dc3545;
+        --success-color: #28a745;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --border-radius: 8px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        padding: 1rem;
+      }
+
+      .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      @media (min-width: 1024px) {
+        .main-container {
+          grid-template-columns: 350px 1fr;
+        }
+      }
+
+      .card {
+        background-color: var(--card-bg-color);
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        text-align: center;
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+      }
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+      label {
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+      select,
+      input {
+        width: 100%;
+        padding: 0.6rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-family: "Poppins", sans-serif;
+        font-size: 1rem;
+      }
+      select:focus,
+      input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+      }
+
+      .button-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+      .btn {
+        padding: 0.7rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+      }
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: var(--secondary-color);
+      }
+      .btn-secondary {
+        background-color: #f1f3f5;
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+      }
+      .btn-secondary:hover {
+        background-color: #e9ecef;
+      }
+
+      .error-message {
+        color: var(--error-color);
+        text-align: center;
+        margin-top: 1rem;
+        display: none;
+      }
+
+      #paintList {
+        list-style-type: none;
+      }
+      #paintList li {
+        background-color: #f8f9fa;
+        border: 1px solid var(--border-color);
+        margin-bottom: 0.5rem;
+        padding: 1rem;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        animation: fadeIn 0.5s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .paint-info {
+        font-size: 0.9rem;
+      }
+      .paint-cost {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+      .delete-btn {
+        background-color: var(--error-color);
+        color: white;
+        padding: 0.3rem 0.6rem;
+      }
+
+      #totalCost {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 2px solid var(--border-color);
+        text-align: right;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      /* Visualizer Styles */
+      #previewWall {
+        width: 100%;
+        height: 150px;
+        background-color: #f1f3f5;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        margin-bottom: 1rem;
+        transition: background-color 0.3s ease;
+      }
+      #colorPalette {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+        gap: 0.5rem;
+      }
+      .color-swatch {
+        width: 100%;
+        padding-bottom: 100%; /* Maintain square aspect ratio */
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid var(--border-color);
+        transition: transform 0.2s ease;
+      }
+      .color-swatch:hover {
+        transform: scale(1.1);
+      }
+
+      /* Catalog Styles */
+      #paintCatalog {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+      .paint-card {
+        border: 1px solid var(--border-color);
+        padding: 1rem;
+        border-radius: var(--border-radius);
+      }
+      .paint-card h3 {
+        text-align: left;
+      }
+      .paint-card p {
+        font-size: 0.9rem;
+        margin: 0.2rem 0;
+      }
+      .paint-card a {
+        display: inline-block;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .paint-card a:hover {
+        text-decoration: underline;
+      }
+
+      .info-section {
+        background-color: #e9ecef;
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        grid-column: 1 / -1; /* Span full width */
+      }
+      .info-section h3 {
+        text-align: center;
+      }
+      .info-section p {
+        text-align: justify;
+        line-height: 1.7;
+      }
+    </style>
   </head>
-  <style>
-    :root {
-      --primary-color: #ffc107;
-      --secondary-color: #2e76db;
-      --background-color: #f9f9f9;
-      --text-color: black;
-      --card-bg-color: #fff;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 20px;
-      background-color: #f4f4f4;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto 20px;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    h1,
-    h2 {
-      text-align: center;
-      color: #333;
-      font-weight: 500;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: normal;
-    }
-    select,
-    input,
-    button {
-      width: 100%;
-      font-size: 14px;
-      padding: 5px;
-      margin-bottom: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-    button {
-      display: inline-block;
-      background-color: var(--primary-color);
-      color: #333;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: var(--secondary-color);
-    }
-    #result,
-    #totalCost {
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    #paintList {
-      list-style-type: none;
-      padding: 0;
-    }
-    #paintList li {
-      background-color: #f9f9f9;
-      border: 1px solid #ddd;
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 4px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .delete-btn {
-      background-color: #f44336;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .delete-btn:hover {
-      background-color: #d32f2f;
-    }
-    .back-button-container {
-      padding: 1rem;
-    }
-    .back-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background-color: #f3f4f6;
-      border: 1px solid #d1d5db;
-      border-radius: 0.375rem;
-      color: #374151;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-    .back-button:hover {
-      background-color: #e5e7eb;
-    }
-    /* Blog Section Styling */
-    .blog-section {
-      background-color: #e9ecef;
-      padding: 15px;
-      border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .blog-section h2,
-    .blog-section h3 {
-      text-align: center;
-      color: var(--text-color);
-      margin-bottom: 10px;
-    }
-    .blog-section p {
-      margin-bottom: 12px;
-      line-height: 1.6;
-      text-align: justify;
-    }
-  </style>
   <body>
-    <div class="back-button-container" style="padding: 1rem">
-      <a
-        href="index.html"
-        class="back-button"
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          background-color: #f3f4f6;
-          border: 1px solid #d1d5db;
-          border-radius: 0.375rem;
-          color: #374151;
-          text-decoration: none;
-          font-weight: 500;
-          transition: all 0.2s;
-        "
+    <div class="main-container">
+      <div
+        class="left-column"
+        style="display: grid; gap: 1.5rem; align-content: start"
       >
-        <span style="font-size: 1.2rem">←</span>
-        Back to Home
-      </a>
-    </div>
-    <div class="container">
-      <h1>House Paint Calculator</h1>
+        <div class="card">
+          <h2>Paint Calculator</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="paintBrand">Paint Brand:</label>
+              <select id="paintBrand">
+                <option value="Asian Paint">Asian Paint</option>
+                <option value="Berger Paint">Berger Paint</option>
+                <option value="Nerolac Paint">Nerolac Paint</option>
+                <option value="Dulux">Dulux</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="paintType">Type of Paint:</label>
+              <select id="paintType">
+                <option value="Interior">Interior</option>
+                <option value="Exterior">Exterior</option>
+                <option value="Metal Paint">Metal Paint</option>
+                <option value="Wood Paint">Wood Paint</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="area">Area (sqft):</label>
+              <input
+                type="number"
+                id="area"
+                min="0"
+                step="0.01"
+                placeholder="e.g., 250"
+              />
+            </div>
+            <div class="form-group">
+              <label for="paintCost">Paint Cost (₹/ltr):</label>
+              <input
+                type="number"
+                id="paintCost"
+                min="0"
+                step="0.01"
+                placeholder="Auto-fills or enter custom"
+              />
+            </div>
+            <div class="form-group">
+              <label for="coatType">Coats:</label>
+              <select id="coatType">
+                <option value="1">1 Coat</option>
+                <option value="2" selected>2 Coats</option>
+              </select>
+            </div>
+          </div>
+          <div class="button-group">
+            <button class="btn btn-secondary" onclick="clearForm()">
+              Clear
+            </button>
+            <button class="btn btn-primary" onclick="addPaint()">
+              Add Paint to List
+            </button>
+          </div>
+          <p class="error-message" id="errorMessage">
+            Please enter a valid area and cost.
+          </p>
+        </div>
 
-      <!-- Blog Section: How to Use & Benefits -->
-      <div class="blog-section">
-        <h3>How to Use & Benefits</h3>
-        <p>
-          Welcome to our House Paint Calculator! This interactive tool is
-          designed to help you quickly determine the amount of paint you will
-          need as well as the total cost for your painting project. Simply
-          choose your preferred paint brand and type, input the area to be
-          painted, and specify the cost per liter.
-        </p>
-        <p>
-          With an easy-to-use interface, our calculator not only estimates the
-          paint quantity required but also factors in the number of coats you
-          need, giving you a precise cost evaluation. This assists in planning
-          your budget effectively and ensures you never run short on supplies
-          during your project.
-        </p>
-        <p>
-          Additional benefits include the option to generate and download a
-          detailed PDF summary of your estimation, as well as visualizing color
-          swatches for a better preview of your chosen palette. Get started now
-          and make your next painting project hassle-free!
-        </p>
+        <div class="card">
+          <h3>Color Visualizer</h3>
+          <div id="previewWall"></div>
+          <div id="colorPalette"></div>
+        </div>
       </div>
 
-      <div class="grid">
-        <div>
-          <label for="paintBrand">Paint Brand:</label>
-          <select id="paintBrand">
-            <option value="Asian Paint">Asian Paint</option>
-            <option value="Berger Paint">Berger Paint</option>
-            <option value="Nerolac Paint">Nerolac Paint</option>
-            <option value="Dulux">Dulux</option>
-          </select>
+      <div
+        class="right-column"
+        style="display: grid; gap: 1.5rem; align-content: start"
+      >
+        <div class="card" id="resultsCard">
+          <h2>My Paint List</h2>
+          <ul id="paintList"></ul>
+          <div id="totalCost">Total Cost: ₹0.00</div>
+          <button
+            class="btn btn-primary"
+            onclick="generatePDF()"
+            style="width: 100%; margin-top: 1rem"
+          >
+            Download Summary (PDF)
+          </button>
         </div>
-        <div>
-          <label for="paintType">Type of Paint:</label>
-          <select id="paintType">
-            <option value="Interior">Interior</option>
-            <option value="Exterior">Exterior</option>
-            <option value="Metal Paint">Metal Paint</option>
-            <option value="Wood Paint">Wood Paint</option>
-          </select>
+
+        <div class="info-section">
+          <h3>How to Use This Tool</h3>
+          <p>
+            Select a paint brand and type to auto-fill the average cost, or
+            enter your own price. Input the wall area, choose the number of
+            coats, and click 'Add Paint to List'. Your selections will appear in
+            the list on the right. You can add multiple types of paint for
+            different rooms. When you're done, download a PDF summary of your
+            project.
+          </p>
         </div>
-        <div>
-          <label for="area">Area (sqft):</label>
-          <input type="number" id="area" min="0" step="0.01" />
-        </div>
-        <div>
-          <label for="paintCost">Paint Cost (Rs/ltr):</label>
-          <input type="number" id="paintCost" min="0" step="0.01" />
-        </div>
-        <div>
-          <label for="coatType">Coat:</label>
-          <select id="coatType">
-            <option value="first">First Coat</option>
-            <option value="second">Second Coat</option>
-          </select>
+
+        <div class="card">
+          <h2>Paint Catalog (Avg. Prices)</h2>
+          <div id="paintCatalog"></div>
         </div>
       </div>
-      <button onclick="addPaint()">Add Paint</button>
-      <button onclick="clearForm()">Clear</button>
-      <div id="result"></div>
-    </div>
-
-    <div class="container">
-      <h4>Selected Paints</h4>
-      <ul id="paintList"></ul>
-      <div id="totalCost"></div>
-      <button onclick="generatePDF()">Download PDF</button>
     </div>
 
     <script>
       let paints = [];
 
-      function addPaint() {
-        const paintBrand = document.getElementById("paintBrand").value;
-        const paintType = document.getElementById("paintType").value;
-        const area = parseFloat(document.getElementById("area").value);
-        const paintCost = parseFloat(
-          document.getElementById("paintCost").value
-        );
-        const coatType = document.getElementById("coatType").value;
-
-        if (isNaN(area) || isNaN(paintCost)) {
-          alert("Please enter valid numbers for area and paint cost.");
-          return;
-        }
-
-        const paintRequired = area / 100;
-        const totalCost = paintRequired * paintCost;
-        const finalCost = coatType === "second" ? totalCost * 2 : totalCost;
-
-        paints.push({
-          brand: paintBrand,
-          type: paintType,
-          area: area,
-          paintRequired: paintRequired,
-          cost: finalCost,
-          coat: coatType,
-        });
-
-        updatePaintList();
-        clearForm();
-      }
-
-      function updatePaintList() {
-        const paintList = document.getElementById("paintList");
-        paintList.innerHTML = "";
-        let totalCost = 0;
-
-        paints.forEach((paint, index) => {
-          const li = document.createElement("li");
-          li.innerHTML = `
-            ${paint.brand} - ${paint.type} (${paint.coat} coat)<br>
-            Area: ${
-              paint.area
-            } sqft, Paint Required: ${paint.paintRequired.toFixed(2)} ltrs<br>
-            Cost: Rs ${paint.cost.toFixed(2)}
-            <button class="delete-btn" onclick="deletePaint(${index})">Delete</button>
-          `;
-          paintList.appendChild(li);
-          totalCost += paint.cost;
-        });
-
-        document.getElementById(
-          "totalCost"
-        ).innerHTML = `Total Cost: Rs ${totalCost.toFixed(2)}`;
-      }
-
-      function deletePaint(index) {
-        paints.splice(index, 1);
-        updatePaintList();
-      }
-
-      function clearForm() {
-        document.getElementById("paintBrand").selectedIndex = 0;
-        document.getElementById("paintType").selectedIndex = 0;
-        document.getElementById("area").value = "";
-        document.getElementById("paintCost").value = "";
-        document.getElementById("coatType").selectedIndex = 0;
-        document.getElementById("result").innerHTML = "";
-      }
-
-      function generatePDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        doc.text("Paint Calculator Summary", 10, 10);
-        let yPos = 30;
-
-        paints.forEach((paint, index) => {
-          doc.text(
-            `${index + 1}. ${paint.brand} - ${paint.type} (${paint.coat} coat)`,
-            10,
-            yPos
-          );
-          yPos += 10;
-          doc.text(
-            `   Area: ${
-              paint.area
-            } sqft, Paint Required: ${paint.paintRequired.toFixed(2)} ltrs`,
-            10,
-            yPos
-          );
-          yPos += 10;
-          doc.text(`   Cost: Rs ${paint.cost.toFixed(2)}`, 10, yPos);
-          yPos += 20;
-        });
-
-        const totalCost = paints.reduce((sum, paint) => sum + paint.cost, 0);
-        doc.text(`Total Cost: Rs ${totalCost.toFixed(2)}`, 10, yPos);
-
-        doc.save("paint_calculator_summary.pdf");
-      }
-
-      // Colors and Catalog Visualization (if applicable)
+      // --- DATA ---
       const colors = {
         "Asian Paint": {
-          Exterior: "#4ECDC4", // Turquoise
-          "Metal Paint": "#96CEB4", // Sage Green
-          "Wood Paint": "#FFEEAD", // Cream
-          "Texture Paint": "#FB9039", // Burnt Orange
-          "Designer Paint": "#264653", // Dark Teal
+          Interior: "#F4A261",
+          Exterior: "#E76F51",
+          "Metal Paint": "#2A9D8F",
+          "Wood Paint": "#264653",
         },
         "Berger Paint": {
-          Exterior: "#00BBF9", // Sky Blue
-          "Metal Paint": "#F15BB5", // Pink
-          "Wood Paint": "#FEE440", // Yellow
-          "Texture Paint": "#2A9D8F", // Sea Green
-          "Designer Paint": "#E76F51", // Terra Cotta
+          Interior: "#00BBF9",
+          Exterior: "#F15BB5",
+          "Metal Paint": "#FEE440",
+          "Wood Paint": "#9B5DE5",
         },
         "Nerolac Paint": {
-          Interior: "#2D3047", // Navy Blue
-          Exterior: "#FF9F1C", // Orange
-          "Metal Paint": "#E71D36", // Bright Red
-          "Wood Paint": "#98CE00", // Lime Green
-          "Texture Paint": "#F4A261", // Sandy Orange
-          "Designer Paint": "#6B705C", // Olive Gray
+          Interior: "#2D3047",
+          Exterior: "#FF9F1C",
+          "Metal Paint": "#E71D36",
+          "Wood Paint": "#6A994E",
         },
         Dulux: {
-          Interior: "#845EC2", // Deep Purple
-          Exterior: "#00C9A7", // Teal
-          "Metal Paint": "#D65DB1", // Magenta
-          "Wood Paint": "#4B4453", // Charcoal
-          "Texture Paint": "#B5838D", // Mauve
-          "Designer Paint": "#457B9D", // Steel Blue
+          Interior: "#845EC2",
+          Exterior: "#00C9A7",
+          "Metal Paint": "#D65DB1",
+          "Wood Paint": "#4B4453",
         },
       };
 
@@ -448,13 +457,110 @@
         },
       ];
 
-      function initializeVisualization() {
+      // --- CORE FUNCTIONS ---
+      function addPaint() {
+        const paintBrand = document.getElementById("paintBrand").value;
+        const paintType = document.getElementById("paintType").value;
+        const area = parseFloat(document.getElementById("area").value);
+        const paintCost = parseFloat(
+          document.getElementById("paintCost").value
+        );
+        const coats = parseInt(document.getElementById("coatType").value);
+        const errorMessage = document.getElementById("errorMessage");
+
+        if (isNaN(area) || isNaN(paintCost) || area <= 0 || paintCost <= 0) {
+          errorMessage.style.display = "block";
+          return;
+        }
+        errorMessage.style.display = "none";
+
+        const paintRequired = (area / 120) * coats; // Assuming ~120 sqft/ltr coverage
+        const finalCost = paintRequired * paintCost;
+
+        paints.push({
+          brand: paintBrand,
+          type: paintType,
+          area,
+          paintRequired,
+          cost: finalCost,
+          coats,
+        });
+        updatePaintList();
+      }
+
+      function updatePaintList() {
+        const paintList = document.getElementById("paintList");
+        paintList.innerHTML = "";
+        let totalCost = 0;
+
+        paints.forEach((paint, index) => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+                    <div class="paint-info">
+                        <strong>${paint.brand} - ${paint.type}</strong> (${
+            paint.coats
+          } Coat${paint.coats > 1 ? "s" : ""})<br>
+                        Area: ${
+                          paint.area
+                        } sqft, Paint: ${paint.paintRequired.toFixed(2)} ltrs
+                    </div>
+                    <div class="paint-cost">₹${paint.cost.toFixed(2)}</div>
+                    <button class="btn delete-btn" onclick="deletePaint(${index})">X</button>
+                `;
+          paintList.appendChild(li);
+          totalCost += paint.cost;
+        });
+
+        document.getElementById(
+          "totalCost"
+        ).innerHTML = `Total Cost: ₹${totalCost.toFixed(2)}`;
+      }
+
+      function deletePaint(index) {
+        paints.splice(index, 1);
+        updatePaintList();
+      }
+
+      function clearForm() {
+        document.getElementById("area").value = "";
+        document.getElementById("paintCost").value = "";
+        document.getElementById("errorMessage").style.display = "none";
+      }
+
+      function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const contentToCapture = document.getElementById("resultsCard");
+        const downloadButton = event.target;
+        const originalButtonText = downloadButton.textContent;
+
+        downloadButton.textContent = "Generating...";
+        downloadButton.disabled = true;
+
+        html2canvas(contentToCapture, { scale: 2 }).then((canvas) => {
+          const imageData = canvas.toDataURL("image/png");
+          const pdf = new jsPDF("p", "mm", "a4");
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+          pdf.setFont("Poppins", "sans-serif");
+          pdf.text("Paint Project Summary", 15, 15);
+          pdf.addImage(imageData, "PNG", 0, 20, pdfWidth, pdfHeight);
+          pdf.save("paint-summary.pdf");
+
+          downloadButton.textContent = originalButtonText;
+          downloadButton.disabled = false;
+        });
+      }
+
+      // --- INITIALIZATION ---
+      function initializeApp() {
         const palette = document.getElementById("colorPalette");
         const wall = document.getElementById("previewWall");
-
+        const catalogDiv = document.getElementById("paintCatalog");
         const paintBrandSelect = document.getElementById("paintBrand");
         const paintTypeSelect = document.getElementById("paintType");
 
+        // Auto-update cost based on selection
         function updatePaintCost() {
           const brand = paintBrandSelect.value;
           const type = paintTypeSelect.value;
@@ -465,54 +571,45 @@
             document.getElementById("paintCost").value = paintInfo.cost;
           }
         }
-
         paintBrandSelect.addEventListener("change", updatePaintCost);
         paintTypeSelect.addEventListener("change", updatePaintCost);
 
+        // Populate Color Visualizer
         Object.entries(colors).forEach(([brand, types]) => {
           Object.entries(types).forEach(([type, color]) => {
             const swatch = document.createElement("div");
             swatch.className = "color-swatch";
             swatch.style.backgroundColor = color;
+            swatch.title = `${brand} - ${type}`;
             swatch.onclick = () => {
               wall.style.backgroundColor = color;
               paintBrandSelect.value = brand;
               paintTypeSelect.value = type;
-              updatePaintCost();
+              updatePaintCost(); // Also update cost when color is clicked
             };
             palette.appendChild(swatch);
           });
         });
-      }
 
-      function initializeCatalog() {
-        const catalog = document.getElementById("paintCatalog");
-
+        // Populate Paint Catalog
         paintCatalog.forEach((paint) => {
           const card = document.createElement("div");
           card.className = "paint-card";
-
           const typesList = Object.entries(paint.types)
             .map(
-              ([type, info]) => `
-              <p>${type}: ${info.name} - ₹${info.cost}/liter</p>
-            `
+              ([type, info]) =>
+                `<p><strong>${type}:</strong> ${info.name} - ₹${info.cost}/ltr</p>`
             )
             .join("");
-
-          card.innerHTML = `
-            <h3>${paint.brand}</h3>
-            ${typesList}
-            <a href="${paint.website}" target="_blank">Visit Website</a>
-          `;
-          catalog.appendChild(card);
+          card.innerHTML = `<h3>${paint.brand}</h3>${typesList}<a href="${paint.website}" target="_blank">Visit Website →</a>`;
+          catalogDiv.appendChild(card);
         });
+
+        // Initial cost setup
+        updatePaintCost();
       }
 
-      window.onload = function () {
-        initializeVisualization();
-        initializeCatalog();
-      };
+      window.onload = initializeApp;
     </script>
   </body>
 </html>
