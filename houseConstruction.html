@@ -3,1074 +3,682 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>House Construction Cost Calculator</title>
-    <meta
-      name="description"
-      content="Calculate house construction costs instantly. Get estimates for labor and material costs based on area, quality, and number of floors. Free construction estimation tool."
-    />
-    <meta
-      name="keywords"
-      content="house construction calculator, building cost estimation, construction cost calculator, labor cost estimation, material cost calculator"
-    />
-    <link
-      rel="canonical"
-      href="https://toolwebsite.in/houseConstruction.html"
-    />
-    <meta name="robots" content="index, follow" />
+    <title>Modern House Construction Cost Estimator for India</title>
 
-    <!-- Google Fonts -->
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://www.google.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
+    <!-- Custom Styles -->
     <style>
       :root {
-        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        --surface: #ffffff;
-        --surface-2: #f8fafc;
-        --surface-3: #f1f5f9;
-        --text-primary: #1e293b;
-        --text-secondary: #64748b;
-        --text-muted: #94a3b8;
-        --border: #e2e8f0;
-        --border-light: #f1f5f9;
-        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-          0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-          0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-          0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        --radius: 12px;
-        --radius-lg: 16px;
-        --spacing: 1.5rem;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+        --brand-color: #f97316; /* Orange */
+        --brand-color-hover: #ea580c;
+        --brand-color-light: #fff7ed;
+        --success-color: #16a34a;
+        --text-primary: #111827;
+        --text-secondary: #374151;
+        --text-light: #6b7280;
+        --bg-body: #f8fafc;
+        --bg-card: #ffffff;
+        --border-color: #d1d5db;
+        --border-radius-lg: 0.75rem;
       }
 
       body {
-        font-family: "Inter", sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        color: var(--text-primary);
-        line-height: 1.6;
-        padding: 2rem 1rem;
+        font-family: "Roboto", sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-secondary);
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
       .container {
-        max-width: 1400px;
+        max-width: 56rem;
         margin: 0 auto;
-        background: var(--surface);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-xl);
-        overflow: hidden;
+        padding: 1rem;
       }
 
-      .header {
-        background: var(--primary-gradient);
-        color: white;
-        padding: 3rem 2rem;
+      header {
         text-align: center;
-        position: relative;
-        overflow: hidden;
+        margin-bottom: 2rem;
       }
-
-      .header::before {
-        content: "";
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(
-          circle,
-          rgba(255, 255, 255, 0.1) 0%,
-          transparent 70%
-        );
-        animation: float 6s ease-in-out infinite;
-      }
-
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px) rotate(0deg);
-        }
-        50% {
-          transform: translateY(-20px) rotate(180deg);
-        }
-      }
-
-      .header-content {
-        position: relative;
-        z-index: 1;
-      }
-
-      .header h1 {
-        font-size: 2.5rem;
+      header h1 {
+        font-size: 1.875rem;
         font-weight: 700;
-        margin-bottom: 0.5rem;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .header p {
-        font-size: 1.2rem;
-        opacity: 0.9;
-        font-weight: 300;
-      }
-
-      .main-content {
-        padding: 3rem 2rem;
-      }
-
-      .calculator-section {
-        background: var(--surface);
-        border-radius: var(--radius);
-        padding: 2rem;
-        margin-bottom: 2rem;
-        border: 1px solid var(--border-light);
-        transition: all 0.3s ease;
-      }
-
-      .calculator-section:hover {
-        box-shadow: var(--shadow-lg);
-        transform: translateY(-2px);
-      }
-
-      .section-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 2px solid var(--border-light);
-      }
-
-      .section-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: var(--radius);
-        background: var(--primary-gradient);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-      }
-
-      .section-title {
-        font-size: 1.5rem;
-        font-weight: 600;
         color: var(--text-primary);
         margin: 0;
       }
 
-      .input-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
+      main {
+        background-color: var(--bg-card);
+        padding: 1.5rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+      }
+
+      .step-navigation {
+        display: flex;
+        border-bottom: 1px solid var(--border-color);
         margin-bottom: 2rem;
       }
-
-      .input-group {
-        position: relative;
+      .step-btn {
+        flex: 1;
+        padding: 0.75rem 0;
+        text-align: center;
+        font-weight: 600;
+        border: none;
+        border-bottom: 2px solid transparent;
+        background: none;
+        cursor: default;
+        color: var(--text-light);
+      }
+      .step-btn.active {
+        color: var(--brand-color);
+        border-bottom-color: var(--brand-color);
       }
 
-      .input-label {
+      .step {
+        display: none;
+      }
+      .step.active {
+        display: block;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+      label {
         display: block;
         font-size: 0.875rem;
         font-weight: 500;
         color: var(--text-secondary);
-        margin-bottom: 0.5rem;
-        text-transform: uppercase;
-        letter-spacing: 0.025em;
+        margin-bottom: 0.25rem;
       }
 
-      .input-field,
-      .select-field {
+      input,
+      select {
         width: 100%;
-        padding: 1rem;
-        border: 2px solid var(--border);
-        border-radius: var(--radius);
-        font-size: 1rem;
-        background: var(--surface);
-        transition: all 0.3s ease;
-        font-family: inherit;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-lg);
+        box-sizing: border-box;
+        transition: box-shadow 0.2s, border-color 0.2s;
       }
-
-      .input-field:focus,
-      .select-field:focus {
+      input:focus,
+      select:focus {
         outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        transform: translateY(-1px);
-      }
-
-      .input-field[readonly] {
-        background: var(--surface-3);
-        cursor: not-allowed;
-        border-style: dashed;
-      }
-
-      .cost-display {
-        background: var(--success-gradient);
-        color: white;
-        padding: 1.5rem;
-        border-radius: var(--radius);
-        text-align: center;
-        margin: 1.5rem 0;
-        box-shadow: var(--shadow);
-      }
-
-      .cost-amount {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-      }
-
-      .cost-label {
-        font-size: 0.875rem;
-        opacity: 0.9;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-
-      .summary-section {
-        background: var(--surface-2);
-        border-radius: var(--radius);
-        padding: 2rem;
-        margin-top: 2rem;
-      }
-
-      .summary-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-      }
-
-      .summary-card {
-        background: white;
-        padding: 1.5rem;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        text-align: center;
-        border: 1px solid var(--border);
-        transition: all 0.3s ease;
-      }
-
-      .summary-card:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-lg);
-      }
-
-      .summary-icon {
-        width: 40px;
-        height: 40px;
-        margin: 0 auto 1rem;
-        background: var(--secondary-gradient);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-      }
-
-      .summary-amount {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 0.5rem;
-      }
-
-      .summary-label {
-        font-size: 0.875rem;
-        color: var(--text-secondary);
-        font-weight: 500;
-      }
-
-      .action-buttons {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        margin-top: 2rem;
-        flex-wrap: wrap;
+        border-color: var(--brand-color);
+        box-shadow: 0 0 0 2px var(--brand-color-light);
       }
 
       .btn {
-        padding: 1rem 2rem;
         border: none;
-        border-radius: var(--radius);
-        font-size: 1rem;
         font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--border-radius-lg);
         cursor: pointer;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        min-width: 140px;
-        justify-content: center;
+        transition: background-color 0.2s;
       }
-
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
       .btn-primary {
-        background: var(--primary-gradient);
+        background-color: var(--brand-color);
         color: white;
       }
-
-      .btn-secondary {
-        background: white;
-        color: var(--text-primary);
-        border: 2px solid var(--border);
-      }
-
-      .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
-      }
-
       .btn-primary:hover {
-        filter: brightness(1.1);
+        background-color: var(--brand-color-hover);
       }
-
+      .btn-secondary {
+        background-color: #e5e7eb;
+        color: var(--text-secondary);
+      }
       .btn-secondary:hover {
-        background: var(--surface-2);
+        background-color: #d1d5db;
+      }
+      .btn-submit {
+        background-color: var(--success-color);
+        color: white;
+        font-weight: 700;
       }
 
-      .info-section {
-        background: var(--surface-2);
-        border-radius: var(--radius);
-        padding: 2rem;
-        margin-top: 3rem;
+      .form-navigation {
+        margin-top: 2.5rem;
+        display: flex;
+        justify-content: space-between;
+      }
+      .hidden {
+        display: none;
       }
 
-      .info-grid {
+      .form-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .quality-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      .quality-option {
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-lg);
+        cursor: pointer;
+        text-align: center;
+      }
+      .quality-option h3 {
+        margin: 0 0 0.5rem 0;
+      }
+      .quality-option p {
+        font-size: 0.875rem;
+        color: var(--text-light);
+        margin: 0;
+      }
+      .quality-option:has(input:checked) {
+        background-color: var(--brand-color-light);
+        border-color: var(--brand-color);
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+
+      /* Results Section */
+      #results {
+        margin-top: 2.5rem;
+      }
+      .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .results-card {
+        background-color: var(--bg-card);
+        padding: 2rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+      }
+      .results-grid {
+        display: grid;
+        grid-template-columns: 1fr;
         gap: 2rem;
-        margin-top: 2rem;
+        align-items: center;
       }
-
-      .info-card {
-        background: white;
-        padding: 1.5rem;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
+      .chart-container {
+        max-width: 24rem;
+        width: 100%;
+        margin: 0 auto;
       }
-
-      .info-card h3 {
+      #grandTotal {
+        font-size: 3rem;
+        font-weight: 700;
         color: var(--text-primary);
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .summary-item {
         display: flex;
-        align-items: center;
-        gap: 0.5rem;
+        justify-content: space-between;
+        font-size: 1.125rem;
       }
-
-      .info-card p {
-        color: var(--text-secondary);
-        line-height: 1.6;
+      .summary-item + .summary-item {
+        margin-top: 0.75rem;
       }
-
-      .feature-list {
-        list-style: none;
-        margin: 1rem 0;
+      .summary-item span:first-child {
+        color: var(--text-light);
       }
-
-      .feature-list li {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
+      .summary-item span:last-child {
+        font-weight: 600;
         color: var(--text-secondary);
       }
-
-      .feature-list li::before {
-        content: "✓";
-        color: #10b981;
-        font-weight: bold;
+      .detailed-breakdown-container {
+        margin-top: 2rem;
+        border-top: 1px solid var(--border-color);
+        padding-top: 1.5rem;
       }
 
-      @media (max-width: 768px) {
-        body {
-          padding: 1rem 0.5rem;
-        }
-
-        .header {
-          padding: 2rem 1rem;
-        }
-
-        .header h1 {
-          font-size: 2rem;
-        }
-
-        .main-content {
-          padding: 2rem 1rem;
-        }
-
-        .input-grid {
-          grid-template-columns: 1fr;
-          gap: 1rem;
-        }
-
-        .summary-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .action-buttons {
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .btn {
-          width: 100%;
-          max-width: 300px;
+      @media (min-width: 640px) {
+        .form-grid {
+          grid-template-columns: repeat(2, 1fr);
         }
       }
-
-      @media (max-width: 480px) {
-        .header h1 {
-          font-size: 1.75rem;
+      @media (min-width: 768px) {
+        .results-grid {
+          grid-template-columns: repeat(2, 1fr);
         }
-
-        .cost-amount {
-          font-size: 1.5rem;
-        }
-
-        .summary-amount {
-          font-size: 1.25rem;
-        }
-      }
-
-      /* Loading animation */
-      .loading {
-        opacity: 0.6;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-      }
-
-      /* Pulse animation for calculations */
-      @keyframes pulse {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.7;
-        }
-      }
-
-      .calculating {
-        animation: pulse 1s infinite;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <header class="header">
-        <div class="header-content">
-          <h1>Material & Labour Estimator</h1>
-          <p>
-            Get accurate construction cost estimates for your dream home
-            instantly
-          </p>
+      <header><h1>House Construction Cost Estimator</h1></header>
+
+      <main>
+        <div class="step-navigation">
+          <button id="step-btn-1" class="step-btn active">
+            1. Area Details
+          </button>
+          <button id="step-btn-2" class="step-btn">
+            2. Construction Quality
+          </button>
+          <button id="step-btn-3" class="step-btn">3. Other Costs</button>
         </div>
-      </header>
 
-      <main class="main-content">
-        <!-- Material & Labour Contract Section -->
-        <section class="calculator-section" id="material-section">
-          <div class="section-header">
-            <div class="section-icon">
-              <i data-lucide="home"></i>
-            </div>
-            <h2 class="section-title">Material & Labour Contract</h2>
-          </div>
-
-          <div class="input-grid">
-            <div class="input-group">
-              <label class="input-label">Construction Type</label>
-              <select id="type-construction-1" class="select-field">
-                <option value="Independent house">House</option>
-                <option value="villa">Villa</option>
-                <option value="apartment">Apartment</option>
-                <option value="duplex">Duplex</option>
-              </select>
-            </div>
-
-            <div class="input-group">
-              <label class="input-label">Area (sq ft)</label>
-              <input
-                type="number"
-                id="area-1"
-                class="input-field"
-                placeholder="Enter area in sq ft"
-              />
-            </div>
-
-            <div class="input-group">
-              <label class="input-label">Quality Level</label>
-              <select id="quality-1" class="select-field">
-                <option value="1500">Basic - ₹1,500/sqft</option>
-                <option value="1800">Standard - ₹1,800/sqft</option>
-                <option value="2000">Premium - ₹2,000/sqft</option>
-              </select>
-            </div>
-
-            <div class="input-group">
-              <label class="input-label">Number of Floors</label>
-              <select id="floors-1" class="select-field">
-                <option value="1">Ground Floor (G+0)</option>
-                <option value="2">Ground + 1 Floor (G+1)</option>
-                <option value="3">Ground + 2 Floors (G+2)</option>
-                <option value="4">Ground + 3 Floors (G+3)</option>
-                <option value="5">Ground + 4 Floors (G+4)</option>
-              </select>
-            </div>
-
-            <div class="input-group">
-              <label class="input-label">Base Cost</label>
-              <input
-                type="text"
-                id="total-cost-1"
-                class="input-field"
-                readonly
-              />
-            </div>
-
-            <div class="input-group">
-              <label class="input-label">Total with Floors</label>
-              <input
-                type="text"
-                id="total-cost-floors-1"
-                class="input-field"
-                readonly
-              />
-            </div>
-          </div>
-
-          <div class="cost-display">
-            <div class="cost-amount">₹<span id="total-estimation">0</span></div>
-            <div class="cost-label">Total Material & Labour Cost</div>
-          </div>
-        </section>
-
-        <!-- Labour Contract Section -->
-        <section class="calculator-section" id="labour-section">
-          <div class="section-header">
-            <div class="section-icon">
-              <i data-lucide="hard-hat"></i>
-            </div>
-            <h2 class="section-title">Labour Contract Only</h2>
-          </div>
-
-          <div class="input-grid">
-            <div class="input-group">
-              <label class="input-label">Construction Type</label>
-              <select id="type-construction-2" class="select-field">
-                <option value="Independent house">House</option>
-                <option value="villa">Villa</option>
-                <option value="apartment">Apartment</option>
-                <option value="duplex">Duplex</option>
-              </select>
-            </div>
-
-            <div class="input-group">
-              <label class="input-label">Area (sq ft)</label>
-              <input
-                type="number"
-                id="area-2"
-                class="input-field"
-                placeholder="Enter area in sq ft"
-              />
-            </div>
-
-            <div class="input-group">
-              <label class="input-label">Quality Level</label>
-              <select id="quality-2" class="select-field">
-                <option value="250">Basic - ₹250/sqft</option>
-                <option value="300">Standard - ₹300/sqft</option>
-                <option value="350">Premium - ₹350/sqft</option>
-              </select>
-            </div>
-
-            <div class="input-group">
-              <label class="input-label">Number of Floors</label>
-              <select id="floors-2" class="select-field">
-                <option value="1">Ground Floor (G+0)</option>
-                <option value="2">Ground + 1 Floor (G+1)</option>
-                <option value="3">Ground + 2 Floors (G+2)</option>
-                <option value="4">Ground + 3 Floors (G+3)</option>
-                <option value="5">Ground + 4 Floors (G+4)</option>
-              </select>
-            </div>
-
-            <div class="input-group">
-              <label class="input-label">Base Cost</label>
-              <input
-                type="text"
-                id="total-cost-2"
-                class="input-field"
-                readonly
-              />
-            </div>
-
-            <div class="input-group">
-              <label class="input-label">Total with Floors</label>
-              <input
-                type="text"
-                id="total-cost-floors-2"
-                class="input-field"
-                readonly
-              />
-            </div>
-          </div>
-
-          <div class="cost-display">
-            <div class="cost-amount">
-              ₹<span id="total-labour-estimation">0</span>
-            </div>
-            <div class="cost-label">Total Labour Cost</div>
-          </div>
-        </section>
-
-        <!-- Summary Section -->
-        <section class="summary-section">
-          <h2
-            class="section-title"
-            style="text-align: center; margin-bottom: 2rem"
-          >
-            <i data-lucide="calculator" style="margin-right: 0.5rem"></i>
-            Cost Summary
-          </h2>
-
-          <div class="summary-grid">
-            <div class="summary-card">
-              <div class="summary-icon">
-                <i data-lucide="home"></i>
+        <form id="constructionForm">
+          <!-- Step 1: Area Details -->
+          <div id="step-1" class="step active">
+            <h2>Plot & Built-up Area</h2>
+            <p>
+              Enter the total plot area and the desired built-up area for your
+              house.
+            </p>
+            <div class="form-grid">
+              <div>
+                <label for="plotArea">Plot Area (sq.ft.)</label
+                ><input type="number" id="plotArea" value="1200" />
               </div>
-              <div class="summary-amount">
-                ₹<span id="summary-material">0</span>
+              <div>
+                <label for="builtUpArea">Total Built-up Area (sq.ft.)</label
+                ><input type="number" id="builtUpArea" value="2000" />
               </div>
-              <div class="summary-label">Material & Labour</div>
-            </div>
-
-            <div class="summary-card">
-              <div class="summary-icon">
-                <i data-lucide="users"></i>
+              <div>
+                <label for="numFloors">Number of Floors</label
+                ><input type="number" id="numFloors" value="2" />
               </div>
-              <div class="summary-amount">
-                ₹<span id="summary-labour">0</span>
-              </div>
-              <div class="summary-label">Labour Only</div>
-            </div>
-
-            <div class="summary-card">
-              <div class="summary-icon">
-                <i data-lucide="trending-up"></i>
-              </div>
-              <div class="summary-amount" id="material-savings">₹0</div>
-              <div class="summary-label">Material Cost (Estimated)</div>
             </div>
           </div>
 
-          <div class="action-buttons">
-            <button class="btn btn-primary" id="download-pdf">
-              <i data-lucide="download"></i>
-              Download PDF
+          <!-- Step 2: Quality -->
+          <div id="step-2" class="step">
+            <h2>Construction Quality</h2>
+            <p>
+              Select the desired quality of construction. This determines the
+              per square foot rate.
+            </p>
+            <div class="quality-grid">
+              <label class="quality-option">
+                <input
+                  type="radio"
+                  name="constructionQuality"
+                  value="basic"
+                  class="sr-only"
+                  checked
+                />
+                <h3>Basic Quality</h3>
+                <p>Approx. ₹1,600 / sq.ft.</p>
+              </label>
+              <label class="quality-option">
+                <input
+                  type="radio"
+                  name="constructionQuality"
+                  value="mid"
+                  class="sr-only"
+                />
+                <h3>Mid-Range Quality</h3>
+                <p>Approx. ₹1,900 / sq.ft.</p>
+              </label>
+              <label class="quality-option">
+                <input
+                  type="radio"
+                  name="constructionQuality"
+                  value="premium"
+                  class="sr-only"
+                />
+                <h3>Premium Quality</h3>
+                <p>Approx. ₹2,400 / sq.ft.</p>
+              </label>
+            </div>
+          </div>
+
+          <!-- Step 3: Other Costs -->
+          <div id="step-3" class="step">
+            <h2>Additional Costs (Optional)</h2>
+            <p>
+              Include estimated costs for permissions, architect fees, and
+              utilities if known.
+            </p>
+            <div class="form-grid">
+              <div>
+                <label for="permissionFees"
+                  >Permission & Approval Fees (₹)</label
+                ><input type="number" id="permissionFees" value="80000" />
+              </div>
+              <div>
+                <label for="architectFees">Architect Fees (%)</label
+                ><input type="number" id="architectFees" value="8" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-navigation">
+            <button
+              type="button"
+              id="prevBtn"
+              class="btn btn-secondary"
+              disabled
+            >
+              Previous
             </button>
-            <button class="btn btn-secondary" id="clear-all">
-              <i data-lucide="refresh-cw"></i>
-              Clear All
+            <button type="button" id="nextBtn" class="btn btn-primary">
+              Next
+            </button>
+            <button type="submit" id="submitBtn" class="btn btn-submit hidden">
+              Calculate Budget
             </button>
           </div>
-        </section>
-
-        <!-- Information Section -->
-        <section class="info-section">
-          <h2
-            class="section-title"
-            style="text-align: center; margin-bottom: 2rem"
-          >
-            <i data-lucide="info" style="margin-right: 0.5rem"></i>
-            Why Use Our Construction Calculator?
-          </h2>
-
-          <div class="info-grid">
-            <div class="info-card">
-              <h3><i data-lucide="zap"></i>Quick & Accurate</h3>
-              <p>
-                Get instant cost estimates with our advanced calculation
-                algorithms. No more waiting for manual quotes from contractors.
-              </p>
-            </div>
-
-            <div class="info-card">
-              <h3><i data-lucide="shield-check"></i>Reliable Data</h3>
-              <p>
-                Based on current market rates and industry standards. Our
-                pricing is regularly updated to reflect real-world construction
-                costs.
-              </p>
-            </div>
-
-            <div class="info-card">
-              <h3><i data-lucide="bar-chart-3"></i>Compare Options</h3>
-              <p>
-                Easily compare different quality levels and construction types
-                to make informed decisions about your project budget.
-              </p>
-            </div>
-
-            <div class="info-card">
-              <h3><i data-lucide="heart"></i>Key Benefits</h3>
-              <ul class="feature-list">
-                <li>Instant cost calculations</li>
-                <li>Multiple quality options</li>
-                <li>PDF report generation</li>
-                <li>Mobile-friendly design</li>
-                <li>No registration required</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+        </form>
       </main>
+
+      <section id="results" class="hidden"></section>
+
+      <div
+        style="
+          text-align: center;
+          font-size: 0.875rem;
+          color: var(--text-light);
+          margin-top: 2.5rem;
+          padding: 1.5rem;
+          background-color: var(--bg-card);
+          border-radius: var(--border-radius-lg);
+          box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+            0 2px 4px -2px rgb(0 0 0 / 0.1);
+        "
+      >
+        <strong>Disclaimer:</strong> Costs and prices might vary based on
+        location and current market conditions. We strive to provide accurate
+        estimates, but please verify with the current market situation.
+      </div>
     </div>
 
-    <!-- jsPDF Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <!-- jsPDF AutoTable Plugin -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-
     <script>
-      // Format number with Indian currency formatting
-      function formatCurrency(amount) {
-        return new Intl.NumberFormat("en-IN").format(amount);
-      }
+      document.addEventListener("DOMContentLoaded", function () {
+        let currentStep = 1,
+          totalSteps = 3,
+          chartInstance = null,
+          lastCalculationData = null;
 
-      // Add loading state to calculations
-      function showCalculating(elementId) {
-        const element = document.getElementById(elementId);
-        element.classList.add("calculating");
-        setTimeout(() => {
-          element.classList.remove("calculating");
-        }, 500);
-      }
+        const costData = {
+          perSqFtRate: { basic: 1600, mid: 1900, premium: 2400 },
+          breakdownPercentage: {
+            foundation: 0.15,
+            structure: 0.3, // RCC, Walls, etc.
+            finishing: 0.25, // Plastering, Flooring, Painting
+            doorsWindows: 0.1,
+            electricalPlumbing: 0.15,
+            misc: 0.05,
+          },
+        };
 
-      // Calculate total cost for Material & Labour Contract
-      const area1 = document.getElementById("area-1");
-      const quality1 = document.getElementById("quality-1");
-      const totalCost1 = document.getElementById("total-cost-1");
-      const floors1 = document.getElementById("floors-1");
-      const totalCostFloors1 = document.getElementById("total-cost-floors-1");
+        function updateStepVisibility() {
+          document
+            .querySelectorAll(".step")
+            .forEach((s, i) =>
+              s.classList.toggle("active", i + 1 === currentStep)
+            );
+          document
+            .querySelectorAll(".step-btn")
+            .forEach((b, i) => b.classList.toggle("active", i < currentStep));
+          document.getElementById("prevBtn").disabled = currentStep === 1;
+          document
+            .getElementById("nextBtn")
+            .classList.toggle("hidden", currentStep === totalSteps);
+          document
+            .getElementById("submitBtn")
+            .classList.toggle("hidden", currentStep !== totalSteps);
+        }
 
-      function calculateTotalCost1() {
-        const areaValue = parseFloat(area1.value) || 0;
-        const qualityValue = parseFloat(quality1.value) || 0;
-        const total = areaValue * qualityValue;
-        totalCost1.value = total ? formatCurrency(total) : "";
-        calculateTotalCostWithFloors1();
-      }
+        function calculateBudget(e) {
+          e.preventDefault();
+          const builtUpArea =
+            parseFloat(document.getElementById("builtUpArea").value) || 0;
+          const quality = document.querySelector(
+            'input[name="constructionQuality"]:checked'
+          ).value;
+          const permissionFees =
+            parseFloat(document.getElementById("permissionFees").value) || 0;
+          const architectFeePercent =
+            parseFloat(document.getElementById("architectFees").value) || 0;
 
-      function calculateTotalCostWithFloors1() {
-        const floorsValue = parseFloat(floors1.value) || 1;
-        const baseTotal =
-          (parseFloat(area1.value) || 0) * (parseFloat(quality1.value) || 0);
-        const totalWithFloors = baseTotal * floorsValue;
-        totalCostFloors1.value = totalWithFloors
-          ? formatCurrency(totalWithFloors)
-          : "";
-        showCalculating("total-estimation");
-        calculateOverallTotals();
-      }
+          const rate = costData.perSqFtRate[quality];
+          const baseConstructionCost = builtUpArea * rate;
 
-      // Calculate total cost for Labour Contract
-      const area2 = document.getElementById("area-2");
-      const quality2 = document.getElementById("quality-2");
-      const totalCost2 = document.getElementById("total-cost-2");
-      const floors2 = document.getElementById("floors-2");
-      const totalCostFloors2 = document.getElementById("total-cost-floors-2");
-
-      function calculateTotalCost2() {
-        const areaValue = parseFloat(area2.value) || 0;
-        const qualityValue = parseFloat(quality2.value) || 0;
-        const total = areaValue * qualityValue;
-        totalCost2.value = total ? formatCurrency(total) : "";
-        calculateTotalCostWithFloors2();
-      }
-
-      function calculateTotalCostWithFloors2() {
-        const floorsValue = parseFloat(floors2.value) || 1;
-        const baseTotal =
-          (parseFloat(area2.value) || 0) * (parseFloat(quality2.value) || 0);
-        const totalWithFloors = baseTotal * floorsValue;
-        totalCostFloors2.value = totalWithFloors
-          ? formatCurrency(totalWithFloors)
-          : "";
-        showCalculating("total-labour-estimation");
-        calculateOverallTotals();
-      }
-
-      // Calculate overall totals and material cost estimation
-      function calculateOverallTotals() {
-        const area1Val = parseFloat(area1.value) || 0;
-        const quality1Val = parseFloat(quality1.value) || 0;
-        const floors1Val = parseFloat(floors1.value) || 1;
-        const area2Val = parseFloat(area2.value) || 0;
-        const quality2Val = parseFloat(quality2.value) || 0;
-        const floors2Val = parseFloat(floors2.value) || 1;
-
-        const totalMaterialLabour = area1Val * quality1Val * floors1Val;
-        const totalLabour = area2Val * quality2Val * floors2Val;
-        const materialCost = Math.max(0, totalMaterialLabour - totalLabour);
-
-        // Update main displays
-        document.getElementById("total-estimation").textContent =
-          formatCurrency(totalMaterialLabour);
-        document.getElementById("total-labour-estimation").textContent =
-          formatCurrency(totalLabour);
-
-        // Update summary cards
-        document.getElementById("summary-material").textContent =
-          formatCurrency(totalMaterialLabour);
-        document.getElementById("summary-labour").textContent =
-          formatCurrency(totalLabour);
-        document.getElementById("material-savings").textContent =
-          formatCurrency(materialCost);
-      }
-
-      // Event listeners
-      area1.addEventListener("input", calculateTotalCost1);
-      quality1.addEventListener("change", calculateTotalCost1);
-      floors1.addEventListener("change", calculateTotalCostWithFloors1);
-
-      area2.addEventListener("input", calculateTotalCost2);
-      quality2.addEventListener("change", calculateTotalCost2);
-      floors2.addEventListener("change", calculateTotalCostWithFloors2);
-
-      // Clear all functionality
-      document
-        .getElementById("clear-all")
-        .addEventListener("click", function () {
-          // Add loading state
-          document.querySelector(".container").classList.add("loading");
-
-          setTimeout(() => {
-            // Clear Material & Labour inputs
-            area1.value = "";
-            quality1.selectedIndex = 0;
-            totalCost1.value = "";
-            floors1.selectedIndex = 0;
-            totalCostFloors1.value = "";
-
-            // Clear Labour inputs
-            area2.value = "";
-            quality2.selectedIndex = 0;
-            totalCost2.value = "";
-            floors2.selectedIndex = 0;
-            totalCostFloors2.value = "";
-
-            calculateOverallTotals();
-            document.querySelector(".container").classList.remove("loading");
-          }, 300);
-        });
-
-      // Download PDF functionality
-      document
-        .getElementById("download-pdf")
-        .addEventListener("click", function () {
-          const { jsPDF } = window.jspdf;
-
-          if (!jsPDF) {
-            alert("PDF library not loaded. Please try again.");
-            return;
+          const breakdown = {};
+          for (const stage in costData.breakdownPercentage) {
+            breakdown[stage] =
+              baseConstructionCost * costData.breakdownPercentage[stage];
           }
 
-          const doc = new jsPDF();
-          const currentDate = new Date().toLocaleDateString("en-IN");
+          const architectFees =
+            baseConstructionCost * (architectFeePercent / 100);
+          const grandTotal =
+            baseConstructionCost + permissionFees + architectFees;
 
-          // Header
+          lastCalculationData = {
+            grandTotal,
+            baseConstructionCost,
+            breakdown,
+            permissionFees,
+            architectFees,
+            builtUpArea,
+          };
+          displayResults(lastCalculationData);
+        }
+
+        function displayResults(data) {
+          const resultsSection = document.getElementById("results");
+          resultsSection.innerHTML = `
+                    <header class="results-header"><h2>Your Estimated Budget</h2><button id="downloadPdfBtn" class="btn btn-primary">Download PDF</button></header>
+                    <div class="results-card">
+                        <div class="results-grid">
+                            <div class="chart-container"><canvas id="costChart"></canvas></div>
+                            <div>
+                                <p>Total Estimated Cost</p><p id="grandTotal">₹${Math.round(
+                                  data.grandTotal
+                                ).toLocaleString("en-IN")}</p>
+                                <div class="summary-details">
+                                    <div class="summary-item"><span>Base Construction Cost:</span><span>₹${Math.round(
+                                      data.baseConstructionCost
+                                    ).toLocaleString("en-IN")}</span></div>
+                                    <div class="summary-item"><span>Architect & Approval Fees:</span><span>₹${Math.round(
+                                      data.architectFees + data.permissionFees
+                                    ).toLocaleString("en-IN")}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detailed-breakdown-container">
+                            <h3>Construction Stage Breakdown</h3>
+                            ${Object.entries(data.breakdown)
+                              .map(
+                                ([key, value]) => `
+                                <div class="summary-item">
+                                    <span style="text-transform: capitalize;">${key.replace(
+                                      /([A-Z])/g,
+                                      " $1"
+                                    )}</span>
+                                    <span>₹${Math.round(value).toLocaleString(
+                                      "en-IN"
+                                    )}</span>
+                                </div>
+                            `
+                              )
+                              .join("")}
+                        </div>
+                    </div>`;
+          resultsSection.classList.remove("hidden");
+          document
+            .getElementById("downloadPdfBtn")
+            .addEventListener("click", generatePDF);
+          window.scrollTo({
+            top: resultsSection.offsetTop - 20,
+            behavior: "smooth",
+          });
+
+          const chartLabels = Object.keys(data.breakdown).map((k) =>
+            k
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase())
+          );
+          const chartData = Object.values(data.breakdown);
+          renderChart(chartLabels, chartData);
+        }
+
+        function renderChart(labels, data) {
+          const ctx = document.getElementById("costChart").getContext("2d");
+          if (chartInstance) chartInstance.destroy();
+          chartInstance = new Chart(ctx, {
+            type: "doughnut",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  data: data,
+                  backgroundColor: [
+                    "#A52A2A",
+                    "#808080",
+                    "#ADD8E6",
+                    "#DEB887",
+                    "#4682B4",
+                    "#C0C0C0",
+                  ],
+                  borderColor: "#ffffff",
+                  borderWidth: 4,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              cutout: "70%",
+              plugins: {
+                legend: {
+                  position: "bottom",
+                  labels: { padding: 20, font: { size: 12 } },
+                },
+              },
+            },
+          });
+        }
+
+        function generatePDF() {
+          if (!lastCalculationData) return;
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF();
+          const data = lastCalculationData;
+          const today = new Date().toLocaleDateString("en-IN");
+
           doc.setFontSize(20);
-          doc.setFont(undefined, "bold");
-          doc.text("House Construction Cost Estimation", 20, 20);
+          doc.text("House Construction Estimation", 105, 20, {
+            align: "center",
+          });
+          doc.setFontSize(12);
+          doc.setTextColor(100);
+          doc.text(`Generated on: ${today}`, 105, 28, { align: "center" });
+
+          let y = 45;
+          doc.setFontSize(16);
+          doc.setTextColor(0);
+          doc.text("Overall Summary", 20, y);
+          doc.line(20, y + 2, 190, y + 2);
+          y += 12;
 
           doc.setFontSize(12);
-          doc.setFont(undefined, "normal");
-          doc.text(`Generated on: ${currentDate}`, 20, 30);
+          doc.text("Total Estimated Cost:", 20, y);
+          doc.text(
+            `₹${Math.round(data.grandTotal).toLocaleString("en-IN")}`,
+            190,
+            y,
+            { align: "right" }
+          );
+          y += 8;
+          doc.text(`Base Cost (${data.builtUpArea} sq.ft.):`, 20, y);
+          doc.text(
+            `₹${Math.round(data.baseConstructionCost).toLocaleString("en-IN")}`,
+            190,
+            y,
+            { align: "right" }
+          );
+          y += 8;
+          doc.text("Permission Fees:", 20, y);
+          doc.text(
+            `₹${Math.round(data.permissionFees).toLocaleString("en-IN")}`,
+            190,
+            y,
+            { align: "right" }
+          );
+          y += 8;
+          doc.text("Architect Fees:", 20, y);
+          doc.text(
+            `₹${Math.round(data.architectFees).toLocaleString("en-IN")}`,
+            190,
+            y,
+            { align: "right" }
+          );
 
-          // Add line separator
-          doc.setLineWidth(0.5);
-          doc.line(20, 35, 190, 35);
-
-          let yPosition = 50;
-
-          // Material & Labour Contract Section
+          y += 15;
           doc.setFontSize(16);
-          doc.setFont(undefined, "bold");
-          doc.text("Material & Labour Contract", 20, yPosition);
-          yPosition += 10;
-
-          const materialData = [
-            [
-              "Construction Type",
-              document.getElementById("type-construction-1").options[
-                document.getElementById("type-construction-1").selectedIndex
-              ].text,
-            ],
-            ["Area (sq ft)", area1.value || "Not specified"],
-            ["Quality Level", quality1.options[quality1.selectedIndex].text],
-            ["Number of Floors", floors1.options[floors1.selectedIndex].text],
-            ["Base Cost", totalCost1.value || "₹0"],
-            ["Total Cost with Floors", totalCostFloors1.value || "₹0"],
-          ];
-
-          doc.autoTable({
-            startY: yPosition,
-            head: [["Parameter", "Value"]],
-            body: materialData,
-            theme: "grid",
-            headStyles: { fillColor: [102, 126, 234] },
-            styles: { fontSize: 10 },
-            columnStyles: { 0: { fontStyle: "bold" } },
-          });
-
-          yPosition = doc.lastAutoTable.finalY + 20;
-
-          // Labour Contract Section
-          doc.setFontSize(16);
-          doc.setFont(undefined, "bold");
-          doc.text("Labour Contract Only", 20, yPosition);
-          yPosition += 10;
-
-          const labourData = [
-            [
-              "Construction Type",
-              document.getElementById("type-construction-2").options[
-                document.getElementById("type-construction-2").selectedIndex
-              ].text,
-            ],
-            ["Area (sq ft)", area2.value || "Not specified"],
-            ["Quality Level", quality2.options[quality2.selectedIndex].text],
-            ["Number of Floors", floors2.options[floors2.selectedIndex].text],
-            ["Base Cost", totalCost2.value || "₹0"],
-            ["Total Cost with Floors", totalCostFloors2.value || "₹0"],
-          ];
-
-          doc.autoTable({
-            startY: yPosition,
-            head: [["Parameter", "Value"]],
-            body: labourData,
-            theme: "grid",
-            headStyles: { fillColor: [102, 126, 234] },
-            styles: { fontSize: 10 },
-            columnStyles: { 0: { fontStyle: "bold" } },
-          });
-
-          yPosition = doc.lastAutoTable.finalY + 20;
-
-          // Summary Section
-          doc.setFontSize(16);
-          doc.setFont(undefined, "bold");
-          doc.text("Cost Summary", 20, yPosition);
-          yPosition += 10;
-
-          const totalMaterialLabour =
-            document.getElementById("total-estimation").textContent;
-          const totalLabour = document.getElementById(
-            "total-labour-estimation"
-          ).textContent;
-          const materialCost =
-            document.getElementById("material-savings").textContent;
-
-          const summaryData = [
-            ["Total Material & Labour Cost", `₹${totalMaterialLabour}`],
-            ["Total Labour Cost Only", `₹${totalLabour}`],
-            ["Estimated Material Cost", `₹${materialCost.replace("₹", "")}`],
-          ];
-
-          doc.autoTable({
-            startY: yPosition,
-            head: [["Cost Type", "Amount"]],
-            body: summaryData,
-            theme: "grid",
-            headStyles: { fillColor: [76, 175, 80] },
-            styles: { fontSize: 12, fontStyle: "bold" },
-            columnStyles: { 1: { halign: "center" } },
-          });
-
-          yPosition = doc.lastAutoTable.finalY + 20;
-
-          // Footer
-          if (yPosition > 250) {
-            doc.addPage();
-            yPosition = 20;
-          }
-
+          doc.text("Stage-wise Breakdown", 20, y);
+          doc.line(20, y + 2, 190, y + 2);
+          y += 12;
           doc.setFontSize(10);
-          doc.setFont(undefined, "italic");
-          doc.text(
-            "Note: This is an estimated calculation based on average market rates.",
-            20,
-            yPosition
-          );
-          doc.text(
-            "Actual costs may vary based on location, specific requirements, and market conditions.",
-            20,
-            yPosition + 5
-          );
-          doc.text(
-            "Please consult with local contractors for precise quotations.",
-            20,
-            yPosition + 10
-          );
+          Object.entries(data.breakdown).forEach(([key, value]) => {
+            const label = key
+              .replace(/([A-Z])/g, " $1")
+              .replace(/^./, (str) => str.toUpperCase());
+            doc.text(`- ${label}:`, 20, y);
+            doc.text(`₹${Math.round(value).toLocaleString("en-IN")}`, 190, y, {
+              align: "right",
+            });
+            y += 7;
+          });
 
-          // Add footer with page number
-          const pageCount = doc.internal.getNumberOfPages();
-          for (let i = 1; i <= pageCount; i++) {
-            doc.setPage(i);
-            doc.setFontSize(8);
-            doc.text(`Page ${i} of ${pageCount}`, 180, 290);
-          }
+          doc.save(`House-Construction-Estimation-${Date.now()}.pdf`);
+        }
 
-          // Save the PDF
-          const fileName = `construction-estimate-${
-            new Date().toISOString().split("T")[0]
-          }.pdf`;
-          doc.save(fileName);
-
-          // Show success message
-          setTimeout(() => {
-            alert("PDF downloaded successfully!");
-          }, 500);
-        });
-
-      // Initial calculation
-      calculateOverallTotals();
-
-      // Add smooth scroll behavior for better UX
-      document.querySelectorAll(".calculator-section").forEach((section) => {
-        section.addEventListener("click", () => {
-          section.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        });
-      });
-
-      // Add input validation feedback
-      document.querySelectorAll('input[type="number"]').forEach((input) => {
-        input.addEventListener("blur", function () {
-          if (this.value && parseFloat(this.value) < 0) {
-            this.style.borderColor = "#ef4444";
-            this.style.boxShadow = "0 0 0 3px rgba(239, 68, 68, 0.1)";
-          } else {
-            this.style.borderColor = "";
-            this.style.boxShadow = "";
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          if (currentStep > 1) {
+            currentStep--;
+            updateStepVisibility();
           }
         });
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          if (currentStep < totalSteps) {
+            currentStep++;
+            updateStepVisibility();
+          }
+        });
+        document
+          .getElementById("constructionForm")
+          .addEventListener("submit", calculateBudget);
+
+        updateStepVisibility();
       });
     </script>
   </body>
