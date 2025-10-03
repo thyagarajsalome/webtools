@@ -3,481 +3,1118 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Electrical Budget Estimator for Indian Construction | Free Calculator
-    </title>
-    <link rel="stylesheet" href="./normalize.css" />
+    <title>Modern Indian Electrical Budget Calculator</title>
 
-    <!-- Meta Description & Keywords for SEO -->
-    <meta
-      name="description"
-      content="Calculate the electrical budget for your construction project with our free Electrical Budget Estimator. Estimate costs for sockets, switches, LED lights, ceiling fans, wires, electrical pipes, UPS, and labor breakdown."
-    />
-    <meta
-      name="keywords"
-      content="Electrical Budget Estimator, Electrical Cost Calculator, Indian Construction, Electrical Fittings Cost, Budget Estimation, Electrical Labor Cost"
-    />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://toolwebsite.in/electrical.html" />
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Open Graph / Facebook -->
-    <meta
-      property="og:title"
-      content="Electrical Budget Estimator for Indian Construction | Free Calculator"
-    />
-    <meta
-      property="og:description"
-      content="Calculate the electrical budget for your construction project with our free Electrical Budget Estimator. Estimate costs for sockets, switches, LED lights, ceiling fans, wires, electrical pipes, UPS, and labor breakdown."
-    />
-    <meta
-      property="og:image"
-      content="https://yourdomain.com/path/to/image.jpg"
-    />
-    <meta
-      property="og:url"
-      content="https://yourdomain.com/electrical-budget-estimator"
-    />
-    <meta property="og:type" content="website" />
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Electrical Budget Estimator for Indian Construction | Free Calculator"
-    />
-    <meta
-      name="twitter:description"
-      content="Calculate the electrical budget for your construction project with our free Electrical Budget Estimator. Estimate costs for sockets, switches, LED lights, ceiling fans, wires, electrical pipes, UPS, and labor breakdown."
-    />
-    <meta
-      name="twitter:image"
-      content="https://yourdomain.com/path/to/image.jpg"
-    />
-
-    <!-- Structured Data (JSON-LD) for SEO -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "Electrical Budget Estimator for Indian Construction",
-        "description": "Calculate the electrical budget for your construction project with our free Electrical Budget Estimator. Estimate costs for sockets, switches, LED lights, ceiling fans, wires, electrical pipes, UPS, and labor breakdown.",
-        "url": "https://yourdomain.com/electrical-budget-estimator",
-        "publisher": {
-          "@type": "Organization",
-          "name": "Your Company Name",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://yourdomain.com/path/to/logo.png"
-          }
-        }
-      }
-    </script>
-
-    <!-- Bootstrap CSS -->
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      href="https://www.google.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-  </head>
-  <style>
-    body {
-      padding: 20px;
-      background-color: #f7f7f7;
-    }
-    .container {
-      max-width: 800px;
-      /* margin: auto; */
-      background: #fff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    h1,
-    h3,
-    h4 {
-      margin-bottom: 20px;
-    }
-    .result-section {
-      margin-top: 30px;
-      text-align: center;
-    }
 
-    /* Blog Section Styling */
-    .blog-section {
-      background-color: #e9ecef;
-      padding: 15px;
-      border-radius: 4px;
-      margin-bottom: 20px;
-    }
-    .blog-section h3 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    .blog-section p {
-      margin-bottom: 12px;
-      line-height: 1.6;
-      text-align: justify;
-    }
-
-    /* Ensure responsive margins */
-    @media (max-width: 576px) {
-      .container {
-        padding: 20px;
+    <!-- Custom Styles -->
+    <style>
+      :root {
+        --brand-color: #4f46e5;
+        --brand-color-hover: #4338ca;
+        --brand-color-light: #eef2ff;
+        --success-color: #16a34a;
+        --success-color-hover: #15803d;
+        --text-primary: #111827;
+        --text-secondary: #374151;
+        --text-light: #6b7280;
+        --bg-body: #f8fafc;
+        --bg-card: #ffffff;
+        --border-color: #d1d5db;
+        --border-radius-lg: 0.75rem;
+        --border-radius-md: 0.5rem;
       }
-    }
-  </style>
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-secondary);
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .container {
+        max-width: 56rem; /* 896px */
+        margin: 0 auto;
+        padding: 1rem;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      header h1,
+      header h2 {
+        margin: 0;
+      }
+
+      .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        text-align: left;
+      }
+
+      h1 {
+        font-size: 1.875rem; /* 30px */
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      h2 {
+        font-size: 1.5rem; /* 24px */
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+
+      h3 {
+        font-weight: 700;
+        font-size: 1.125rem; /* 18px */
+      }
+
+      header p {
+        color: var(--text-light);
+        margin-top: 0.5rem;
+      }
+
+      main {
+        background-color: var(--bg-card);
+        padding: 1.5rem;
+        border-radius: 1.5rem; /* 24px */
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+      }
+
+      .step-navigation {
+        display: flex;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 2rem;
+      }
+
+      .step-btn {
+        flex: 1;
+        padding: 0.75rem 0;
+        text-align: center;
+        font-weight: 600;
+        border: none;
+        border-bottom: 2px solid transparent;
+        background: none;
+        cursor: default;
+        color: var(--text-light);
+      }
+      .step-btn.active {
+        color: var(--brand-color);
+        border-bottom-color: var(--brand-color);
+      }
+
+      .step {
+        display: none;
+      }
+      .step.active {
+        display: block;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        margin-bottom: 0.25rem;
+      }
+
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-lg);
+        box-sizing: border-box;
+        transition: box-shadow 0.2s, border-color 0.2s;
+      }
+      input[type="number"]:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--brand-color);
+        box-shadow: 0 0 0 2px var(--brand-color-light);
+      }
+
+      #room-container {
+        margin-bottom: 1.5rem;
+      }
+      #room-container > .room-card + .room-card {
+        margin-top: 1rem;
+      }
+
+      .add-room-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .add-room-controls select {
+        flex-grow: 1;
+      }
+
+      .quality-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .quality-option {
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-lg);
+        cursor: pointer;
+        text-align: center;
+      }
+      .quality-option p {
+        font-size: 0.875rem;
+        color: var(--text-light);
+      }
+      /* Style label when its radio button is checked */
+      .quality-option:has(input:checked) {
+        background-color: var(--brand-color-light);
+        border-color: var(--brand-color);
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+
+      .form-navigation {
+        margin-top: 2.5rem;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .btn {
+        border: none;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--border-radius-lg);
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .btn-primary {
+        background-color: var(--brand-color);
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: var(--brand-color-hover);
+      }
+
+      .btn-secondary {
+        background-color: #e5e7eb;
+        color: var(--text-secondary);
+      }
+      .btn-secondary:hover {
+        background-color: #d1d5db;
+      }
+
+      .btn-submit {
+        background-color: var(--success-color);
+        color: white;
+        font-weight: 700;
+      }
+      .btn-submit:hover {
+        background-color: var(--success-color-hover);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      #results {
+        margin-top: 2.5rem;
+      }
+
+      .results-card {
+        background-color: var(--bg-card);
+        padding: 1.5rem;
+        border-radius: 1.5rem; /* 24px */
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+      }
+
+      .results-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .chart-container {
+        max-width: 24rem; /* 384px */
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      #grandTotal {
+        font-size: 3rem; /* 48px */
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+      }
+
+      .summary-details > .summary-item + .summary-item {
+        margin-top: 0.75rem;
+      }
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.125rem; /* 18px */
+      }
+      .summary-item span:first-child {
+        color: var(--text-light);
+      }
+      .summary-item span:last-child {
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
+      .summary-item-total {
+        border-top: 1px solid var(--border-color);
+        padding-top: 0.75rem;
+      }
+
+      .detailed-breakdown-container {
+        margin-top: 2rem;
+        border-top: 1px solid var(--border-color);
+        padding-top: 1.5rem;
+      }
+
+      /* Dynamically generated room card styles */
+      .room-card {
+        background-color: #f9fafb;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-lg);
+        padding: 1rem;
+      }
+      .room-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      .room-card-header h3 {
+        color: var(--text-secondary);
+      }
+
+      .remove-room-btn {
+        background: none;
+        border: none;
+        color: #ef4444;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .remove-room-btn:hover {
+        color: #b91c1c;
+      }
+
+      .room-card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        font-size: 0.875rem;
+      }
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .input-group label {
+        font-weight: 500;
+        color: var(--text-light);
+        margin-bottom: 0.25rem;
+      }
+
+      .quantity-input {
+        width: 70px;
+        text-align: center;
+        padding: 0.5rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-md);
+      }
+
+      /* Responsive styles */
+      @media (min-width: 640px) {
+        /* sm */
+        .quality-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (min-width: 768px) {
+        /* md */
+        .container {
+          padding: 2rem;
+        }
+        main,
+        .results-card {
+          padding: 2rem;
+        }
+        h1 {
+          font-size: 2.25rem; /* 36px */
+        }
+        .form-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .results-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .room-card-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (min-width: 1024px) {
+        /* lg */
+        .room-card-grid {
+          grid-template-columns: repeat(6, 1fr);
+        }
+      }
+    </style>
+  </head>
   <body>
-    <div class="back-button-container" style="padding: 1rem">
-      <a
-        href="index.html"
-        class="back-button"
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          background-color: #f3f4f6;
-          border: 1px solid #d1d5db;
-          border-radius: 0.375rem;
-          color: #374151;
-          text-decoration: none;
-          font-weight: 500;
-          transition: all 0.2s;
-        "
-      >
-        <span style="font-size: 1.2rem">←</span>
-        Back to Home
-      </a>
-    </div>
     <div class="container">
-      <!-- Header -->
       <header>
-        <h1>Indian Electrical Budget Estimator</h1>
-        <p>
-          Estimate the electrical cost for your construction project quickly and
-          accurately.
+        <h1>Electrical Budget Calculator</h1>
+        <p class="subtitle">
+          Estimate the complete electrical wiring cost for your new Indian home.
         </p>
       </header>
 
-      <!-- Blog Section: How to Use & Benefits -->
-      <div class="blog-section">
-        <h3>How to Use & Benefits</h3>
-        <p>
-          Welcome to our Electrical Budget Estimator—your free tool for gauging
-          the electrical expenses in your construction project. Simply enter key
-          details such as house area, number of floors, and room counts, along
-          with the quantities for various electrical components.
-        </p>
-        <p>
-          The calculator processes inputs for sockets, switches, LED lights,
-          ceiling fans, wires, electrical pipes, UPS, and even labor costs to
-          give you a comprehensive breakdown of both components and total labor
-          costs. You can compare different brand costs using our comparison
-          table and tailor the estimate by selecting a preferred brand range.
-        </p>
-        <p>
-          The benefits include precise cost estimations, clear cost
-          transparency, ease of budgeting, and the ability to generate detailed
-          PDF reports for record-keeping and further analysis. Begin by filling
-          out the form below to get your electrical budget estimation.
-        </p>
-      </div>
-
-      <!-- Input Form -->
-      <form id="electricalForm">
-        <!-- Project Details -->
-        <div class="row g-3">
-          <div class="col-md-4">
-            <label for="houseArea" class="form-label"
-              >House Area (sq.ft.)</label
-            >
-            <input type="number" class="form-control" id="houseArea" required />
-          </div>
-          <div class="col-md-4">
-            <label for="floors" class="form-label">Number of Floors</label>
-            <input type="number" class="form-control" id="floors" required />
-          </div>
-          <div class="col-md-4">
-            <label for="rooms" class="form-label">Total Number of Rooms</label>
-            <input type="number" class="form-control" id="rooms" required />
-          </div>
+      <main>
+        <div class="step-navigation">
+          <button id="step-btn-1" class="step-btn active">1. Basics</button>
+          <button id="step-btn-2" class="step-btn">2. Rooms</button>
+          <button id="step-btn-3" class="step-btn">3. Quality</button>
+          <button id="step-btn-4" class="step-btn">4. Labor</button>
         </div>
 
-        <hr class="my-4" />
+        <form id="electricalForm">
+          <!-- Step 1: Basic Details -->
+          <div id="step-1" class="step active">
+            <h2>Project Details</h2>
+            <div class="form-grid">
+              <div>
+                <label for="houseArea">Total Built-up Area (sq.ft.)</label>
+                <input
+                  type="number"
+                  id="houseArea"
+                  placeholder="e.g., 1200"
+                  required
+                />
+              </div>
+              <div>
+                <label for="floors">Number of Floors</label>
+                <input
+                  type="number"
+                  id="floors"
+                  placeholder="e.g., 2"
+                  value="1"
+                  required
+                />
+              </div>
+            </div>
+          </div>
 
-        <!-- Electrical Components -->
-        <div class="row g-3">
-          <!-- Existing Components -->
-          <div class="col-md-4">
-            <label for="sockets" class="form-label">Number of Sockets</label>
-            <input type="number" class="form-control" id="sockets" value="10" />
+          <!-- Step 2: Room Configuration -->
+          <div id="step-2" class="step">
+            <h2>Room & Point Configuration</h2>
+            <p class="description">
+              Add each room and specify the number of electrical points. We've
+              added some common defaults.
+            </p>
+            <div id="room-container">
+              <!-- Rooms will be added here dynamically -->
+            </div>
+            <div class="add-room-controls">
+              <select id="roomType">
+                <option value="Bedroom">Bedroom</option>
+                <option value="Living Room">Living Room / Hall</option>
+                <option value="Kitchen">Kitchen</option>
+                <option value="Bathroom">Bathroom</option>
+                <option value="Balcony">Balcony / Utility</option>
+                <option value="Staircase">Staircase / Passage</option>
+              </select>
+              <button type="button" id="addRoomBtn" class="btn btn-primary">
+                Add Room
+              </button>
+            </div>
           </div>
-          <div class="col-md-4">
-            <label for="switches" class="form-label">Number of Switches</label>
-            <input type="number" class="form-control" id="switches" value="8" />
+
+          <!-- Step 3: Material Quality & Add-ons -->
+          <div id="step-3" class="step">
+            <h2>Material Quality</h2>
+            <p class="description">
+              Choose the quality of materials. This significantly impacts the
+              overall cost.
+            </p>
+            <div class="quality-grid">
+              <label class="quality-option">
+                <input
+                  type="radio"
+                  name="brandPreference"
+                  value="economy"
+                  class="sr-only"
+                  checked
+                />
+                <h3>Economy</h3>
+                <p>
+                  Basic, functional materials. (e.g., Anchor Roma, Local Wires)
+                </p>
+              </label>
+              <label class="quality-option">
+                <input
+                  type="radio"
+                  name="brandPreference"
+                  value="mid"
+                  class="sr-only"
+                />
+                <h3>Mid-Range</h3>
+                <p>Good quality and durability. (e.g., Havells, Polycab)</p>
+              </label>
+              <label class="quality-option">
+                <input
+                  type="radio"
+                  name="brandPreference"
+                  value="premium"
+                  class="sr-only"
+                />
+                <h3>Premium</h3>
+                <p>High-end, modular, designer. (e.g., Legrand, Schneider)</p>
+              </label>
+            </div>
           </div>
-          <div class="col-md-4">
-            <label for="lights" class="form-label">Number of LED Lights</label>
-            <input type="number" class="form-control" id="lights" value="20" />
+
+          <!-- Step 4: Labor Cost -->
+          <div id="step-4" class="step">
+            <h2>Labor Cost Estimation</h2>
+            <p class="description">
+              Labor costs vary by city and contractor. Enter the rates prevalent
+              in your area.
+            </p>
+            <div class="form-grid">
+              <div>
+                <label for="laborPerPoint">Labor Rate per Point (₹)</label>
+                <input
+                  type="number"
+                  id="laborPerPoint"
+                  placeholder="e.g., 450"
+                  value="450"
+                />
+              </div>
+              <div>
+                <label for="mainPanelLabor"
+                  >Main Panel & Earthing Labor (₹)</label
+                >
+                <input
+                  type="number"
+                  id="mainPanelLabor"
+                  placeholder="e.g., 5000"
+                  value="5000"
+                />
+              </div>
+            </div>
           </div>
-          <!-- New Component: Ceiling Fans -->
-          <div class="col-md-4">
-            <label for="fans" class="form-label">Number of Ceiling Fans</label>
-            <input type="number" class="form-control" id="fans" value="5" />
-          </div>
-          <!-- New Component: Wires with Length and Thickness -->
-          <div class="col-md-4">
-            <label for="wires" class="form-label"
-              >Length of Wires (meters)</label
+
+          <!-- Navigation Buttons -->
+          <div class="form-navigation">
+            <button
+              type="button"
+              id="prevBtn"
+              class="btn btn-secondary"
+              disabled
             >
-            <input type="number" class="form-control" id="wires" value="100" />
+              Previous
+            </button>
+            <button type="button" id="nextBtn" class="btn btn-primary">
+              Next
+            </button>
+            <button type="submit" id="submitBtn" class="btn btn-submit hidden">
+              Calculate Budget
+            </button>
           </div>
-          <div class="col-md-4">
-            <label for="wireThickness" class="form-label">Wire Thickness</label>
-            <select class="form-select" id="wireThickness">
-              <option value="1.5">1.5 mm</option>
-              <option value="2.5">2.5 mm</option>
-              <option value="4">4 mm</option>
-            </select>
-          </div>
-          <!-- New Component: Electrical Pipes -->
-          <div class="col-md-4">
-            <label for="pipes" class="form-label"
-              >Number of Electrical Pipes</label
-            >
-            <input type="number" class="form-control" id="pipes" value="10" />
-          </div>
-          <!-- New Component: UPS -->
-          <div class="col-md-4">
-            <label for="ups" class="form-label">Number of UPS</label>
-            <input type="number" class="form-control" id="ups" value="1" />
-          </div>
-        </div>
+        </form>
+      </main>
 
-        <hr class="my-4" />
-
-        <!-- Brand Preference -->
-        <div class="mb-3">
-          <label class="form-label">Preferred Brand Range</label>
-          <select class="form-select" id="brandPreference">
-            <option value="economy">Economy</option>
-            <option value="mid">Mid-Range</option>
-            <option value="premium">Premium</option>
-          </select>
-        </div>
-
-        <hr class="my-4" />
-
-        <!-- Electrical Labor Cost Breakdown -->
-        <h4>Electrical Labor Cost Breakdown</h4>
-        <div class="row g-3">
-          <div class="col-md-4">
-            <label for="wiringLabor" class="form-label"
-              >Wiring Labor Cost (₹)</label
-            >
-            <input
-              type="number"
-              class="form-control"
-              id="wiringLabor"
-              value="0"
-            />
-          </div>
-          <div class="col-md-4">
-            <label for="fittingLabor" class="form-label"
-              >Fitting Labor Cost (₹)</label
-            >
-            <input
-              type="number"
-              class="form-control"
-              id="fittingLabor"
-              value="0"
-            />
-          </div>
-          <div class="col-md-4">
-            <label for="otherLabor" class="form-label"
-              >Other Labor Cost (₹)</label
-            >
-            <input
-              type="number"
-              class="form-control"
-              id="otherLabor"
-              value="0"
-            />
-          </div>
-        </div>
-
-        <hr class="my-4" />
-
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary">
-            Calculate Budget
+      <!-- Results Section (Initially Hidden) -->
+      <section id="results" class="hidden">
+        <header class="results-header">
+          <h2>Your Estimated Budget</h2>
+          <button id="downloadPdfBtn" class="btn btn-primary">
+            Download PDF
           </button>
+        </header>
+        <div class="results-card">
+          <div class="results-grid">
+            <div class="chart-container">
+              <canvas id="costChart"></canvas>
+            </div>
+            <div>
+              <p>Total Estimated Cost</p>
+              <p id="grandTotal">₹0</p>
+              <div class="summary-details">
+                <div class="summary-item">
+                  <span>Total Material Cost:</span>
+                  <span id="totalMaterialCost">₹0</span>
+                </div>
+                <div class="summary-item">
+                  <span>Total Labor Cost:</span>
+                  <span id="totalLaborCost">₹0</span>
+                </div>
+                <div class="summary-item summary-item-total">
+                  <span>Total Electrical Points:</span>
+                  <span id="totalPoints">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="detailed-breakdown-container">
+            <h3>Detailed Material Breakdown</h3>
+            <div id="detailed-breakdown">
+              <!-- Detailed breakdown will be populated here -->
+            </div>
+          </div>
         </div>
-      </form>
-
-      <!-- Results Section -->
-      <section class="result-section">
-        <h3>Estimation Results</h3>
-        <div id="summary" class="mb-3"></div>
-
-        <!-- Brand Comparison Table (for components with brand data) -->
-        <h4 class="mt-4">Branded Cost Comparison</h4>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>Havells (₹)</th>
-              <th>Anchor (₹)</th>
-              <th>Schneider (₹)</th>
-            </tr>
-          </thead>
-          <tbody id="brandComparison">
-            <!-- Rows will be injected by JavaScript -->
-          </tbody>
-        </table>
       </section>
     </div>
 
-    <!-- JavaScript -->
     <script>
-      // Sample market cost data (per unit cost in INR)
-      const costData = {
-        sockets: {
-          economy: 50,
-          mid: 80,
-          premium: 120,
-          brands: { Havells: 80, Anchor: 70, Schneider: 90 },
-        },
-        switches: {
-          economy: 30,
-          mid: 50,
-          premium: 80,
-          brands: { Havells: 55, Anchor: 45, Schneider: 60 },
-        },
-        lights: {
-          economy: 100,
-          mid: 150,
-          premium: 250,
-          brands: { Havells: 160, Anchor: 140, Schneider: 170 },
-        },
-        fans: {
-          economy: 1500,
-          mid: 2500,
-          premium: 4000,
-        },
-        // Wires: cost depends on both brand preference and wire thickness
-        wires: {
-          economy: { 1.5: 20, 2.5: 35, 4: 50 },
-          mid: { 1.5: 30, 2.5: 45, 4: 60 },
-          premium: { 1.5: 40, 2.5: 60, 4: 80 },
-        },
-        electricalPipes: {
-          economy: 100,
-          mid: 150,
-          premium: 200,
-        },
-        ups: {
-          economy: 3000,
-          mid: 4500,
-          premium: 6000,
-        },
-      };
+      document.addEventListener("DOMContentLoaded", function () {
+        // --- STATE MANAGEMENT ---
+        let currentStep = 1;
+        const totalSteps = 4;
+        let rooms = [];
+        let chartInstance = null;
+        let lastCalculationData = null;
 
-      document
-        .getElementById("electricalForm")
-        .addEventListener("submit", function (e) {
+        // --- DOM ELEMENTS ---
+        const stepButtons = document.querySelectorAll(".step-btn");
+        const steps = document.querySelectorAll(".step");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const submitBtn = document.getElementById("submitBtn");
+        const addRoomBtn = document.getElementById("addRoomBtn");
+        const roomContainer = document.getElementById("room-container");
+        const form = document.getElementById("electricalForm");
+        const resultsSection = document.getElementById("results");
+        const downloadPdfBtn = document.getElementById("downloadPdfBtn");
+
+        // --- COST DATA (INR) ---
+        const costData = {
+          items: {
+            lightPoint: { economy: 450, mid: 700, premium: 1500 },
+            fanPoint: { economy: 2000, mid: 3500, premium: 6000 },
+            socket6A: { economy: 300, mid: 500, premium: 900 },
+            socket16A: { economy: 550, mid: 800, premium: 1300 },
+            acPoint: { economy: 1200, mid: 1800, premium: 2500 },
+            tvPoint: { economy: 400, mid: 650, premium: 1100 },
+          },
+          commonMaterials: {
+            pipe: { economy: 8, mid: 12, premium: 20 },
+            mainWire: { economy: 15, mid: 25, premium: 45 },
+            db: { economy: 4, mid: 7, premium: 12 },
+          },
+        };
+
+        // --- DEFAULTS ---
+        const roomDefaults = {
+          Bedroom: {
+            lights: 3,
+            fans: 1,
+            sockets6A: 4,
+            sockets16A: 1,
+            acs: 1,
+            tvs: 1,
+          },
+          "Living Room": {
+            lights: 4,
+            fans: 2,
+            sockets6A: 5,
+            sockets16A: 1,
+            acs: 1,
+            tvs: 1,
+          },
+          Kitchen: {
+            lights: 2,
+            fans: 0,
+            sockets6A: 3,
+            sockets16A: 3,
+            acs: 0,
+            tvs: 0,
+          },
+          Bathroom: {
+            lights: 2,
+            fans: 0,
+            sockets6A: 1,
+            sockets16A: 1,
+            acs: 0,
+            tvs: 0,
+          },
+          Balcony: {
+            lights: 1,
+            fans: 0,
+            sockets6A: 1,
+            sockets16A: 0,
+            acs: 0,
+            tvs: 0,
+          },
+          Staircase: {
+            lights: 2,
+            fans: 0,
+            sockets6A: 1,
+            sockets16A: 0,
+            acs: 0,
+            tvs: 0,
+          },
+        };
+
+        // --- FUNCTIONS ---
+        function updateStepVisibility() {
+          steps.forEach((step, index) => {
+            step.classList.toggle("active", index + 1 === currentStep);
+          });
+          stepButtons.forEach((btn, index) => {
+            btn.classList.toggle("active", index < currentStep);
+          });
+          prevBtn.disabled = currentStep === 1;
+          nextBtn.classList.toggle("hidden", currentStep === totalSteps);
+          submitBtn.classList.toggle("hidden", currentStep !== totalSteps);
+        }
+
+        function addRoom() {
+          const roomType = document.getElementById("roomType").value;
+          const roomId = `room-${Date.now()}`;
+          const defaults = roomDefaults[roomType];
+          const room = { id: roomId, type: roomType, ...defaults };
+          rooms.push(room);
+          renderRooms();
+        }
+
+        function renderRooms() {
+          roomContainer.innerHTML = rooms
+            .map(
+              (room) => `
+                    <div id="${room.id}" class="room-card">
+                        <div class="room-card-header">
+                            <h3>${room.type}</h3>
+                            <button type="button" class="remove-room-btn" data-id="${
+                              room.id
+                            }">Remove</button>
+                        </div>
+                        <div class="room-card-grid">
+                            ${createInput(
+                              "lights",
+                              "Lights",
+                              room.id,
+                              room.lights
+                            )}
+                            ${createInput("fans", "Fans", room.id, room.fans)}
+                            ${createInput(
+                              "sockets6A",
+                              "6A Sockets",
+                              room.id,
+                              room.sockets6A
+                            )}
+                            ${createInput(
+                              "sockets16A",
+                              "16A Sockets",
+                              room.id,
+                              room.sockets16A
+                            )}
+                            ${createInput(
+                              "acs",
+                              "AC Points",
+                              room.id,
+                              room.acs
+                            )}
+                            ${createInput("tvs", "TV/Data", room.id, room.tvs)}
+                        </div>
+                    </div>
+                `
+            )
+            .join("");
+        }
+
+        function createInput(name, label, id, value) {
+          return `
+                    <div class="input-group">
+                        <label>${label}</label>
+                        <input type="number" data-room-id="${id}" data-point-type="${name}" class="quantity-input" value="${value}" min="0">
+                    </div>
+                `;
+        }
+
+        function removeRoom(roomId) {
+          rooms = rooms.filter((room) => room.id !== roomId);
+          renderRooms();
+        }
+
+        function updateRoomData(roomId, pointType, value) {
+          const room = rooms.find((r) => r.id === roomId);
+          if (room) {
+            room[pointType] = parseInt(value, 10) || 0;
+          }
+        }
+
+        function calculateBudget(e) {
           e.preventDefault();
+          const houseArea =
+            parseFloat(document.getElementById("houseArea").value) || 0;
+          const quality = document.querySelector(
+            'input[name="brandPreference"]:checked'
+          ).value;
+          const laborPerPoint =
+            parseFloat(document.getElementById("laborPerPoint").value) || 0;
+          const mainPanelLabor =
+            parseFloat(document.getElementById("mainPanelLabor").value) || 0;
 
-          // Retrieve input values for components
-          const sockets = parseInt(
-            document.getElementById("sockets").value,
-            10
+          const totalPoints = rooms.reduce(
+            (acc, room) =>
+              acc +
+              room.lights +
+              room.fans +
+              room.sockets6A +
+              room.sockets16A +
+              room.acs +
+              room.tvs,
+            0
           );
-          const switches = parseInt(
-            document.getElementById("switches").value,
-            10
+
+          const pointCosts = rooms.reduce(
+            (acc, room) => {
+              acc.lights += room.lights * costData.items.lightPoint[quality];
+              acc.fans += room.fans * costData.items.fanPoint[quality];
+              acc.sockets6A +=
+                room.sockets6A * costData.items.socket6A[quality];
+              acc.sockets16A +=
+                room.sockets16A * costData.items.socket16A[quality];
+              acc.acs += room.acs * costData.items.acPoint[quality];
+              acc.tvs += room.tvs * costData.items.tvPoint[quality];
+              return acc;
+            },
+            { lights: 0, fans: 0, sockets6A: 0, sockets16A: 0, acs: 0, tvs: 0 }
           );
-          const lights = parseInt(document.getElementById("lights").value, 10);
-          const fans = parseInt(document.getElementById("fans").value, 10);
-          const wiresLength = parseInt(
-            document.getElementById("wires").value,
-            10
+
+          const totalPointMaterialCost = Object.values(pointCosts).reduce(
+            (a, b) => a + b,
+            0
           );
-          const wireThickness = document.getElementById("wireThickness").value;
-          const pipes = parseInt(document.getElementById("pipes").value, 10);
-          const ups = parseInt(document.getElementById("ups").value, 10);
-          const brandPref = document.getElementById("brandPreference").value;
+          const commonMaterialCost =
+            (costData.commonMaterials.pipe[quality] +
+              costData.commonMaterials.mainWire[quality] +
+              costData.commonMaterials.db[quality]) *
+            houseArea;
+          const totalMaterialCost = totalPointMaterialCost + commonMaterialCost;
+          const totalLaborCost = totalPoints * laborPerPoint + mainPanelLabor;
+          const grandTotal = totalMaterialCost + totalLaborCost;
 
-          // Retrieve labor cost inputs
-          const wiringLabor =
-            parseFloat(document.getElementById("wiringLabor").value) || 0;
-          const fittingLabor =
-            parseFloat(document.getElementById("fittingLabor").value) || 0;
-          const otherLabor =
-            parseFloat(document.getElementById("otherLabor").value) || 0;
-          const laborTotal = wiringLabor + fittingLabor + otherLabor;
+          lastCalculationData = {
+            grandTotal,
+            totalMaterialCost,
+            totalLaborCost,
+            totalPoints,
+            pointCosts,
+            commonMaterialCost,
+            houseArea,
+          };
 
-          // Calculate component costs based on brand preference
-          const costSockets = sockets * costData.sockets[brandPref];
-          const costSwitches = switches * costData.switches[brandPref];
-          const costLights = lights * costData.lights[brandPref];
-          const costFans = fans * costData.fans[brandPref];
-          const costWires =
-            wiresLength * costData.wires[brandPref][wireThickness];
-          const costPipes = pipes * costData.electricalPipes[brandPref];
-          const costUPS = ups * costData.ups[brandPref];
+          displayResults(lastCalculationData);
+        }
 
-          // Calculate total component cost and grand total (components + labor)
-          const componentsTotal =
-            costSockets +
-            costSwitches +
-            costLights +
-            costFans +
-            costWires +
-            costPipes +
-            costUPS;
-          const grandTotal = componentsTotal + laborTotal;
+        function displayResults(data) {
+          document.getElementById("grandTotal").textContent = `₹${Math.round(
+            data.grandTotal
+          ).toLocaleString("en-IN")}`;
+          document.getElementById(
+            "totalMaterialCost"
+          ).textContent = `₹${Math.round(data.totalMaterialCost).toLocaleString(
+            "en-IN"
+          )}`;
+          document.getElementById(
+            "totalLaborCost"
+          ).textContent = `₹${Math.round(data.totalLaborCost).toLocaleString(
+            "en-IN"
+          )}`;
+          document.getElementById("totalPoints").textContent = data.totalPoints;
 
-          // Update summary
-          document.getElementById("summary").innerHTML = `
-          <p><strong>Grand Total Estimated Cost:</strong> ₹${grandTotal.toLocaleString()}</p>
-          <p>
-            <strong>Components:</strong> ₹${componentsTotal.toLocaleString()}<br/>
-            Sockets: ₹${costSockets.toLocaleString()} | Switches: ₹${costSwitches.toLocaleString()} | LED Lights: ₹${costLights.toLocaleString()} | Ceiling Fans: ₹${costFans.toLocaleString()}<br/>
-            Wires: ₹${costWires.toLocaleString()} | Electrical Pipes: ₹${costPipes.toLocaleString()} | UPS: ₹${costUPS.toLocaleString()}<br/>
-            <strong>Labor:</strong> ₹${laborTotal.toLocaleString()} (Wiring: ₹${wiringLabor.toLocaleString()}, Fitting: ₹${fittingLabor.toLocaleString()}, Other: ₹${otherLabor.toLocaleString()})
-          </p>
-        `;
+          const breakdownContainer =
+            document.getElementById("detailed-breakdown");
+          breakdownContainer.innerHTML = `
+                    <div class="summary-item"><span>Light Points Cost:</span> <span>₹${Math.round(
+                      data.pointCosts.lights
+                    ).toLocaleString("en-IN")}</span></div>
+                    <div class="summary-item"><span>Fan Points Cost:</span> <span>₹${Math.round(
+                      data.pointCosts.fans
+                    ).toLocaleString("en-IN")}</span></div>
+                    <div class="summary-item"><span>6A Socket Points Cost:</span> <span>₹${Math.round(
+                      data.pointCosts.sockets6A
+                    ).toLocaleString("en-IN")}</span></div>
+                    <div class="summary-item"><span>16A Socket Points Cost:</span> <span>₹${Math.round(
+                      data.pointCosts.sockets16A
+                    ).toLocaleString("en-IN")}</span></div>
+                    <div class="summary-item"><span>AC & TV Points Cost:</span> <span>₹${Math.round(
+                      data.pointCosts.acs + data.pointCosts.tvs
+                    ).toLocaleString("en-IN")}</span></div>
+                    <div class="summary-item summary-item-total"><span>Pipes, Wires, DB etc. (based on ${
+                      data.houseArea
+                    } sq.ft.):</span> <span>₹${Math.round(
+            data.commonMaterialCost
+          ).toLocaleString("en-IN")}</span></div>
+                `;
 
-          // Update Brand Comparison Table (for components with brand data)
-          document.getElementById("brandComparison").innerHTML = `
-          <tr>
-            <td>Sockets</td>
-            <td>₹${costData.sockets.brands.Havells}</td>
-            <td>₹${costData.sockets.brands.Anchor}</td>
-            <td>₹${costData.sockets.brands.Schneider}</td>
-          </tr>
-          <tr>
-            <td>Switches</td>
-            <td>₹${costData.switches.brands.Havells}</td>
-            <td>₹${costData.switches.brands.Anchor}</td>
-            <td>₹${costData.switches.brands.Schneider}</td>
-          </tr>
-          <tr>
-            <td>LED Lights</td>
-            <td>₹${costData.lights.brands.Havells}</td>
-            <td>₹${costData.lights.brands.Anchor}</td>
-            <td>₹${costData.lights.brands.Schneider}</td>
-          </tr>
-        `;
+          resultsSection.classList.remove("hidden");
+          window.scrollTo({
+            top: resultsSection.offsetTop - 20,
+            behavior: "smooth",
+          });
+
+          renderChart(data.totalMaterialCost, data.totalLaborCost);
+        }
+
+        function renderChart(material, labor) {
+          const ctx = document.getElementById("costChart").getContext("2d");
+          if (chartInstance) {
+            chartInstance.destroy();
+          }
+          chartInstance = new Chart(ctx, {
+            type: "doughnut",
+            data: {
+              labels: ["Material Cost", "Labor Cost"],
+              datasets: [
+                {
+                  data: [material, labor],
+                  backgroundColor: ["#4f46e5", "#10b981"],
+                  borderColor: "#ffffff",
+                  borderWidth: 4,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              cutout: "70%",
+              plugins: {
+                legend: {
+                  position: "bottom",
+                  labels: { padding: 20, font: { size: 14 } },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (context) =>
+                      `${context.label || ""}: ${new Intl.NumberFormat(
+                        "en-IN",
+                        {
+                          style: "currency",
+                          currency: "INR",
+                          minimumFractionDigits: 0,
+                        }
+                      ).format(context.parsed)}`,
+                  },
+                },
+              },
+            },
+          });
+        }
+
+        function generatePDF() {
+          if (!lastCalculationData) {
+            alert("Please calculate the budget first before downloading.");
+            return;
+          }
+
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF();
+          const data = lastCalculationData;
+          const today = new Date().toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          });
+
+          // Title
+          doc.setFontSize(20);
+          doc.text("Electrical Budget Estimation", 105, 20, {
+            align: "center",
+          });
+          doc.setFontSize(12);
+          doc.setTextColor(100);
+          doc.text(`Generated on: ${today}`, 105, 28, { align: "center" });
+
+          let yPos = 45;
+
+          // Summary Section
+          doc.setFontSize(16);
+          doc.setTextColor(0);
+          doc.text("Cost Summary", 20, yPos);
+          doc.setLineWidth(0.5);
+          doc.line(20, yPos + 2, 190, yPos + 2);
+          yPos += 12;
+
+          doc.setFontSize(12);
+          doc.text(`Total Estimated Cost:`, 20, yPos);
+          doc.text(
+            `₹${Math.round(data.grandTotal).toLocaleString("en-IN")}`,
+            190,
+            yPos,
+            { align: "right" }
+          );
+          yPos += 10;
+          doc.text(`Total Material Cost:`, 20, yPos);
+          doc.text(
+            `₹${Math.round(data.totalMaterialCost).toLocaleString("en-IN")}`,
+            190,
+            yPos,
+            { align: "right" }
+          );
+          yPos += 10;
+          doc.text(`Total Labor Cost:`, 20, yPos);
+          doc.text(
+            `₹${Math.round(data.totalLaborCost).toLocaleString("en-IN")}`,
+            190,
+            yPos,
+            { align: "right" }
+          );
+          yPos += 10;
+          doc.text(`Total Electrical Points:`, 20, yPos);
+          doc.text(`${data.totalPoints}`, 190, yPos, { align: "right" });
+
+          // Room Configuration Section
+          yPos += 20;
+          doc.setFontSize(16);
+          doc.text("Room Configuration", 20, yPos);
+          doc.line(20, yPos + 2, 190, yPos + 2);
+          yPos += 12;
+          doc.setFontSize(12);
+
+          const roomSummary = rooms.reduce((acc, room) => {
+            acc[room.type] = (acc[room.type] || 0) + 1;
+            return acc;
+          }, {});
+
+          for (const [roomType, count] of Object.entries(roomSummary)) {
+            doc.text(`${count} x ${roomType}`, 20, yPos);
+            yPos += 7;
+          }
+
+          // Material Breakdown Section
+          yPos += 10;
+          doc.setFontSize(16);
+          doc.text("Material Cost Breakdown", 20, yPos);
+          doc.line(20, yPos + 2, 190, yPos + 2);
+          yPos += 12;
+          doc.setFontSize(12);
+
+          const breakdownItems = [
+            { label: "Light Points Cost:", value: data.pointCosts.lights },
+            { label: "Fan Points Cost:", value: data.pointCosts.fans },
+            {
+              label: "6A Socket Points Cost:",
+              value: data.pointCosts.sockets6A,
+            },
+            {
+              label: "16A Socket Points Cost:",
+              value: data.pointCosts.sockets16A,
+            },
+            {
+              label: "AC & TV Points Cost:",
+              value: data.pointCosts.acs + data.pointCosts.tvs,
+            },
+            {
+              label: `Pipes, Wires, DB etc. (for ${data.houseArea} sq.ft.):`,
+              value: data.commonMaterialCost,
+            },
+          ];
+
+          breakdownItems.forEach((item) => {
+            doc.text(item.label, 20, yPos);
+            doc.text(
+              `₹${Math.round(item.value).toLocaleString("en-IN")}`,
+              190,
+              yPos,
+              { align: "right" }
+            );
+            yPos += 7;
+          });
+
+          // Save the PDF
+          doc.save(`Electrical-Estimation-${Date.now()}.pdf`);
+        }
+
+        // --- EVENT LISTENERS ---
+        prevBtn.addEventListener("click", () => {
+          if (currentStep > 1) {
+            currentStep--;
+            updateStepVisibility();
+          }
         });
-    </script>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        nextBtn.addEventListener("click", () => {
+          if (currentStep < totalSteps) {
+            currentStep++;
+            updateStepVisibility();
+          }
+        });
+
+        addRoomBtn.addEventListener("click", addRoom);
+        form.addEventListener("submit", calculateBudget);
+        downloadPdfBtn.addEventListener("click", generatePDF);
+
+        roomContainer.addEventListener("change", (e) => {
+          if (e.target.matches('input[type="number"]')) {
+            const { roomId, pointType } = e.target.dataset;
+            updateRoomData(roomId, pointType, e.target.value);
+          }
+        });
+
+        roomContainer.addEventListener("click", (e) => {
+          if (e.target.matches(".remove-room-btn")) {
+            removeRoom(e.target.dataset.id);
+          }
+        });
+
+        // --- INITIALIZATION ---
+        addRoomBtn.click();
+        document.getElementById("roomType").value = "Living Room";
+        addRoomBtn.click();
+        document.getElementById("roomType").value = "Kitchen";
+        addRoomBtn.click();
+        updateStepVisibility();
+      });
+    </script>
   </body>
 </html>
