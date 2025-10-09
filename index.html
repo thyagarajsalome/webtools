@@ -1,461 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="p:domain_verify" content="80b699c05b55f8981cec0c1e0d20172d" />
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Free House Construction Cost Calculator - India | Tool Website
-    </title>
-
-    <link rel="stylesheet" href="./normalize.css" />
-    <link rel="stylesheet" href="./styles.css" />
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-
-    <meta
-      name="description"
-      content="Calculate accurate building costs for Indian homes with our free construction cost calculator. Estimate expenses for materials, flooring, paint, and more to budget smarter for your dream house."
-    />
-    <meta
-      name="keywords"
-      content="construction cost calculator India, house construction calculator, building materials estimate, flooring cost estimator, paint planner, plumbing cost tool, electrical budget calculator, home construction tools, Indian construction planner, renovation cost calculator"
-    />
-    <link rel="canonical" href="https://toolwebsite.in/" />
-    <meta
-      name="robots"
-      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-    />
-    <meta
-      name="google-site-verification"
-      content="aUWkECBSG9IdlrS3CPMfXZGygJ6lx-ClYdHdaJ8nY78"
-    />
-    <meta name="msvalidate.01" content="061B4082725F1B3C4EE90801D169C0C2" />
-
-    <meta
-      property="og:title"
-      content="Free House Construction Cost Calculator for India"
-    />
-    <meta
-      property="og:description"
-      content="Free, easy-to-use house construction calculator with detailed breakdowns for Indian homeowners. Plan, budget, and build smarter with Tool Website."
-    />
-    <meta property="og:url" content="https://toolwebsite.in/" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:image"
-      content="https://toolwebsite.in/images/social_card.png"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Free House Construction Cost Calculator for India"
-    />
-    <meta
-      name="twitter:description"
-      content="Estimate your construction costs and get clarity on home building budgets. Designed specifically for India."
-    />
-    <meta
-      name="twitter:image"
-      content="https://toolwebsite.in/images/social_card.png"
-    />
-
+    <title>Dreamhome Calculator</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#359EFF" />
+    <link rel="apple-touch-icon" href="/images/icon-192x192.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Tool Website - Construction Calculator",
-        "description": "Free construction planning tools for Indian homeowners to accurately estimate building costs.",
-        "url": "https://toolwebsite.in",
-        "applicationCategory": "ConstructionApplication",
-        "operatingSystem": "Any",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "INR"
-        },
-        "featureList": [
-          "House Construction Calculator",
-          "Floor & Wall Tile Calculator",
-          "Paint Calculator",
-          "Plumbing Cost Estimator",
-          "Electrical Cost Calculator",
-          "Doors & Windows Calculator"
-        ],
-        "provider": {
-          "@type": "Organization",
-          "name": "Tool Website",
-          "url": "https://toolwebsite.in"
-        },
-        // SEO NOTE: Ensure you have visible user reviews on your page to justify this AggregateRating.
-        // If not, it can be seen as spammy by search engines.
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.8",
-          "ratingCount": "256"
-        }
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Tool Website",
-        "url": "https://toolwebsite.in",
-        "logo": "https://toolwebsite.in/images/logo.png",
-        "sameAs": [
-          "https://facebook.com/toolwebsite",
-          "https://twitter.com/toolwebsite",
-          "https://linkedin.com/company/toolwebsite"
-        ]
-      }
-    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
-
   <body>
-    <!-- Header and Navigation -->
-    <header class="header-bar">
-      <div class="container nav-container">
-        <a href="/" class="logo-link">
-          <img
-            src="./logo-tw.png"
-            alt="Tool Website Construction Calculator Logo"
-            width="120"
-            class="logo"
-            loading="lazy"
-          />
-        </a>
-
-        <div class="menu-icon" id="menuIcon">
-          <span class="bars"><i class="fas fa-bars"></i></span>
-        </div>
-
-        <ul id="navMenu" class="nav-menu">
-          <li>
-            <a href="#home" aria-current="page"
-              ><i class="fas fa-home"></i> Home</a
-            >
-          </li>
-          <li>
-            <a href="#about-page"><i class="fas fa-info-circle"></i> About</a>
-          </li>
-          <li>
-            <a href="#tools"><i class="fas fa-tools"></i> Tools</a>
-          </li>
-          <li>
-            <a href="./contact.html" target="_blank"
-              ><i class="fas fa-envelope"></i> Contact</a
-            >
-          </li>
-          <li>
-            <a href="./policy.html" target="_blank"
-              ><i class="fas fa-shield-alt"></i> Policy</a
-            >
-          </li>
-          <li>
-            <a href="./disclaimer.html" target="_blank"
-              ><i class="fas fa-exclamation-circle"></i> Disclaimer</a
-            >
-          </li>
-          <li>
-            <a href="./faq.html" target="_blank"
-              ><i class="fas fa-question-circle"></i> FAQ</a
-            >
-          </li>
-        </ul>
-      </div>
-    </header>
-
-    <!-- Main Content -->
-    <main>
-      <!-- Hero Section -->
-      <section class="hero" id="home" aria-label="Homepage Banner">
+    <div class="app-layout">
+      <header class="app-header">
         <div class="container">
-          <h1>Calculate House Construction Costs in India Instantly</h1>
-
-          <p class="hero-text">
-            Plan your budget, calculate construction costs, and make informed
-            decisions for your dream home with our easy-to-use tools.
-          </p>
-          <a href="#tools" class="cta-button"
-            >Explore Tools <i class="fas fa-arrow-right"></i
-          ></a>
-        </div>
-      </section>
-
-      <!-- About Section -->
-      <section class="about" id="about-page" aria-label="About Us">
-        <div class="container">
-          <h2><i class="fas fa-info-circle"></i> About</h2>
-          <div class="about-content">
-            <p>
-              Tool Website Hub is your comprehensive resource for construction
-              planning in India. We offer a full suite of planning tools
-              designed for homeowners, builders, and professionals alike. Our
-              calculators and estimators cover everything from house
-              construction costs, material and labour budgeting, floor & wall
-              tiling, paint calculation and visualization, to plumbing,
-              electrical planning, doors & windows cost, floor plan creation,
-              and even civil engineering estimation.
-            </p>
-            <div class="benefits-container">
-              <h3>Benefits</h3>
-              <ul class="benefits">
-                <li>
-                  <i class="fas fa-check-circle"></i> Accurate cost estimation
-                  based on the latest market trends
-                </li>
-                <li>
-                  <i class="fas fa-check-circle"></i> Location-specific pricing
-                  and material suggestions
-                </li>
-                <li>
-                  <i class="fas fa-check-circle"></i> User-friendly calculators
-                  and visualization tools
-                </li>
-                <li>
-                  <i class="fas fa-check-circle"></i> Completely free and
-                  continuously updated construction planning tools
-                </li>
-              </ul>
+          <div class="header-content">
+            <img src="./images/logo-brand.png" width="60" alt="" />
+            <h3><span>Dream</span> Home Calculator</h3>
+            <div class="header-actions">
+              <button id="theme-switcher" class="icon-btn">
+                <span class="material-symbols-outlined">brightness_6</span>
+              </button>
             </div>
           </div>
         </div>
-      </section>
+      </header>
 
-      <!-- Tools Section -->
-      <section class="tools-section" id="tools" aria-label="Construction Tools">
+      <main id="app-container" class="container"></main>
+
+      <footer class="app-footer">
         <div class="container">
-          <h2><i class="fas fa-tools"></i> Tools</h2>
-          <!-- The card container will be populated dynamically -->
-          <div class="tool-grid"></div>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container footer-container">
-        <!-- Footer Navigation Links -->
-        <nav class="footer-nav-container" aria-label="Footer Navigation">
-          <ul class="footer-nav">
-            <li>
-              <a href="#tools"><i class="fas fa-tools"></i> Tools</a>
-            </li>
-            <li>
-              <a href="#about-page"><i class="fas fa-info-circle"></i> About</a>
-            </li>
-            <li>
-              <a href="./contact.html" target="_blank"
-                ><i class="fas fa-envelope"></i> Contact</a
-              >
-            </li>
-            <li>
-              <a href="./policy.html" target="_blank"
-                ><i class="fas fa-shield-alt"></i> Policy</a
-              >
-            </li>
-            <li>
-              <a href="./disclaimer.html" target="_blank"
-                ><i class="fas fa-exclamation-circle"></i> Disclaimer</a
-              >
-            </li>
-            <li>
-              <a href="./faq.html" target="_blank"
-                ><i class="fas fa-question-circle"></i> FAQ</a
-              >
-            </li>
-          </ul>
-        </nav>
-
-        <!-- Footer Site Information -->
-        <div class="footer-info">
-          <p>&copy; 2025 Tool Website. All rights reserved.</p>
-
-          <p>Version 1. 2. 1</p>
-        </div>
-      </div>
-    </footer>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Define card data for the Tools section with icons instead of images
-        const cardsData = [
-          {
-            href: "./construction.html",
-            target: "_blank",
-            iconClass: "fas fa-home",
-            title: "House Construction",
-            description:
-              "Calculate total construction cost based on your requirements",
-          },
-          {
-            href: "./houseConstruction.html",
-            target: "",
-            iconClass: "fas fa-hammer",
-            title: "Material & Labour",
-            description:
-              "Calculate total construction cost based on your requirements",
-          },
-          {
-            href: "./floorWall.html",
-            target: "_blank",
-            iconClass: "fas fa-th",
-            title: "Floor & Wall Tile",
-            description:
-              "Estimate flooring and wall tiling costs with material options",
-          },
-          {
-            href: "./paint.html",
-            target: "_blank",
-            iconClass: "fas fa-paint-roller",
-            title: "Paint Calculator",
-            description: "Calculate paint quantities and costs for your spaces",
-          },
-          {
-            href: "./plumbing.html",
-            target: "_blank",
-            iconClass: "fas fa-faucet",
-            title: "Plumbing Estimator",
-            description: "Estimate plumbing costs for your entire house",
-          },
-          {
-            href: "./electrical.html",
-            target: "_blank",
-            iconClass: "fas fa-bolt",
-            title: "Electrical Estimator",
-            description: "Plan your electrical layout and calculate costs",
-          },
-          {
-            href: "./door_window.html",
-            target: "_blank",
-            iconClass: "fas fa-door-open",
-            title: "Doors & Windows",
-            description: "Calculate costs for doors and windows installation",
-          },
-          {
-            href: "./PaintVisualization.html",
-            target: "_blank",
-            iconClass: "fas fa-palette",
-            title: "Paint Visualization",
-            description: "Choose Your Paint Color",
-          },
-        ];
-
-        // Populate the Tools section with cards from the array using icons
-        const toolGrid = document.querySelector(".tool-grid");
-        if (toolGrid) {
-          toolGrid.innerHTML = cardsData
-            .map((card) => {
-              return `
-          <article class="tool-card">
-            <a href="${card.href}" ${
-                card.target ? `target="${card.target}"` : ""
-              } class="tool-link">
-              <div class="card-icon">
-                <i class="${card.iconClass}"></i>
-              </div>
-              <h3>${card.title}</h3>
-              <p>${card.description}</p>
-              <span class="card-button">Use Tool <i class="fas fa-arrow-right"></i></span>
+          <div class="footer-nav">
+            <a class="nav-btn active" href="#" data-page="home">
+              <span class="material-symbols-outlined">home</span>
+              <span class="nav-text">Home</span>
             </a>
-          </article>
-        `;
-            })
-            .join("");
-        }
+            <a class="nav-btn" href="#" data-page="about">
+              <span class="material-symbols-outlined">info</span>
+              <span class="nav-text">About</span>
+            </a>
+            <a class="nav-btn" href="#" data-page="faq">
+              <span class="material-symbols-outlined">quiz</span>
+              <span class="nav-text">FAQ</span>
+            </a>
+            <a class="nav-btn" href="#" data-page="privacy">
+              <span class="material-symbols-outlined">privacy_tip</span>
+              <span class="nav-text">Privacy</span>
+            </a>
+            <a class="nav-btn" href="#" data-page="terms">
+              <span class="material-symbols-outlined">gavel</span>
+              <span class="nav-text">Terms</span>
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
 
-        // Navigation toggle behavior - FIXED VERSION
-        const menuIcon = document.getElementById("menuIcon"); // Define variables first
-        const navMenu = document.getElementById("navMenu");
-
-        if (menuIcon && navMenu) {
-          menuIcon.addEventListener("click", function (event) {
-            event.stopPropagation(); // Prevent the click from immediately being caught by document
-            navMenu.classList.toggle("active");
-          });
-
-          document.addEventListener("click", function (event) {
-            // Check if click is outside both the menu icon and the nav menu
-            if (
-              !menuIcon.contains(event.target) &&
-              !navMenu.contains(event.target)
-            ) {
-              navMenu.classList.remove("active");
-            }
-          });
-
-          const navLinks = navMenu.querySelectorAll("a");
-          navLinks.forEach((link) => {
-            link.addEventListener("click", function () {
-              navMenu.classList.remove("active");
-            });
-          });
-        }
-      });
-    </script>
+    <script src="/js/app.js"></script>
     <script>
-      // IndexNow integration
-      async function submitIndexNow(urls) {
-        try {
-          const response = await fetch("https://api.indexnow.org/IndexNow", {
-            method: "POST",
-            headers: { "Content-Type": "application/json; charset=utf-8" },
-            body: JSON.stringify({
-              host: "toolwebsite.in",
-              key: "90078fc84dad4358b98cbaa14fa4d4ea",
-              keyLocation:
-                "https://toolwebsite.in/90078fc84dad4358b98cbaa14fa4d4ea.txt",
-              urlList: urls,
-            }),
-          });
-
-          if (response.ok) {
-            console.log(
-              "IndexNow submission successful:",
-              await response.text()
-            );
-          } else {
-            console.error(
-              "IndexNow submission failed:",
-              response.status,
-              await response.text()
-            );
-          }
-        } catch (error) {
-          console.error("IndexNow error:", error);
-        }
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").then(
+            (registration) => {
+              console.log(
+                "✅ ServiceWorker registration successful with scope: ",
+                registration.scope
+              );
+            },
+            (err) => {
+              console.log("❌ ServiceWorker registration failed: ", err);
+            }
+          );
+        });
       }
-
-      // Example: Submit homepage + important pages
-      document.addEventListener("DOMContentLoaded", () => {
-        submitIndexNow([
-          "https://toolwebsite.in/",
-          "https://toolwebsite.in/construction.html",
-          "https://toolwebsite.in/houseConstruction.html",
-          "https://toolwebsite.in/floorWall.html",
-          "https://toolwebsite.in/paint.html",
-          "https://toolwebsite.in/plumbing.html",
-          "https://toolwebsite.in/electrical.html",
-          "https://toolwebsite.in/door_window.html",
-          "https://toolwebsite.in/PaintVisualization.html",
-        ]);
-      });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   </body>
 </html>
