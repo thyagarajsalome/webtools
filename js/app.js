@@ -506,6 +506,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
           function generatePDF() {
             if (!lastCalculationData) return;
+            const progressBar = document.getElementById("progress-container");
+            const progressText = progressBar.querySelector(".progress-text");
+            const progressBarFill = progressBar.querySelector(".progress-bar");
+            progressBar.classList.remove("hidden");
+            let progress = 0;
+            const interval = setInterval(() => {
+              progress += 10;
+              progressBarFill.style.setProperty("--progress", `${progress}%`);
+              progressText.textContent = `Downloading PDF... ${progress}%`;
+              if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                  progressBar.classList.add("hidden");
+                }, 500);
+              }
+            }, 100);
+
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             const data = lastCalculationData;
@@ -798,6 +815,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
           function generatePDF() {
             if (!lastCalculationData) return;
+
+            const progressBar = document.getElementById("progress-container");
+            const progressText = progressBar.querySelector(".progress-text");
+            const progressBarFill = progressBar.querySelector(".progress-bar");
+            progressBar.classList.remove("hidden");
+            let progress = 0;
+            const interval = setInterval(() => {
+              progress += 10;
+              progressBarFill.style.setProperty("--progress", `${progress}%`);
+              progressText.textContent = `Downloading PDF... ${progress}%`;
+              if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                  progressBar.classList.add("hidden");
+                }, 500);
+              }
+            }, 100);
+
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             const data = lastCalculationData;
@@ -1250,6 +1285,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
           function generatePDF() {
             if (!lastCalculationData) return;
+            const progressBar = document.getElementById("progress-container");
+            const progressText = progressBar.querySelector(".progress-text");
+            const progressBarFill = progressBar.querySelector(".progress-bar");
+            progressBar.classList.remove("hidden");
+            let progress = 0;
+            const interval = setInterval(() => {
+              progress += 10;
+              progressBarFill.style.setProperty("--progress", `${progress}%`);
+              progressText.textContent = `Downloading PDF... ${progress}%`;
+              if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                  progressBar.classList.add("hidden");
+                }, 500);
+              }
+            }, 100);
+
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             const data = lastCalculationData;
@@ -1688,6 +1740,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
           function generatePDF() {
             if (!lastCalculationData) return;
+            const progressBar = document.getElementById("progress-container");
+            const progressText = progressBar.querySelector(".progress-text");
+            const progressBarFill = progressBar.querySelector(".progress-bar");
+            progressBar.classList.remove("hidden");
+            let progress = 0;
+            const interval = setInterval(() => {
+              progress += 10;
+              progressBarFill.style.setProperty("--progress", `${progress}%`);
+              progressText.textContent = `Downloading PDF... ${progress}%`;
+              if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                  progressBar.classList.add("hidden");
+                }, 500);
+              }
+            }, 100);
+
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             const data = lastCalculationData;
@@ -2068,6 +2137,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
           function generatePDF() {
             if (!lastCalculationData) return;
+            const progressBar = document.getElementById("progress-container");
+            const progressText = progressBar.querySelector(".progress-text");
+            const progressBarFill = progressBar.querySelector(".progress-bar");
+            progressBar.classList.remove("hidden");
+            let progress = 0;
+            const interval = setInterval(() => {
+              progress += 10;
+              progressBarFill.style.setProperty("--progress", `${progress}%`);
+              progressText.textContent = `Downloading PDF... ${progress}%`;
+              if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                  progressBar.classList.add("hidden");
+                }, 500);
+              }
+            }, 100);
+
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             const data = lastCalculationData;
@@ -2429,6 +2515,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
           function generatePDF() {
             if (!lastCalculationData) return;
+            const progressBar = document.getElementById("progress-container");
+            const progressText = progressBar.querySelector(".progress-text");
+            const progressBarFill = progressBar.querySelector(".progress-bar");
+            progressBar.classList.remove("hidden");
+            let progress = 0;
+            const interval = setInterval(() => {
+              progress += 10;
+              progressBarFill.style.setProperty("--progress", `${progress}%`);
+              progressText.textContent = `Downloading PDF... ${progress}%`;
+              if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                  progressBar.classList.add("hidden");
+                }, 500);
+              }
+            }, 100);
+
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             const data = lastCalculationData;
@@ -2539,7 +2642,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         this.updateNav(pageName);
       } else {
-        fetch(`/${pageName}.html`)
+        fetch(`./${pageName}.html`)
           .then((response) =>
             response.ok ? response.text() : Promise.reject("Page not found")
           )
