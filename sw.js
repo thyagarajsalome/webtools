@@ -1,5 +1,5 @@
 // thyagarajsalome/dreamhome-pwa/dreamhome-pwa-e228f9cbd28c01dc658af560316564e882e1d39f/sw.js
-const CACHE_NAME = "dreamhome-calculator-cache-v3"; // Incremented version
+const CACHE_NAME = "dreamhome-calculator-cache-v4"; // Incremented version
 const urlsToCache = [
   "/",
   "/index.html",
@@ -26,16 +26,31 @@ self.addEventListener("install", (event) => {
   );
 });
 
+// fetch -start
+
+// ✅ The corrected "Stale-While-Revalidate" code
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) {
-        return response;
-      }
-      return fetch(event.request).catch(() => caches.match("/index.html")); // Fallback to home page if network fails
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.match(event.request).then((response) => {
+        // Go to the network to get a fresh version
+        const fetchPromise = fetch(event.request).then((networkResponse) => {
+          // If we get a valid response, update the cache
+          if (networkResponse) {
+            cache.put(event.request, networkResponse.clone());
+          }
+          return networkResponse;
+        });
+
+        // Return the cached version immediately if available,
+        // otherwise wait for the network response.
+        return response || fetchPromise;
+      });
     })
   );
 });
+
+// fetch-end
 
 self.addEventListener("activate", (event) => {
   const cacheWhitelist = [CACHE_NAME];
