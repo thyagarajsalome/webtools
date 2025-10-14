@@ -23,6 +23,47 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // --- Unified Share Function ---
+  async function shareResults() {
+    const resultsCard = document.getElementById("results-card");
+    if (!resultsCard) return;
+
+    const progressBar = document.getElementById("progress-container");
+    const progressText = progressBar.querySelector(".progress-text");
+    progressBar.classList.remove("hidden");
+    progressText.textContent = "Generating Image...";
+
+    try {
+      const canvas = await html2canvas(resultsCard);
+      canvas.toBlob(async (blob) => {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              files: [
+                new File([blob], "dreamhome-estimate.jpg", {
+                  type: "image/jpeg",
+                }),
+              ],
+              title: "DreamHome Construction Estimate",
+              text: "Here is my estimated budget from DreamHome Calculator.",
+            });
+          } catch (error) {
+            console.error("Sharing failed:", error);
+          }
+        } else {
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "dreamhome-estimate.jpg";
+          a.click();
+        }
+        progressBar.classList.add("hidden");
+      }, "image/jpeg");
+    } catch (error) {
+      console.error("Error generating image:", error);
+      progressBar.classList.add("hidden");
+    }
+  }
+
   const app = {
     templates: {
       home: `
@@ -342,8 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
         init: function () {
           let currentStep = 1,
             totalSteps = 3,
-            chartInstance = null,
-            lastCalculationData = null;
+            chartInstance = null;
           const costData = {
             perSqFtRate: { basic: 1600, mid: 1900, premium: 2400 },
             breakdownPercentage: {
@@ -396,22 +436,20 @@ document.addEventListener("DOMContentLoaded", () => {
               baseConstructionCost * (architectFeePercent / 100);
             const grandTotal =
               baseConstructionCost + permissionFees + architectFees;
-            lastCalculationData = {
+            displayResults({
               grandTotal,
               baseConstructionCost,
               breakdown,
               permissionFees,
               architectFees,
-              builtUpArea,
-            };
-            displayResults(lastCalculationData);
+            });
           }
 
           function displayResults(data) {
             const resultsSection = document.getElementById("results");
             resultsSection.innerHTML = `
-                            <header class="results-header"><h2>Your Estimated Budget</h2><button id="downloadPdfBtn" class="btn btn-primary">Download PDF</button></header>
-                            <div class="results-card">
+                            <header class="results-header"><h2>Your Estimated Budget</h2><button id="shareBtn" class="btn btn-primary">Share</button></header>
+                            <div class="results-card" id="results-card">
                                 <div class="results-grid">
                                     <div class="chart-container"><canvas id="costChart"></canvas></div>
                                     <div>
@@ -452,8 +490,8 @@ document.addEventListener("DOMContentLoaded", () => {
                             </div>`;
             resultsSection.classList.remove("hidden");
             document
-              .getElementById("downloadPdfBtn")
-              .addEventListener("click", generatePDF);
+              .getElementById("shareBtn")
+              .addEventListener("click", shareResults);
             window.scrollTo({
               top: resultsSection.offsetTop - 20,
               behavior: "smooth",
@@ -504,98 +542,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
           }
 
-          function generatePDF() {
-            if (!lastCalculationData) return;
-            const progressBar = document.getElementById("progress-container");
-            const progressText = progressBar.querySelector(".progress-text");
-            const progressBarFill = progressBar.querySelector(".progress-bar");
-            progressBar.classList.remove("hidden");
-            let progress = 0;
-            const interval = setInterval(() => {
-              progress += 10;
-              progressBarFill.style.setProperty("--progress", `${progress}%`);
-              progressText.textContent = `Downloading PDF... ${progress}%`;
-              if (progress >= 100) {
-                clearInterval(interval);
-                setTimeout(() => {
-                  progressBar.classList.add("hidden");
-                }, 500);
-              }
-            }, 100);
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const data = lastCalculationData;
-            const today = new Date().toLocaleDateString("en-IN");
-            doc.setFontSize(20);
-            doc.text("House Construction Estimation", 105, 20, {
-              align: "center",
-            });
-            doc.setFontSize(12);
-            doc.setTextColor(100);
-            doc.text(`Generated on: ${today}`, 105, 28, { align: "center" });
-            let y = 45;
-            doc.setFontSize(16);
-            doc.setTextColor(0);
-            doc.text("Overall Summary", 20, y);
-            doc.line(20, y + 2, 190, y + 2);
-            y += 12;
-            doc.setFontSize(12);
-            doc.text("Total Estimated Cost:", 20, y);
-            doc.text(
-              `₹${Math.round(data.grandTotal).toLocaleString("en-IN")}`,
-              190,
-              y,
-              { align: "right" }
-            );
-            y += 8;
-            doc.text(`Base Cost (${data.builtUpArea} sq.ft.):`, 20, y);
-            doc.text(
-              `₹${Math.round(data.baseConstructionCost).toLocaleString(
-                "en-IN"
-              )}`,
-              190,
-              y,
-              { align: "right" }
-            );
-            y += 8;
-            doc.text("Permission Fees:", 20, y);
-            doc.text(
-              `₹${Math.round(data.permissionFees).toLocaleString("en-IN")}`,
-              190,
-              y,
-              { align: "right" }
-            );
-            y += 8;
-            doc.text("Architect Fees:", 20, y);
-            doc.text(
-              `₹${Math.round(data.architectFees).toLocaleString("en-IN")}`,
-              190,
-              y,
-              { align: "right" }
-            );
-            y += 15;
-            doc.setFontSize(16);
-            doc.text("Stage-wise Breakdown", 20, y);
-            doc.line(20, y + 2, 190, y + 2);
-            y += 12;
-            doc.setFontSize(10);
-            Object.entries(data.breakdown).forEach(([key, value]) => {
-              const label = key
-                .replace(/([A-Z])/g, " $1")
-                .replace(/^./, (str) => str.toUpperCase());
-              doc.text(`- ${label}:`, 20, y);
-              doc.text(
-                `₹${Math.round(value).toLocaleString("en-IN")}`,
-                190,
-                y,
-                { align: "right" }
-              );
-              y += 7;
-            });
-            doc.save(`House-Construction-Estimation-${Date.now()}.pdf`);
-          }
-
           document.getElementById("prevBtn").addEventListener("click", () => {
             if (currentStep > 1) {
               currentStep--;
@@ -619,8 +565,7 @@ document.addEventListener("DOMContentLoaded", () => {
           let currentStep = 1,
             totalSteps = 3,
             areas = [],
-            chartInstance = null,
-            lastCalculationData = null;
+            chartInstance = null;
           const costData = {
             paintPerLitre: { basic: 250, premium: 450, luxury: 700 },
             coverageSqFtPerLitre: { basic: 130, premium: 150, luxury: 160 },
@@ -717,25 +662,22 @@ document.addEventListener("DOMContentLoaded", () => {
             const totalMaterialCost = paintCost + puttyCost;
             const totalLaborCost = paintingLaborCost + puttyLaborCost;
             const grandTotal = totalMaterialCost + totalLaborCost;
-            lastCalculationData = {
+            displayResults({
               grandTotal,
               totalMaterialCost,
               totalLaborCost,
-              totalArea,
               paintCost,
               puttyCost,
               paintingLaborCost,
               puttyLaborCost,
-              areas,
-            };
-            displayResults(lastCalculationData);
+            });
           }
 
           function displayResults(data) {
             const resultsSection = document.getElementById("results");
             resultsSection.innerHTML = `
-                                <header class="results-header"><h2>Your Estimated Budget</h2><button id="downloadPdfBtn" class="btn btn-primary">Download PDF</button></header>
-                                <div class="results-card">
+                                <header class="results-header"><h2>Your Estimated Budget</h2><button id="shareBtn" class="btn btn-primary">Share</button></header>
+                                <div class="results-card" id="results-card">
                                     <div class="results-grid">
                                         <div class="chart-container"><canvas id="costChart"></canvas></div>
                                         <div>
@@ -774,8 +716,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </div>`;
             resultsSection.classList.remove("hidden");
             document
-              .getElementById("downloadPdfBtn")
-              .addEventListener("click", generatePDF);
+              .getElementById("shareBtn")
+              .addEventListener("click", shareResults);
             window.scrollTo({
               top: resultsSection.offsetTop - 20,
               behavior: "smooth",
@@ -811,87 +753,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
               },
             });
-          }
-
-          function generatePDF() {
-            if (!lastCalculationData) return;
-
-            const progressBar = document.getElementById("progress-container");
-            const progressText = progressBar.querySelector(".progress-text");
-            const progressBarFill = progressBar.querySelector(".progress-bar");
-            progressBar.classList.remove("hidden");
-            let progress = 0;
-            const interval = setInterval(() => {
-              progress += 10;
-              progressBarFill.style.setProperty("--progress", `${progress}%`);
-              progressText.textContent = `Downloading PDF... ${progress}%`;
-              if (progress >= 100) {
-                clearInterval(interval);
-                setTimeout(() => {
-                  progressBar.classList.add("hidden");
-                }, 500);
-              }
-            }, 100);
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const data = lastCalculationData;
-            const today = new Date().toLocaleDateString("en-IN");
-            doc.setFontSize(20);
-            doc.text("Paint Project Estimation", 105, 20, { align: "center" });
-            doc.setFontSize(12);
-            doc.setTextColor(100);
-            doc.text(`Generated on: ${today}`, 105, 28, { align: "center" });
-            let y = 45;
-            doc.setFontSize(16);
-            doc.setTextColor(0);
-            doc.text("Summary", 20, y);
-            doc.line(20, y + 2, 190, y + 2);
-            y += 12;
-            doc.setFontSize(12);
-            doc.text("Total Cost:", 20, y);
-            doc.text(
-              `₹${Math.round(data.grandTotal).toLocaleString("en-IN")}`,
-              190,
-              y,
-              { align: "right" }
-            );
-            y += 8;
-            doc.text("Material Cost:", 20, y);
-            doc.text(
-              `₹${Math.round(data.totalMaterialCost).toLocaleString("en-IN")}`,
-              190,
-              y,
-              { align: "right" }
-            );
-            y += 8;
-            doc.text("Labor Cost:", 20, y);
-            doc.text(
-              `₹${Math.round(data.totalLaborCost).toLocaleString("en-IN")}`,
-              190,
-              y,
-              { align: "right" }
-            );
-            y += 15;
-            doc.setFontSize(16);
-            doc.text("Areas to be Painted", 20, y);
-            doc.line(20, y + 2, 190, y + 2);
-            y += 12;
-            doc.setFontSize(10);
-            data.areas.forEach((area) => {
-              doc.setFillColor(area.color);
-              doc.rect(20, y - 4, 5, 5, "F");
-              doc.setTextColor(0);
-              doc.text(
-                `- ${area.name}: ${area.length}' x ${area.height}' = ${(
-                  area.length * area.height
-                ).toFixed(2)} sq.ft.`,
-                30,
-                y
-              );
-              y += 7;
-            });
-            doc.save(`Paint-Estimation-${Date.now()}.pdf`);
           }
 
           document
@@ -941,8 +802,7 @@ document.addEventListener("DOMContentLoaded", () => {
           let currentStep = 1,
             totalSteps = 4,
             rooms = [],
-            chartInstance = null,
-            lastCalculationData = null;
+            chartInstance = null;
           const costData = {
             items: {
               lightPoint: { economy: 450, mid: 700, premium: 1500 },
@@ -1165,7 +1025,7 @@ document.addEventListener("DOMContentLoaded", () => {
               totalPointMaterialCost + commonMaterialCost;
             const totalLaborCost = totalPoints * laborPerPoint + mainPanelLabor;
             const grandTotal = totalMaterialCost + totalLaborCost;
-            lastCalculationData = {
+            displayResults({
               grandTotal,
               totalMaterialCost,
               totalLaborCost,
@@ -1173,15 +1033,14 @@ document.addEventListener("DOMContentLoaded", () => {
               pointCosts,
               commonMaterialCost,
               houseArea,
-            };
-            displayResults(lastCalculationData);
+            });
           }
 
           function displayResults(data) {
             const resultsSection = document.getElementById("results");
             resultsSection.innerHTML = `
-                                <header class="results-header"><h2>Your Estimated Budget</h2><button id="downloadPdfBtn" class="btn btn-primary">Download PDF</button></header>
-                                <div class="results-card">
+                                <header class="results-header"><h2>Your Estimated Budget</h2><button id="shareBtn" class="btn btn-primary">Share</button></header>
+                                <div class="results-card" id="results-card">
                                     <div class="results-grid">
                                         <div class="chart-container"><canvas id="costChart"></canvas></div>
                                         <div>
@@ -1244,8 +1103,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </div>`;
             resultsSection.classList.remove("hidden");
             document
-              .getElementById("downloadPdfBtn")
-              .addEventListener("click", generatePDF);
+              .getElementById("shareBtn")
+              .addEventListener("click", shareResults);
             window.scrollTo({
               top: resultsSection.offsetTop - 20,
               behavior: "smooth",
@@ -1281,123 +1140,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
               },
             });
-          }
-
-          function generatePDF() {
-            if (!lastCalculationData) return;
-            const progressBar = document.getElementById("progress-container");
-            const progressText = progressBar.querySelector(".progress-text");
-            const progressBarFill = progressBar.querySelector(".progress-bar");
-            progressBar.classList.remove("hidden");
-            let progress = 0;
-            const interval = setInterval(() => {
-              progress += 10;
-              progressBarFill.style.setProperty("--progress", `${progress}%`);
-              progressText.textContent = `Downloading PDF... ${progress}%`;
-              if (progress >= 100) {
-                clearInterval(interval);
-                setTimeout(() => {
-                  progressBar.classList.add("hidden");
-                }, 500);
-              }
-            }, 100);
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const data = lastCalculationData;
-            const today = new Date().toLocaleDateString("en-IN");
-            doc.setFontSize(20);
-            doc.text("Electrical Budget Estimation", 105, 20, {
-              align: "center",
-            });
-            doc.setFontSize(12);
-            doc.setTextColor(100);
-            doc.text(`Generated on: ${today}`, 105, 28, { align: "center" });
-            let yPos = 45;
-            doc.setFontSize(16);
-            doc.setTextColor(0);
-            doc.text("Cost Summary", 20, yPos);
-            doc.setLineWidth(0.5);
-            doc.line(20, yPos + 2, 190, yPos + 2);
-            yPos += 12;
-            doc.setFontSize(12);
-            doc.text(`Total Estimated Cost:`, 20, yPos);
-            doc.text(
-              `₹${Math.round(data.grandTotal).toLocaleString("en-IN")}`,
-              190,
-              yPos,
-              { align: "right" }
-            );
-            yPos += 10;
-            doc.text(`Total Material Cost:`, 20, yPos);
-            doc.text(
-              `₹${Math.round(data.totalMaterialCost).toLocaleString("en-IN")}`,
-              190,
-              yPos,
-              { align: "right" }
-            );
-            yPos += 10;
-            doc.text(`Total Labor Cost:`, 20, yPos);
-            doc.text(
-              `₹${Math.round(data.totalLaborCost).toLocaleString("en-IN")}`,
-              190,
-              yPos,
-              { align: "right" }
-            );
-            yPos += 10;
-            doc.text(`Total Electrical Points:`, 20, yPos);
-            doc.text(`${data.totalPoints}`, 190, yPos, { align: "right" });
-            yPos += 20;
-            doc.setFontSize(16);
-            doc.text("Room Configuration", 20, yPos);
-            doc.line(20, yPos + 2, 190, yPos + 2);
-            yPos += 12;
-            doc.setFontSize(12);
-            const roomSummary = rooms.reduce((acc, room) => {
-              acc[room.type] = (acc[room.type] || 0) + 1;
-              return acc;
-            }, {});
-            for (const [roomType, count] of Object.entries(roomSummary)) {
-              doc.text(`${count} x ${roomType}`, 20, yPos);
-              yPos += 7;
-            }
-            yPos += 10;
-            doc.setFontSize(16);
-            doc.text("Material Cost Breakdown", 20, yPos);
-            doc.line(20, yPos + 2, 190, yPos + 2);
-            yPos += 12;
-            doc.setFontSize(12);
-            const breakdownItems = [
-              { label: "Light Points Cost:", value: data.pointCosts.lights },
-              { label: "Fan Points Cost:", value: data.pointCosts.fans },
-              {
-                label: "6A Socket Points Cost:",
-                value: data.pointCosts.sockets6A,
-              },
-              {
-                label: "16A Socket Points Cost:",
-                value: data.pointCosts.sockets16A,
-              },
-              {
-                label: "AC & TV Points Cost:",
-                value: data.pointCosts.acs + data.pointCosts.tvs,
-              },
-              {
-                label: `Pipes, Wires, DB etc. (for ${data.houseArea} sq.ft.):`,
-                value: data.commonMaterialCost,
-              },
-            ];
-            breakdownItems.forEach((item) => {
-              doc.text(item.label, 20, yPos);
-              doc.text(
-                `₹${Math.round(item.value).toLocaleString("en-IN")}`,
-                190,
-                yPos,
-                { align: "right" }
-              );
-              yPos += 7;
-            });
-            doc.save(`Electrical-Estimation-${Date.now()}.pdf`);
           }
 
           const addRoomBtn = document.getElementById("addRoomBtn");
@@ -1444,8 +1186,7 @@ document.addEventListener("DOMContentLoaded", () => {
           let currentStep = 1,
             totalSteps = 3,
             fixtureSets = [],
-            chartInstance = null,
-            lastCalculationData = null;
+            chartInstance = null;
           const costData = {
             perPoint: {
               wc: { economy: 7000, mid: 12000, premium: 25000 },
@@ -1633,24 +1374,21 @@ document.addEventListener("DOMContentLoaded", () => {
             );
             const totalLaborCost = totalPoints * laborPerPoint + mainlineLabor;
             const grandTotal = totalMaterialCost + totalLaborCost;
-            lastCalculationData = {
+            displayResults({
               grandTotal,
               totalMaterialCost,
               totalLaborCost,
               totalPoints,
               pointCosts,
               commonMaterialCost,
-              houseArea,
-              fixtureSets,
-            };
-            displayResults(lastCalculationData);
+            });
           }
 
           function displayResults(data) {
             const resultsSection = document.getElementById("results");
             resultsSection.innerHTML = `
-                                 <header class="results-header"><h2>Your Estimated Budget</h2><button id="downloadPdfBtn" class="btn btn-primary">Download PDF</button></header>
-                                <div class="results-card">
+                                 <header class="results-header"><h2>Your Estimated Budget</h2><button id="shareBtn" class="btn btn-primary">Share</button></header>
+                                <div class="results-card" id="results-card">
                                     <div class="results-grid">
                                         <div class="chart-container"><canvas id="costChart"></canvas></div>
                                         <div>
@@ -1699,8 +1437,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </div>`;
             resultsSection.classList.remove("hidden");
             document
-              .getElementById("downloadPdfBtn")
-              .addEventListener("click", generatePDF);
+              .getElementById("shareBtn")
+              .addEventListener("click", shareResults);
             window.scrollTo({
               top: resultsSection.offsetTop - 20,
               behavior: "smooth",
@@ -1736,114 +1474,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
               },
             });
-          }
-
-          function generatePDF() {
-            if (!lastCalculationData) return;
-            const progressBar = document.getElementById("progress-container");
-            const progressText = progressBar.querySelector(".progress-text");
-            const progressBarFill = progressBar.querySelector(".progress-bar");
-            progressBar.classList.remove("hidden");
-            let progress = 0;
-            const interval = setInterval(() => {
-              progress += 10;
-              progressBarFill.style.setProperty("--progress", `${progress}%`);
-              progressText.textContent = `Downloading PDF... ${progress}%`;
-              if (progress >= 100) {
-                clearInterval(interval);
-                setTimeout(() => {
-                  progressBar.classList.add("hidden");
-                }, 500);
-              }
-            }, 100);
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const data = lastCalculationData;
-            const today = new Date().toLocaleDateString("en-IN");
-            doc.setFontSize(20);
-            doc.text("Plumbing Budget Estimation", 105, 20, {
-              align: "center",
-            });
-            doc.setFontSize(12);
-            doc.setTextColor(100);
-            doc.text(`Generated on: ${today}`, 105, 28, { align: "center" });
-            let y = 45;
-            doc.setFontSize(16);
-            doc.setTextColor(0);
-            doc.text("Cost Summary", 20, y);
-            doc.line(20, y + 2, 190, y + 2);
-            y += 12;
-            const summaryItems = [
-              { label: "Total Estimated Cost:", value: data.grandTotal },
-              { label: "Total Material Cost:", value: data.totalMaterialCost },
-              { label: "Total Labor Cost:", value: data.totalLaborCost },
-            ];
-            doc.setFontSize(12);
-            summaryItems.forEach((item) => {
-              doc.text(item.label, 20, y);
-              doc.text(
-                `₹${Math.round(item.value).toLocaleString("en-IN")}`,
-                190,
-                y,
-                { align: "right" }
-              );
-              y += 8;
-            });
-            doc.text(`Total Fixture Points:`, 20, y);
-            doc.text(`${data.totalPoints}`, 190, y, { align: "right" });
-            y += 15;
-            doc.setFontSize(16);
-            doc.text("Fixture Details", 20, y);
-            doc.line(20, y + 2, 190, y + 2);
-            y += 12;
-            doc.setFontSize(10);
-            data.fixtureSets.forEach((set) => {
-              const points = [
-                "wc",
-                "basin",
-                "shower",
-                "tap",
-                "kitchenSink",
-                "geyser",
-              ]
-                .map((p) => (set[p] > 0 ? `${set[p]} ${p}` : ""))
-                .filter(Boolean)
-                .join(", ");
-              doc.text(`- ${set.name}: ${points}`, 20, y);
-              y += 7;
-            });
-            y += 8;
-            doc.setFontSize(16);
-            doc.text("Cost Breakdown", 20, y);
-            doc.line(20, y + 2, 190, y + 2);
-            y += 12;
-            doc.setFontSize(12);
-            const breakdownItems = [
-              {
-                label: "Sanitary & CP Fittings:",
-                value: Object.values(data.pointCosts).reduce(
-                  (s, c) => s + c,
-                  0
-                ),
-              },
-              {
-                label: `Main Pipes (for ${data.houseArea} sq.ft.):`,
-                value: data.commonMaterialCost,
-              },
-              { label: "Total Labor:", value: data.totalLaborCost },
-            ];
-            breakdownItems.forEach((item) => {
-              doc.text(item.label, 20, y);
-              doc.text(
-                `₹${Math.round(item.value).toLocaleString("en-IN")}`,
-                190,
-                y,
-                { align: "right" }
-              );
-              y += 8;
-            });
-            doc.save(`Plumbing-Estimation-${Date.now()}.pdf`);
           }
 
           document
@@ -1890,8 +1520,7 @@ document.addEventListener("DOMContentLoaded", () => {
           let currentStep = 1,
             totalSteps = 3,
             areas = [],
-            chartInstance = null,
-            lastCalculationData = null;
+            chartInstance = null;
           const costData = {
             tilePerSqFt: { economy: 40, mid: 75, premium: 120 },
             adhesivePerSqFt: { economy: 15, mid: 25, premium: 40 },
@@ -2013,7 +1642,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const totalLaborCost =
               tilingLaborCost + skirtingLaborCost + hackingLaborCost;
             const grandTotal = totalMaterialCost + totalLaborCost;
-            lastCalculationData = {
+            displayResults({
               grandTotal,
               totalMaterialCost,
               totalLaborCost,
@@ -2024,17 +1653,14 @@ document.addEventListener("DOMContentLoaded", () => {
               tilingLaborCost,
               skirtingLaborCost,
               hackingLaborCost,
-              areas,
-              totalSkirtingRft,
-            };
-            displayResults(lastCalculationData);
+            });
           }
 
           function displayResults(data) {
             const resultsSection = document.getElementById("results");
             resultsSection.innerHTML = `
-                                 <header class="results-header"><h2>Your Estimated Budget</h2><button id="downloadPdfBtn" class="btn btn-primary">Download PDF</button></header>
-                                <div class="results-card">
+                                 <header class="results-header"><h2>Your Estimated Budget</h2><button id="shareBtn" class="btn btn-primary">Share</button></header>
+                                <div class="results-card" id="results-card">
                                     <div class="results-grid">
                                         <div class="chart-container"><canvas id="costChart"></canvas></div>
                                         <div>
@@ -2096,8 +1722,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </div>`;
             resultsSection.classList.remove("hidden");
             document
-              .getElementById("downloadPdfBtn")
-              .addEventListener("click", generatePDF);
+              .getElementById("shareBtn")
+              .addEventListener("click", shareResults);
             window.scrollTo({
               top: resultsSection.offsetTop - 20,
               behavior: "smooth",
@@ -2133,106 +1759,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
               },
             });
-          }
-
-          function generatePDF() {
-            if (!lastCalculationData) return;
-            const progressBar = document.getElementById("progress-container");
-            const progressText = progressBar.querySelector(".progress-text");
-            const progressBarFill = progressBar.querySelector(".progress-bar");
-            progressBar.classList.remove("hidden");
-            let progress = 0;
-            const interval = setInterval(() => {
-              progress += 10;
-              progressBarFill.style.setProperty("--progress", `${progress}%`);
-              progressText.textContent = `Downloading PDF... ${progress}%`;
-              if (progress >= 100) {
-                clearInterval(interval);
-                setTimeout(() => {
-                  progressBar.classList.add("hidden");
-                }, 500);
-              }
-            }, 100);
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const data = lastCalculationData;
-            const today = new Date().toLocaleDateString("en-IN");
-            doc.setFontSize(20);
-            doc.text("Tile Budget Estimation", 105, 20, { align: "center" });
-            doc.setFontSize(12);
-            doc.setTextColor(100);
-            doc.text(`Generated on: ${today}`, 105, 28, { align: "center" });
-            let y = 45;
-            doc.setFontSize(16);
-            doc.setTextColor(0);
-            doc.text("Cost Summary", 20, y);
-            doc.line(20, y + 2, 190, y + 2);
-            y += 12;
-            const summaryItems = [
-              { label: "Total Estimated Cost:", value: data.grandTotal },
-              { label: "Total Material Cost:", value: data.totalMaterialCost },
-              { label: "Total Labor Cost:", value: data.totalLaborCost },
-            ];
-            doc.setFontSize(12);
-            summaryItems.forEach((item) => {
-              doc.text(item.label, 20, y);
-              doc.text(
-                `₹${Math.round(item.value).toLocaleString("en-IN")}`,
-                190,
-                y,
-                { align: "right" }
-              );
-              y += 8;
-            });
-            doc.text(`Total Area:`, 20, y);
-            doc.text(`${data.totalArea.toFixed(2)} sq.ft.`, 190, y, {
-              align: "right",
-            });
-            y += 15;
-            doc.setFontSize(16);
-            doc.text("Area Details", 20, y);
-            doc.line(20, y + 2, 190, y + 2);
-            y += 12;
-            doc.setFontSize(10);
-            data.areas.forEach((area) => {
-              const areaSqFt = area.length * area.width;
-              doc.text(
-                `- ${area.name}: ${area.length}' x ${
-                  area.width
-                }' = ${areaSqFt.toFixed(2)} sq.ft. (Skirting: ${
-                  area.skirtingRft
-                } rft)`,
-                20,
-                y
-              );
-              y += 7;
-            });
-            y += 8;
-            doc.setFontSize(16);
-            doc.text("Cost Breakdown", 20, y);
-            doc.line(20, y + 2, 190, y + 2);
-            y += 12;
-            doc.setFontSize(12);
-            const breakdownItems = [
-              { label: "Tile Cost:", value: data.tileCost },
-              { label: "Adhesive & Grout:", value: data.adhesiveCost },
-              { label: "Skirting Material:", value: data.skirtingMaterialCost },
-              { label: "Tiling Labor:", value: data.tilingLaborCost },
-              { label: "Skirting Labor:", value: data.skirtingLaborCost },
-              { label: "Hacking/Removal:", value: data.hackingLaborCost },
-            ];
-            breakdownItems.forEach((item) => {
-              doc.text(item.label, 20, y);
-              doc.text(
-                `₹${Math.round(item.value).toLocaleString("en-IN")}`,
-                190,
-                y,
-                { align: "right" }
-              );
-              y += 8;
-            });
-            doc.save(`Tile-Estimation-${Date.now()}.pdf`);
           }
 
           const addAreaBtn = document.getElementById("addAreaBtn");
@@ -2274,8 +1800,7 @@ document.addEventListener("DOMContentLoaded", () => {
           let currentStep = 1,
             totalSteps = 3,
             openings = [],
-            chartInstance = null,
-            lastCalculationData = null;
+            chartInstance = null;
           const canvas = document.getElementById("visualizerCanvas");
           const ctx = canvas?.getContext("2d");
 
@@ -2430,21 +1955,19 @@ document.addEventListener("DOMContentLoaded", () => {
               ).toLocaleString("en-IN")}</span></div>`;
             });
             const grandTotal = totalMaterialCost + totalLaborCost;
-            lastCalculationData = {
+            displayResults({
               grandTotal,
               totalMaterialCost,
               totalLaborCost,
-              openings,
               breakdown,
-            };
-            displayResults(lastCalculationData);
+            });
           }
 
           function displayResults(data) {
             const resultsSection = document.getElementById("results");
             resultsSection.innerHTML = `
-                                <header class="results-header"><h2>Your Estimated Budget</h2><button id="downloadPdfBtn" class="btn btn-primary">Download PDF</button></header>
-                                <div class="results-card">
+                                <header class="results-header"><h2>Your Estimated Budget</h2><button id="shareBtn" class="btn btn-primary">Share</button></header>
+                                <div class="results-card" id="results-card">
                                     <div class="results-grid">
                                         <div class="chart-container"><canvas id="costChart"></canvas></div>
                                         <div>
@@ -2474,8 +1997,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </div>`;
             resultsSection.classList.remove("hidden");
             document
-              .getElementById("downloadPdfBtn")
-              .addEventListener("click", generatePDF);
+              .getElementById("shareBtn")
+              .addEventListener("click", shareResults);
             window.scrollTo({
               top: resultsSection.offsetTop - 20,
               behavior: "smooth",
@@ -2511,86 +2034,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
               },
             });
-          }
-
-          function generatePDF() {
-            if (!lastCalculationData) return;
-            const progressBar = document.getElementById("progress-container");
-            const progressText = progressBar.querySelector(".progress-text");
-            const progressBarFill = progressBar.querySelector(".progress-bar");
-            progressBar.classList.remove("hidden");
-            let progress = 0;
-            const interval = setInterval(() => {
-              progress += 10;
-              progressBarFill.style.setProperty("--progress", `${progress}%`);
-              progressText.textContent = `Downloading PDF... ${progress}%`;
-              if (progress >= 100) {
-                clearInterval(interval);
-                setTimeout(() => {
-                  progressBar.classList.add("hidden");
-                }, 500);
-              }
-            }, 100);
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const data = lastCalculationData;
-            const today = new Date().toLocaleDateString("en-IN");
-            doc.setFontSize(20);
-            doc.text("Doors & Windows Estimation", 105, 20, {
-              align: "center",
-            });
-            doc.setFontSize(12);
-            doc.setTextColor(100);
-            doc.text(`Generated on: ${today}`, 105, 28, { align: "center" });
-            let y = 45;
-            doc.setFontSize(16);
-            doc.setTextColor(0);
-            doc.text("Cost Summary", 20, y);
-            doc.line(20, y + 2, 190, y + 2);
-            y += 12;
-            doc.setFontSize(12);
-            doc.text("Total Estimated Cost:", 20, y);
-            doc.text(
-              `₹${Math.round(data.grandTotal).toLocaleString("en-IN")}`,
-              190,
-              y,
-              { align: "right" }
-            );
-            y += 8;
-            doc.text("Total Material Cost:", 20, y);
-            doc.text(
-              `₹${Math.round(data.totalMaterialCost).toLocaleString("en-IN")}`,
-              190,
-              y,
-              { align: "right" }
-            );
-            y += 8;
-            doc.text("Total Labor Cost:", 20, y);
-            doc.text(
-              `₹${Math.round(data.totalLaborCost).toLocaleString("en-IN")}`,
-              190,
-              y,
-              { align: "right" }
-            );
-            y += 15;
-            doc.setFontSize(16);
-            doc.text("Openings Breakdown", 20, y);
-            doc.line(20, y + 2, 190, y + 2);
-            y += 12;
-            doc.setFontSize(10);
-            data.openings.forEach((op) => {
-              const area = op.width * op.height;
-              doc.text(
-                `- ${op.name}: ${op.width}' x ${op.height}' (${area.toFixed(
-                  2
-                )} sq.ft.)`,
-                20,
-                y
-              );
-              y += 7;
-            });
-            doc.save(`Doors-Windows-Estimation-${Date.now()}.pdf`);
           }
 
           document.getElementById("prevBtn").addEventListener("click", () => {
