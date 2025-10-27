@@ -15,7 +15,7 @@
   --text-secondary: #374151;
   --text-light: var(--muted-light);
   --bg-body: var(--background-light);
-  --bg-card: var(--card-light);
+  --bg-card: var(--bg-card);
   --border-color: var(--border-light);
   --border-radius-lg: 0.75rem;
   --border-radius-md: 0.5rem;
@@ -797,4 +797,115 @@ select:focus {
 .progress-text {
   font-size: 0.875rem;
   color: var(--text-secondary);
+}
+
+/* --- NEW STYLES FOR PROJECTS & TOAST --- */
+
+/* --- TOAST / NOTIFICATION --- */
+.toast-container {
+  position: fixed;
+  bottom: -100px; /* Start hidden */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  z-index: 2000;
+  transition: bottom 0.5s ease;
+}
+.toast-container.show {
+  bottom: 6rem; /* Position above footer */
+}
+.toast-message {
+  background-color: var(--text-primary);
+  color: var(--bg-body);
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  text-align: center;
+  font-weight: 500;
+}
+:root[data-theme="dark"] .toast-message {
+  background-color: var(--foreground-dark);
+  color: var(--background-dark);
+}
+.toast-message .btn {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+/* --- PROJECTS PAGE --- */
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.projects-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+.projects-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+.project-card {
+  background-color: var(--bg-card);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: box-shadow 0.2s;
+}
+.project-card:hover {
+  box-shadow: var(--shadow-md);
+}
+.project-details h3 {
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+.project-details p {
+  color: var(--text-light);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+.project-details .project-total {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--brand-color);
+}
+.project-card .btn-delete {
+  background: none;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project-card .btn-delete:hover {
+  background-color: #ef4444;
+  color: white;
+}
+.empty-state {
+  margin-top: 3rem;
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--bg-card);
+  border-radius: var(--border-radius-lg);
+}
+.empty-state .material-symbols-outlined {
+  font-size: 3rem;
+  color: var(--text-light);
+}
+.empty-state p {
+  font-size: 1rem;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-top: 1rem;
 }

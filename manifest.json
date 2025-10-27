@@ -4,7 +4,7 @@
   "description": "A calculator to estimate the cost of building your dream home.",
   "scope": "/",
   "start_url": ".",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#f5f7f8",
   "theme_color": "#359EFF",
   "orientation": "portrait-primary",

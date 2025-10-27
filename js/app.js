@@ -1,10 +1,80 @@
 document.addEventListener("DOMContentLoaded", () => {
   const appContainer = document.getElementById("app-container");
-
   const themeSwitcher = document.getElementById("theme-switcher");
   let deferredPrompt;
 
-  // --- PWA Installation Logic ---
+  // --- NEW: localStorage Database Helper ---
+  const db = {
+    getProjects: () => {
+      return JSON.parse(localStorage.getItem("dreamhome_projects") || "[]");
+    },
+    saveProjects: (projects) => {
+      localStorage.setItem("dreamhome_projects", JSON.stringify(projects));
+    },
+    addProject: (projectData) => {
+      const projects = db.getProjects();
+      projects.push(projectData);
+      db.saveProjects(projects);
+    },
+    deleteProject: (projectId) => {
+      let projects = db.getProjects();
+      projects = projects.filter((p) => p.id !== projectId);
+      db.saveProjects(projects);
+    },
+  };
+
+  // --- NEW: Toast Notification Function ---
+  const showToast = (message, duration = 3000, action = null) => {
+    const toastContainer = document.getElementById("toast-container");
+    const toastMessage = document.getElementById("toast-message");
+
+    let content = message;
+    if (action) {
+      content += ` <button class="btn btn-primary" id="${action.id}">${action.text}</button>`;
+    }
+    toastMessage.innerHTML = content;
+    toastContainer.classList.add("show");
+
+    if (action && action.handler) {
+      document.getElementById(action.id).addEventListener("click", () => {
+        action.handler();
+        toastContainer.classList.remove("show");
+      });
+    }
+
+    if (!action) {
+      setTimeout(() => {
+        toastContainer.classList.remove("show");
+      }, duration);
+    }
+  };
+
+  // --- NEW: PWA Installation Logic ---
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    console.log("`beforeinstallprompt` event was fired.");
+  });
+
+  const showInstallPrompt = () => {
+    if (!deferredPrompt) {
+      console.log("Install prompt not available");
+      return;
+    }
+
+    const installAction = {
+      id: "installBtn",
+      text: "Install App",
+      handler: async () => {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        deferredPrompt = null;
+      },
+    };
+
+    showToast("Get our app for offline access!", null, installAction);
+  };
 
   // --- Theme Switcher Logic ---
   const currentTheme = localStorage.getItem("theme");
@@ -102,6 +172,14 @@ document.addEventListener("DOMContentLoaded", () => {
                         <p>Doors & Windows</p>
                     </a>
                 </div>`,
+      // --- NEW: Projects Page Template ---
+      projects: `
+                <div class="projects-header">
+                    <h1>My Saved Projects</h1>
+                </div>
+                <div id="projects-list-container" class="projects-list">
+                    </div>
+            `,
       houseConstruction: `
                 <div class="calculator-header"><h1>House Construction Cost Estimator</h1></div>
                 <form id="constructionForm">
@@ -379,6 +457,75 @@ document.addEventListener("DOMContentLoaded", () => {
             `,
     },
     calculators: {
+      // --- NEW: Projects Page Logic ---
+      projects: {
+        init: function () {
+          const projectsListContainer = document.getElementById(
+            "projects-list-container"
+          );
+          if (!projectsListContainer) return;
+
+          this.renderProjects();
+
+          // Add event listener for delete buttons
+          projectsListContainer.addEventListener("click", (e) => {
+            const deleteButton = e.target.closest(".btn-delete");
+            if (deleteButton) {
+              const projectId = deleteButton.dataset.id;
+              if (
+                confirm("Are you sure you want to delete this saved project?")
+              ) {
+                db.deleteProject(projectId);
+                showToast("Project deleted.");
+                this.renderProjects(); // Re-render the list
+              }
+            }
+          });
+        },
+        renderProjects: function () {
+          const projectsListContainer = document.getElementById(
+            "projects-list-container"
+          );
+          const projects = db.getProjects().reverse(); // Show newest first
+
+          if (projects.length === 0) {
+            projectsListContainer.innerHTML = `
+                            <div class="empty-state">
+                                <span class="material-symbols-outlined">article</span>
+                                <p>You have no saved projects.</p>
+                                <p style="font-size: 0.875rem; color: var(--text-light); margin-top: 0.5rem;">
+                                    Try one of the calculators and save the result to see it here.
+                                </p>
+                            </div>
+                        `;
+            return;
+          }
+
+          projectsListContainer.innerHTML = projects
+            .map(
+              (project) => `
+                        <div class="project-card">
+                            <div class="project-details">
+                                <h3>${project.name}</h3>
+                                <p>${project.type} · Saved on ${new Date(
+                project.savedOn
+              ).toLocaleDateString()}</p>
+                                <p class="project-total">₹${Math.round(
+                                  project.total
+                                ).toLocaleString("en-IN")}</p>
+                            </div>
+                            <button class="btn-delete" data-id="${
+                              project.id
+                            }" title="Delete project">
+                                <span class="material-symbols-outlined" style="font-size: 1.25rem;">delete</span>
+                            </button>
+                        </div>
+                    `
+            )
+            .join("");
+        },
+      },
+
       houseConstruction: {
         init: function () {
           let currentStep = 1,
@@ -442,13 +589,26 @@ document.addEventListener("DOMContentLoaded", () => {
               breakdown,
               permissionFees,
               architectFees,
+              // Data for saving
+              inputs: {
+                builtUpArea,
+                quality,
+                permissionFees,
+                architectFeePercent,
+              },
             });
           }
 
           function displayResults(data) {
             const resultsSection = document.getElementById("results");
             resultsSection.innerHTML = `
-                            <header class="results-header"><h2>Your Estimated Budget</h2><button id="shareBtn" class="btn btn-primary">Share</button></header>
+                            <header class="results-header">
+                                <h2>Your Estimated Budget</h2>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <button id="saveBtn" class="btn btn-secondary">Save Project</button>
+                                    <button id="shareBtn" class="btn btn-primary">Share</button>
+                                </div>
+                            </header>
                             <div class="results-card" id="results-card">
                                 <div class="results-grid">
                                     <div class="chart-container"><canvas id="costChart"></canvas></div>
@@ -492,6 +652,32 @@ document.addEventListener("DOMContentLoaded", () => {
             document
               .getElementById("shareBtn")
               .addEventListener("click", shareResults);
+
+            // --- NEW: Save Button Logic ---
+            document.getElementById("saveBtn").addEventListener("click", () => {
+              const name = prompt(
+                "Enter a name for this project:",
+                "My House Construction"
+              );
+              if (name) {
+                const project = {
+                  id: `proj_${Date.now()}`,
+                  name: name,
+                  type: "House Construction",
+                  total: data.grandTotal,
+                  data: data, // Save the full data object
+                  savedOn: new Date().toISOString(),
+                };
+                db.addProject(project);
+                showToast("Project saved successfully!");
+
+                // Check if it's the first save and prompt to install
+                if (db.getProjects().length === 1) {
+                  showInstallPrompt();
+                }
+              }
+            });
+
             window.scrollTo({
               top: resultsSection.offsetTop - 20,
               behavior: "smooth",
@@ -670,13 +856,28 @@ document.addEventListener("DOMContentLoaded", () => {
               puttyCost,
               paintingLaborCost,
               puttyLaborCost,
+              // Data for saving
+              inputs: {
+                areas: [...areas],
+                quality,
+                coats,
+                puttyRequired,
+                paintingLaborRate,
+                puttyLaborRate,
+              },
             });
           }
 
           function displayResults(data) {
             const resultsSection = document.getElementById("results");
             resultsSection.innerHTML = `
-                                <header class="results-header"><h2>Your Estimated Budget</h2><button id="shareBtn" class="btn btn-primary">Share</button></header>
+                                <header class="results-header">
+                                    <h2>Your Estimated Budget</h2>
+                                    <div style="display: flex; gap: 0.5rem;">
+                                        <button id="saveBtn" class="btn btn-secondary">Save Project</button>
+                                        <button id="shareBtn" class="btn btn-primary">Share</button>
+                                    </div>
+                                </header>
                                 <div class="results-card" id="results-card">
                                     <div class="results-grid">
                                         <div class="chart-container"><canvas id="costChart"></canvas></div>
@@ -718,6 +919,32 @@ document.addEventListener("DOMContentLoaded", () => {
             document
               .getElementById("shareBtn")
               .addEventListener("click", shareResults);
+
+            // --- NEW: Save Button Logic ---
+            document.getElementById("saveBtn").addEventListener("click", () => {
+              const name = prompt(
+                "Enter a name for this project:",
+                "My Painting Project"
+              );
+              if (name) {
+                const project = {
+                  id: `proj_${Date.now()}`,
+                  name: name,
+                  type: "Painting",
+                  total: data.grandTotal,
+                  data: data, // Save the full data object
+                  savedOn: new Date().toISOString(),
+                };
+                db.addProject(project);
+                showToast("Project saved successfully!");
+
+                // Check if it's the first save and prompt to install
+                if (db.getProjects().length === 1) {
+                  showInstallPrompt();
+                }
+              }
+            });
+
             window.scrollTo({
               top: resultsSection.offsetTop - 20,
               behavior: "smooth",
@@ -1033,13 +1260,27 @@ document.addEventListener("DOMContentLoaded", () => {
               pointCosts,
               commonMaterialCost,
               houseArea,
+              // Data for saving
+              inputs: {
+                houseArea,
+                quality,
+                laborPerPoint,
+                mainPanelLabor,
+                rooms: [...rooms],
+              },
             });
           }
 
           function displayResults(data) {
             const resultsSection = document.getElementById("results");
             resultsSection.innerHTML = `
-                                <header class="results-header"><h2>Your Estimated Budget</h2><button id="shareBtn" class="btn btn-primary">Share</button></header>
+                                <header class="results-header">
+                                    <h2>Your Estimated Budget</h2>
+                                    <div style="display: flex; gap: 0.5rem;">
+                                        <button id="saveBtn" class="btn btn-secondary">Save Project</button>
+                                        <button id="shareBtn" class="btn btn-primary">Share</button>
+                                    </div>
+                                </header>
                                 <div class="results-card" id="results-card">
                                     <div class="results-grid">
                                         <div class="chart-container"><canvas id="costChart"></canvas></div>
@@ -1105,6 +1346,32 @@ document.addEventListener("DOMContentLoaded", () => {
             document
               .getElementById("shareBtn")
               .addEventListener("click", shareResults);
+
+            // --- NEW: Save Button Logic ---
+            document.getElementById("saveBtn").addEventListener("click", () => {
+              const name = prompt(
+                "Enter a name for this project:",
+                "My Electrical Plan"
+              );
+              if (name) {
+                const project = {
+                  id: `proj_${Date.now()}`,
+                  name: name,
+                  type: "Electrical",
+                  total: data.grandTotal,
+                  data: data, // Save the full data object
+                  savedOn: new Date().toISOString(),
+                };
+                db.addProject(project);
+                showToast("Project saved successfully!");
+
+                // Check if it's the first save and prompt to install
+                if (db.getProjects().length === 1) {
+                  showInstallPrompt();
+                }
+              }
+            });
+
             window.scrollTo({
               top: resultsSection.offsetTop - 20,
               behavior: "smooth",
@@ -1381,13 +1648,27 @@ document.addEventListener("DOMContentLoaded", () => {
               totalPoints,
               pointCosts,
               commonMaterialCost,
+              // Data for saving
+              inputs: {
+                fixtureSets: [...fixtureSets],
+                quality,
+                houseArea,
+                laborPerPoint,
+                mainlineLabor,
+              },
             });
           }
 
           function displayResults(data) {
             const resultsSection = document.getElementById("results");
             resultsSection.innerHTML = `
-                                 <header class="results-header"><h2>Your Estimated Budget</h2><button id="shareBtn" class="btn btn-primary">Share</button></header>
+                                 <header class="results-header">
+                                    <h2>Your Estimated Budget</h2>
+                                    <div style="display: flex; gap: 0.5rem;">
+                                        <button id="saveBtn" class="btn btn-secondary">Save Project</button>
+                                        <button id="shareBtn" class="btn btn-primary">Share</button>
+                                    </div>
+                                </header>
                                 <div class="results-card" id="results-card">
                                     <div class="results-grid">
                                         <div class="chart-container"><canvas id="costChart"></canvas></div>
@@ -1439,6 +1720,32 @@ document.addEventListener("DOMContentLoaded", () => {
             document
               .getElementById("shareBtn")
               .addEventListener("click", shareResults);
+
+            // --- NEW: Save Button Logic ---
+            document.getElementById("saveBtn").addEventListener("click", () => {
+              const name = prompt(
+                "Enter a name for this project:",
+                "My Plumbing Project"
+              );
+              if (name) {
+                const project = {
+                  id: `proj_${Date.now()}`,
+                  name: name,
+                  type: "Plumbing",
+                  total: data.grandTotal,
+                  data: data, // Save the full data object
+                  savedOn: new Date().toISOString(),
+                };
+                db.addProject(project);
+                showToast("Project saved successfully!");
+
+                // Check if it's the first save and prompt to install
+                if (db.getProjects().length === 1) {
+                  showInstallPrompt();
+                }
+              }
+            });
+
             window.scrollTo({
               top: resultsSection.offsetTop - 20,
               behavior: "smooth",
@@ -1653,13 +1960,28 @@ document.addEventListener("DOMContentLoaded", () => {
               tilingLaborCost,
               skirtingLaborCost,
               hackingLaborCost,
+              // Data for saving
+              inputs: {
+                areas: [...areas],
+                quality,
+                wastagePercent,
+                tilingLabor,
+                skirtingLabor,
+                hackingLabor,
+              },
             });
           }
 
           function displayResults(data) {
             const resultsSection = document.getElementById("results");
             resultsSection.innerHTML = `
-                                 <header class="results-header"><h2>Your Estimated Budget</h2><button id="shareBtn" class="btn btn-primary">Share</button></header>
+                                 <header class="results-header">
+                                    <h2>Your Estimated Budget</h2>
+                                    <div style="display: flex; gap: 0.5rem;">
+                                        <button id="saveBtn" class="btn btn-secondary">Save Project</button>
+                                        <button id="shareBtn" class="btn btn-primary">Share</button>
+                                    </div>
+                                </header>
                                 <div class="results-card" id="results-card">
                                     <div class="results-grid">
                                         <div class="chart-container"><canvas id="costChart"></canvas></div>
@@ -1724,6 +2046,32 @@ document.addEventListener("DOMContentLoaded", () => {
             document
               .getElementById("shareBtn")
               .addEventListener("click", shareResults);
+
+            // --- NEW: Save Button Logic ---
+            document.getElementById("saveBtn").addEventListener("click", () => {
+              const name = prompt(
+                "Enter a name for this project:",
+                "My Flooring Project"
+              );
+              if (name) {
+                const project = {
+                  id: `proj_${Date.now()}`,
+                  name: name,
+                  type: "Flooring",
+                  total: data.grandTotal,
+                  data: data, // Save the full data object
+                  savedOn: new Date().toISOString(),
+                };
+                db.addProject(project);
+                showToast("Project saved successfully!");
+
+                // Check if it's the first save and prompt to install
+                if (db.getProjects().length === 1) {
+                  showInstallPrompt();
+                }
+              }
+            });
+
             window.scrollTo({
               top: resultsSection.offsetTop - 20,
               behavior: "smooth",
@@ -1960,13 +2308,26 @@ document.addEventListener("DOMContentLoaded", () => {
               totalMaterialCost,
               totalLaborCost,
               breakdown,
+              // Data for saving
+              inputs: {
+                openings: [...openings],
+                quality,
+                installationLabor,
+                frameLabor,
+              },
             });
           }
 
           function displayResults(data) {
             const resultsSection = document.getElementById("results");
             resultsSection.innerHTML = `
-                                <header class="results-header"><h2>Your Estimated Budget</h2><button id="shareBtn" class="btn btn-primary">Share</button></header>
+                                <header class="results-header">
+                                    <h2>Your Estimated Budget</h2>
+                                    <div style="display: flex; gap: 0.5rem;">
+                                        <button id="saveBtn" class="btn btn-secondary">Save Project</button>
+                                        <button id="shareBtn" class="btn btn-primary">Share</button>
+                                    </div>
+                                </header>
                                 <div class="results-card" id="results-card">
                                     <div class="results-grid">
                                         <div class="chart-container"><canvas id="costChart"></canvas></div>
@@ -1999,6 +2360,32 @@ document.addEventListener("DOMContentLoaded", () => {
             document
               .getElementById("shareBtn")
               .addEventListener("click", shareResults);
+
+            // --- NEW: Save Button Logic ---
+            document.getElementById("saveBtn").addEventListener("click", () => {
+              const name = prompt(
+                "Enter a name for this project:",
+                "My Doors & Windows"
+              );
+              if (name) {
+                const project = {
+                  id: `proj_${Date.now()}`,
+                  name: name,
+                  type: "Doors & Windows",
+                  total: data.grandTotal,
+                  data: data, // Save the full data object
+                  savedOn: new Date().toISOString(),
+                };
+                db.addProject(project);
+                showToast("Project saved successfully!");
+
+                // Check if it's the first save and prompt to install
+                if (db.getProjects().length === 1) {
+                  showInstallPrompt();
+                }
+              }
+            });
+
             window.scrollTo({
               top: resultsSection.offsetTop - 20,
               behavior: "smooth",
@@ -2085,6 +2472,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         this.updateNav(pageName);
       } else {
+        // Fallback for static pages like about, faq, etc.
         fetch(`./${pageName}.html`)
           .then((response) =>
             response.ok ? response.text() : Promise.reject("Page not found")
@@ -2097,7 +2485,8 @@ document.addEventListener("DOMContentLoaded", () => {
           })
           .catch((err) => {
             console.error("Failed to fetch page: ", err);
-            appContainer.innerHTML = `<p>Error: Page not found.</p>`;
+            // On failure, navigate back home
+            this.loadView("home");
           });
       }
     },
