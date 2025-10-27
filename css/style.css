@@ -12,7 +12,7 @@
   --success-color: #16a34a;
   --success-color-hover: #15803d;
   --text-primary: var(--foreground-light);
-  --text-secondary: #374151;
+  --text-secondary: #29303c;
   --text-light: var(--muted-light);
   --bg-body: var(--background-light);
   --bg-card: var(--bg-card);
@@ -30,7 +30,7 @@
   --border-dark: #2d3748;
   --muted-dark: #9ca3af;
   --text-primary: var(--foreground-dark);
-  --text-secondary: #d1d5db;
+  --text-secondary: #6c6d6d;
   --text-light: var(--muted-dark);
   --bg-body: var(--background-dark);
   --bg-card: var(--card-dark);
