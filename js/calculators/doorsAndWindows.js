@@ -216,46 +216,80 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
   function displayResults(data) {
     const resultsSection = document.getElementById("results");
     resultsSection.innerHTML = `
-                        <header class="results-header">
-                            <h2>Your Estimated Budget</h2>
-                            <div style="display: flex; gap: 0.5rem;">
-                                <button id="saveBtn" class="btn btn-secondary">Save Project</button>
-                                <button id="shareBtn" class="btn btn-primary">Share</button>
-                            </div>
-                        </header>
-                        <div class="results-card" id="results-card">
-                            <div class="results-grid">
-                                <div class="chart-container"><canvas id="costChart"></canvas></div>
-                                <div>
-                                    <p>Total Estimated Cost</p><p id="grandTotal">₹${Math.round(
-                                      data.grandTotal
-                                    ).toLocaleString("en-IN")}</p>
-                                    <div class="summary-details">
-                                        <div class="summary-item"><span>Total Material Cost:</span><span id="totalMaterialCost">₹${Math.round(
-                                          data.totalMaterialCost
-                                        ).toLocaleString("en-IN")}</span></div>
-                                        <div class="summary-item"><span>Total Labor Cost:</span><span id="totalLaborCost">₹${Math.round(
-                                          data.totalLaborCost
-                                        ).toLocaleString("en-IN")}</span></div>
+                                <header class="results-header">
+                                    <h2>Your Estimated Budget</h2>
+                                    <div style="display: flex; gap: 0.5rem;">
+                                        <button id="saveBtn" class="btn btn-secondary">Save Project</button>
+                                        <button id="shareBtn" class="btn btn-primary">Share</button>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="detailed-breakdown-container">
-                                <h3>Detailed Breakdown</h3>
-                                <div id="detailed-breakdown">${
-                                  data.breakdown
-                                }</div>
-                            </div>
-                        </div>`;
+                                </header>
+                                <div class="results-card" id="results-card">
+                                    <div class="results-grid">
+                                        <div class="chart-container"><canvas id="costChart"></canvas></div>
+                                        <div>
+                                            <p>Total Estimated Cost</p><p id="grandTotal">₹${Math.round(
+                                              data.grandTotal
+                                            ).toLocaleString("en-IN")}</p>
+                                            <div class="summary-details">
+                                                <div class="summary-item"><span>Total Material Cost:</span><span id="totalMaterialCost">₹${Math.round(
+                                                  data.totalMaterialCost
+                                                ).toLocaleString(
+                                                  "en-IN"
+                                                )}</span></div>
+                                                <div class="summary-item"><span>Total Labor Cost:</span><span id="totalLaborCost">₹${Math.round(
+                                                  data.totalLaborCost
+                                                ).toLocaleString(
+                                                  "en-IN"
+                                                )}</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="detailed-breakdown-container">
+                                        <h3>Detailed Breakdown</h3>
+                                        <div id="detailed-breakdown">${
+                                          data.breakdown
+                                        }</div>
+                                    </div>
+                                </div>`;
     resultsSection.classList.remove("hidden");
     document.getElementById("shareBtn").addEventListener("click", shareResults);
 
+    // --- UPDATED: Save Button Logic ---
     document.getElementById("saveBtn").addEventListener("click", () => {
       const name = prompt(
         "Enter a name for this project:",
         "My Doors & Windows"
       );
       if (name) {
+        // --- NEW: Default checklist for this project type ---
+        const defaultTasks = [
+          {
+            id: `task_${Date.now() + 1}`,
+            text: "Finalize window/door vendor",
+            done: false,
+          },
+          {
+            id: `task_${Date.now() + 2}`,
+            text: "Place order for main door",
+            done: false,
+          },
+          {
+            id: `task_${Date.now() + 3}`,
+            text: "Place order for windows",
+            done: false,
+          },
+          {
+            id: `task_${Date.now() + 4}`,
+            text: "Buy all hardware (locks, handles)",
+            done: false,
+          },
+          {
+            id: `task_${Date.now() + 5}`,
+            text: "Install all frames",
+            done: false,
+          },
+        ];
+
         const project = {
           id: `proj_${Date.now()}`,
           name: name,
@@ -263,6 +297,8 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
           total: data.grandTotal,
           data: data,
           savedOn: new Date().toISOString(),
+          tasks: defaultTasks, // NEW: Add default tasks
+          expenses: [], // NEW: Add empty expenses array
         };
         db.addProject(project);
         showToast("Project saved successfully!");
