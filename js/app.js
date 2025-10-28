@@ -1,4 +1,4 @@
-// js/app.js - Correction in loadView for calendar path
+// js/app.js - Calendar feature removed
 
 document.addEventListener("DOMContentLoaded", () => {
   const appContainer = document.getElementById("app-container");
@@ -226,7 +226,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Main App Object ---
   const app = {
-    templates: { home: `...` }, // Home template remains the same
+    templates: { home: `` }, // Defined in init
+    // REMOVED 'calendar' from this list
     calculatorPages: [
       "houseConstruction",
       "painting",
@@ -235,28 +236,21 @@ document.addEventListener("DOMContentLoaded", () => {
       "flooring",
       "doorsAndWindows",
       "projects",
-      "calendar",
     ],
     staticPages: ["about", "faq", "privacy", "terms"],
 
-    // load-view
     loadView: async function (pageName) {
       appContainer.style.opacity = "0.5";
       try {
         if (pageName === "home") {
-          appContainer.innerHTML = this.templates.home; // Ensure home template is defined
-          if (this.templates.home) showTipOfTheDay(); // Check if home template exists before calling
+          appContainer.innerHTML = this.templates.home;
+          if (this.templates.home) showTipOfTheDay();
           this.updateNav(pageName);
         } else if (this.calculatorPages.includes(pageName)) {
-          // *** VERIFY THIS PART CAREFULLY ***
-          // Correctly determine the path: calendar.js is in /js/, others are in /js/calculators/
-          const modulePath =
-            pageName === "calendar"
-              ? `./${pageName}.js` // Should resolve to ./calendar.js
-              : `./calculators/${pageName}.js`; // Should resolve to ./calculators/someCalc.js
-          // ***************************
+          // REMOVED Calendar path logic, now only loads from /calculators/
+          const modulePath = `./calculators/${pageName}.js`;
+          const module = await import(modulePath);
 
-          const module = await import(modulePath); // Ensure this line uses modulePath
           if (
             !module ||
             !module.template ||
@@ -267,19 +261,18 @@ document.addEventListener("DOMContentLoaded", () => {
             );
           }
           appContainer.innerHTML = module.template;
-
-          // Pass correct arguments based on module type
-          if (pageName === "calendar") {
-            module.init(db, showToast); // Calendar init expects db, showToast
-          } else {
-            // Calculators expect more args
-            module.init(db, showToast, shareResults, showInstallPrompt);
-          }
+          // REMOVED Calendar init logic branch
+          module.init(db, showToast, shareResults, showInstallPrompt);
           this.updateNav(pageName);
         } else if (this.staticPages.includes(pageName)) {
-          // This block should NOT run for 'calendar' if the above logic is correct
           const response = await fetch(`./${pageName}.html`);
-          // ... rest of static page loading ...
+          if (!response.ok) throw new Error(`Page not found: ${pageName}.html`);
+          const html = await response.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, "text/html");
+          const mainContent = doc.querySelector("main");
+          if (mainContent) appContainer.innerHTML = mainContent.innerHTML;
+          else throw new Error(`<main> element not found in ${pageName}.html`);
           this.updateNav(pageName);
         } else {
           throw new Error(`Unknown page requested: ${pageName}`);
@@ -297,7 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
         appContainer.style.opacity = "1";
       }
     },
-    // load-view-end
+
     updateNav: function (pageName) {
       document.querySelectorAll(".nav-btn").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.page === pageName);
@@ -305,6 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
     init: function () {
+      // UPDATED Home template definition (removed filter for calendar)
       this.templates.home = `
         <div class="hero-section">
           <p>Your Dream Home, Budgeted Perfectly.</p>
@@ -313,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div id="tip-of-the-day-container"></div>
         <div class="calculator-grid">
             ${this.calculatorPages
-              .filter((p) => p !== "projects" && p !== "calendar")
+              .filter((p) => p !== "projects") // Only filter out projects now
               .map(
                 (page) => `
             <a class="category-card calculator-link" href="#" data-page="${page}">
@@ -324,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </a>`
               )
               .join("")}
-        </div>`; // Dynamically generate home grid if needed, or keep static HTML
+        </div>`;
 
       document.body.addEventListener("click", (e) => {
         const navLink = e.target.closest(".nav-btn, .calculator-link");
@@ -338,7 +332,26 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
-  // Helper functions for dynamic home grid (optional)
+  // Helper functions - no changes needed here
+  function getIconForPage(pageName) {
+    const icons = {
+      /* ... */
+    };
+    return icons[pageName] || "calculate";
+  }
+  function getPageTitle(pageName) {
+    const titles = {
+      /* ... */
+    };
+    return (
+      titles[pageName] ||
+      pageName
+        .replace(/([A-Z])/g, " $1")
+        .replace(/^./, (str) => str.toUpperCase())
+    );
+  }
+
+  // --- Make sure helper functions are defined before init uses them ---
   function getIconForPage(pageName) {
     const icons = {
       houseConstruction: "home",
@@ -359,7 +372,6 @@ document.addEventListener("DOMContentLoaded", () => {
       painting: "Painting",
       doorsAndWindows: "Doors & Windows",
     };
-    // Simple camelCase to Title Case conversion as fallback
     return (
       titles[pageName] ||
       pageName
@@ -367,6 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .replace(/^./, (str) => str.toUpperCase())
     );
   }
+  // --- End Helper ---
 
   app.init();
 });
