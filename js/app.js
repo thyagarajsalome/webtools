@@ -239,32 +239,45 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
     staticPages: ["about", "faq", "privacy", "terms"],
 
+    // load-view
     loadView: async function (pageName) {
       appContainer.style.opacity = "0.5";
       try {
         if (pageName === "home") {
-          appContainer.innerHTML = this.templates.home; // Make sure home template is correctly defined above
-          showTipOfTheDay();
+          appContainer.innerHTML = this.templates.home; // Ensure home template is defined
+          if (this.templates.home) showTipOfTheDay(); // Check if home template exists before calling
+          this.updateNav(pageName);
         } else if (this.calculatorPages.includes(pageName)) {
-          // *** THE FIX IS HERE ***
-          // Correctly determine the path: calendar.js is directly in /js/, others are in /js/calculators/
+          // *** CORRECTED PATH LOGIC ***
+          // Determine path: calendar.js is in /js/, others are in /js/calculators/
           const modulePath =
             pageName === "calendar"
-              ? `./${pageName}.js`
-              : `./calculators/${pageName}.js`;
-          // ***********************
+              ? `./${pageName}.js` // Path for calendar.js
+              : `./calculators/${pageName}.js`; // Path for calculator modules
+          // ***************************
+
           const module = await import(modulePath);
           if (
             !module ||
             !module.template ||
             typeof module.init !== "function"
           ) {
-            throw new Error(`Module ${pageName} did not load correctly.`);
+            throw new Error(
+              `Module ${pageName} did not load correctly or is missing exports.`
+            );
           }
           appContainer.innerHTML = module.template;
-          if (pageName === "calendar") module.init(db, showToast);
-          else module.init(db, showToast, shareResults, showInstallPrompt);
+
+          // Pass correct arguments based on module type
+          if (pageName === "calendar") {
+            module.init(db, showToast); // Calendar init expects db, showToast
+          } else {
+            // Calculators expect more args
+            module.init(db, showToast, shareResults, showInstallPrompt);
+          }
+          this.updateNav(pageName);
         } else if (this.staticPages.includes(pageName)) {
+          // Load static HTML pages (about, faq, etc.)
           const response = await fetch(`./${pageName}.html`);
           if (!response.ok) throw new Error(`Page not found: ${pageName}.html`);
           const html = await response.text();
@@ -273,24 +286,25 @@ document.addEventListener("DOMContentLoaded", () => {
           const mainContent = doc.querySelector("main");
           if (mainContent) appContainer.innerHTML = mainContent.innerHTML;
           else throw new Error(`<main> element not found in ${pageName}.html`);
+          this.updateNav(pageName);
         } else {
+          // Handle unknown page names
           throw new Error(`Unknown page requested: ${pageName}`);
         }
-        this.updateNav(pageName);
         window.scrollTo(0, 0);
-        updateNotificationButtonState();
+        updateNotificationButtonState(); // Update button state after successful load
       } catch (err) {
         console.error("Failed to load page:", pageName, err);
-        appContainer.innerHTML = this.templates.home; // Fallback to home
+        // Fallback to home page on error
+        appContainer.innerHTML = this.templates.home; // Ensure home template is defined
         if (this.templates.home) showTipOfTheDay(); // Show tip on fallback home too
         this.updateNav("home");
-        showToast(`Error loading ${pageName}.`, 5000);
-        updateNotificationButtonState();
+        showToast(`Error loading page: ${pageName}.`, 5000);
+        updateNotificationButtonState(); // Update button state even on error
       } finally {
-        appContainer.style.opacity = "1";
+        appContainer.style.opacity = "1"; // Ensure opacity is reset
       }
     },
-
     updateNav: function (pageName) {
       document.querySelectorAll(".nav-btn").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.page === pageName);
