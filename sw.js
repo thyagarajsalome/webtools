@@ -1,5 +1,6 @@
 // thyagarajsalome/dreamhome-pwa/dreamhome-pwa-e228f9cbd28c01dc658af560316564e882e1d39f/sw.js
-const CACHE_NAME = "dreamhome-calculator-cache-v3"; // Incremented version
+// thyagarajsalome/dreamhome-pwa/dreamhome-pwa-e228f9cbd28c01dc658af560316564e882e1d39f/sw.js
+const CACHE_NAME = "dreamhome-calculator-cache-v4"; // Incremented version
 const urlsToCache = [
   "/",
   "/index.html",
@@ -9,6 +10,15 @@ const urlsToCache = [
   "/terms.html",
   "/css/style.css",
   "/js/app.js",
+  // ADD ALL YOUR NEW CALCULATOR MODULES
+  "/js/calculators/houseConstruction.js",
+  "/js/calculators/painting.js",
+  "/js/calculators/electrical.js",
+  "/js/calculators/plumbing.js",
+  "/js/calculators/flooring.js",
+  "/js/calculators/doorsAndWindows.js",
+  "/js/calculators/projects.js",
+  // ---
   "/images/icon-192x192.png",
   "/images/icon-512x512.png",
   "https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap",
@@ -16,6 +26,8 @@ const urlsToCache = [
   "https://cdn.jsdelivr.net/npm/chart.js",
   "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
 ];
+
+// ... (rest of sw.js remains the same) ...
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
