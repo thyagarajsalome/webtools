@@ -1,10 +1,16 @@
+// js/app.js - Significant updates marked
+
 document.addEventListener("DOMContentLoaded", () => {
   const appContainer = document.getElementById("app-container");
   const themeSwitcher = document.getElementById("theme-switcher");
+  const enableNotificationsBtn = document.getElementById(
+    "enableNotificationsBtn"
+  ); // NEW
   let deferredPrompt;
 
   // --- Tip of the Day Data ---
   const tipData = [
+    // ... (tipData remains the same) ...
     "Always get at least 3 quotes from different contractors before starting any major work.",
     "Using CPVC pipes for hot water lines is essential, as standard PVC can warp.",
     "For foundation, use a concrete mix ratio of 1:2:4 (Cement:Sand:Aggregate) for strong results.",
@@ -24,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- localStorage Database Helper ---
   const db = {
+    // ... (db object remains the same) ...
     getProjects: () => {
       return JSON.parse(localStorage.getItem("dreamhome_projects") || "[]");
     },
@@ -56,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Toast Notification Function ---
   const showToast = (message, duration = 3000, action = null) => {
+    // ... (showToast remains the same) ...
     const toastContainer = document.getElementById("toast-container");
     const toastMessage = document.getElementById("toast-message");
 
@@ -82,12 +90,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- PWA Installation Logic ---
   window.addEventListener("beforeinstallprompt", (e) => {
+    // ... (remains the same) ...
     e.preventDefault();
     deferredPrompt = e;
     console.log("`beforeinstallprompt` event was fired.");
   });
 
   const showInstallPrompt = () => {
+    // ... (remains the same) ...
     if (!deferredPrompt) {
       console.log("Install prompt not available");
       return;
@@ -108,6 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // --- Theme Switcher Logic ---
+  // ... (remains the same) ...
   const currentTheme = localStorage.getItem("theme");
   if (currentTheme) {
     document.documentElement.setAttribute("data-theme", currentTheme);
@@ -126,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Unified Share Function ---
   async function shareResults() {
-    // ... (shareResults function remains unchanged) ...
+    // ... (remains the same) ...
     const resultsCard = document.getElementById("results-card");
     if (!resultsCard) return;
 
@@ -139,7 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
       // Ensure html2canvas is loaded
       if (typeof html2canvas === "undefined") {
         console.error("html2canvas is not loaded");
-        // Optionally load it dynamically here if needed
         progressBar.classList.add("hidden");
         return;
       }
@@ -158,7 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 text: "Here is my estimated budget from DreamHome Calculator.",
               });
             } catch (error) {
-              // Handle share errors, e.g., user cancelled
               if (error.name !== "AbortError") {
                 console.error("Sharing failed:", error);
               } else {
@@ -166,14 +175,13 @@ document.addEventListener("DOMContentLoaded", () => {
               }
             }
           } else if (blob) {
-            // Fallback for browsers that don't support navigator.share with files
             const a = document.createElement("a");
             a.href = URL.createObjectURL(blob);
             a.download = "dreamhome-estimate.jpg";
-            document.body.appendChild(a); // Append link to body for Firefox compatibility
+            document.body.appendChild(a);
             a.click();
-            document.body.removeChild(a); // Clean up
-            URL.revokeObjectURL(a.href); // Clean up blob URL
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
           } else {
             console.error("Failed to generate blob for sharing/download.");
           }
@@ -181,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         "image/jpeg",
         0.95
-      ); // Added quality parameter
+      );
     } catch (error) {
       console.error("Error generating image:", error);
       progressBar.classList.add("hidden");
@@ -190,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Tip of the Day Logic ---
   function showTipOfTheDay() {
-    // ... (showTipOfTheDay function remains unchanged) ...
+    // ... (remains the same) ...
     const tipContainer = document.getElementById("tip-of-the-day-container");
     if (!tipContainer) return;
 
@@ -214,17 +222,91 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
+  // --- NEW: Notification Permission Logic ---
+  function askNotificationPermission() {
+    // Check if Notification API is supported
+    if (!("Notification" in window)) {
+      showToast("This browser does not support notifications.");
+      return;
+    }
+
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        showToast("Notifications enabled!");
+        // Optional: Send subscription to your backend server here
+        // subscribeUserToPush();
+        updateNotificationButtonState();
+      } else if (permission === "denied") {
+        showToast(
+          "Notifications blocked. Please enable them in browser settings if you change your mind.",
+          5000
+        );
+        updateNotificationButtonState();
+      } else {
+        showToast("Notification permission dismissed.");
+        updateNotificationButtonState();
+      }
+    });
+  }
+
+  // --- NEW: Update Notification Button Visual State ---
+  function updateNotificationButtonState() {
+    if (!("Notification" in window)) {
+      enableNotificationsBtn.style.display = "none"; // Hide if not supported
+      return;
+    }
+
+    if (Notification.permission === "granted") {
+      enableNotificationsBtn.style.color = "var(--success-color)"; // Green color for granted
+      enableNotificationsBtn.title = "Notifications Enabled";
+      enableNotificationsBtn.disabled = true; // Disable if already granted
+    } else if (Notification.permission === "denied") {
+      enableNotificationsBtn.style.color = "#ef4444"; // Red color for denied
+      enableNotificationsBtn.title = "Notifications Blocked";
+      enableNotificationsBtn.disabled = true; // Disable if denied
+    } else {
+      enableNotificationsBtn.style.color = "var(--muted-light)"; // Default color
+      enableNotificationsBtn.title = "Enable Notifications";
+      enableNotificationsBtn.disabled = false; // Enable if default
+    }
+  }
+
+  // --- NEW: Add listener to notification button ---
+  enableNotificationsBtn.addEventListener("click", askNotificationPermission);
+
+  // --- (Optional) Example: Subscribe user to push (requires VAPID keys & backend) ---
+  /*
+   async function subscribeUserToPush() {
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array('YOUR_VAPID_PUBLIC_KEY') // Replace with your key
+    });
+    console.log('Push subscription:', JSON.stringify(subscription));
+    // TODO: Send this subscription object to your backend server
+   }
+
+   function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+   }
+   */
+  // --- End Push Subscription Example ---
+
   // --- Main App Object ---
   const app = {
     templates: {
       home: `
         <div class="hero-section">
-          <p>Your Dream Home, Budgeted Perfectly.</p>
-          <p>
-            <span>Stop guessing, start planning</span>. "Dream Home Calculator"
-            provides transparent, detailed cost estimates for every stage of your
-            home construction project.
-          </p>
+          <p>Your Dream Home, Budgeted Perfectly.
+          Stop guessing, start planning
+    </p>
         </div>
         <div id="tip-of-the-day-container"></div>
         <div class="calculator-grid">
@@ -255,7 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>`,
     },
 
-    // List of dynamic calculator pages
+    // UPDATED: Added 'calendar'
     calculatorPages: [
       "houseConstruction",
       "painting",
@@ -264,14 +346,13 @@ document.addEventListener("DOMContentLoaded", () => {
       "flooring",
       "doorsAndWindows",
       "projects",
+      "calendar", // Added calendar here
     ],
-    // NEW: Explicit list of static pages
     staticPages: ["about", "faq", "privacy", "terms"],
 
-    // Dynamic View Loader
+    // UPDATED: LoadView handles calendar
     loadView: async function (pageName) {
-      // Add loading indicator start here if desired
-      appContainer.style.opacity = "0.5"; // Example: dim content while loading
+      appContainer.style.opacity = "0.5";
 
       try {
         if (pageName === "home") {
@@ -279,72 +360,75 @@ document.addEventListener("DOMContentLoaded", () => {
           showTipOfTheDay();
           this.updateNav(pageName);
         } else if (this.calculatorPages.includes(pageName)) {
-          const calculatorModule = await import(
-            // Ensure the path starts correctly from the root or relative path
-            `./calculators/${pageName}.js`
-            // If app.js is in /js/, and calculators are in /js/calculators/, this is correct.
-            // If your server setup is different, adjust the path (e.g., `/js/calculators/${pageName}.js`)
-          );
-          appContainer.innerHTML = calculatorModule.template;
-          calculatorModule.init(db, showToast, shareResults, showInstallPrompt);
+          // Determine path based on page name
+          const modulePath =
+            pageName === "calendar"
+              ? `./${pageName}.js`
+              : `./calculators/${pageName}.js`;
+          const module = await import(modulePath);
+
+          appContainer.innerHTML = module.template;
+          // Pass correct arguments based on module type
+          if (pageName === "calendar") {
+            module.init(db, showToast); // Calendar init expects db, showToast
+          } else {
+            module.init(db, showToast, shareResults, showInstallPrompt); // Calculators expect more args
+          }
           this.updateNav(pageName);
         } else if (this.staticPages.includes(pageName)) {
-          // UPDATED: Check against staticPages list
-          // Fallback for static pages
-          const response = await fetch(`./${pageName}.html`); // Ensure this path is correct relative to index.html
+          const response = await fetch(`./${pageName}.html`);
           if (!response.ok) throw new Error(`Page not found: ${pageName}.html`);
           const html = await response.text();
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, "text/html");
-          const mainContent = doc.querySelector("main"); // Get the <main> element
+          const mainContent = doc.querySelector("main");
           if (mainContent) {
-            appContainer.innerHTML = mainContent.innerHTML; // Inject its content
+            appContainer.innerHTML = mainContent.innerHTML;
           } else {
             appContainer.innerHTML =
-              "<p>Error: Could not load page content.</p>"; // Fallback error
+              "<p>Error: Could not load page content.</p>";
             console.error(`Could not find <main> element in ${pageName}.html`);
           }
           this.updateNav(pageName);
         } else {
-          // Handle unknown page names gracefully
           console.error(`Unknown page requested: ${pageName}`);
-          appContainer.innerHTML = this.templates.home; // Go home
+          appContainer.innerHTML = this.templates.home;
           showTipOfTheDay();
           this.updateNav("home");
         }
-        // Scroll to top on new page load
         window.scrollTo(0, 0);
+        updateNotificationButtonState(); // NEW: Update button state on every page load
       } catch (err) {
         console.error("Failed to load page: ", pageName, err);
-        // On failure, navigate back home
         appContainer.innerHTML = this.templates.home;
         showTipOfTheDay();
         this.updateNav("home");
-        showToast("Error loading page.", 5000); // Show error to user
+        showToast("Error loading page.", 5000);
+        updateNotificationButtonState(); // NEW: Update button state even on error
       } finally {
-        // Remove loading indicator
         appContainer.style.opacity = "1";
       }
     },
 
     updateNav: function (pageName) {
-      // ... (updateNav function remains unchanged) ...
+      // ... (remains the same) ...
       document.querySelectorAll(".nav-btn").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.page === pageName);
       });
     },
 
     init: function () {
-      // UPDATED: Removed setTimeout from event listener
+      // ... (remains the same) ...
       document.body.addEventListener("click", (e) => {
         const navLink = e.target.closest(".nav-btn, .calculator-link");
         if (navLink && navLink.dataset.page) {
-          e.preventDefault(); // Prevent default anchor behavior
-          this.loadView(navLink.dataset.page); // Load view immediately
+          e.preventDefault();
+          this.loadView(navLink.dataset.page);
         }
       });
       // Initial load
       this.loadView("home");
+      updateNotificationButtonState(); // NEW: Set initial button state
     },
   };
 

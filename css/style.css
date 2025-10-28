@@ -63,7 +63,6 @@ body {
   padding: 1.5rem;
   background-color: var(--bg-card);
   border-radius: var(--border-radius-lg);
-  margin-top: 1rem;
 }
 
 /* --- APP LAYOUT, HEADER, FOOTER --- */
@@ -74,7 +73,7 @@ body {
 }
 #app-container {
   flex-grow: 1;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   padding-bottom: 6rem; /* Space for footer */
 }
 .app-header {
@@ -129,6 +128,7 @@ body {
 .hero-section span {
   font-weight: 600;
   color: var(--brand-color-hover);
+  text-transform: uppercase;
 }
 .app-footer {
   position: fixed; /* Changed for native feel */
@@ -370,6 +370,7 @@ select:focus {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
+  margin-bottom: 1rem;
 }
 @media (min-width: 640px) {
   .form-grid {
@@ -1240,5 +1241,131 @@ select:focus {
   }
   .project-card-actions {
     flex-direction: row;
+  }
+}
+
+/* --- NEW: Calendar View Styles --- */
+.calendar-view {
+  background-color: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg);
+  margin-top: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.calendar-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+.calendar-header .btn {
+  padding: 0.5rem 1rem;
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+.calendar-day-header {
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-light);
+  font-size: 0.875rem;
+  padding-bottom: 0.5rem;
+}
+.calendar-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1 / 1; /* Make cells square-ish */
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  position: relative; /* For note indicator */
+}
+.calendar-day:not(.empty):hover {
+  background-color: var(--brand-color-light);
+}
+.calendar-day.empty {
+  cursor: default;
+  background-color: transparent;
+}
+.calendar-day.today {
+  font-weight: 700;
+  border: 2px solid var(--brand-color);
+  color: var(--brand-color);
+}
+.calendar-day.selected {
+  background-color: var(--brand-color);
+  color: white;
+}
+.calendar-day.has-note::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--success-color);
+}
+.calendar-day.selected.has-note::after {
+  background-color: white; /* Make dot visible on selected */
+}
+
+.calendar-events {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+.calendar-events h3 {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+.calendar-events #selectedDate {
+  font-weight: normal;
+  color: var(--text-light);
+}
+.note-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-body);
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+  margin-bottom: 0.5rem;
+}
+.note-item span {
+  color: var(--text-secondary);
+}
+:root[data-theme="dark"] .note-item span {
+  color: var(--text-light);
+}
+.btn-delete-note {
+  /* Uses .btn-delete-item styles */
+  padding: 0;
+  line-height: 1;
+}
+
+/* Adjust header notification button color */
+#enableNotificationsBtn[disabled] {
+  opacity: 1; /* Keep visible even when disabled */
+  cursor: default;
+}
+
+@media (min-width: 640px) {
+  .calendar-day {
+    font-size: 1rem;
   }
 }

@@ -27,7 +27,14 @@
             <img src="./images/logo-brand.png" width="60" alt="" />
             <h3><span>Dream</span> Home Calculator</h3>
             <div class="header-actions">
-              <button id="theme-switcher" class="icon-btn">
+              <button
+                id="enableNotificationsBtn"
+                class="icon-btn"
+                title="Enable Notifications"
+              >
+                <span class="material-symbols-outlined">notifications</span>
+              </button>
+              <button id="theme-switcher" class="icon-btn" title="Toggle Theme">
                 <span class="material-symbols-outlined">brightness_6</span>
               </button>
             </div>
@@ -48,6 +55,10 @@
               <span class="material-symbols-outlined">article</span>
               <span class="nav-text">Projects</span>
             </a>
+            <a class="nav-btn" href="#" data-page="calendar">
+              <span class="material-symbols-outlined">calendar_month</span>
+              <span class="nav-text">Calendar</span>
+            </a>
             <a class="nav-btn" href="#" data-page="about">
               <span class="material-symbols-outlined">info</span>
               <span class="nav-text">About</span>
@@ -55,10 +66,6 @@
             <a class="nav-btn" href="#" data-page="faq">
               <span class="material-symbols-outlined">quiz</span>
               <span class="nav-text">FAQ</span>
-            </a>
-            <a class="nav-btn" href="#" data-page="privacy">
-              <span class="material-symbols-outlined">privacy_tip</span>
-              <span class="nav-text">Privacy</span>
             </a>
           </div>
         </div>
@@ -73,8 +80,9 @@
       <div id="toast-message" class="toast-message"></div>
     </div>
 
-   <script src="./js/app.js" type="module"></script></script>
+    <script src="./js/app.js" type="module"></script>
     <script>
+      // Service worker registration remains the same
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
           navigator.serviceWorker.register("/sw.js").then(
