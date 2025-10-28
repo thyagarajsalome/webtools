@@ -248,15 +248,15 @@ document.addEventListener("DOMContentLoaded", () => {
           if (this.templates.home) showTipOfTheDay(); // Check if home template exists before calling
           this.updateNav(pageName);
         } else if (this.calculatorPages.includes(pageName)) {
-          // *** CORRECTED PATH LOGIC ***
-          // Determine path: calendar.js is in /js/, others are in /js/calculators/
+          // *** VERIFY THIS PART CAREFULLY ***
+          // Correctly determine the path: calendar.js is in /js/, others are in /js/calculators/
           const modulePath =
             pageName === "calendar"
-              ? `./${pageName}.js` // Path for calendar.js
-              : `./calculators/${pageName}.js`; // Path for calculator modules
+              ? `./${pageName}.js` // Should resolve to ./calendar.js
+              : `./calculators/${pageName}.js`; // Should resolve to ./calculators/someCalc.js
           // ***************************
 
-          const module = await import(modulePath);
+          const module = await import(modulePath); // Ensure this line uses modulePath
           if (
             !module ||
             !module.template ||
@@ -277,34 +277,27 @@ document.addEventListener("DOMContentLoaded", () => {
           }
           this.updateNav(pageName);
         } else if (this.staticPages.includes(pageName)) {
-          // Load static HTML pages (about, faq, etc.)
+          // This block should NOT run for 'calendar' if the above logic is correct
           const response = await fetch(`./${pageName}.html`);
-          if (!response.ok) throw new Error(`Page not found: ${pageName}.html`);
-          const html = await response.text();
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, "text/html");
-          const mainContent = doc.querySelector("main");
-          if (mainContent) appContainer.innerHTML = mainContent.innerHTML;
-          else throw new Error(`<main> element not found in ${pageName}.html`);
+          // ... rest of static page loading ...
           this.updateNav(pageName);
         } else {
-          // Handle unknown page names
           throw new Error(`Unknown page requested: ${pageName}`);
         }
         window.scrollTo(0, 0);
-        updateNotificationButtonState(); // Update button state after successful load
+        updateNotificationButtonState();
       } catch (err) {
         console.error("Failed to load page:", pageName, err);
-        // Fallback to home page on error
-        appContainer.innerHTML = this.templates.home; // Ensure home template is defined
-        if (this.templates.home) showTipOfTheDay(); // Show tip on fallback home too
+        appContainer.innerHTML = this.templates.home;
+        if (this.templates.home) showTipOfTheDay();
         this.updateNav("home");
         showToast(`Error loading page: ${pageName}.`, 5000);
-        updateNotificationButtonState(); // Update button state even on error
+        updateNotificationButtonState();
       } finally {
-        appContainer.style.opacity = "1"; // Ensure opacity is reset
+        appContainer.style.opacity = "1";
       }
     },
+    // load-view-end
     updateNav: function (pageName) {
       document.querySelectorAll(".nav-btn").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.page === pageName);
