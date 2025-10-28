@@ -199,6 +199,7 @@ body {
   color: var(--text-primary);
 }
 .calculator-grid {
+  margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
@@ -418,9 +419,10 @@ select:focus {
 
 /* --- OPTIONS & RESULTS --- */
 .quality-grid {
+  margin-top: 1rem;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 @media (min-width: 640px) {
   .quality-grid {
@@ -908,4 +910,335 @@ select:focus {
   color: var(--text-light);
   font-weight: 500;
   margin-top: 1rem;
+}
+
+/* --- NEW: Tip of the Day Styles --- */
+#tip-of-the-day-container {
+  margin-bottom: 1.5rem;
+}
+.tip-card {
+  background-color: var(--brand-color-light);
+  border: 1px solid var(--brand-color);
+  border-radius: var(--border-radius-lg);
+  padding: 1rem 1.5rem;
+}
+.tip-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--brand-color);
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+.tip-card-header .material-symbols-outlined {
+  font-variation-settings: "FILL" 1;
+}
+.tip-card-body {
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+:root[data-theme="dark"] .tip-card {
+  background-color: #1c2a38;
+  border-color: var(--brand-color-hover);
+}
+:root[data-theme="dark"] .tip-card-body {
+  color: var(--text-light);
+}
+
+/* --- NEW: Project List Styles --- */
+.project-card-interactive {
+  background-color: var(--bg-card);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s;
+  gap: 1rem;
+}
+.project-card-interactive:hover {
+  box-shadow: var(--shadow-md);
+}
+.project-card-interactive .project-details {
+  flex-grow: 1;
+}
+.project-card-interactive h3 {
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+.project-card-interactive p {
+  color: var(--text-light);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+.project-total-list {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem !important;
+}
+.project-total-actual {
+  color: var(--text-primary);
+}
+.project-total-est {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+.project-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.project-card-actions .btn-view-project {
+  padding: 0.75rem 1.25rem;
+}
+.project-card-actions .btn-delete {
+  padding: 0.75rem;
+  border-radius: var(--border-radius-md);
+}
+.project-card-actions .btn-delete .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
+/* --- NEW: Project Detail Dashboard Styles --- */
+.project-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.btn-back {
+  background: var(--bg-body);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.btn-back:hover {
+  background-color: var(--border-color);
+}
+.project-detail-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.dashboard-section {
+  background-color: var(--bg-card);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+.dashboard-section h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Summary Card */
+.summary-card .summary-total-estimated {
+  font-size: 1.25rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+.summary-card .summary-total-actual {
+  font-size: 2rem;
+  color: var(--text-primary);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.summary-card .summary-warning {
+  color: #ef4444;
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+  width: 100%;
+  height: 12px;
+  background-color: var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+.progress-bar-actual {
+  height: 100%;
+  background-color: var(--brand-color);
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+
+/* Budget Tracker List */
+.budget-tracker-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+.budget-item {
+  background-color: var(--bg-body);
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+}
+.budget-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+.budget-item-est {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-light);
+}
+.budget-item-body .budget-item-actual {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+:root[data-theme="dark"] .budget-item-body .budget-item-actual {
+  color: var(--text-light);
+}
+:root[data-theme="dark"] .progress-bar-container {
+  background-color: #2d3748; /* border-dark */
+}
+
+/* Checklist and Expense List */
+.empty-list-text {
+  color: var(--text-light);
+  font-style: italic;
+  text-align: center;
+  padding: 1rem 0;
+}
+.add-item-form {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.add-item-form .form-grid-half {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.add-item-form .btn {
+  width: 100%;
+}
+
+.checklist-item,
+.expense-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.expense-item {
+  justify-content: space-between;
+}
+.expense-item span {
+  color: var(--text-primary);
+}
+.expense-item .expense-item-amount {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  white-space: nowrap;
+  margin-left: auto;
+  padding-right: 0.5rem;
+}
+.checklist-item label {
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: 0;
+  flex-grow: 1;
+  transition: color 0.2s;
+}
+.checklist-item input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+.checklist-item label.task-done {
+  text-decoration: line-through;
+  color: var(--text-light);
+}
+.btn-delete-item {
+  background: none;
+  border: none;
+  color: var(--muted-light);
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0 0.5rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.btn-delete-item:hover {
+  color: #ef4444;
+}
+
+/* Responsive Grid for Dashboard */
+@media (min-width: 768px) {
+  .project-detail-view {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .project-detail-header {
+    grid-column: 1 / -1; /* Span full width */
+  }
+  .summary-card {
+    grid-column: 1 / -1;
+  }
+  .dashboard-section {
+    margin-top: 0;
+  }
+}
+@media (min-width: 1024px) {
+  .project-detail-view {
+    grid-template-columns: 3fr 2fr;
+  }
+  .summary-card {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+  .dashboard-section.budget-tracker-list {
+    grid-column: 1 / 2;
+  }
+  .dashboard-section.expense-log {
+    grid-column: 2 / 3;
+    grid-row: 2 / 4; /* Span 2 rows */
+  }
+  .dashboard-section.checklist {
+    grid-column: 1 / 2;
+  }
+  .project-card-interactive {
+    flex-direction: row;
+    align-items: center;
+  }
+  .project-card-actions {
+    flex-direction: row;
+  }
 }

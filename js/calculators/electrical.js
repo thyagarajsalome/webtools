@@ -353,12 +353,42 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
     resultsSection.classList.remove("hidden");
     document.getElementById("shareBtn").addEventListener("click", shareResults);
 
+    // --- UPDATED: Save Button Logic ---
     document.getElementById("saveBtn").addEventListener("click", () => {
       const name = prompt(
         "Enter a name for this project:",
         "My Electrical Plan"
       );
       if (name) {
+        // --- NEW: Default checklist for this project type ---
+        const defaultTasks = [
+          {
+            id: `task_${Date.now() + 1}`,
+            text: "Hire an electrician",
+            done: false,
+          },
+          {
+            id: `task_${Date.now() + 2}`,
+            text: "Finalize point locations",
+            done: false,
+          },
+          {
+            id: `task_${Date.now() + 3}`,
+            text: "Buy wires and conduit pipes",
+            done: false,
+          },
+          {
+            id: `task_${Date.now() + 4}`,
+            text: "Buy switches and fixtures",
+            done: false,
+          },
+          {
+            id: `task_${Date.now() + 5}`,
+            text: "Install main DB and earthing",
+            done: false,
+          },
+        ];
+
         const project = {
           id: `proj_${Date.now()}`,
           name: name,
@@ -366,6 +396,8 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
           total: data.grandTotal,
           data: data,
           savedOn: new Date().toISOString(),
+          tasks: defaultTasks, // NEW: Add default tasks
+          expenses: [], // NEW: Add empty expenses array
         };
         db.addProject(project);
         showToast("Project saved successfully!");
@@ -383,7 +415,7 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
   }
 
   function renderChart(material, labor) {
-    const ctx = document.getElementById("costChart")?.getContext("d");
+    const ctx = document.getElementById("costChart")?.getContext("2d");
     if (!ctx) return;
     if (chartInstance) chartInstance.destroy();
     chartInstance = new Chart(ctx, {

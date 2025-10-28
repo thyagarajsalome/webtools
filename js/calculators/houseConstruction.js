@@ -153,13 +153,42 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
     resultsSection.classList.remove("hidden");
     document.getElementById("shareBtn").addEventListener("click", shareResults);
 
-    // --- NEW: Save Button Logic ---
+    // --- UPDATED: Save Button Logic ---
     document.getElementById("saveBtn").addEventListener("click", () => {
       const name = prompt(
         "Enter a name for this project:",
         "My House Construction"
       );
       if (name) {
+        // --- NEW: Default checklist for this project type ---
+        const defaultTasks = [
+          {
+            id: `task_${Date.now() + 1}`,
+            text: "Finalize architect plans",
+            done: false,
+          },
+          {
+            id: `task_${Date.now() + 2}`,
+            text: "Get municipal approvals",
+            done: false,
+          },
+          {
+            id: `task_${Date.now() + 3}`,
+            text: "Hire main contractor",
+            done: false,
+          },
+          {
+            id: `task_${Date.now() + 4}`,
+            text: "Get quotes for foundation",
+            done: false,
+          },
+          {
+            id: `task_${Date.now() + 5}`,
+            text: "Start foundation work",
+            done: false,
+          },
+        ];
+
         const project = {
           id: `proj_${Date.now()}`,
           name: name,
@@ -167,11 +196,12 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
           total: data.grandTotal,
           data: data, // Save the full data object
           savedOn: new Date().toISOString(),
+          tasks: defaultTasks, // NEW: Add default tasks
+          expenses: [], // NEW: Add empty expenses array
         };
         db.addProject(project);
         showToast("Project saved successfully!");
 
-        // Check if it's the first save and prompt to install
         if (db.getProjects().length === 1) {
           showInstallPrompt();
         }
