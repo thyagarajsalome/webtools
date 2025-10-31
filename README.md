@@ -1,11 +1,9 @@
+---
+
 **Dreamhome Calculator** is a Progressive Web App (PWA) designed to simplify home construction budgeting. It provides a suite of calculators to help homeowners, contractors, and dreamers get a clear and transparent view of potential costs before starting a building project.
 
 [](https://opensource.org/licenses/MIT)
 [](https://your-live-demo-link.com)
-
-## ✨ Features
-
-# ... (previous content)
 
 ## ✨ Features
 
@@ -17,13 +15,13 @@
   - 🧱 Flooring
   - 🎨 Painting
   - 🚪 Doors & Windows
+  - 💰 EMI Calculator
+  - 📏 Unit Converter
 - **Detailed Breakdowns**: Get detailed, stage-wise cost breakdowns for better financial planning.
 - **Shareable Results**: Share your generated estimates as a JPG image with friends, family, or contractors.
 - **Responsive Design**: A clean and intuitive user interface that works on all devices.
 - **PWA Ready**: Install the app on your mobile or desktop device for a native-app-like experience with offline support.
 - **Dark/Light Theme**: Choose your preferred theme for comfortable viewing.
-
-# ... (rest of the content)
 
 ---
 
@@ -57,7 +55,7 @@ You will need a local web server to run this PWA. The [Live Server](https://mark
 - **JavaScript (ES6+)**
 - **Progressive Web App (PWA)** features (Service Worker, Manifest)
 - **Chart.js** for data visualization
-- **jsPDF** for generating PDF reports
+- **html2canvas** for generating JPG images
 
 ---
 
