@@ -90,8 +90,13 @@ body {
   justify-content: space-between;
   height: 4rem;
 }
+
 .header-content h3 span {
   color: var(--brand-color-hover);
+}
+
+.title-txt {
+  text-align: center;
 }
 .header-title {
   font-size: 1.25rem;
@@ -108,7 +113,7 @@ body {
   border: none;
   cursor: pointer;
   color: var(--muted-light);
-  padding: 0.5rem;
+  padding: 0.2rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
