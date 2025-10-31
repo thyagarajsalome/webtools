@@ -1,4 +1,4 @@
-// js/app.js - Calendar feature removed
+// js/app.js - UPDATED
 
 document.addEventListener("DOMContentLoaded", () => {
   const appContainer = document.getElementById("app-container");
@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Main App Object ---
   const app = {
     templates: { home: `` }, // Defined in init
-    // REMOVED 'calendar' from this list
+    // UPDATED calculatorPages list
     calculatorPages: [
       "houseConstruction",
       "painting",
@@ -235,6 +235,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "plumbing",
       "flooring",
       "doorsAndWindows",
+      "emiCalculator", // <-- ADDED
+      "unitConverter", // <-- ADDED
       "projects",
     ],
     staticPages: ["about", "faq", "privacy", "terms"],
@@ -247,7 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
           if (this.templates.home) showTipOfTheDay();
           this.updateNav(pageName);
         } else if (this.calculatorPages.includes(pageName)) {
-          // REMOVED Calendar path logic, now only loads from /calculators/
           const modulePath = `./calculators/${pageName}.js`;
           const module = await import(modulePath);
 
@@ -261,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
           }
           appContainer.innerHTML = module.template;
-          // REMOVED Calendar init logic branch
+          // Pass all helpers to init, even if not all are used
           module.init(db, showToast, shareResults, showInstallPrompt);
           this.updateNav(pageName);
         } else if (this.staticPages.includes(pageName)) {
@@ -298,7 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
     init: function () {
-      // UPDATED Home template definition (removed filter for calendar)
+      // UPDATED Home template definition
       this.templates.home = `
         <div class="hero-section">
           <p>Your Dream Home, Budgeted Perfectly.</p>
@@ -307,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div id="tip-of-the-day-container"></div>
         <div class="calculator-grid">
             ${this.calculatorPages
-              .filter((p) => p !== "projects") // Only filter out projects now
+              .filter((p) => p !== "projects") // Filter out projects
               .map(
                 (page) => `
             <a class="category-card calculator-link" href="#" data-page="${page}">
@@ -332,26 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
-  // Helper functions - no changes needed here
-  function getIconForPage(pageName) {
-    const icons = {
-      /* ... */
-    };
-    return icons[pageName] || "calculate";
-  }
-  function getPageTitle(pageName) {
-    const titles = {
-      /* ... */
-    };
-    return (
-      titles[pageName] ||
-      pageName
-        .replace(/([A-Z])/g, " $1")
-        .replace(/^./, (str) => str.toUpperCase())
-    );
-  }
-
-  // --- Make sure helper functions are defined before init uses them ---
+  // Helper functions
   function getIconForPage(pageName) {
     const icons = {
       houseConstruction: "home",
@@ -360,6 +342,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flooring: "square_foot",
       painting: "format_paint",
       doorsAndWindows: "door_front",
+      emiCalculator: "payments", // <-- ADDED
+      unitConverter: "straighten", // <-- ADDED
     };
     return icons[pageName] || "calculate";
   }
@@ -371,6 +355,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flooring: "Flooring",
       painting: "Painting",
       doorsAndWindows: "Doors & Windows",
+      emiCalculator: "EMI Calculator", // <-- ADDED
+      unitConverter: "Unit Converter", // <-- ADDED
     };
     return (
       titles[pageName] ||
