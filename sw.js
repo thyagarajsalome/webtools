@@ -1,6 +1,6 @@
-// Service Worker: sw.js
+// Service Worker: sw.js - UPDATED
 
-const CACHE_NAME = "dreamhome-calculator-cache-v6"; // Incremented version again
+const CACHE_NAME = "dreamhome-calculator-cache-v7"; // Incremented version
 const urlsToCache = [
   "/",
   "/index.html",
@@ -18,7 +18,8 @@ const urlsToCache = [
   "/js/calculators/flooring.js",
   "/js/calculators/doorsAndWindows.js",
   "/js/calculators/projects.js",
-  // REMOVED Calendar Module from cache list
+  "/js/calculators/emiCalculator.js", // <-- ADDED
+  "/js/calculators/unitConverter.js", // <-- ADDED
   // ---
   "/images/icon-192x192.png",
   "/images/icon-512x512.png",
