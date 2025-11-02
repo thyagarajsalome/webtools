@@ -1,5 +1,3 @@
----
-
 **Dreamhome Calculator** is a Progressive Web App (PWA) designed to simplify home construction budgeting. It provides a suite of calculators to help homeowners, contractors, and dreamers get a clear and transparent view of potential costs before starting a building project.
 
 [](https://opensource.org/licenses/MIT)
@@ -37,7 +35,7 @@ You will need a local web server to run this PWA. The [Live Server](https://mark
 
 1.  **Clone the repo**
     ```sh
-    git clone https://github.com/your-username/dreamhome-pwa.git
+    git clone [https://github.com/your-username/dreamhome-pwa.git](https://github.com/your-username/dreamhome-pwa.git)
     ```
 2.  **Navigate to the project directory**
     ```sh
