@@ -80,6 +80,30 @@
       <div class="progress-text">Generating Image... 0%</div>
     </div>
 
+    <!-- Custom App Install Toaster -->
+    <div id="install-toast" class="install-toast hidden">
+      <div class="install-toast-content">
+        <div class="install-icon">
+          <img src="./images/icon-192x192.png" alt="App Icon" />
+        </div>
+        <div class="install-text">
+          <strong>Get the App</strong>
+          <p>Install our official app for a better experience!</p>
+        </div>
+        <div class="install-actions">
+          <a
+            href="https://play.google.com/store/apps/details?id=in.toolwebsite.twa&pcampaignid=web_share"
+            target="_blank"
+            class="btn btn-sm btn-primary"
+            >Install</a
+          >
+          <button id="close-install-toast" class="btn-close-toast">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div id="toast-container" class="toast-container">
       <div id="toast-message" class="toast-message"></div>
     </div>
