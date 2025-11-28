@@ -338,6 +338,7 @@ select:focus {
 .btn-primary {
   background-color: var(--brand-color);
   color: white;
+  text-decoration: none; /* For links */
 }
 .btn-primary:hover:not(:disabled) {
   background-color: var(--brand-color-hover);
@@ -1247,4 +1248,97 @@ select:focus {
   .project-card-actions {
     flex-direction: row;
   }
+}
+
+/* --- CUSTOM INSTALL TOAST --- */
+.install-toast {
+  position: fixed;
+  bottom: 5.5rem; /* Just above bottom nav */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  z-index: 1500;
+  animation: slideUp 0.4s ease-out;
+}
+
+:root[data-theme="dark"] .install-toast {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+.install-toast-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.install-icon img {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+}
+
+.install-text {
+  flex-grow: 1;
+}
+
+.install-text strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.install-text p {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.install-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+.btn-close-toast {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.btn-close-toast:hover {
+  background-color: var(--bg-body);
+  color: var(--text-primary);
 }

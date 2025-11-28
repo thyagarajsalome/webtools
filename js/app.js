@@ -99,6 +99,32 @@ document.addEventListener("DOMContentLoaded", () => {
     showToast("Get our app for offline access!", null, installAction);
   };
 
+  // --- CUSTOM INSTALL APP TOASTER LOGIC (UPDATED) ---
+  function initInstallToaster() {
+    const installToast = document.getElementById("install-toast");
+    const closeToastBtn = document.getElementById("close-install-toast");
+
+    // Check if user already dismissed it
+    const isDismissed = localStorage.getItem("app_install_toast_dismissed");
+
+    // Only show if NOT dismissed
+    if (!isDismissed && installToast) {
+      // Show after a delay (e.g., 5 seconds) to not annoy immediately
+      setTimeout(() => {
+        installToast.classList.remove("hidden");
+      }, 5000);
+    }
+
+    // Handle Close Button
+    if (closeToastBtn) {
+      closeToastBtn.addEventListener("click", () => {
+        installToast.classList.add("hidden");
+        // Save to localStorage so it doesn't show again
+        localStorage.setItem("app_install_toast_dismissed", "true");
+      });
+    }
+  }
+
   // --- Theme Switcher Logic ---
   const currentTheme = localStorage.getItem("theme");
   if (currentTheme)
@@ -330,6 +356,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       this.loadView("home"); // Initial load
       updateNotificationButtonState(); // Set initial button state
+
+      // --- INIT CUSTOM TOAST ---
+      initInstallToaster();
     },
   };
 
