@@ -319,23 +319,20 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
     updateNav: function (pageName) {
-      document.querySelectorAll(".nav-btn").forEach((btn) => {
-        // Handle case where URL might be "home" but no nav button explicitly says "home" in dataset if clicked differently
-        btn.classList.toggle("active", btn.dataset.page === pageName);
-      });
+      // UPDATED: Select both mobile nav buttons and desktop nav links
+      document
+        .querySelectorAll(".nav-btn, .desktop-nav-link")
+        .forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.page === pageName);
+        });
     },
 
     init: function () {
-      // UPDATED Home template definition with Mobile App Button and URL-friendly links
+      // UPDATED Home template: Removed Mobile App Download Button
       this.templates.home = `
         <div class="hero-section">
           <p>Your Dream Home, Budgeted Perfectly.</p>
           <p><span>Stop guessing, start planning</span>. DreamHome Calculator provides transparent estimates.</p>
-          <div style="margin-top: 1.5rem;">
-            <a href="https://play.google.com/store/apps/details?id=in.toolwebsite.twa&pcampaignid=web_share" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
-              <span class="material-symbols-outlined">install_mobile</span> Download Mobile App
-            </a>
-          </div>
         </div>
         <div id="tip-of-the-day-container"></div>
         <div class="calculator-grid">
@@ -353,9 +350,11 @@ document.addEventListener("DOMContentLoaded", () => {
               .join("")}
         </div>`;
 
-      // UPDATED: URL Routing and Navigation Logic
+      // UPDATED: URL Routing and Navigation Logic including Desktop Nav
       document.body.addEventListener("click", (e) => {
-        const navLink = e.target.closest(".nav-btn, .calculator-link");
+        const navLink = e.target.closest(
+          ".nav-btn, .calculator-link, .desktop-nav-link"
+        );
         if (navLink?.dataset.page) {
           e.preventDefault();
           const page = navLink.dataset.page;

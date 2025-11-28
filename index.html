@@ -31,10 +31,21 @@
       <header class="app-header">
         <div class="container">
           <div class="header-content">
-            <img src="./images/logo-brand.png" width="50" alt="" />
-            <h3 class="title-txt"><span>DreamHome</span> Calculator</h3>
+            <div class="header-brand">
+              <img src="./images/logo-brand.png" width="50" alt="" />
+              <h3 class="title-txt"><span>DreamHome</span> Calculator</h3>
+            </div>
+
+            <nav class="desktop-nav">
+              <a href="#" class="desktop-nav-link" data-page="home">Home</a>
+              <a href="#" class="desktop-nav-link" data-page="projects"
+                >Projects</a
+              >
+              <a href="#" class="desktop-nav-link" data-page="about">About</a>
+              <a href="#" class="desktop-nav-link" data-page="faq">FAQ</a>
+            </nav>
+
             <div class="header-actions">
-              <!-- NEW: Mobile App Download Button -->
               <a
                 href="https://play.google.com/store/apps/details?id=in.toolwebsite.twa&pcampaignid=web_share"
                 target="_blank"
@@ -60,6 +71,63 @@
       </header>
 
       <main id="app-container" class="container"></main>
+
+      <footer class="web-app-footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-section">
+              <h3>Tool Website Hub</h3>
+              <ul class="footer-links">
+                <li>
+                  <a href="https://homedesignenglish.com/" target="_blank"
+                    >Home Design English <span class="external-icon">↗</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://aihomedecorator.com/" target="_blank"
+                    >Ai Home Decorator <span class="external-icon">↗</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://wallpaint.in/" target="_blank"
+                    >Wall Paint Visualizer
+                    <span class="external-icon">↗</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="footer-section">
+              <h3>Quick Links</h3>
+              <ul class="footer-links">
+                <li>
+                  <a href="#" class="desktop-nav-link" data-page="privacy"
+                    >Privacy Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="desktop-nav-link" data-page="terms"
+                    >Terms & Conditions</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="desktop-nav-link" data-page="about"
+                    >About Us</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="footer-section">
+              <h3>DreamHome Calculator</h3>
+              <p>
+                Your trusted companion for accurate home construction budgeting.
+              </p>
+              <p class="copyright">&copy; 2025 ToolWebsite.in</p>
+            </div>
+          </div>
+        </div>
+      </footer>
 
       <footer class="app-footer">
         <div class="container">
@@ -94,7 +162,6 @@
       <div class="progress-text">Generating Image... 0%</div>
     </div>
 
-    <!-- Custom App Install Toaster -->
     <div id="install-toast" class="install-toast hidden">
       <div class="install-toast-content">
         <div class="install-icon">
