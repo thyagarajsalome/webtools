@@ -261,8 +261,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "plumbing",
       "flooring",
       "doorsAndWindows",
-      "emiCalculator", // <-- ADDED
-      "unitConverter", // <-- ADDED
+      "emiCalculator",
+      "unitConverter",
       "projects",
     ],
     staticPages: ["about", "faq", "privacy", "terms"],
@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
         appContainer.innerHTML = this.templates.home;
         if (this.templates.home) showTipOfTheDay();
         this.updateNav("home");
-        showToast(`Error loading page: ${pageName}.`, 5000);
+        // Don't show toast on 404/error redirect to home to keep it clean for new users
         updateNotificationButtonState();
       } finally {
         appContainer.style.opacity = "1";
@@ -320,16 +320,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateNav: function (pageName) {
       document.querySelectorAll(".nav-btn").forEach((btn) => {
+        // Handle case where URL might be "home" but no nav button explicitly says "home" in dataset if clicked differently
         btn.classList.toggle("active", btn.dataset.page === pageName);
       });
     },
 
     init: function () {
-      // UPDATED Home template definition
+      // UPDATED Home template definition with Mobile App Button and URL-friendly links
       this.templates.home = `
         <div class="hero-section">
           <p>Your Dream Home, Budgeted Perfectly.</p>
           <p><span>Stop guessing, start planning</span>. DreamHome Calculator provides transparent estimates.</p>
+          <div style="margin-top: 1.5rem;">
+            <a href="https://play.google.com/store/apps/details?id=in.toolwebsite.twa&pcampaignid=web_share" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+              <span class="material-symbols-outlined">install_mobile</span> Download Mobile App
+            </a>
+          </div>
         </div>
         <div id="tip-of-the-day-container"></div>
         <div class="calculator-grid">
@@ -337,7 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
               .filter((p) => p !== "projects") // Filter out projects
               .map(
                 (page) => `
-            <a class="category-card calculator-link" href="#" data-page="${page}">
+            <a class="category-card calculator-link" href="?page=${page}" data-page="${page}">
                 <div class="icon-wrapper"><span class="material-symbols-outlined">${getIconForPage(
                   page
                 )}</span></div>
@@ -347,14 +353,42 @@ document.addEventListener("DOMContentLoaded", () => {
               .join("")}
         </div>`;
 
+      // UPDATED: URL Routing and Navigation Logic
       document.body.addEventListener("click", (e) => {
         const navLink = e.target.closest(".nav-btn, .calculator-link");
         if (navLink?.dataset.page) {
           e.preventDefault();
-          this.loadView(navLink.dataset.page);
+          const page = navLink.dataset.page;
+          // Update URL without reloading page for better UX + Indexing support
+          const newUrl = page === "home" ? "/" : `?page=${page}`;
+          window.history.pushState({ page }, "", newUrl);
+          this.loadView(page);
         }
       });
-      this.loadView("home"); // Initial load
+
+      // Handle Browser Back/Forward Button
+      window.onpopstate = (event) => {
+        const page =
+          event.state?.page ||
+          new URLSearchParams(window.location.search).get("page") ||
+          "home";
+        this.loadView(page);
+      };
+
+      // Initial Load: Check URL params for deep linking (e.g., /?page=painting)
+      const urlParams = new URLSearchParams(window.location.search);
+      const pageParam = urlParams.get("page");
+
+      if (
+        pageParam &&
+        (this.calculatorPages.includes(pageParam) ||
+          this.staticPages.includes(pageParam))
+      ) {
+        this.loadView(pageParam);
+      } else {
+        this.loadView("home");
+      }
+
       updateNotificationButtonState(); // Set initial button state
 
       // --- INIT CUSTOM TOAST ---
@@ -371,8 +405,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flooring: "square_foot",
       painting: "format_paint",
       doorsAndWindows: "door_front",
-      emiCalculator: "payments", // <-- ADDED
-      unitConverter: "straighten", // <-- ADDED
+      emiCalculator: "payments",
+      unitConverter: "straighten",
     };
     return icons[pageName] || "calculate";
   }
@@ -384,8 +418,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flooring: "Flooring",
       painting: "Painting",
       doorsAndWindows: "Doors & Windows",
-      emiCalculator: "EMI Calculator", // <-- ADDED
-      unitConverter: "Unit Converter", // <-- ADDED
+      emiCalculator: "EMI Calculator",
+      unitConverter: "Unit Converter",
     };
     return (
       titles[pageName] ||
