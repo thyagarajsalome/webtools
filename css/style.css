@@ -95,7 +95,7 @@ body {
   color: var(--brand-color-hover);
 }
 
-/* NEW: Brand Wrapper */
+/* Brand Wrapper */
 .header-brand {
   display: flex;
   align-items: center;
@@ -132,7 +132,7 @@ body {
   color: var(--text-primary);
 }
 
-/* NEW: Desktop Nav - Hidden by default (Mobile First) */
+/* Desktop Nav - Hidden by default (Mobile First) */
 .desktop-nav {
   display: none;
 }
@@ -149,7 +149,7 @@ body {
   text-transform: uppercase;
 }
 .app-footer {
-  position: fixed; /* Changed for native feel */
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -197,59 +197,115 @@ body {
   color: var(--text-primary);
 }
 
-/* --- WEB APP FOOTER (Desktop Only) --- */
+/* --- ENHANCED WEB APP FOOTER --- */
 .web-app-footer {
-  display: none; /* Hidden on mobile */
-  background-color: var(--bg-card);
-  border-top: 1px solid var(--border-color);
-  padding: 3rem 0;
-  margin-top: 2rem;
+  display: block; /* Visible by default on mobile web */
+  background-color: #0f172a; /* Dark premium background */
+  color: #f8fafc;
+  padding: 4rem 0 7rem 0; /* Extra bottom padding for mobile nav overlap */
+  margin-top: 4rem;
+  position: relative;
+  /* Subtle dot pattern for texture */
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 30px 30px;
 }
+
+/* Colorful gradient top border */
+.web-app-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand-color), var(--success-color));
+}
+
 .footer-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  grid-template-columns: 1fr; /* Stack vertically on mobile */
+  gap: 2.5rem;
 }
+
 .footer-section h3 {
-  font-size: 1.1rem;
+  color: #fff;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.025em;
+  position: relative;
+  display: inline-block;
 }
+
+/* Heading underline accent */
+.footer-section h3::after {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 3px;
+  background-color: var(--brand-color);
+  margin-top: 0.5rem;
+  border-radius: 2px;
+}
+
 .footer-section p {
-  color: var(--text-light);
-  font-size: 0.9rem;
-  line-height: 1.5;
+  color: #94a3b8; /* Muted slate text */
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
+
 .footer-links {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
+
 .footer-links li {
   margin-bottom: 0.75rem;
 }
+
 .footer-links a {
-  color: var(--text-light);
+  color: #cbd5e1;
   text-decoration: none;
-  transition: color 0.2s;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
+
+/* Hover Effect: Slide right and glow */
 .footer-links a:hover {
-  color: var(--brand-color);
+  color: var(--brand-color-light);
+  transform: translateX(6px);
 }
-.external-icon {
-  font-size: 0.8em;
-  opacity: 0.7;
+
+.footer-links a .external-icon {
+  font-size: 0.75em;
+  opacity: 0.5;
+  transition: opacity 0.3s;
 }
+
+.footer-links a:hover .external-icon {
+  opacity: 1;
+}
+
 .copyright {
-  margin-top: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #64748b;
   font-size: 0.85rem;
-  color: var(--muted-light);
+  text-align: center;
 }
+
+/* Dark mode adjustment for footer */
 :root[data-theme="dark"] .web-app-footer {
-  background-color: var(--card-dark);
+  background-color: #0b1120; /* Slightly darker in dark mode */
+  border-top: none;
 }
 
 /* --- HOME PAGE & CALCULATOR STYLES --- */
@@ -288,7 +344,7 @@ body {
   }
 }
 
-/* NEW: Desktop / Web App View Media Query */
+/* Desktop / Web App View Media Query */
 @media (min-width: 769px) {
   .desktop-nav {
     display: flex;
@@ -310,18 +366,32 @@ body {
     color: var(--primary);
     background-color: var(--brand-color-light);
   }
+
+  /* Hide Mobile Bottom Nav */
   .app-footer {
-    display: none; /* Hide bottom nav on desktop */
+    display: none;
   }
   #app-container {
-    padding-bottom: 2rem; /* Remove extra space for footer */
+    padding-bottom: 2rem; /* Remove extra space */
   }
-  /* Show Web App Footer */
+
+  /* Desktop Footer Adjustments */
   .web-app-footer {
-    display: block;
+    padding-bottom: 3rem; /* Normal bottom padding */
   }
   .footer-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* 3 Columns */
+    gap: 3rem;
+  }
+  .copyright {
+    text-align: left;
+  }
+}
+
+/* Hide Web Footer specifically for TWA / Standalone App */
+@media (display-mode: standalone) {
+  .web-app-footer {
+    display: none;
   }
 }
 
@@ -680,8 +750,6 @@ select:focus {
   color: #b91c1c;
 }
 
-/* about page */
-
 /* About Page Styles */
 .page-title {
   font-size: 2rem;
@@ -720,13 +788,6 @@ select:focus {
 }
 
 /* FAQ & Disclaimer Styles */
-.page-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-}
-
 .page-text {
   font-size: 1rem;
   color: var(--text-light);
@@ -824,12 +885,6 @@ select:focus {
   gap: 0.5rem;
 }
 
-.page-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
 .last-updated {
   font-size: 0.875rem;
   color: var(--text-light);
@@ -848,14 +903,6 @@ select:focus {
   line-height: 1.75;
 }
 
-.list {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .contact-link {
   color: var(--primary);
   text-decoration: none;
@@ -868,11 +915,6 @@ select:focus {
 /* Dark Mode */
 :root[data-theme="dark"] .privacy-content {
   color: var(--text-light);
-}
-
-:root[data-theme="dark"] .page-title,
-:root[data-theme="dark"] .section-title {
-  color: var(--text-primary);
 }
 
 :root[data-theme="dark"] .contact-link {
@@ -913,8 +955,6 @@ select:focus {
   font-size: 0.875rem;
   color: var(--text-secondary);
 }
-
-/* --- NEW STYLES FOR PROJECTS & TOAST --- */
 
 /* --- TOAST / NOTIFICATION --- */
 .toast-container {
@@ -1025,7 +1065,7 @@ select:focus {
   margin-top: 1rem;
 }
 
-/* --- NEW: Tip of the Day Styles --- */
+/* --- Tip of the Day Styles --- */
 #tip-of-the-day-container {
   margin-bottom: 1.5rem;
 }
@@ -1060,7 +1100,7 @@ select:focus {
   color: var(--text-light);
 }
 
-/* --- NEW: Project List Styles --- */
+/* --- Project List Styles --- */
 .project-card-interactive {
   background-color: var(--bg-card);
   border-radius: var(--border-radius-lg);
@@ -1118,7 +1158,7 @@ select:focus {
   font-size: 1.25rem;
 }
 
-/* --- NEW: Project Detail Dashboard Styles --- */
+/* --- Project Detail Dashboard Styles --- */
 .project-detail-header {
   display: flex;
   align-items: center;
