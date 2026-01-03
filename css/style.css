@@ -143,6 +143,10 @@ body {
   margin: 10px;
   padding: 5px;
 }
+
+.hero-section h1 {
+  margin-bottom: 20px;
+}
 .hero-section span {
   font-weight: 600;
   color: var(--brand-color-hover);
