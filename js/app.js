@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // UPDATED Home template: Removed Mobile App Download Button
       this.templates.home = `
         <div class="hero-section">
-          <p>Your Dream Home, Budgeted Perfectly.</p>
+          <h1>Your Dream Home, Budgeted Perfectly.</h1>
           <p><span>Stop guessing, start planning</span>. DreamHome Calculator provides transparent estimates.</p>
         </div>
         <div id="tip-of-the-day-container"></div>
