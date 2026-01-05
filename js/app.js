@@ -304,6 +304,34 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           throw new Error(`Unknown page requested: ${pageName}`);
         }
+
+        // --- ADDED: Metadata Update Logic for SEO ---
+        const baseUrl = "https://toolwebsite.in/";
+        const pageUrl =
+          pageName === "home" ? baseUrl : `${baseUrl}?page=${pageName}`;
+        const pageTitle = getPageTitle(pageName) + " | DreamHome Calculator";
+
+        // 1. Update Title
+        document.title = pageTitle;
+
+        // 2. Update Canonical Link (Requires <link id="canonical-link"> in head)
+        let canonical = document.getElementById("canonical-link");
+        if (canonical) {
+          canonical.setAttribute("href", pageUrl);
+        }
+
+        // 3. Update Meta Description
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+          metaDesc.setAttribute(
+            "content",
+            `Estimate your ${getPageTitle(
+              pageName
+            )} costs with our free, transparent tool.`
+          );
+        }
+        // --------------------------------------------
+
         window.scrollTo(0, 0);
         updateNotificationButtonState();
       } catch (err) {
