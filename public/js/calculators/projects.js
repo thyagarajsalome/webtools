@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // This file exports the template and init logic for the Projects page
 
 // --- TEMPLATE 1: The list of all projects ---
@@ -411,7 +411,7 @@ export const init = function (db, showToast) {
   // Initial render of the project list
   renderProjectList();
 };
-=======
+
 // This file exports the template and init logic for the Projects page
 
 // --- TEMPLATE 1: The list of all projects ---
@@ -824,4 +824,4 @@ export const init = function (db, showToast) {
   // Initial render of the project list
   renderProjectList();
 };
->>>>>>> 99656f837af0cdf74a3279623ca2cf3126fdecda
+

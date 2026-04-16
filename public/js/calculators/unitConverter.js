@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // js/calculators/unitConverter.js
 
 export const template = `
@@ -135,7 +135,7 @@ export const init = function () {
   // 6. Run the populate function once on page load to set everything up
   populateUnits();
 };
-=======
+
 // js/calculators/unitConverter.js
 
 export const template = `
@@ -272,4 +272,4 @@ export const init = function () {
   // 6. Run the populate function once on page load to set everything up
   populateUnits();
 };
->>>>>>> 99656f837af0cdf74a3279623ca2cf3126fdecda
+
