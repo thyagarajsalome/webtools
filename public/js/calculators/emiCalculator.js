@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // js/calculators/emiCalculator.js
 
 export const template = `
@@ -171,7 +171,7 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
 
   document.getElementById("emiForm").addEventListener("submit", calculateEMI);
 };
-=======
+
 // js/calculators/emiCalculator.js
 
 export const template = `
@@ -344,4 +344,4 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
 
   document.getElementById("emiForm").addEventListener("submit", calculateEMI);
 };
->>>>>>> 99656f837af0cdf74a3279623ca2cf3126fdecda
+

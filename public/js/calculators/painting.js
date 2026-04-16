@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // js/calculators/painting.js
 
 export const template = `
@@ -343,8 +343,7 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
   addArea(); // Add one area by default
   updateStepVisibility();
 };
-=======
-// js/calculators/painting.js
+
 
 export const template = `
 <div class="calculator-header"><h1>Paint Budget Calculator</h1></div>
@@ -688,4 +687,4 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
   addArea(); // Add one area by default
   updateStepVisibility();
 };
->>>>>>> 99656f837af0cdf74a3279623ca2cf3126fdecda
+

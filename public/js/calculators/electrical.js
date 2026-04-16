@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-// This file exports the template and init logic for the Electrical calculator
+
 
 export const template = `
 <div class="calculator-header">
@@ -968,4 +967,4 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
   addRoomBtn.click();
   updateStepVisibility();
 };
->>>>>>> 99656f837af0cdf74a3279623ca2cf3126fdecda
+
