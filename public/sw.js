@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // Service Worker: sw.js - UPDATED
 
 const CACHE_NAME = "dreamhome-calculator-cache-v7"; // Incremented version
@@ -133,7 +133,7 @@ self.addEventListener("notificationclick", (event) => {
     })
   );
 });
-=======
+
 // Service Worker: sw.js - UPDATED
 
 const CACHE_NAME = "dreamhome-calculator-cache-v7"; // Incremented version
@@ -268,4 +268,4 @@ self.addEventListener("notificationclick", (event) => {
     })
   );
 });
->>>>>>> 99656f837af0cdf74a3279623ca2cf3126fdecda
+
