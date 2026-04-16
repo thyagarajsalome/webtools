@@ -378,54 +378,6 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
 
 // This file exports the template and init logic for the Doors & Windows calculator
 
-export const template = `
-<div class="calculator-header"><h1>Doors & Windows Budget Calculator</h1></div>
-<form id="dwForm">
-    <div class="step-navigation">
-        <button id="step-btn-1" class="step-btn active">1. Openings</button>
-        <button id="step-btn-2" class="step-btn">2. Materials</button>
-        <button id="step-btn-3" class="step-btn">3. Labor</button>
-    </div>
-    <div id="step-1" class="step active">
-        <h2>Define Openings & Visualize</h2>
-        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; @media (min-width: 768px) { grid-template-columns: 1fr 1fr; }">
-            <div>
-                <p>Add each door and window and provide its dimensions in feet.</p>
-                <div id="openings-container"></div>
-                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; align-items: end; border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1.5rem;">
-                    <div><label for="openingName">Opening Name</label><input type="text" id="openingName" placeholder="e.g., Main Door" /></div>
-                    <button type="button" id="addOpeningBtn" class="btn btn-primary">Add Opening</button>
-                </div>
-            </div>
-            <div style="background-color: var(--brand-color-light); border-radius: var(--border-radius-lg); padding: 1rem; display: flex; align-items: center; justify-content: center; min-height: 300px;">
-                <canvas id="visualizerCanvas" width="300" height="300"></canvas>
-            </div>
-        </div>
-    </div>
-    <div id="step-2" class="step">
-            <h2>Frame & Shutter Materials</h2><p>Select the material type. Costs are indicative per square foot.</p>
-        <div class="quality-grid">
-            <label class="quality-option"><input type="radio" name="materialQuality" value="teak" class="sr-only" checked /><h3>Teak Wood</h3><p>₹1800 - ₹2500 / sq.ft.</p></label>
-            <label class="quality-option"><input type="radio" name="materialQuality" value="wood" class="sr-only" /><h3>Other Hard Wood</h3><p>₹1200 - ₹1800 / sq.ft.</p></label>
-            <label class="quality-option"><input type="radio" name="materialQuality" value="upvc" class="sr-only" /><h3>UPVC</h3><p>₹600 - ₹1200 / sq.ft.</p></label>
-            <label class="quality-option"><input type="radio" name="materialQuality" value="aluminium" class="sr-only" /><h3>Aluminium</h3><p>₹500 - ₹900 / sq.ft.</p></label>
-        </div>
-    </div>
-    <div id="step-3" class="step">
-        <h2>Labor & Installation Costs</h2><p>Enter local labor rates for installation and frame fitting.</p>
-            <div class="form-grid">
-            <div><label for="installationLabor">Installation Labor (₹ per sq.ft.)</label><input type="number" id="installationLabor" value="150" /></div>
-            <div><label for="frameLabor">Granite Frame Labor (₹ per running ft.)</label><input type="number" id="frameLabor" value="120" placeholder="0 if not applicable"/></div>
-        </div>
-    </div>
-    <div class="form-navigation">
-        <button type="button" id="prevBtn" class="btn btn-secondary" disabled>Previous</button>
-        <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
-        <button type="submit" id="submitBtn" class="btn btn-submit hidden">Calculate</button>
-    </div>
-</form>
-<section id="results" class="hidden"></section>
-`;
 
 export const init = function (db, showToast, shareResults, showInstallPrompt) {
   let currentStep = 1,

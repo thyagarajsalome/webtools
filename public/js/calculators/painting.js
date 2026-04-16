@@ -345,49 +345,7 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
 };
 
 
-export const template = `
-<div class="calculator-header"><h1>Paint Budget Calculator</h1></div>
-<form id="paintForm">
-  <div class="step-navigation">
-    <button id="step-btn-1" class="step-btn active">1. Areas</button>
-    <button id="step-btn-2" class="step-btn">2. Quality</button>
-    <button id="step-btn-3" class="step-btn">3. Labor</button>
-  </div>
-  <div id="step-1" class="step active">
-    <h2>Define Painting Areas</h2><p>Add each area to be painted and provide its dimensions.</p>
-    <div id="areas-container"></div>
-    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; align-items: end; border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1.5rem;">
-      <div><label for="areaName">Area Name</label><input type="text" id="areaName" placeholder="e.g., Living Room Walls" /></div>
-      <button type="button" id="addAreaBtn" class="btn btn-primary">Add Area</button>
-    </div>
-  </div>
-  <div id="step-2" class="step">
-     <h2>Paint Quality & Coats</h2><p>Select the paint quality. This affects both price and coverage.</p>
-    <div class="quality-grid">
-      <label class="quality-option"><input type="radio" name="paintQuality" value="basic" class="sr-only" checked /><h3>Basic Emulsion</h3><p>₹250 / Litre</p></label>
-      <label class="quality-option"><input type="radio" name="paintQuality" value="premium" class="sr-only" /><h3>Premium Emulsion</h3><p>₹450 / Litre</p></label>
-      <label class="quality-option"><input type="radio" name="paintQuality" value="luxury" class="sr-only" /><h3>Luxury Emulsion</h3><p>₹700 / Litre</p></label>
-    </div>
-    <div class="form-grid" style="margin-top: 1.5rem;">
-      <div><label for="coats">Number of Coats</label><select id="coats"><option value="1">1 Coat</option><option value="2" selected>2 Coats</option><option value="3">3 Coats</option></select></div>
-      <div><label for="puttyRequired">Putty Required?</label><select id="puttyRequired"><option value="no">No</option><option value="yes">Yes (2 coats)</option></select></div>
-    </div>
-  </div>
-  <div id="step-3" class="step">
-    <h2>Labor Costs</h2><p>Enter local labor rates for painting and putty application.</p>
-    <div class="form-grid">
-      <div><label for="paintingLabor">Painting Labor (₹ per sq.ft.)</label><input type="number" id="paintingLabor" value="15" /></div>
-      <div><label for="puttyLabor">Putty Labor (₹ per sq.ft.)</label><input type="number" id="puttyLabor" value="10" /></div>
-    </div>
-  </div>
-  <div class="form-navigation">
-    <button type="button" id="prevBtn" class="btn btn-secondary" disabled>Previous</button>
-    <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
-    <button type="submit" id="submitBtn" class="btn btn-submit hidden">Calculate</button>
-  </div>
-</form>
-<section id="results" class="hidden"></section>
-`;
+
 
 export const init = function (db, showToast, shareResults, showInstallPrompt) {
   let currentStep = 1,

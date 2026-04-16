@@ -434,54 +434,7 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
 
 // This file exports the template and init logic for the Plumbing calculator
 
-export const template = `
-<div class="calculator-header">
-    <h1>Plumbing Budget Calculator</h1>
-    <p>Estimate the complete plumbing and sanitary cost for your new Indian home.</p>
-</div>
-<form id="plumbingForm">
-    <div class="step-navigation">
-        <button id="step-btn-1" class="step-btn active">1. Fixtures</button>
-        <button id="step-btn-2" class="step-btn">2. Quality</button>
-        <button id="step-btn-3" class="step-btn">3. Labor</button>
-    </div>
-    <div id="step-1" class="step active">
-        <h2>Define Fixture Points</h2>
-        <p>Add each bathroom and kitchen, and specify the number of fixture points in each.</p>
-        <div id="fixture-container"></div>
-        <div style="display: flex; gap: 1rem; align-items: end; margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
-            <button type="button" id="addBathroomBtn" class="btn btn-primary">Add Bathroom</button>
-            <button type="button" id="addKitchenBtn" class="btn btn-primary">Add Kitchen</button>
-        </div>
-    </div>
-    <div id="step-2" class="step">
-        <h2>Pipes & Fixture Quality</h2>
-        <p>Choose the quality of pipes and sanitary ware. This is a major cost factor.</p>
-        <div class="quality-grid">
-            <label class="quality-option"><input type="radio" name="materialQuality" value="economy" class="sr-only" checked /><h3>Economy</h3><p>Standard PVC/CPVC, Basic Fittings</p></label>
-            <label class="quality-option"><input type="radio" name="materialQuality" value="mid" class="sr-only" /><h3>Mid-Range</h3><p>Branded CPVC (Ashirvad), Hindware/Cera</p></label>
-            <label class="quality-option"><input type="radio" name="materialQuality" value="premium" class="sr-only" /><h3>Premium</h3><p>Premium Pipes (Astral), Jaquar/Kohler</p></label>
-        </div>
-        <div class="form-grid" style="margin-top: 1.5rem">
-            <div><label for="houseArea">Total Built-up Area (for main lines)</label><input type="number" id="houseArea" placeholder="e.g., 1200 sq.ft." /></div>
-        </div>
-    </div>
-    <div id="step-3" class="step">
-        <h2>Labor Cost Estimation</h2>
-        <p>Costs vary by city. Enter the rates for your area.</p>
-        <div class="form-grid">
-            <div><label for="laborPerPoint">Labor Rate per Fixture Point (₹)</label><input type="number" id="laborPerPoint" value="1500" /></div>
-            <div><label for="mainlineLabor">Main Line & Drainage Labor (Lumpsum ₹)</label><input type="number" id="mainlineLabor" value="15000" /></div>
-        </div>
-    </div>
-    <div class="form-navigation">
-        <button type="button" id="prevBtn" class="btn btn-secondary" disabled>Previous</button>
-        <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
-        <button type="submit" id="submitBtn" class="btn btn-submit hidden">Calculate</button>
-    </div>
-</form>
-<section id="results" class="hidden"></section>
-`;
+
 
 export const init = function (db, showToast, shareResults, showInstallPrompt) {
   let currentStep = 1,

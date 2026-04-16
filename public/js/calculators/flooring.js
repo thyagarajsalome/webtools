@@ -375,55 +375,7 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
 
 // This file exports the template and init logic for the Flooring calculator
 
-export const template = `
-<div class="calculator-header">
-    <h1>Floor & Wall Tile Budget Calculator</h1>
-    <p>Estimate the complete tiling cost for your new Indian home.</p>
-</div>
-<form id="tileForm">
-    <div class="step-navigation">
-        <button id="step-btn-1" class="step-btn active">1. Areas</button>
-        <button id="step-btn-2" class="step-btn">2. Materials</button>
-        <button id="step-btn-3" class="step-btn">3. Labor</button>
-    </div>
-    <div id="step-1" class="step active">
-        <h2>Define Areas to be Tiled</h2>
-        <p>Add each area (floor or wall), and provide its dimensions.</p>
-        <div id="area-container"></div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: end; margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
-            <div><label for="areaName">Area Name</label><input type="text" id="areaName" placeholder="e.g., Living Room Floor" /></div>
-            <button type="button" id="addAreaBtn" class="btn btn-primary">Add Area</button>
-        </div>
-    </div>
-    <div id="step-2" class="step">
-        <h2>Tile & Material Quality</h2>
-        <p>Choose the quality of tiles and other materials.</p>
-        <div class="quality-grid">
-            <label class="quality-option"><input type="radio" name="tileQuality" value="economy" class="sr-only" checked /><h3>Economy</h3><p>Basic Ceramic (Approx. ₹40/sq.ft)</p></label>
-            <label class="quality-option"><input type="radio" name="tileQuality" value="mid" class="sr-only" /><h3>Mid-Range</h3><p>Vitrified (GVT) (Approx. ₹75/sq.ft)</p></label>
-            <label class="quality-option"><input type="radio" name="tileQuality" value="premium" class="sr-only" /><h3>Premium</h3><p>Designer / PGVT (Approx. ₹120/sq.ft)</p></label>
-        </div>
-        <div class="form-grid" style="margin-top: 1.5rem">
-            <div><label for="wastage">Tile Wastage (%)</label><input type="number" id="wastage" value="10" /></div>
-        </div>
-    </div>
-    <div id="step-3" class="step">
-        <h2>Labor Cost Estimation</h2>
-        <p>Costs vary by city. Enter the rates for your area.</p>
-        <div class="form-grid">
-            <div><label for="tilingLabor">Tiling Labor (₹ per sq.ft.)</label><input type="number" id="tilingLabor" value="25" /></div>
-            <div><label for="skirtingLabor">Skirting Labor (₹ per running ft.)</label><input type="number" id="skirtingLabor" value="20" /></div>
-            <div><label for="hackingLabor">Old Tile Removal (₹ per sq.ft.)</label><input type="number" id="hackingLabor" value="10" placeholder="0 if not applicable"/></div>
-        </div>
-    </div>
-    <div class="form-navigation">
-        <button type="button" id="prevBtn" class="btn btn-secondary" disabled>Previous</button>
-        <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
-        <button type="submit" id="submitBtn" class="btn btn-submit hidden">Calculate</button>
-    </div>
-</form>
-<section id="results" class="hidden"></section>
-`;
+
 
 export const init = function (db, showToast, shareResults, showInstallPrompt) {
   let currentStep = 1,

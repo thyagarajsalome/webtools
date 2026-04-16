@@ -174,32 +174,7 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
 
 // js/calculators/emiCalculator.js
 
-export const template = `
-<div class="calculator-header">
-    <h1>House Loan EMI Calculator</h1>
-    <p>Estimate your Equated Monthly Installment (EMI) for your home loan.</p>
-</div>
-<form id="emiForm">
-    <div class="form-grid">
-        <div>
-            <label for="loanAmount">Loan Amount (₹)</label>
-            <input type="number" id="loanAmount" value="2500000" />
-        </div>
-        <div>
-            <label for="interestRate">Annual Interest Rate (%)</label>
-            <input type="number" id="interestRate" value="8.5" step="0.1" />
-        </div>
-        <div>
-            <label for="loanTenure">Loan Tenure (Years)</label>
-            <input type="number" id="loanTenure" value="20" />
-        </div>
-    </div>
-    <div class="form-navigation" style="border-top: none; padding-top: 0; justify-content: center;">
-        <button type="submit" id="submitBtn" class="btn btn-submit">Calculate EMI</button>
-    </div>
-</form>
-<section id="results" class="hidden"></section>
-`;
+
 
 export const init = function (db, showToast, shareResults, showInstallPrompt) {
   let chartInstance = null;
