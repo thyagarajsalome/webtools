@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-// This file exports the template and init logic for the Doors & Windows calculator
+
+
 
 export const template = `
 <div class="calculator-header"><h1>Doors & Windows Budget Calculator</h1></div>
