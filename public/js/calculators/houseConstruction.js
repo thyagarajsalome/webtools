@@ -277,45 +277,7 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
 
 // This file exports the template and init logic for the House Construction calculator
 
-export const template = `
-<div class="calculator-header"><h1>House Construction Cost Estimator</h1></div>
-<form id="constructionForm">
-  <div class="step-navigation">
-    <button id="step-btn-1" class="step-btn active">1. Area</button>
-    <button id="step-btn-2" class="step-btn">2. Quality</button>
-    <button id="step-btn-3" class="step-btn">3. Other</button>
-  </div>
-  <div id="step-1" class="step active">
-    <h2>Plot & Built-up Area</h2><p>Enter the total plot area and the desired built-up area for your house.</p>
-    <div class="form-grid">
-      <div><label for="plotArea">Plot Area (sq.ft.)</label><input type="number" id="plotArea" value="1200" /></div>
-      <div><label for="builtUpArea">Total Built-up Area (sq.ft.)</label><input type="number" id="builtUpArea" value="2000" /></div>
-      <div><label for="numFloors">Number of Floors</label><input type="number" id="numFloors" value="2" /></div>
-    </div>
-  </div>
-  <div id="step-2" class="step">
-    <h2>Construction Quality</h2><p>Select the desired quality. This determines the per square foot rate.</p>
-    <div class="quality-grid">
-      <label class="quality-option"><input type="radio" name="constructionQuality" value="basic" class="sr-only" checked /><h3>Basic</h3><p>Approx. ₹1,600 / sq.ft.</p></label>
-      <label class="quality-option"><input type="radio" name="constructionQuality" value="mid" class="sr-only" /><h3>Mid-Range</h3><p>Approx. ₹1,900 / sq.ft.</p></label>
-      <label class="quality-option"><input type="radio" name="constructionQuality" value="premium" class="sr-only" /><h3>Premium</h3><p>Approx. ₹2,400 / sq.ft.</p></label>
-    </div>
-  </div>
-  <div id="step-3" class="step">
-    <h2>Additional Costs (Optional)</h2><p>Include costs for permissions, architect fees, and utilities.</p>
-    <div class="form-grid">
-      <div><label for="permissionFees">Permission & Approval Fees (₹)</label><input type="number" id="permissionFees" value="80000" /></div>
-      <div><label for="architectFees">Architect Fees (%)</label><input type="number" id="architectFees" value="8" /></div>
-    </div>
-  </div>
-  <div class="form-navigation">
-    <button type="button" id="prevBtn" class="btn btn-secondary" disabled>Previous</button>
-    <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
-    <button type="submit" id="submitBtn" class="btn btn-submit hidden">Calculate</button>
-  </div>
-</form>
-<section id="results" class="hidden"></section>
-`;
+
 
 export const init = function (db, showToast, shareResults, showInstallPrompt) {
   let currentStep = 1,

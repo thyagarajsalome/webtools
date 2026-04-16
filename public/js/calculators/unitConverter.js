@@ -138,49 +138,7 @@ export const init = function () {
 
 // js/calculators/unitConverter.js
 
-export const template = `
-<div class="calculator-header">
-    <h1>Unit Converter</h1>
-    <p>A handy tool for common construction measurements.</p>
-</div>
-<form id="converterForm" onsubmit="return false;">
-    <div class="form-grid" style="grid-template-columns: 1fr;">
-        <div>
-            <label for="conversionType">Conversion Type</label>
-            <select id="conversionType">
-                <option value="length">Length</option>
-                <option value="area">Area</option>
-            </select>
-        </div>
-    </div>
 
-    <div class="item-card" style="margin-top: 1rem;">
-        <div class="form-grid" style="gap: 1rem; align-items: center;">
-            <div>
-                <label for="fromValue">From</label>
-                <input type="number" id="fromValue" value="1" />
-            </div>
-            <div>
-                <label for="fromUnit">Unit</label>
-                <select id="fromUnit"></select>
-            </div>
-        </div>
-        
-        <div style="text-align: center; font-weight: 600; margin: 1rem 0; font-size: 1.5rem; color: var(--text-light);">=</div>
-        
-        <div class="form-grid" style="gap: 1rem; align-items: center;">
-            <div>
-                <label for="toValue">To</label>
-              <input type="number" id="toValue" disabled />
-            </div>
-            <div>
-                <label for="toUnit">Unit</label>
-                <select id="toUnit"></select>
-            </div>
-        </div>
-    </div>
-</form>
-`;
 
 export const init = function () {
   // 1. Get references to the HTML elements

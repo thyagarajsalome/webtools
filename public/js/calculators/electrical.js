@@ -483,58 +483,7 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
   updateStepVisibility();
 };
 
-// This file exports the template and init logic for the Electrical calculator
 
-export const template = `
-<div class="calculator-header">
-    <h1>Electrical Budget Calculator</h1>
-    <p>Estimate the complete electrical wiring cost for your new Indian home.</p>
-</div>
-<form id="electricalForm">
-    <div class="step-navigation">
-    <button id="step-btn-1" class="step-btn active">1. Basics</button>
-    <button id="step-btn-2" class="step-btn">2. Rooms</button>
-    <button id="step-btn-3" class="step-btn">3. Quality</button>
-    <button id="step-btn-4" class="step-btn">4. Labor</button>
-    </div>
-    <div id="step-1" class="step active">
-    <h2>Project Details</h2>
-    <div class="form-grid">
-        <div><label for="houseArea">Total Built-up Area (sq.ft.)</label><input type="number" id="houseArea" placeholder="e.g., 1200" required /></div>
-        <div><label for="floors">Number of Floors</label><input type="number" id="floors" placeholder="e.g., 2" value="1" required /></div>
-    </div>
-    </div>
-    <div id="step-2" class="step">
-    <h2>Room & Point Configuration</h2><p>Add each room and specify the number of electrical points.</p>
-    <div id="room-container"></div>
-    <div style="display: flex; align-items: center; gap: 1rem; margin-top:1rem; border-top:1px solid var(--border-color); padding-top:1rem;">
-        <select id="roomType" style="flex-grow: 1;"><option value="Bedroom">Bedroom</option><option value="Living Room">Living Room / Hall</option><option value="Kitchen">Kitchen</option><option value="Bathroom">Bathroom</option><option value="Balcony">Balcony / Utility</option><option value="Staircase">Staircase / Passage</option></select>
-        <button type="button" id="addRoomBtn" class="btn btn-primary">Add Room</button>
-    </div>
-    </div>
-    <div id="step-3" class="step">
-    <h2>Material Quality</h2><p>Choose the quality of materials.</p>
-    <div class="quality-grid">
-        <label class="quality-option"><input type="radio" name="brandPreference" value="economy" class="sr-only" checked /><h3>Economy</h3><p>e.g., Anchor Roma</p></label>
-        <label class="quality-option"><input type="radio" name="brandPreference" value="mid" class="sr-only" /><h3>Mid-Range</h3><p>e.g., Havells, Polycab</p></label>
-        <label class="quality-option"><input type="radio" name="brandPreference" value="premium" class="sr-only" /><h3>Premium</h3><p>e.g., Legrand, Schneider</p></label>
-    </div>
-    </div>
-    <div id="step-4" class="step">
-    <h2>Labor Cost Estimation</h2><p>Enter the labor rates prevalent in your area.</p>
-    <div class="form-grid">
-        <div><label for="laborPerPoint">Labor Rate per Point (₹)</label><input type="number" id="laborPerPoint" value="450" /></div>
-        <div><label for="mainPanelLabor">Main Panel & Earthing Labor (₹)</label><input type="number" id="mainPanelLabor" value="5000" /></div>
-    </div>
-    </div>
-    <div class="form-navigation">
-    <button type="button" id="prevBtn" class="btn btn-secondary" disabled>Previous</button>
-    <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
-    <button type="submit" id="submitBtn" class="btn btn-submit hidden">Calculate</button>
-    </div>
-</form>
-<section id="results" class="hidden"></section>
-`;
 
 export const init = function (db, showToast, shareResults, showInstallPrompt) {
   let currentStep = 1,

@@ -414,14 +414,6 @@ export const init = function (db, showToast) {
 
 // This file exports the template and init logic for the Projects page
 
-// --- TEMPLATE 1: The list of all projects ---
-export const template = `
-<div class="projects-header">
-    <h1>My Saved Projects</h1>
-</div>
-<div id="projects-list-container" class="projects-list">
-    </div>
-`;
 
 // --- TEMPLATE 2: The detailed view for a single project ---
 // This function generates the HTML for the project detail dashboard
