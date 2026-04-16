@@ -1,4 +1,3 @@
-
 {
   "name": "Dreamhome Calculator",
   "short_name": "Dreamhome",
@@ -28,34 +27,3 @@
     }
   ]
 }
-
-{
-  "name": "Dreamhome Calculator",
-  "short_name": "Dreamhome",
-  "description": "A calculator to estimate the cost of building your dream home.",
-  "scope": "/",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#f5f7f8",
-  "theme_color": "#359EFF",
-  "orientation": "portrait-primary",
-  "icons": [
-    {
-      "src": "./images/icon-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "./images/icon-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    },
-    {
-      "src": "./images/icon-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable"
-    }
-  ]
-}
->>>>>>> 99656f837af0cdf74a3279623ca2cf3126fdecda

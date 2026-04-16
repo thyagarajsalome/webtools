@@ -1,5 +1,5 @@
 
-// Service Worker: sw.js - UPDATED
+
 
 const CACHE_NAME = "dreamhome-calculator-cache-v7"; // Incremented version
 const urlsToCache = [
