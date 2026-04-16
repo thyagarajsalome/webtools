@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="canonical" id="canonical-link" href="https://toolwebsite.in/" />
+    <meta
+      name="google-site-verification"
+      content="aUWkECBSG9IdlrS3CPMfXZGygJ6lx-ClYdHdaJ8nY78"
+    />
+    <meta name="msvalidate.01" content="7BE3F5092496F607BD8EB7753CD93E8C" />
+    <meta name="p:domain_verify" content="80b699c05b55f8981cec0c1e0d20172d" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dreamhome Calculator</title>
+
+    <meta
+      name="description"
+      content="DreamHome Calculator helps you estimate home construction costs in India, including flooring, electrical, plumbing, painting, and more."
+    />
+
+    <link rel="manifest" href="./manifest.json" />
+
+    <meta name="theme-color" content="#359EFF" />
+    <link rel="apple-touch-icon" href="./images/icon-192x192.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <header class="app-header">
+        <div class="container">
+          <div class="header-content">
+            <div class="header-brand">
+              <img
+                src="./images/logo-brand.png"
+                width="50"
+                alt="DreamHome Calculator Logo"
+              />
+              <h3 class="title-txt"><span>DreamHome</span> Calculator</h3>
+            </div>
+
+            <nav class="desktop-nav">
+              <a href="#" class="desktop-nav-link" data-page="home">Home</a>
+              <a href="#" class="desktop-nav-link" data-page="projects"
+                >Projects</a
+              >
+              <a href="#" class="desktop-nav-link" data-page="about">About</a>
+              <a href="#" class="desktop-nav-link" data-page="faq">FAQ</a>
+            </nav>
+
+            <div class="header-actions">
+              <a
+                href="https://play.google.com/store/apps/details?id=in.toolwebsite.twa&pcampaignid=web_share"
+                target="_blank"
+                class="icon-btn"
+                title="Download Mobile App"
+                style="text-decoration: none; color: var(--brand-color)"
+              >
+              </a>
+
+              <button
+                id="enableNotificationsBtn"
+                class="icon-btn"
+                title="Enable Notifications"
+              >
+                <span class="material-symbols-outlined">notifications</span>
+              </button>
+              <button id="theme-switcher" class="icon-btn" title="Toggle Theme">
+                <span class="material-symbols-outlined">brightness_6</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="app-container" class="container"></main>
+
+      <footer class="web-app-footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-section">
+              <h3>Tool Website Hub</h3>
+              <ul class="footer-links">
+                <li>
+                  <a href="https://homedesignenglish.com/" target="_blank"
+                    >Home Design English <span class="external-icon">↗</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://aihomedecorator.com/" target="_blank"
+                    >Ai Home Decorator <span class="external-icon">↗</span></a
+                  >
+                </li>
+                <li>
+                  <a href="https://wallpaint.in/" target="_blank"
+                    >Wall Paint Visualizer
+                    <span class="external-icon">↗</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://play.google.com/store/apps/details?id=in.toolwebsite.twa"
+                    target="_blank"
+                    >Download Mobile App <span class="external-icon">↗</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="footer-section">
+              <h3>Quick Links</h3>
+              <ul class="footer-links">
+                <li>
+                  <a href="#" class="desktop-nav-link" data-page="privacy"
+                    >Privacy Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="desktop-nav-link" data-page="terms"
+                    >Terms & Conditions</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="desktop-nav-link" data-page="about"
+                    >About Us</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="footer-section">
+              <h3>DreamHome Calculator</h3>
+              <p>
+                Your trusted companion for accurate home construction budgeting.
+              </p>
+              <p class="copyright">&copy; 2025 ToolWebsite.in</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <footer class="app-footer">
+        <div class="container">
+          <div class="footer-nav">
+            <a class="nav-btn active" href="#" data-page="home">
+              <span class="material-symbols-outlined">home</span>
+              <span class="nav-text">Home</span>
+            </a>
+            <a class="nav-btn" href="#" data-page="projects">
+              <span class="material-symbols-outlined">article</span>
+              <span class="nav-text">Projects</span>
+            </a>
+
+            <a class="nav-btn" href="#" data-page="about">
+              <span class="material-symbols-outlined">info</span>
+              <span class="nav-text">About</span>
+            </a>
+            <a class="nav-btn" href="#" data-page="privacy">
+              <span class="material-symbols-outlined">policy</span>
+              <span class="nav-text">Privacy</span>
+            </a>
+            <a class="nav-btn" href="#" data-page="faq">
+              <span class="material-symbols-outlined">quiz</span>
+              <span class="nav-text">FAQ</span>
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <div id="progress-container" class="hidden">
+      <div class="progress-bar"></div>
+      <div class="progress-text">Generating Image... 0%</div>
+    </div>
+
+    <div id="install-toast" class="install-toast hidden">
+      <div class="install-toast-content">
+        <div class="install-icon">
+          <img src="./images/icon-192x192.png" alt="App Icon" />
+        </div>
+        <div class="install-text">
+          <strong>Get the App</strong>
+          <p>Install our official app for a better experience!</p>
+        </div>
+        <div class="install-actions">
+          <a
+            href="https://play.google.com/store/apps/details?id=in.toolwebsite.twa&pcampaignid=web_share"
+            target="_blank"
+            class="btn btn-sm btn-primary"
+            >Install</a
+          >
+          <button id="close-install-toast" class="btn-close-toast">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-container" class="toast-container">
+      <div id="toast-message" class="toast-message"></div>
+    </div>
+
+    <script src="./js/app.js" type="module"></script>
+    <script>
+      // Service worker registration remains the same
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./sw.js").then(
+            (registration) => {
+              console.log(
+                "✅ ServiceWorker registration successful with scope: ",
+                registration.scope
+              );
+            },
+            (err) => {
+              console.log("❌ ServiceWorker registration failed: ", err);
+            }
+          );
+        });
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  </body>
+</html>
