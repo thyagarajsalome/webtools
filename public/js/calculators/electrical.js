@@ -482,7 +482,7 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
   addRoomBtn.click();
   updateStepVisibility();
 };
-=======
+
 // This file exports the template and init logic for the Electrical calculator
 
 export const template = `
