@@ -375,7 +375,7 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
   addOpening();
   updateStepVisibility();
 };
-=======
+
 // This file exports the template and init logic for the Doors & Windows calculator
 
 export const template = `
@@ -752,4 +752,4 @@ export const init = function (db, showToast, shareResults, showInstallPrompt) {
   addOpening();
   updateStepVisibility();
 };
->>>>>>> 99656f837af0cdf74a3279623ca2cf3126fdecda
+
